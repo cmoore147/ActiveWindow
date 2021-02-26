@@ -1,0 +1,1469 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,6
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "main.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .section .text.XMC_GPIO_ToggleOutput,"ax",%progbits
+  20              	 .align 2
+  21              	 .thumb
+  22              	 .thumb_func
+  24              	XMC_GPIO_ToggleOutput:
+  25              	.LFB141:
+  26              	 .file 1 "C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc/xmc_gpio.h"
+   1:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+   2:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @file xmc_gpio.h
+   3:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @date 2015-06-20
+   4:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+   5:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @cond
+   6:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+   7:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * XMClib v2.1.24 - XMC Peripheral Driver Library 
+   8:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+   9:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Copyright (c) 2015-2019, Infineon Technologies AG
+  10:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * All rights reserved.                        
+  11:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *                                             
+  12:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  13:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * following conditions are met:   
+  14:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *                                                                              
+  15:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  16:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * disclaimer.                        
+  17:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * 
+  18:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  19:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
+  20:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * 
+  21:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  22:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * products derived from this software without specific prior written permission.                  
+  23:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *                                                                              
+  24:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  25:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  26:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  27:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  28:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  29:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  30:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
+  31:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *                                                                              
+  32:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  33:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Infineon Technologies AG dave@infineon.com).                                                    
+  34:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+  35:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  36:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Change History
+  37:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * --------------
+  38:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  39:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * 2015-02-20:
+  40:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *     - Initial draft<br>
+  41:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *     - Documentation improved <br>
+  42:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *      
+  43:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * 2015-06-20:
+  44:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *     - Removed version macros and declaration of GetDriverVersion API
+  45:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  46:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @endcond
+  47:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  48:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+  49:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  50:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** #ifndef XMC_GPIO_H
+  51:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** #define XMC_GPIO_H
+  52:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  53:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+  54:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * HEADER FILES
+  55:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+  56:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  57:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** #include "xmc_common.h"
+  58:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  59:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+  60:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @addtogroup XMClib XMC Peripheral Library
+  61:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @{
+  62:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+  63:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  64:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+  65:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @addtogroup GPIO
+  66:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @brief General Purpose Input Output (GPIO) driver for the XMC microcontroller family.
+  67:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  68:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * GPIO driver provide a generic and very flexible software interface for all standard digital I/O 
+  69:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Each port slice has individual interfaces for the operation as General Purpose I/O and it furthe
+  70:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * connectivity to the on-chip periphery and the control for the pad characteristics. 
+  71:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  72:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * The driver is divided into Input and Output mode.
+  73:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  74:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Input mode features:
+  75:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Configuration structure XMC_GPIO_CONFIG_t and initialization function XMC_GPIO_Init()
+  76:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of weak pull-up or pull-down device. Configuration structure XMC_GPIO_MO
+  77:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \if XMC1
+  78:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of input hysteresis. XMC_GPIO_SetInputHysteresis()
+  79:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \endif
+  80:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  81:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * 
+  82:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Output mode features:
+  83:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of push pull/open drain and Alternate output. Configuration structure XM
+  84:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \if XMC4
+  85:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of pad driver strength. Configuration structure XMC_GPIO_OUTPUT_STRENGTH
+  86:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \endif
+  87:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  88:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of initial output level. Configuration structure XMC_GPIO_OUTPUT_LEVEL_t
+  89:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  90:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *@{
+  91:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+  92:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  
+  93:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+  94:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * MACROS
+  95:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+  96:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  97:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** #define PORT_IOCR_PC_Pos PORT0_IOCR0_PC0_Pos
+  98:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** #define PORT_IOCR_PC_Msk PORT0_IOCR0_PC0_Msk
+  99:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 100:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** #define PORT_IOCR_PC_Size 				(8U)
+ 101:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 											
+ 102:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 103:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** #define XMC_GPIO_CHECK_OUTPUT_LEVEL(level) ((level == XMC_GPIO_OUTPUT_LEVEL_LOW) || \
+ 104:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****                                             (level == XMC_GPIO_OUTPUT_LEVEL_HIGH))
+ 105:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****                                             
+ 106:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** #define XMC_GPIO_CHECK_HWCTRL(hwctrl) ((hwctrl == XMC_GPIO_HWCTRL_DISABLED) || \
+ 107:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****                                        (hwctrl == XMC_GPIO_HWCTRL_PERIPHERAL1) || \
+ 108:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****                                        (hwctrl == XMC_GPIO_HWCTRL_PERIPHERAL2))                    
+ 109:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****                                             
+ 110:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+ 111:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * ENUMS
+ 112:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+ 113:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 114:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 115:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 116:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Defines output level of a pin. Use type \a XMC_GPIO_OUTPUT_LEVEL_t for this enum.
+ 117:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 118:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** typedef enum XMC_GPIO_OUTPUT_LEVEL
+ 119:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** {
+ 120:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_OUTPUT_LEVEL_LOW  = 0x10000U, /**<  Reset bit */
+ 121:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_OUTPUT_LEVEL_HIGH = 0x1U, 	/**< Set bit  */
+ 122:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** } XMC_GPIO_OUTPUT_LEVEL_t;
+ 123:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 124:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 125:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Defines direct hardware control characteristics of the pin . Use type \a XMC_GPIO_HWCTRL_t for t
+ 126:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 127:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** typedef enum XMC_GPIO_HWCTRL
+ 128:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** {
+ 129:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_HWCTRL_DISABLED     = 0x0U, /**<  Software control only */
+ 130:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_HWCTRL_PERIPHERAL1  = 0x1U, /**<  HWI0/HWO0 control path can override the software confi
+ 131:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_HWCTRL_PERIPHERAL2  = 0x2U  /**<  HWI1/HWO1 control path can override the software confi
+ 132:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** } XMC_GPIO_HWCTRL_t;
+ 133:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 134:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+ 135:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * DEVICE FAMILY EXTENSIONS
+ 136:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+ 137:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 138:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  #if UC_FAMILY == XMC1
+ 139:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** #include "xmc1_gpio.h"
+ 140:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** #elif UC_FAMILY == XMC4
+ 141:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** #include "xmc4_gpio.h"
+ 142:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** #else
+ 143:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** #error "xmc_gpio.h: family device not supported"
+ 144:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** #endif
+ 145:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 146:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+ 147:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * API PROTOTYPES
+ 148:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+ 149:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 150:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** #ifdef __cplusplus
+ 151:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** extern "C" {
+ 152:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** #endif
+ 153:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 154:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 155:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 156:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  port	  Constant pointer pointing to GPIO port, to access port registers like Pn_OUT,Pn_O
+ 157:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  pin	  Port pin number.
+ 158:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  config GPIO configuration data structure. Refer data structure @ref XMC_GPIO_CONFIG_t fo
+ 159:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 160:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return None
+ 161:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 162:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Description:</b><br>
+ 163:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \if XMC1
+ 164:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Initializes input / output mode settings like, pull up / pull down devices,hysteresis, push pull
+ 165:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Also configures alternate function outputs and clears hardware port control for a selected \a po
+ 166:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \a config provides selected I/O settings. It configures hardware registers Pn_IOCR,Pn_OUT, Pn_OM
+ 167:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \endif
+ 168:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \if XMC4
+ 169:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Initializes input / output mode settings like, pull up / pull down devices,push pull /open drain
+ 170:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Also configures alternate function outputs and clears hardware port control for selected \a port
+ 171:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * It configures hardware registers Pn_IOCR,Pn_OUT,Pn_OMR,Pn_PDISC and Pn_PDR.\n
+ 172:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \endif
+ 173:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 174:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>
+ 175:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *  None
+ 176:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 177:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Note:</b><br>
+ 178:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * This API is called in definition of DAVE_init by code generation and therefore should not be exp
+ 179:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * for the normal operation. Use other APIs only after DAVE_init is called successfully (returns DA
+ 180:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 181:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 182:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 183:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 184:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  
+ 185:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** void XMC_GPIO_Init(XMC_GPIO_PORT_t *const port, const uint8_t pin, const XMC_GPIO_CONFIG_t *const c
+ 186:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  
+ 187:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 188:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 189:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  port	Constant pointer pointing to GPIO port, to access hardware register Pn_IOCR.
+ 190:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  pin	Port pin number.
+ 191:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  mode input / output functionality selection. Refer @ref XMC_GPIO_MODE_t for valid values
+ 192:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 193:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return None
+ 194:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 195:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Description:</b><br>
+ 196:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Sets digital input and output driver functionality and characteristics of a GPIO port pin. It co
+ 197:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * registers Pn_IOCR. \a mode is initially configured during initialization in XMC_GPIO_Init(). Cal
+ 198:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * the port direction functionality as needed later in the program.
+ 199:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 200:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>
+ 201:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *  None
+ 202:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 203:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 204:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 205:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** void XMC_GPIO_SetMode(XMC_GPIO_PORT_t *const port, const uint8_t pin, const XMC_GPIO_MODE_t mode);
+ 206:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 207:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 208:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 209:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 210:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  port	 Constant pointer pointing to GPIO port, to access hardware register Pn_OMR.
+ 211:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  pin	 Port pin number.
+ 212:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  level output level selection. Refer @ref XMC_GPIO_OUTPUT_LEVEL_t for valid values.
+ 213:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 214:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return None
+ 215:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 216:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Description:</b><br>
+ 217:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Set port pin output level to high or low.It configures hardware registers Pn_OMR.\a level is ini
+ 218:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * configured during initialization in XMC_GPIO_Init(). Call this API to alter output level as need
+ 219:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 220:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>
+ 221:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *  XMC_GPIO_SetOutputHigh(), XMC_GPIO_SetOutputLow().
+ 222:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 223:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Note:</b><br>
+ 224:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Prior to this api, user has to configure port pin to output mode using XMC_GPIO_SetMode().
+ 225:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 226:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 227:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 228:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 229:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** __STATIC_INLINE void XMC_GPIO_SetOutputLevel(XMC_GPIO_PORT_t *const port, const uint8_t pin, const 
+ 230:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** {
+ 231:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_SetOutputLevel: Invalid port", XMC_GPIO_CHECK_OUTPUT_PORT(port));
+ 232:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_SetOutputLevel: Invalid output level", XMC_GPIO_CHECK_OUTPUT_LEVEL(level));
+ 233:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****   
+ 234:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****   port->OMR = (uint32_t)level << pin;
+ 235:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** }
+ 236:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 237:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 238:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 239:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  port constant pointer pointing to GPIO port, to access hardware register Pn_OMR.
+ 240:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  pin	Port pin number.
+ 241:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 242:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return None
+ 243:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 244:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Description:</b><br>
+ 245:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *  Sets port pin output to high. It configures hardware registers Pn_OMR.
+ 246:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 247:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *  \par<b>Related APIs:</b><BR>
+ 248:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *  XMC_GPIO_SetOutputLow()
+ 249:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 250:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Note:</b><br>
+ 251:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Prior to this api, user has to configure port pin to output mode using XMC_GPIO_SetMode().\n
+ 252:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Register Pn_OMR is virtual and does not contain any flip-flop. A read action delivers the value 
+ 253:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 254:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 255:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 256:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** __STATIC_INLINE void XMC_GPIO_SetOutputHigh(XMC_GPIO_PORT_t *const port, const uint8_t pin)
+ 257:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** {
+ 258:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_SetOutputHigh: Invalid port", XMC_GPIO_CHECK_OUTPUT_PORT(port));
+ 259:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 260:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****   port->OMR = (uint32_t)0x1U << pin;
+ 261:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** }
+ 262:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 263:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 264:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 265:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  port	constant pointer pointing to GPIO port, to access hardware register Pn_OMR.
+ 266:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  pin	port pin number.
+ 267:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 268:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return  None
+ 269:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 270:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *\par<b>Description:</b><br>
+ 271:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Sets port pin output to low. It configures hardware registers Pn_OMR.\n
+ 272:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 273:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>>
+ 274:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * XMC_GPIO_SetOutputHigh()
+ 275:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 276:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *\par<b>Note:</b><br>
+ 277:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Prior to this api, user has to configure port pin to output mode using XMC_GPIO_SetMode().
+ 278:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Register Pn_OMR is virtual and does not contain any flip-flop. A read action delivers the value 
+ 279:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 280:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 281:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 282:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** __STATIC_INLINE void XMC_GPIO_SetOutputLow(XMC_GPIO_PORT_t *const port, const uint8_t pin)
+ 283:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** {
+ 284:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_SetOutputLow: Invalid port", XMC_GPIO_CHECK_OUTPUT_PORT(port));
+ 285:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 286:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****   port->OMR = 0x10000U << pin;
+ 287:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** }
+ 288:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 289:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 290:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 291:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param port constant pointer pointing to GPIO port, to access hardware register Pn_OMR.
+ 292:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param pin  port pin number.
+ 293:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 294:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return None
+ 295:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 296:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Description:</b><br>
+ 297:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Configures port pin output to Toggle. It configures hardware registers Pn_OMR.
+ 298:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 299:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>
+ 300:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * XMC_GPIO_SetOutputHigh(), XMC_GPIO_SetOutputLow().
+ 301:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 302:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Note:</b><br>
+ 303:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Prior to this api, user has to configure port pin to output mode using XMC_GPIO_SetMode(). Regis
+ 304:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * and does not contain any flip-flop. A read action delivers the value of 0.
+ 305:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 306:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 307:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 308:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** __STATIC_INLINE void XMC_GPIO_ToggleOutput(XMC_GPIO_PORT_t *const port, const uint8_t pin)
+ 309:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** {
+  27              	 .loc 1 309 0
+  28              	 .cfi_startproc
+  29              	 
+  30              	 
+  31              	 
+  32 0000 80B4     	 push {r7}
+  33              	.LCFI0:
+  34              	 .cfi_def_cfa_offset 4
+  35              	 .cfi_offset 7,-4
+  36 0002 83B0     	 sub sp,sp,#12
+  37              	.LCFI1:
+  38              	 .cfi_def_cfa_offset 16
+  39 0004 00AF     	 add r7,sp,#0
+  40              	.LCFI2:
+  41              	 .cfi_def_cfa_register 7
+  42 0006 7860     	 str r0,[r7,#4]
+  43 0008 0B46     	 mov r3,r1
+  44 000a FB70     	 strb r3,[r7,#3]
+ 310:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_ToggleOutput: Invalid port", XMC_GPIO_CHECK_OUTPUT_PORT(port));
+ 311:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 312:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****   port->OMR = 0x10001U << pin;
+  45              	 .loc 1 312 0
+  46 000c FB78     	 ldrb r3,[r7,#3]
+  47 000e 4FF00112 	 mov r2,#65537
+  48 0012 9A40     	 lsls r2,r2,r3
+  49 0014 7B68     	 ldr r3,[r7,#4]
+  50 0016 5A60     	 str r2,[r3,#4]
+ 313:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** }
+  51              	 .loc 1 313 0
+  52 0018 0C37     	 adds r7,r7,#12
+  53              	.LCFI3:
+  54              	 .cfi_def_cfa_offset 4
+  55 001a BD46     	 mov sp,r7
+  56              	.LCFI4:
+  57              	 .cfi_def_cfa_register 13
+  58              	 
+  59 001c 5DF8047B 	 ldr r7,[sp],#4
+  60              	.LCFI5:
+  61              	 .cfi_restore 7
+  62              	 .cfi_def_cfa_offset 0
+  63 0020 7047     	 bx lr
+  64              	 .cfi_endproc
+  65              	.LFE141:
+  67 0022 00BF     	 .section .text.XMC_GPIO_GetInput,"ax",%progbits
+  68              	 .align 2
+  69              	 .thumb
+  70              	 .thumb_func
+  72              	XMC_GPIO_GetInput:
+  73              	.LFB142:
+ 314:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 315:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 316:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 317:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param port constant pointer pointing to GPIO port, to access hardware register Pn_IN.
+ 318:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param pin  Port pin number.
+ 319:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 320:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return uint32_t pin logic level status.
+ 321:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 322:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *\par<b>Description:</b><br>
+ 323:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Reads the Pn_IN register and returns the current logical value at the GPIO pin.
+ 324:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 325:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>
+ 326:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * None
+ 327:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 328:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Note:</b><br>
+ 329:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  * Prior to this api, user has to configure port pin to input mode using XMC_GPIO_SetMode().
+ 330:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 331:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 332:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 333:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** __STATIC_INLINE uint32_t XMC_GPIO_GetInput(XMC_GPIO_PORT_t *const port, const uint8_t pin)
+ 334:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** {
+  74              	 .loc 1 334 0
+  75              	 .cfi_startproc
+  76              	 
+  77              	 
+  78              	 
+  79 0000 80B4     	 push {r7}
+  80              	.LCFI6:
+  81              	 .cfi_def_cfa_offset 4
+  82              	 .cfi_offset 7,-4
+  83 0002 83B0     	 sub sp,sp,#12
+  84              	.LCFI7:
+  85              	 .cfi_def_cfa_offset 16
+  86 0004 00AF     	 add r7,sp,#0
+  87              	.LCFI8:
+  88              	 .cfi_def_cfa_register 7
+  89 0006 7860     	 str r0,[r7,#4]
+  90 0008 0B46     	 mov r3,r1
+  91 000a FB70     	 strb r3,[r7,#3]
+ 335:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_GetInput: Invalid port", XMC_GPIO_CHECK_PORT(port));
+ 336:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 337:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h ****   return (((port->IN) >> pin) & 0x1U);
+  92              	 .loc 1 337 0
+  93 000c 7B68     	 ldr r3,[r7,#4]
+  94 000e 5A6A     	 ldr r2,[r3,#36]
+  95 0010 FB78     	 ldrb r3,[r7,#3]
+  96 0012 22FA03F3 	 lsr r3,r2,r3
+  97 0016 03F00103 	 and r3,r3,#1
+ 338:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc\xmc_gpio.h **** }
+  98              	 .loc 1 338 0
+  99 001a 1846     	 mov r0,r3
+ 100 001c 0C37     	 adds r7,r7,#12
+ 101              	.LCFI9:
+ 102              	 .cfi_def_cfa_offset 4
+ 103 001e BD46     	 mov sp,r7
+ 104              	.LCFI10:
+ 105              	 .cfi_def_cfa_register 13
+ 106              	 
+ 107 0020 5DF8047B 	 ldr r7,[sp],#4
+ 108              	.LCFI11:
+ 109              	 .cfi_restore 7
+ 110              	 .cfi_def_cfa_offset 0
+ 111 0024 7047     	 bx lr
+ 112              	 .cfi_endproc
+ 113              	.LFE142:
+ 115 0026 00BF     	 .section .text.DIGITAL_IO_ToggleOutput,"ax",%progbits
+ 116              	 .align 2
+ 117              	 .thumb
+ 118              	 .thumb_func
+ 120              	DIGITAL_IO_ToggleOutput:
+ 121              	.LFB149:
+ 122              	 .file 2 "C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO/digital_io.h"
+   1:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** /*
+   2:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+   3:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * @file digital_io.h
+   4:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * @date 2016-07-08
+   5:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+   6:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * NOTE:
+   7:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * This file is generated by DAVE. Any manual modification done to this file will be lost when the 
+   8:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+   9:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * @cond
+  10:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  **************************************************************************************************
+  11:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * DIGITAL_IO v4.0.16 - The DIGITAL_IO APP is used to configure a port pin as digital Input/Output.
+  12:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  13:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * Copyright (c) 2015-2016, Infineon Technologies AG
+  14:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * All rights reserved.
+  15:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  16:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  17:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * following conditions are met:
+  18:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  19:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *   Redistributions of source code must retain the above copyright notice, this list of conditions
+  20:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *   disclaimer.
+  21:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  22:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *   Redistributions in binary form must reproduce the above copyright notice, this list of conditi
+  23:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *   following disclaimer in the documentation and/or other materials provided with the distributio
+  24:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  25:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *   Neither the name of the copyright holders nor the names of its contributors may be used to end
+  26:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *   products derived from this software without specific prior written permission.
+  27:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  28:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  29:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  30:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  31:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  32:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  33:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  34:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  35:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  36:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  37:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * with Infineon Technologies AG (dave@infineon.com).
+  38:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  **************************************************************************************************
+  39:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  40:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * Change History
+  41:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * --------------
+  42:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  43:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * 2015-02-16
+  44:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *     - Initial version
+  45:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  46:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * 2015-04-22
+  47:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *     - XMC_ASSERT is added in static inline functions.<br>
+  48:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  49:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * 2015-06-20
+  50:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *     - Version check added for XMCLib dependency.<br>
+  51:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  52:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * 2015-12-22
+  53:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *     - Added hardware controlled IO feature.
+  54:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * 2016-07-08:
+  55:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *     - Fixed incorrect case for an included header.<br>
+  56:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  57:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * @endcond
+  58:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  59:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  */
+  60:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+  61:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** /**************************************************************************************************
+  62:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * HEADER FILES
+  63:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  **************************************************************************************************
+  64:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+  65:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** #ifndef DIGITAL_IO_H
+  66:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** #define DIGITAL_IO_H
+  67:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+  68:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** #include <xmc_gpio.h>
+  69:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** #include <DAVE_Common.h>
+  70:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** #include "digital_io_conf.h"
+  71:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+  72:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** /**************************************************************************************************
+  73:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * MACROS
+  74:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  **************************************************************************************************
+  75:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** #if (!((XMC_LIB_MAJOR_VERSION == 2U) && \
+  76:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****        (XMC_LIB_MINOR_VERSION >= 0U) && \
+  77:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****        (XMC_LIB_PATCH_VERSION >= 0U)))
+  78:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** #error "DIGITAL_IO requires XMC Peripheral Library v2.0.0 or higher"
+  79:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** #endif
+  80:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+  81:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  /*************************************************************************************************
+  82:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * ENUMS
+  83:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  **************************************************************************************************
+  84:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+  85:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+  86:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @ingroup DIGITAL_IO_enumerations
+  87:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @{
+  88:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+  89:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+  90:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+  91:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @brief Initialization status of DIGITAL_IO APP.
+  92:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+  93:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** typedef enum DIGITAL_IO_STATUS
+  94:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** {
+  95:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****   DIGITAL_IO_STATUS_OK = 0U,/**< 0=Status OK */
+  96:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****   DIGITAL_IO_STATUS_FAILURE = 1U/**< 1=Status Failed */
+  97:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** } DIGITAL_IO_STATUS_t;
+  98:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+  99:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 100:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @}
+ 101:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 102:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 103:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** /**************************************************************************************************
+ 104:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * DATA STRUCTURES
+ 105:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  **************************************************************************************************
+ 106:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 107:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @ingroup DIGITAL_IO_datastructures
+ 108:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @{
+ 109:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 110:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 111:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 112:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @brief Initialization data structure of DIGITAL_IO APP
+ 113:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 114:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** typedef struct DIGITAL_IO
+ 115:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** {
+ 116:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****   XMC_GPIO_PORT_t *const gpio_port;             /**< port number */
+ 117:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****   const XMC_GPIO_CONFIG_t gpio_config;          /**< mode, initial output level and pad driver stre
+ 118:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****   const uint8_t gpio_pin;                       /**< pin number */
+ 119:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****   const XMC_GPIO_HWCTRL_t hwctrl;               /**< Hardware port control */
+ 120:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** } DIGITAL_IO_t;
+ 121:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 122:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 123:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 124:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @}
+ 125:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 126:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 127:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 128:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** /**************************************************************************************************
+ 129:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  * API Prototypes
+ 130:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****  **************************************************************************************************
+ 131:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 132:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 133:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** #ifdef __cplusplus
+ 134:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** extern "C" {
+ 135:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** #endif
+ 136:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 137:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 138:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @ingroup DIGITAL_IO_apidoc
+ 139:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @{
+ 140:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 141:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 142:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 143:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 144:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 145:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @brief Get DIGITAL_IO APP version
+ 146:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @return DAVE_APP_VERSION_t APP version information (major, minor and patch number)
+ 147:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 148:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Description: </b><br>
+ 149:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * The function can be used to check application software compatibility with a
+ 150:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * specific version of the APP.
+ 151:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 152:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * Example Usage:
+ 153:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 154:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @code
+ 155:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * #include <DAVE.h>
+ 156:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 157:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * int main(void)
+ 158:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * {
+ 159:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   DAVE_STATUS_t init_status;
+ 160:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   DAVE_APP_VERSION_t version;
+ 161:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 162:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   // Initialize DIGITAL_IO APP:
+ 163:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   // DIGITAL_IO_Init() is called from within DAVE_Init().
+ 164:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   init_status = DAVE_Init();
+ 165:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   if(init_status == DAVE_STATUS_SUCCESS)
+ 166:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 167:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     version = DIGITAL_IO_GetAppVersion();
+ 168:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     if (version.major != 4U) {
+ 169:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     // Probably, not the right version.
+ 170:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     }
+ 171:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 172:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 173:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     // More code here
+ 174:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     while(1) {
+ 175:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 176:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     }
+ 177:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     return (1);
+ 178:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *  }
+ 179:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @endcode<BR>
+ 180:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 181:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 182:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** DAVE_APP_VERSION_t DIGITAL_IO_GetAppVersion(void);
+ 183:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 184:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 185:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 186:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @brief Function to initialize the port pin as per UI settings.
+ 187:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @param handler Pointer pointing to APP data structure. Refer @ref DIGITAL_IO_t for details.
+ 188:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @return DIGITAL_IO_STATUS_t DIGITAL_IO APP status. Refer @ref DIGITAL_IO_STATUS_t structure for d
+ 189:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 190:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Description:</b><br>
+ 191:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * This function initializes GPIO port registers IOCR,PDISC,OMR,PDR/PHCR to configure pin direction,
+ 192:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * and pad driver strength/hysteresis.
+ 193:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 194:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Related APIs:</b><BR>
+ 195:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * None
+ 196:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 197:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * Example Usage:
+ 198:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @code
+ 199:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * #include <DAVE.h>//Declarations from DAVE Code Generation (includes SFR declaration)
+ 200:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * int main(void)
+ 201:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * {
+ 202:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   DAVE_STATUS_t status;
+ 203:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   status = DAVE_Init();  //(DAVE_STATUS_t)DIGITAL_IO_Init(&DIGITAL_IO_0) is called within DAVE_In
+ 204:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   if(status == DAVE_STATUS_SUCCESS)
+ 205:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 206:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     XMC_DEBUG("DAVE Apps initialization success\n");
+ 207:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 208:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   else
+ 209:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 210:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     XMC_DEBUG(("DAVE Apps initialization failed with status %d\n", status));
+ 211:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     while(1U)
+ 212:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     {
+ 213:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     }
+ 214:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 215:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   //Placeholder for user application code. The while loop below can be replaced with user applica
+ 216:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   while(1U)
+ 217:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 218:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 219:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   return 1U;
+ 220:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *  }
+ 221:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *  @endcode
+ 222:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 223:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 224:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** DIGITAL_IO_STATUS_t DIGITAL_IO_Init(const DIGITAL_IO_t *const handler);
+ 225:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 226:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 227:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 228:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @brief Function to set port pin high.
+ 229:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @param handler Pointer pointing to APP data structure. Refer @ref DIGITAL_IO_t for details.
+ 230:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @return None
+ 231:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 232:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Description:</b><br>
+ 233:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * This function configures port output modification register Pn_OMR, to make port pin to high level
+ 234:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 235:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Related APIs:</b><BR>
+ 236:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *  DIGITAL_IO_SetOutputLow()
+ 237:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 238:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * Example Usage:
+ 239:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @code
+ 240:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * #include <DAVE.h>//Declarations from DAVE Code Generation (includes SFR declaration)
+ 241:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * int main(void)
+ 242:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * {
+ 243:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   DAVE_STATUS_t status;
+ 244:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   status = DAVE_Init();  //(DAVE_STATUS_t)DIGITAL_IO_Init(&DIGITAL_IO_0) is called within DAVE_In
+ 245:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   if(status == DAVE_STATUS_SUCCESS)
+ 246:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 247:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     XMC_DEBUG("DAVE Apps initialization success\n");
+ 248:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 249:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   else
+ 250:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 251:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     XMC_DEBUG(("DAVE Apps initialization failed with status %d\n", status));
+ 252:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     while(1U)
+ 253:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     {
+ 254:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     }
+ 255:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 256:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   //Placeholder for user application code. The while loop below can be replaced with user applica
+ 257:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   DIGITAL_IO_SetOutputHigh(&DIGITAL_IO_0);
+ 258:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   while(1U)
+ 259:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 260:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     // Add application code here
+ 261:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 262:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 263:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   return (1);
+ 264:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * }
+ 265:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *  @endcode
+ 266:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 267:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 268:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** __STATIC_INLINE void DIGITAL_IO_SetOutputHigh(const DIGITAL_IO_t *const handler)
+ 269:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** {
+ 270:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****   XMC_ASSERT("DIGITAL_IO_SetOutputHigh: handler null pointer", handler != NULL);
+ 271:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****   XMC_GPIO_SetOutputHigh(handler->gpio_port, handler->gpio_pin);
+ 272:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** }
+ 273:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 274:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 275:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @brief Function to reset port pin.
+ 276:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @param handler Pointer pointing to APP data structure. Refer @ref DIGITAL_IO_t for details.
+ 277:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @return None
+ 278:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 279:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Description:</b><br>
+ 280:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * This function configures port output modification register Pn_OMR, to make port pin to low level.
+ 281:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 282:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Related APIs:</b><BR>
+ 283:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * DIGITAL_IO_SetOutputHigh()
+ 284:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 285:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * Example Usage:
+ 286:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @code
+ 287:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *  #include <DAVE.h>//Declarations from DAVE Code Generation (includes SFR declaration)
+ 288:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *  int main(void)
+ 289:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *  {
+ 290:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *    DAVE_STATUS_t status;
+ 291:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *    status = DAVE_Init();  //(DAVE_STATUS_t)DIGITAL_IO_Init(&DIGITAL_IO_0) is called within DAVE_I
+ 292:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *    if(status == DAVE_STATUS_SUCCESS)
+ 293:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *    {
+ 294:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *      XMC_DEBUG("DAVE Apps initialization success\n");
+ 295:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *    }
+ 296:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *    else
+ 297:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *    {
+ 298:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *      XMC_DEBUG(("DAVE Apps initialization failed with status %d\n", status));
+ 299:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *      while(1U)
+ 300:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *      {
+ 301:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *      }
+ 302:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *    }
+ 303:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *    //Placeholder for user application code. The while loop below can be replaced with user applic
+ 304:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *    DIGITAL_IO_SetOutputLow(&DIGITAL_IO_0);
+ 305:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *    while(1U)
+ 306:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *    {
+ 307:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *      // Add application code here
+ 308:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *    }
+ 309:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 310:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   return (1);
+ 311:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * }
+ 312:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *  @endcode
+ 313:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 314:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 315:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** __STATIC_INLINE void DIGITAL_IO_SetOutputLow(const DIGITAL_IO_t *const handler)
+ 316:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** {
+ 317:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****   XMC_ASSERT("DIGITAL_IO_SetOutputLow: handler null pointer", handler != NULL);
+ 318:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****   XMC_GPIO_SetOutputLow(handler->gpio_port,handler->gpio_pin);
+ 319:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** }
+ 320:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 321:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 322:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @brief Function to Toggle port pin.
+ 323:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @param handler Pointer pointing to APP data structure. Refer @ref DIGITAL_IO_t for details.
+ 324:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @return None
+ 325:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 326:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Description:</b><br>
+ 327:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * This function configures port output modification register Pn_OMR, to toggle port pin.
+ 328:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 329:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Related APIs:</b><BR>
+ 330:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * DIGITAL_IO_SetOutputLow(), DIGITAL_IO_SetOutputHigh()
+ 331:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 332:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * Example Usage:
+ 333:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 334:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @code
+ 335:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * #include <DAVE.h>//Declarations from DAVE Code Generation (includes SFR declaration)
+ 336:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * int main(void)
+ 337:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * {
+ 338:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   DAVE_STATUS_t status;
+ 339:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   uint32_t delay_count;;
+ 340:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   status = DAVE_Init();  //(DAVE_STATUS_t)DIGITAL_IO_Init(&DIGITAL_IO_0) is called within DAVE_In
+ 341:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   if(status == DAVE_STATUS_SUCCESS)
+ 342:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 343:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     XMC_DEBUG("DAVE Apps initialization success\n");
+ 344:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 345:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   else
+ 346:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 347:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *      XMC_DEBUG(("DAVE Apps initialization failed with status %d\n", status));
+ 348:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *      while(1U)
+ 349:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *      {
+ 350:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *      }
+ 351:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 352:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   //Placeholder for user application code. The while loop below can be replaced with user applica
+ 353:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   while(1U)
+ 354:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 355:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *      DIGITAL_IO_ToggleOutput(&DIGITAL_IO_0); //toggles : 1 -> 0 (if initial output level is logic
+ 356:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *      //Add application code here
+ 357:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *      for(delay_count = 0;delay_count<0xfffff;delay_count++);
+ 358:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *      DIGITAL_IO_ToggleOutput(&DIGITAL_IO_0); //toggles : 0 -> 1
+ 359:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *      //Add application code here
+ 360:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *      for(delay_count = 0;delay_count<0xfffff;delay_count++);
+ 361:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 362:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   return (1);
+ 363:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * }
+ 364:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *  @endcode
+ 365:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 366:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 367:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** __STATIC_INLINE void DIGITAL_IO_ToggleOutput(const DIGITAL_IO_t *const handler)
+ 368:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** {
+ 123              	 .loc 2 368 0
+ 124              	 .cfi_startproc
+ 125              	 
+ 126              	 
+ 127 0000 80B5     	 push {r7,lr}
+ 128              	.LCFI12:
+ 129              	 .cfi_def_cfa_offset 8
+ 130              	 .cfi_offset 7,-8
+ 131              	 .cfi_offset 14,-4
+ 132 0002 82B0     	 sub sp,sp,#8
+ 133              	.LCFI13:
+ 134              	 .cfi_def_cfa_offset 16
+ 135 0004 00AF     	 add r7,sp,#0
+ 136              	.LCFI14:
+ 137              	 .cfi_def_cfa_register 7
+ 138 0006 7860     	 str r0,[r7,#4]
+ 369:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****   XMC_ASSERT("DIGITAL_IO_ToggleOutput: handler null pointer", handler != NULL);
+ 370:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****   XMC_GPIO_ToggleOutput(handler->gpio_port, handler->gpio_pin);
+ 139              	 .loc 2 370 0
+ 140 0008 7B68     	 ldr r3,[r7,#4]
+ 141 000a 1A68     	 ldr r2,[r3]
+ 142 000c 7B68     	 ldr r3,[r7,#4]
+ 143 000e 1B7C     	 ldrb r3,[r3,#16]
+ 144 0010 1046     	 mov r0,r2
+ 145 0012 1946     	 mov r1,r3
+ 146 0014 FFF7FEFF 	 bl XMC_GPIO_ToggleOutput
+ 371:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** }
+ 147              	 .loc 2 371 0
+ 148 0018 0837     	 adds r7,r7,#8
+ 149              	.LCFI15:
+ 150              	 .cfi_def_cfa_offset 8
+ 151 001a BD46     	 mov sp,r7
+ 152              	.LCFI16:
+ 153              	 .cfi_def_cfa_register 13
+ 154              	 
+ 155 001c 80BD     	 pop {r7,pc}
+ 156              	 .cfi_endproc
+ 157              	.LFE149:
+ 159 001e 00BF     	 .section .text.DIGITAL_IO_GetInput,"ax",%progbits
+ 160              	 .align 2
+ 161              	 .thumb
+ 162              	 .thumb_func
+ 164              	DIGITAL_IO_GetInput:
+ 165              	.LFB150:
+ 372:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 373:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 374:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @brief Function to read input level of port pin.
+ 375:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @param handler Pointer pointing to APP data structure. Refer @ref DIGITAL_IO_t for details.
+ 376:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @return uint32_t input logic level. Range:0-1
+ 377:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 378:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Description:</b><br>
+ 379:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * This function reads the Pn_IN register and returns the current logical value at the GPIO pin.
+ 380:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 381:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Related APIs:</b><BR>
+ 382:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *  None
+ 383:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 384:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * Example Usage:
+ 385:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * @code
+ 386:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * #include <DAVE.h>//Declarations from DAVE Code Generation (includes SFR declaration)
+ 387:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * int main(void)
+ 388:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * {
+ 389:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   DAVE_STATUS_t status;
+ 390:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   uint32_t pin_status;
+ 391:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   status = DAVE_Init();   // (DAVE_STATUS_t)DIGITAL_IO_Init(&DIGITAL_IO_0) is called within DAVE_
+ 392:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   if(status == DAVE_STATUS_SUCCESS)
+ 393:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 394:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     XMC_DEBUG("DAVE Apps initialization success\n");
+ 395:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 396:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   else
+ 397:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 398:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     XMC_DEBUG(("DAVE Apps initialization failed with status %d\n", status));
+ 399:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     while(1U)
+ 400:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     {
+ 401:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     }
+ 402:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 403:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   //Placeholder for user application code. The while loop below can be replaced with user applica
+ 404:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   while(1U)
+ 405:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 406:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     pin_status = DIGITAL_IO_GetInput(&DIGITAL_IO_0);
+ 407:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     if(pin_status == 1)
+ 408:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     {
+ 409:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *       // Add application code here
+ 410:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     }
+ 411:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     else
+ 412:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     {
+ 413:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *       // Add application code here
+ 414:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *     }
+ 415:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 416:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *   return (1);
+ 417:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** * }
+ 418:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** *  @endcode
+ 419:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 420:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 421:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** __STATIC_INLINE uint32_t DIGITAL_IO_GetInput(const DIGITAL_IO_t *const handler)
+ 422:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** {
+ 166              	 .loc 2 422 0
+ 167              	 .cfi_startproc
+ 168              	 
+ 169              	 
+ 170 0000 80B5     	 push {r7,lr}
+ 171              	.LCFI17:
+ 172              	 .cfi_def_cfa_offset 8
+ 173              	 .cfi_offset 7,-8
+ 174              	 .cfi_offset 14,-4
+ 175 0002 82B0     	 sub sp,sp,#8
+ 176              	.LCFI18:
+ 177              	 .cfi_def_cfa_offset 16
+ 178 0004 00AF     	 add r7,sp,#0
+ 179              	.LCFI19:
+ 180              	 .cfi_def_cfa_register 7
+ 181 0006 7860     	 str r0,[r7,#4]
+ 423:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****   XMC_ASSERT("DIGITAL_IO_GetInput: handler null pointer", handler != NULL);
+ 424:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h ****   return XMC_GPIO_GetInput(handler->gpio_port, handler->gpio_pin);
+ 182              	 .loc 2 424 0
+ 183 0008 7B68     	 ldr r3,[r7,#4]
+ 184 000a 1A68     	 ldr r2,[r3]
+ 185 000c 7B68     	 ldr r3,[r7,#4]
+ 186 000e 1B7C     	 ldrb r3,[r3,#16]
+ 187 0010 1046     	 mov r0,r2
+ 188 0012 1946     	 mov r1,r3
+ 189 0014 FFF7FEFF 	 bl XMC_GPIO_GetInput
+ 190 0018 0346     	 mov r3,r0
+ 425:C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO\digital_io.h **** }
+ 191              	 .loc 2 425 0
+ 192 001a 1846     	 mov r0,r3
+ 193 001c 0837     	 adds r7,r7,#8
+ 194              	.LCFI20:
+ 195              	 .cfi_def_cfa_offset 8
+ 196 001e BD46     	 mov sp,r7
+ 197              	.LCFI21:
+ 198              	 .cfi_def_cfa_register 13
+ 199              	 
+ 200 0020 80BD     	 pop {r7,pc}
+ 201              	 .cfi_endproc
+ 202              	.LFE150:
+ 204              	 .global button_state
+ 205 0022 00BF     	 .section .data.button_state,"aw",%progbits
+ 206              	 .align 2
+ 209              	button_state:
+ 210 0000 01000000 	 .word 1
+ 211              	 .section .text.CAN0_1_IRQHandler,"ax",%progbits
+ 212              	 .align 2
+ 213              	 .global CAN0_1_IRQHandler
+ 214              	 .thumb
+ 215              	 .thumb_func
+ 217              	CAN0_1_IRQHandler:
+ 218              	.LFB259:
+ 219              	 .file 3 "../main.c"
+   1:../main.c     **** ///*******************************************************************************
+   2:../main.c     **** // Copyright (c) 2015, Infineon Technologies AG                                 **
+   3:../main.c     **** // All rights reserved.                                                         **
+   4:../main.c     **** //                                                                              **
+   5:../main.c     **** // Redistribution and use in source and binary forms, with or without           **
+   6:../main.c     **** // modification,are permitted provided that the following conditions are met:   **
+   7:../main.c     **** //                                                                              **
+   8:../main.c     **** // *Redistributions of source code must retain the above copyright notice,      **
+   9:../main.c     **** // this list of conditions and the following disclaimer.                        **
+  10:../main.c     **** // *Redistributions in binary form must reproduce the above copyright notice,   **
+  11:../main.c     **** // this list of conditions and the following disclaimer in the documentation    **
+  12:../main.c     **** // and/or other materials provided with the distribution.                       **
+  13:../main.c     **** // *Neither the name of the copyright holders nor the names of its contributors **
+  14:../main.c     **** // may be used to endorse or promote products derived from this software without**
+  15:../main.c     **** // specific prior written permission.                                           **
+  16:../main.c     **** //                                                                              **
+  17:../main.c     **** // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"  **
+  18:../main.c     **** // AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE    **
+  19:../main.c     **** // IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE   **
+  20:../main.c     **** // ARE  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE   **
+  21:../main.c     **** // LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR         **
+  22:../main.c     **** // CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF         **
+  23:../main.c     **** // SUBSTITUTE GOODS OR  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS    **
+  24:../main.c     **** // INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN      **
+  25:../main.c     **** // CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)       **
+  26:../main.c     **** // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE   **
+  27:../main.c     **** // POSSIBILITY OF SUCH DAMAGE.                                                  **
+  28:../main.c     **** //                                                                              **
+  29:../main.c     **** // To improve the quality of the software, users are encouraged to share        **
+  30:../main.c     **** // modifications, enhancements or bug fixes with Infineon Technologies AG       **
+  31:../main.c     **** // dave@infineon.com).                                                          **
+  32:../main.c     **** //                                                                              **
+  33:../main.c     **** //********************************************************************************
+  34:../main.c     **** //**                                                                            **
+  35:../main.c     **** //**                                                                            **
+  36:../main.c     **** //** PLATFORM : Infineon XMC4500 Series                                         **
+  37:../main.c     **** //**                                                                            **
+  38:../main.c     **** //** AUTHOR : Application Engineering Team                                      **
+  39:../main.c     **** //**                                                                            **
+  40:../main.c     **** //** version 4.0.0  Initial version                                             **
+  41:../main.c     **** //**         4.1.2  Modified for APP updates                                    **
+  42:../main.c     **** //**         4.1.4  Modified for APP updates									  **
+  43:../main.c     **** //**                                                                            **
+  44:../main.c     **** //** MODIFICATION DATE : OCT, 30, 2015                                          **
+  45:../main.c     **** //**                                                                            **
+  46:../main.c     **** //*******************************************************************************/
+  47:../main.c     **** //
+  48:../main.c     **** //#include <DAVE.h>			//Declarations from DAVE Code Generation (includes SFR declaration)
+  49:../main.c     **** //
+  50:../main.c     **** ///*
+  51:../main.c     **** // * This Example shows transmission and reception of data frames
+  52:../main.c     **** // * between two CAN nodes of the MultiCAN peripheral in Loop-Back Mode.
+  53:../main.c     **** // */
+  54:../main.c     **** //
+  55:../main.c     **** //
+  56:../main.c     **** //uint32_t led_state = 0;
+  57:../main.c     **** //uint32_t button_state = 1;
+  58:../main.c     **** //
+  59:../main.c     **** //void React_Node_Handler() {
+  60:../main.c     **** //	/* Check for Node error */
+  61:../main.c     **** //	if(CAN_NODE_GetStatus(&React_Node) & XMC_CAN_NODE_STATUS_LAST_ERROR_CODE)
+  62:../main.c     **** //	{}
+  63:../main.c     **** //	else if(CAN_NODE_MO_GetStatus(&React_Node_LMO_01_Config) & XMC_CAN_MO_STATUS_RX_PENDING)
+  64:../main.c     **** //	{
+  65:../main.c     **** //		/* Read the received Message object and stores in Request_Node_LMO_02_Config*/
+  66:../main.c     **** //
+  67:../main.c     **** //		CAN_NODE_MO_Receive(&React_Node_LMO_01_Config);
+  68:../main.c     **** //
+  69:../main.c     **** //		if (React_Node_LMO_01_Config.mo_ptr->can_data_byte[0] == 0x01) { // Turn on LED
+  70:../main.c     **** //			DIGITAL_IO_SetOutputHigh(&LED_Indicator);
+  71:../main.c     **** //		}
+  72:../main.c     **** //		else { // Turn off LED
+  73:../main.c     **** //			DIGITAL_IO_SetOutputLow(&LED_Indicator);
+  74:../main.c     **** //		}
+  75:../main.c     **** //
+  76:../main.c     **** //	 /* Switch on LED Pin 3.9  to indicate that the requested message is received*/
+  77:../main.c     **** //	 //DIGITAL_IO_ToggleOutput(&LED_Indicator);
+  78:../main.c     **** //	}
+  79:../main.c     **** //
+  80:../main.c     **** //}
+  81:../main.c     **** //
+  82:../main.c     **** ////void Send_CAN_React() {
+  83:../main.c     **** ////
+  84:../main.c     **** ////}
+  85:../main.c     **** //
+  86:../main.c     **** //void Read_Button() {
+  87:../main.c     **** //	// check if state has changed
+  88:../main.c     **** //	if (button_state != DIGITAL_IO_GetInput(&BoardButton)) {
+  89:../main.c     **** //		button_state = DIGITAL_IO_GetInput(&BoardButton);
+  90:../main.c     **** //
+  91:../main.c     **** //		if (button_state == 0) { // send message to turn led on
+  92:../main.c     **** //			React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = 0x01;
+  93:../main.c     **** //		} else { // send message to turn led off
+  94:../main.c     **** //			React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = 0x00;
+  95:../main.c     **** //		}
+  96:../main.c     **** //
+  97:../main.c     **** //		uint32_t status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
+  98:../main.c     **** //		status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
+  99:../main.c     **** //	}
+ 100:../main.c     **** //}
+ 101:../main.c     **** //
+ 102:../main.c     **** //int main(void)
+ 103:../main.c     **** //{
+ 104:../main.c     **** //
+ 105:../main.c     **** //  DAVE_Init();		/* Initialization of DAVE APPs  */
+ 106:../main.c     **** //
+ 107:../main.c     **** //  uint32_t TimerId = (uint32_t)SYSTIMER_CreateTimer(100000U,SYSTIMER_MODE_PERIODIC,(void*)Read_Bu
+ 108:../main.c     **** //  SYSTIMER_StartTimer(TimerId);
+ 109:../main.c     **** //
+ 110:../main.c     **** //  //CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
+ 111:../main.c     **** //
+ 112:../main.c     **** //  while(1U);
+ 113:../main.c     **** //  return 0;
+ 114:../main.c     **** //}
+ 115:../main.c     **** //
+ 116:../main.c     **** /////*
+ 117:../main.c     **** //// * This function is the Interrupt Event Handler for the CAN Node Request
+ 118:../main.c     **** //// *
+ 119:../main.c     **** //// */
+ 120:../main.c     **** ////void Request_Node_Interrupt()
+ 121:../main.c     **** ////{
+ 122:../main.c     **** ////  /* Check for Node error */
+ 123:../main.c     **** ////  if(CAN_NODE_GetStatus(&Request_Node) & XMC_CAN_NODE_STATUS_LAST_ERROR_CODE)
+ 124:../main.c     **** ////  {}
+ 125:../main.c     **** ////  else if(CAN_NODE_MO_GetStatus(&Request_Node_LMO_02_Config) & XMC_CAN_MO_STATUS_RX_PENDING)
+ 126:../main.c     **** ////  {
+ 127:../main.c     **** ////     /* Read the received Message object and stores in Request_Node_LMO_02_Config*/
+ 128:../main.c     **** ////
+ 129:../main.c     **** ////	  CAN_NODE_MO_Receive(&Request_Node_LMO_02_Config);
+ 130:../main.c     **** ////
+ 131:../main.c     **** ////	  if (Request_Node_LMO_02_Config.mo_ptr->can_data_byte[0] == 0x01) { // Turn on LED
+ 132:../main.c     **** ////		  DIGITAL_IO_SetOutputHigh(&LED_Indicator);
+ 133:../main.c     **** ////	  }
+ 134:../main.c     **** ////	  else { // Turn off LED
+ 135:../main.c     **** ////		  DIGITAL_IO_SetOutputLow(&LED_Indicator);
+ 136:../main.c     **** ////	  }
+ 137:../main.c     **** ////
+ 138:../main.c     **** ////     /* Switch on LED Pin 3.9  to indicate that the requested message is received*/
+ 139:../main.c     **** ////     //DIGITAL_IO_ToggleOutput(&LED_Indicator);
+ 140:../main.c     **** ////  }
+ 141:../main.c     **** ////
+ 142:../main.c     **** ////}
+ 143:../main.c     **** ////
+ 144:../main.c     **** ///////*
+ 145:../main.c     **** //// * This function is the Interrupt Event Handler for the CAN Node React
+ 146:../main.c     **** //// */
+ 147:../main.c     **** 
+ 148:../main.c     **** /*******************************************************************************
+ 149:../main.c     ****  Copyright (c) 2015, Infineon Technologies AG                                 **
+ 150:../main.c     ****  All rights reserved.                                                         **
+ 151:../main.c     ****                                                                               **
+ 152:../main.c     ****  Redistribution and use in source and binary forms, with or without           **
+ 153:../main.c     ****  modification,are permitted provided that the following conditions are met:   **
+ 154:../main.c     ****                                                                               **
+ 155:../main.c     ****  *Redistributions of source code must retain the above copyright notice,      **
+ 156:../main.c     ****  this list of conditions and the following disclaimer.                        **
+ 157:../main.c     ****  *Redistributions in binary form must reproduce the above copyright notice,   **
+ 158:../main.c     ****  this list of conditions and the following disclaimer in the documentation    **
+ 159:../main.c     ****  and/or other materials provided with the distribution.                       **
+ 160:../main.c     ****  *Neither the name of the copyright holders nor the names of its contributors **
+ 161:../main.c     ****  may be used to endorse or promote products derived from this software without**
+ 162:../main.c     ****  specific prior written permission.                                           **
+ 163:../main.c     ****                                                                               **
+ 164:../main.c     ****  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"  **
+ 165:../main.c     ****  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE    **
+ 166:../main.c     ****  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE   **
+ 167:../main.c     ****  ARE  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE   **
+ 168:../main.c     ****  LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR         **
+ 169:../main.c     ****  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF         **
+ 170:../main.c     ****  SUBSTITUTE GOODS OR  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS    **
+ 171:../main.c     ****  INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN      **
+ 172:../main.c     ****  CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)       **
+ 173:../main.c     ****  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE   **
+ 174:../main.c     ****  POSSIBILITY OF SUCH DAMAGE.                                                  **
+ 175:../main.c     ****                                                                               **
+ 176:../main.c     ****  To improve the quality of the software, users are encouraged to share        **
+ 177:../main.c     ****  modifications, enhancements or bug fixes with Infineon Technologies AG       **
+ 178:../main.c     ****  dave@infineon.com).                                                          **
+ 179:../main.c     ****                                                                               **
+ 180:../main.c     **** ********************************************************************************
+ 181:../main.c     **** **                                                                            **
+ 182:../main.c     **** **                                                                            **
+ 183:../main.c     **** ** PLATFORM : Infineon XMC4500 Series                                         **
+ 184:../main.c     **** **                                                                            **
+ 185:../main.c     **** ** AUTHOR : Application Engineering Team                                      **
+ 186:../main.c     **** **                                                                            **
+ 187:../main.c     **** ** version 4.0.0  Initial version                                             **
+ 188:../main.c     **** **         4.1.2  Modified for APP updates                                    **
+ 189:../main.c     **** **         4.1.4  Modified for APP updates									  **
+ 190:../main.c     **** **                                                                            **
+ 191:../main.c     **** ** MODIFICATION DATE : OCT, 30, 2015                                          **
+ 192:../main.c     **** **                                                                            **
+ 193:../main.c     **** *******************************************************************************/
+ 194:../main.c     **** 
+ 195:../main.c     **** #include <DAVE.h>			//Declarations from DAVE Code Generation (includes SFR declaration)
+ 196:../main.c     **** #include <stdio.h>
+ 197:../main.c     **** /*
+ 198:../main.c     ****  * This Example shows transmission and reception of data frames
+ 199:../main.c     ****  * between two CAN nodes of the MultiCAN peripheral in Loop-Back Mode.
+ 200:../main.c     ****  */
+ 201:../main.c     **** 
+ 202:../main.c     **** 
+ 203:../main.c     **** // uint32_t led_state = 0;
+ 204:../main.c     **** 
+ 205:../main.c     **** 
+ 206:../main.c     **** // Globals
+ 207:../main.c     **** uint32_t button_state = 1;
+ 208:../main.c     **** 
+ 209:../main.c     **** // Function Prototypes
+ 210:../main.c     **** //void initialise_monitor_handles();
+ 211:../main.c     **** 
+ 212:../main.c     **** void React_Node_Handler() {
+ 220              	 .loc 3 212 0
+ 221              	 .cfi_startproc
+ 222              	 
+ 223              	 
+ 224 0000 80B5     	 push {r7,lr}
+ 225              	.LCFI22:
+ 226              	 .cfi_def_cfa_offset 8
+ 227              	 .cfi_offset 7,-8
+ 228              	 .cfi_offset 14,-4
+ 229 0002 82B0     	 sub sp,sp,#8
+ 230              	.LCFI23:
+ 231              	 .cfi_def_cfa_offset 16
+ 232 0004 00AF     	 add r7,sp,#0
+ 233              	.LCFI24:
+ 234              	 .cfi_def_cfa_register 7
+ 213:../main.c     **** 	/* Check for Node error */
+ 214:../main.c     **** 	if(CAN_NODE_GetStatus(&React_Node) & XMC_CAN_NODE_STATUS_LAST_ERROR_CODE)
+ 235              	 .loc 3 214 0
+ 236 0006 1848     	 ldr r0,.L9
+ 237 0008 FFF7FEFF 	 bl CAN_NODE_GetStatus
+ 238 000c 0346     	 mov r3,r0
+ 239 000e 03F00703 	 and r3,r3,#7
+ 240 0012 002B     	 cmp r3,#0
+ 241 0014 24D1     	 bne .L7
+ 215:../main.c     **** 	{}
+ 216:../main.c     **** 	else if(CAN_NODE_MO_GetStatus(&React_Node_LMO_01_Config) & XMC_CAN_MO_STATUS_RX_PENDING)
+ 242              	 .loc 3 216 0
+ 243 0016 1548     	 ldr r0,.L9+4
+ 244 0018 FFF7FEFF 	 bl CAN_NODE_MO_GetStatus
+ 245 001c 0346     	 mov r3,r0
+ 246 001e 03F00103 	 and r3,r3,#1
+ 247 0022 002B     	 cmp r3,#0
+ 248 0024 1CD0     	 beq .L7
+ 249              	.LBB2:
+ 217:../main.c     **** 	{
+ 218:../main.c     **** 		/* Read the received Message object and stores in Request_Node_LMO_02_Config*/
+ 219:../main.c     **** 		CAN_NODE_MO_Receive(&React_Node_LMO_01_Config);
+ 250              	 .loc 3 219 0
+ 251 0026 1148     	 ldr r0,.L9+4
+ 252 0028 FFF7FEFF 	 bl CAN_NODE_MO_Receive
+ 220:../main.c     **** 		int receivedBytes = React_Node_LMO_01_Config.mo_ptr->can_data_byte[0];
+ 253              	 .loc 3 220 0
+ 254 002c 0F4B     	 ldr r3,.L9+4
+ 255 002e 1B68     	 ldr r3,[r3]
+ 256 0030 1B7C     	 ldrb r3,[r3,#16]
+ 257 0032 7B60     	 str r3,[r7,#4]
+ 221:../main.c     **** 
+ 222:../main.c     **** 		if (receivedBytes == 0x01) { // Turn on LED
+ 258              	 .loc 3 222 0
+ 259 0034 7B68     	 ldr r3,[r7,#4]
+ 260 0036 012B     	 cmp r3,#1
+ 261 0038 12D1     	 bne .L7
+ 262              	.LBB3:
+ 223:../main.c     **** 			DIGITAL_IO_ToggleOutput(&LED_Indicator);
+ 263              	 .loc 3 223 0
+ 264 003a 0D48     	 ldr r0,.L9+8
+ 265 003c FFF7FEFF 	 bl DIGITAL_IO_ToggleOutput
+ 224:../main.c     **** 			XMC_DEBUG("4200: Message Received from 4200\n");
+ 225:../main.c     **** 			XMC_DEBUG("Received with value: %d \n", receivedBytes);
+ 226:../main.c     **** 			XMC_DEBUG("Toggle LED\n\n");
+ 227:../main.c     **** 
+ 228:../main.c     **** 			React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = 0x03;
+ 266              	 .loc 3 228 0
+ 267 0040 0C4B     	 ldr r3,.L9+12
+ 268 0042 1B68     	 ldr r3,[r3]
+ 269 0044 0322     	 movs r2,#3
+ 270 0046 1A74     	 strb r2,[r3,#16]
+ 229:../main.c     **** 			uint32_t status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
+ 271              	 .loc 3 229 0
+ 272 0048 0A4B     	 ldr r3,.L9+12
+ 273 004a 1B68     	 ldr r3,[r3]
+ 274 004c 1846     	 mov r0,r3
+ 275 004e FFF7FEFF 	 bl XMC_CAN_MO_UpdateData
+ 276 0052 0346     	 mov r3,r0
+ 277 0054 3B60     	 str r3,[r7]
+ 230:../main.c     **** 			status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
+ 278              	 .loc 3 230 0
+ 279 0056 0748     	 ldr r0,.L9+12
+ 280 0058 FFF7FEFF 	 bl CAN_NODE_MO_Transmit
+ 281 005c 0346     	 mov r3,r0
+ 282 005e 3B60     	 str r3,[r7]
+ 283              	.L7:
+ 284              	.LBE3:
+ 285              	.LBE2:
+ 231:../main.c     **** 		}
+ 232:../main.c     **** 		else if (receivedBytes == 0x03)
+ 233:../main.c     **** 		{
+ 234:../main.c     **** 			XMC_DEBUG("4200: Message Received from 4200\n");
+ 235:../main.c     **** 			XMC_DEBUG("Received with value: %d \n", receivedBytes);
+ 236:../main.c     **** 			XMC_DEBUG("ACK\n\n");
+ 237:../main.c     **** 		}
+ 238:../main.c     **** //		else{ // Turn off LED
+ 239:../main.c     **** //			DIGITAL_IO_SetOutputLow(&LED_Indicator);
+ 240:../main.c     **** //		}
+ 241:../main.c     **** 	}
+ 242:../main.c     **** 
+ 243:../main.c     **** }
+ 286              	 .loc 3 243 0
+ 287 0060 0837     	 adds r7,r7,#8
+ 288              	.LCFI25:
+ 289              	 .cfi_def_cfa_offset 8
+ 290 0062 BD46     	 mov sp,r7
+ 291              	.LCFI26:
+ 292              	 .cfi_def_cfa_register 13
+ 293              	 
+ 294 0064 80BD     	 pop {r7,pc}
+ 295              	.L10:
+ 296 0066 00BF     	 .align 2
+ 297              	.L9:
+ 298 0068 00000000 	 .word React_Node
+ 299 006c 00000000 	 .word React_Node_LMO_01_Config
+ 300 0070 00000000 	 .word LED_Indicator
+ 301 0074 00000000 	 .word React_Node_LMO_02_Config
+ 302              	 .cfi_endproc
+ 303              	.LFE259:
+ 305              	 .section .text.main,"ax",%progbits
+ 306              	 .align 2
+ 307              	 .global main
+ 308              	 .thumb
+ 309              	 .thumb_func
+ 311              	main:
+ 312              	.LFB260:
+ 244:../main.c     **** 
+ 245:../main.c     **** //void Read_Button() {
+ 246:../main.c     **** //	// check if state has changed
+ 247:../main.c     **** //	if (button_state != DIGITAL_IO_GetInput(&BoardButton)) {
+ 248:../main.c     **** //		button_state = DIGITAL_IO_GetInput(&BoardButton);
+ 249:../main.c     **** //
+ 250:../main.c     **** //		if (button_state == 0) { // send message to toggle LED
+ 251:../main.c     **** //			React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = 0x01;
+ 252:../main.c     **** //			XMC_DEBUG("Message Sent!\n");
+ 253:../main.c     **** //		}
+ 254:../main.c     **** ////		} else { // send message to turn led off
+ 255:../main.c     **** ////			React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = 0x00;
+ 256:../main.c     **** ////		}
+ 257:../main.c     **** //
+ 258:../main.c     **** //
+ 259:../main.c     **** //
+ 260:../main.c     **** //		uint32_t status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
+ 261:../main.c     **** //		status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
+ 262:../main.c     **** //	}
+ 263:../main.c     **** //}
+ 264:../main.c     **** 
+ 265:../main.c     **** int main(void)
+ 266:../main.c     **** {
+ 313              	 .loc 3 266 0
+ 314              	 .cfi_startproc
+ 315              	 
+ 316              	 
+ 317 0000 80B5     	 push {r7,lr}
+ 318              	.LCFI27:
+ 319              	 .cfi_def_cfa_offset 8
+ 320              	 .cfi_offset 7,-8
+ 321              	 .cfi_offset 14,-4
+ 322 0002 82B0     	 sub sp,sp,#8
+ 323              	.LCFI28:
+ 324              	 .cfi_def_cfa_offset 16
+ 325 0004 00AF     	 add r7,sp,#0
+ 326              	.LCFI29:
+ 327              	 .cfi_def_cfa_register 7
+ 267:../main.c     **** 
+ 268:../main.c     ****   DAVE_Init();		/* Initialization of DAVE APPs  */
+ 328              	 .loc 3 268 0
+ 329 0006 FFF7FEFF 	 bl DAVE_Init
+ 330              	.L13:
+ 269:../main.c     **** 
+ 270:../main.c     ****   //uint32_t TimerId = (uint32_t)SYSTIMER_CreateTimer(100000U,SYSTIMER_MODE_PERIODIC,(void*)Read_Bu
+ 271:../main.c     ****   //SYSTIMER_StartTimer(TimerId);
+ 272:../main.c     **** 
+ 273:../main.c     ****   //DIGITAL_IO_SetOutputHigh(&LED_Indicator);
+ 274:../main.c     ****   //CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
+ 275:../main.c     **** 
+ 276:../main.c     ****   // Function to initialize debug printing
+ 277:../main.c     ****   // initialise_monitor_handles();
+ 278:../main.c     **** 
+ 279:../main.c     ****   while(1U)
+ 280:../main.c     ****   {
+ 281:../main.c     **** 	  if (button_state != DIGITAL_IO_GetInput(&BoardButton)) {
+ 331              	 .loc 3 281 0
+ 332 000a 1148     	 ldr r0,.L14
+ 333 000c FFF7FEFF 	 bl DIGITAL_IO_GetInput
+ 334 0010 0246     	 mov r2,r0
+ 335 0012 104B     	 ldr r3,.L14+4
+ 336 0014 1B68     	 ldr r3,[r3]
+ 337 0016 9A42     	 cmp r2,r3
+ 338 0018 19D0     	 beq .L12
+ 282:../main.c     **** 	  		button_state = DIGITAL_IO_GetInput(&BoardButton);
+ 339              	 .loc 3 282 0
+ 340 001a 0D48     	 ldr r0,.L14
+ 341 001c FFF7FEFF 	 bl DIGITAL_IO_GetInput
+ 342 0020 0246     	 mov r2,r0
+ 343 0022 0C4B     	 ldr r3,.L14+4
+ 344 0024 1A60     	 str r2,[r3]
+ 283:../main.c     **** 
+ 284:../main.c     **** 	  		if (button_state == 0) { // send message to turn toggle
+ 345              	 .loc 3 284 0
+ 346 0026 0B4B     	 ldr r3,.L14+4
+ 347 0028 1B68     	 ldr r3,[r3]
+ 348 002a 002B     	 cmp r3,#0
+ 349 002c 0FD1     	 bne .L12
+ 350              	.LBB4:
+ 285:../main.c     **** 	  			React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = 0x01;
+ 351              	 .loc 3 285 0
+ 352 002e 0A4B     	 ldr r3,.L14+8
+ 353 0030 1B68     	 ldr r3,[r3]
+ 354 0032 0122     	 movs r2,#1
+ 355 0034 1A74     	 strb r2,[r3,#16]
+ 286:../main.c     **** 	  			XMC_DEBUG("4800: Message Sent to 4200 with value 1 (Toggle LED)\n\n");
+ 287:../main.c     **** 		  		uint32_t status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
+ 356              	 .loc 3 287 0
+ 357 0036 084B     	 ldr r3,.L14+8
+ 358 0038 1B68     	 ldr r3,[r3]
+ 359 003a 1846     	 mov r0,r3
+ 360 003c FFF7FEFF 	 bl XMC_CAN_MO_UpdateData
+ 361 0040 0346     	 mov r3,r0
+ 362 0042 7B60     	 str r3,[r7,#4]
+ 288:../main.c     **** 		  		status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
+ 363              	 .loc 3 288 0
+ 364 0044 0448     	 ldr r0,.L14+8
+ 365 0046 FFF7FEFF 	 bl CAN_NODE_MO_Transmit
+ 366 004a 0346     	 mov r3,r0
+ 367 004c 7B60     	 str r3,[r7,#4]
+ 368              	.L12:
+ 369              	.LBE4:
+ 289:../main.c     **** 	  		}
+ 290:../main.c     **** //	  		} else { // send message to turn led off
+ 291:../main.c     **** //	  			React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = 0x00;
+ 292:../main.c     **** //	  		}
+ 293:../main.c     **** 	  	}
+ 294:../main.c     ****   }
+ 370              	 .loc 3 294 0
+ 371 004e DCE7     	 b .L13
+ 372              	.L15:
+ 373              	 .align 2
+ 374              	.L14:
+ 375 0050 00000000 	 .word BoardButton
+ 376 0054 00000000 	 .word button_state
+ 377 0058 00000000 	 .word React_Node_LMO_02_Config
+ 378              	 .cfi_endproc
+ 379              	.LFE260:
+ 381              	 .text
+ 382              	.Letext0:
+ 383              	 .file 4 "c:\\dave\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 384              	 .file 5 "c:\\dave\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 385              	 .file 6 "C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/CMSIS/Infineon/XMC4200_series/Include/XMC4200.h"
+ 386              	 .file 7 "C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc/xmc4_gpio.h"
+ 387              	 .file 8 "C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/XMCLib/inc/xmc_can.h"
+ 388              	 .file 9 "C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/GLOBAL_CAN/global_can.h"
+ 389              	 .file 10 "C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/CAN_NODE/can_node.h"
+ 390              	 .file 11 "C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/CMSIS/Include/cmsis_gcc.h"
+ 391              	 .file 12 "C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/CMSIS/Include/core_cm4.h"
+ 392              	 .file 13 "C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Libraries/CMSIS/Infineon/XMC4200_series/Include/system_XMC4200.h"
+ 393              	 .file 14 "C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/DIGITAL_IO/digital_io_extern.h"
+ 394              	 .file 15 "C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project/Dave/Generated/CAN_NODE/can_node_extern.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+    {standard input}:20     .text.XMC_GPIO_ToggleOutput:00000000 $t
+    {standard input}:24     .text.XMC_GPIO_ToggleOutput:00000000 XMC_GPIO_ToggleOutput
+    {standard input}:68     .text.XMC_GPIO_GetInput:00000000 $t
+    {standard input}:72     .text.XMC_GPIO_GetInput:00000000 XMC_GPIO_GetInput
+    {standard input}:116    .text.DIGITAL_IO_ToggleOutput:00000000 $t
+    {standard input}:120    .text.DIGITAL_IO_ToggleOutput:00000000 DIGITAL_IO_ToggleOutput
+    {standard input}:160    .text.DIGITAL_IO_GetInput:00000000 $t
+    {standard input}:164    .text.DIGITAL_IO_GetInput:00000000 DIGITAL_IO_GetInput
+    {standard input}:209    .data.button_state:00000000 button_state
+    {standard input}:206    .data.button_state:00000000 $d
+    {standard input}:212    .text.CAN0_1_IRQHandler:00000000 $t
+    {standard input}:217    .text.CAN0_1_IRQHandler:00000000 CAN0_1_IRQHandler
+    {standard input}:298    .text.CAN0_1_IRQHandler:00000068 $d
+    {standard input}:306    .text.main:00000000 $t
+    {standard input}:311    .text.main:00000000 main
+    {standard input}:375    .text.main:00000050 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+CAN_NODE_GetStatus
+CAN_NODE_MO_GetStatus
+CAN_NODE_MO_Receive
+XMC_CAN_MO_UpdateData
+CAN_NODE_MO_Transmit
+React_Node
+React_Node_LMO_01_Config
+LED_Indicator
+React_Node_LMO_02_Config
+DAVE_Init
+BoardButton
