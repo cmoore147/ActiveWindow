@@ -10,4 +10,6 @@
 
 int MSG_RCVD;
 
+int WINDOW_STATUS;
+
 #endif /* LIB_AWS_INCLUDE_NMC_VARIABLES_H_ */

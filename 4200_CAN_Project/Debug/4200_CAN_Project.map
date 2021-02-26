@@ -49,8 +49,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000       0x28 ./Libraries/XMCLib/src/xmc4_eru.o
  .debug_ranges  0x00000000       0x18 ./Libraries/XMCLib/src/xmc4_eru.o
- .debug_line    0x00000000      0x2ea ./Libraries/XMCLib/src/xmc4_eru.o
- .debug_str     0x00000000      0x7ab ./Libraries/XMCLib/src/xmc4_eru.o
+ .debug_line    0x00000000      0x2a5 ./Libraries/XMCLib/src/xmc4_eru.o
+ .debug_str     0x00000000      0x794 ./Libraries/XMCLib/src/xmc4_eru.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc4_eru.o
  .debug_frame   0x00000000       0x60 ./Libraries/XMCLib/src/xmc4_eru.o
  .ARM.attributes
@@ -116,8 +116,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000       0xe8 ./Libraries/XMCLib/src/xmc4_flash.o
  .debug_ranges  0x00000000       0xd8 ./Libraries/XMCLib/src/xmc4_flash.o
- .debug_line    0x00000000      0x5ad ./Libraries/XMCLib/src/xmc4_flash.o
- .debug_str     0x00000000      0xc43 ./Libraries/XMCLib/src/xmc4_flash.o
+ .debug_line    0x00000000      0x568 ./Libraries/XMCLib/src/xmc4_flash.o
+ .debug_str     0x00000000      0xc2c ./Libraries/XMCLib/src/xmc4_flash.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc4_flash.o
  .debug_frame   0x00000000      0x404 ./Libraries/XMCLib/src/xmc4_flash.o
  .ARM.attributes
@@ -159,8 +159,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000       0x70 ./Libraries/XMCLib/src/xmc4_rtc.o
  .debug_ranges  0x00000000       0x60 ./Libraries/XMCLib/src/xmc4_rtc.o
- .debug_line    0x00000000      0x3f8 ./Libraries/XMCLib/src/xmc4_rtc.o
- .debug_str     0x00000000      0x5c5 ./Libraries/XMCLib/src/xmc4_rtc.o
+ .debug_line    0x00000000      0x3b3 ./Libraries/XMCLib/src/xmc4_rtc.o
+ .debug_str     0x00000000      0x5ae ./Libraries/XMCLib/src/xmc4_rtc.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc4_rtc.o
  .debug_frame   0x00000000      0x1a4 ./Libraries/XMCLib/src/xmc4_rtc.o
  .ARM.attributes
@@ -483,8 +483,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000      0x138 ./Libraries/XMCLib/src/xmc_ccu4.o
  .debug_ranges  0x00000000      0x128 ./Libraries/XMCLib/src/xmc_ccu4.o
- .debug_line    0x00000000      0x683 ./Libraries/XMCLib/src/xmc_ccu4.o
- .debug_str     0x00000000     0x1ca2 ./Libraries/XMCLib/src/xmc_ccu4.o
+ .debug_line    0x00000000      0x63e ./Libraries/XMCLib/src/xmc_ccu4.o
+ .debug_str     0x00000000     0x1c8b ./Libraries/XMCLib/src/xmc_ccu4.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_ccu4.o
  .debug_frame   0x00000000      0x5b0 ./Libraries/XMCLib/src/xmc_ccu4.o
  .ARM.attributes
@@ -592,8 +592,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000      0x190 ./Libraries/XMCLib/src/xmc_ccu8.o
  .debug_ranges  0x00000000      0x180 ./Libraries/XMCLib/src/xmc_ccu8.o
- .debug_line    0x00000000      0x771 ./Libraries/XMCLib/src/xmc_ccu8.o
- .debug_str     0x00000000     0x23f0 ./Libraries/XMCLib/src/xmc_ccu8.o
+ .debug_line    0x00000000      0x72c ./Libraries/XMCLib/src/xmc_ccu8.o
+ .debug_str     0x00000000     0x23d9 ./Libraries/XMCLib/src/xmc_ccu8.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_ccu8.o
  .debug_frame   0x00000000      0x768 ./Libraries/XMCLib/src/xmc_ccu8.o
  .ARM.attributes
@@ -631,8 +631,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000       0x78 ./Libraries/XMCLib/src/xmc_common.o
  .debug_ranges  0x00000000       0x68 ./Libraries/XMCLib/src/xmc_common.o
- .debug_line    0x00000000      0x344 ./Libraries/XMCLib/src/xmc_common.o
- .debug_str     0x00000000      0x431 ./Libraries/XMCLib/src/xmc_common.o
+ .debug_line    0x00000000      0x316 ./Libraries/XMCLib/src/xmc_common.o
+ .debug_str     0x00000000      0x41a ./Libraries/XMCLib/src/xmc_common.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_common.o
  .debug_frame   0x00000000      0x1f0 ./Libraries/XMCLib/src/xmc_common.o
  .ARM.attributes
@@ -684,8 +684,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000       0xb0 ./Libraries/XMCLib/src/xmc_dac.o
  .debug_ranges  0x00000000       0xa0 ./Libraries/XMCLib/src/xmc_dac.o
- .debug_line    0x00000000      0x48f ./Libraries/XMCLib/src/xmc_dac.o
- .debug_str     0x00000000      0xd27 ./Libraries/XMCLib/src/xmc_dac.o
+ .debug_line    0x00000000      0x44a ./Libraries/XMCLib/src/xmc_dac.o
+ .debug_str     0x00000000      0xd10 ./Libraries/XMCLib/src/xmc_dac.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_dac.o
  .debug_frame   0x00000000      0x308 ./Libraries/XMCLib/src/xmc_dac.o
  .ARM.attributes
@@ -779,8 +779,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000      0x158 ./Libraries/XMCLib/src/xmc_dma.o
  .debug_ranges  0x00000000      0x148 ./Libraries/XMCLib/src/xmc_dma.o
- .debug_line    0x00000000      0x74b ./Libraries/XMCLib/src/xmc_dma.o
- .debug_str     0x00000000     0x17c1 ./Libraries/XMCLib/src/xmc_dma.o
+ .debug_line    0x00000000      0x706 ./Libraries/XMCLib/src/xmc_dma.o
+ .debug_str     0x00000000     0x17aa ./Libraries/XMCLib/src/xmc_dma.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_dma.o
  .debug_frame   0x00000000      0x650 ./Libraries/XMCLib/src/xmc_dma.o
  .ARM.attributes
@@ -793,8 +793,8 @@ Discarded input sections
  .debug_abbrev  0x00000000       0xa2 ./Libraries/XMCLib/src/xmc_dsd.o
  .debug_aranges
                 0x00000000       0x18 ./Libraries/XMCLib/src/xmc_dsd.o
- .debug_line    0x00000000      0x167 ./Libraries/XMCLib/src/xmc_dsd.o
- .debug_str     0x00000000      0x29f ./Libraries/XMCLib/src/xmc_dsd.o
+ .debug_line    0x00000000      0x150 ./Libraries/XMCLib/src/xmc_dsd.o
+ .debug_str     0x00000000      0x288 ./Libraries/XMCLib/src/xmc_dsd.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_dsd.o
  .ARM.attributes
                 0x00000000       0x37 ./Libraries/XMCLib/src/xmc_dsd.o
@@ -805,8 +805,8 @@ Discarded input sections
  .debug_abbrev  0x00000000       0xa2 ./Libraries/XMCLib/src/xmc_ebu.o
  .debug_aranges
                 0x00000000       0x18 ./Libraries/XMCLib/src/xmc_ebu.o
- .debug_line    0x00000000      0x167 ./Libraries/XMCLib/src/xmc_ebu.o
- .debug_str     0x00000000      0x29f ./Libraries/XMCLib/src/xmc_ebu.o
+ .debug_line    0x00000000      0x150 ./Libraries/XMCLib/src/xmc_ebu.o
+ .debug_str     0x00000000      0x288 ./Libraries/XMCLib/src/xmc_ebu.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_ebu.o
  .ARM.attributes
                 0x00000000       0x37 ./Libraries/XMCLib/src/xmc_ebu.o
@@ -817,8 +817,8 @@ Discarded input sections
  .debug_abbrev  0x00000000       0xa2 ./Libraries/XMCLib/src/xmc_ecat.o
  .debug_aranges
                 0x00000000       0x18 ./Libraries/XMCLib/src/xmc_ecat.o
- .debug_line    0x00000000      0x167 ./Libraries/XMCLib/src/xmc_ecat.o
- .debug_str     0x00000000      0x2a0 ./Libraries/XMCLib/src/xmc_ecat.o
+ .debug_line    0x00000000      0x150 ./Libraries/XMCLib/src/xmc_ecat.o
+ .debug_str     0x00000000      0x289 ./Libraries/XMCLib/src/xmc_ecat.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_ecat.o
  .ARM.attributes
                 0x00000000       0x37 ./Libraries/XMCLib/src/xmc_ecat.o
@@ -859,8 +859,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000       0x88 ./Libraries/XMCLib/src/xmc_eru.o
  .debug_ranges  0x00000000       0x78 ./Libraries/XMCLib/src/xmc_eru.o
- .debug_line    0x00000000      0x31d ./Libraries/XMCLib/src/xmc_eru.o
- .debug_str     0x00000000      0xd0f ./Libraries/XMCLib/src/xmc_eru.o
+ .debug_line    0x00000000      0x2ef ./Libraries/XMCLib/src/xmc_eru.o
+ .debug_str     0x00000000      0xcf8 ./Libraries/XMCLib/src/xmc_eru.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_eru.o
  .debug_frame   0x00000000      0x240 ./Libraries/XMCLib/src/xmc_eru.o
  .ARM.attributes
@@ -872,8 +872,8 @@ Discarded input sections
  .debug_abbrev  0x00000000       0xa2 ./Libraries/XMCLib/src/xmc_eth_mac.o
  .debug_aranges
                 0x00000000       0x18 ./Libraries/XMCLib/src/xmc_eth_mac.o
- .debug_line    0x00000000      0x167 ./Libraries/XMCLib/src/xmc_eth_mac.o
- .debug_str     0x00000000      0x2a3 ./Libraries/XMCLib/src/xmc_eth_mac.o
+ .debug_line    0x00000000      0x150 ./Libraries/XMCLib/src/xmc_eth_mac.o
+ .debug_str     0x00000000      0x28c ./Libraries/XMCLib/src/xmc_eth_mac.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_eth_mac.o
  .ARM.attributes
                 0x00000000       0x37 ./Libraries/XMCLib/src/xmc_eth_mac.o
@@ -881,7 +881,7 @@ Discarded input sections
  .data          0x00000000        0x0 ./Libraries/XMCLib/src/xmc_eth_phy_dp83848.o
  .bss           0x00000000        0x0 ./Libraries/XMCLib/src/xmc_eth_phy_dp83848.o
  .debug_line    0x00000000        0x0 ./Libraries/XMCLib/src/xmc_eth_phy_dp83848.o
- .debug_str     0x00000000      0x16e ./Libraries/XMCLib/src/xmc_eth_phy_dp83848.o
+ .debug_str     0x00000000      0x157 ./Libraries/XMCLib/src/xmc_eth_phy_dp83848.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_eth_phy_dp83848.o
  .ARM.attributes
                 0x00000000       0x37 ./Libraries/XMCLib/src/xmc_eth_phy_dp83848.o
@@ -889,7 +889,7 @@ Discarded input sections
  .data          0x00000000        0x0 ./Libraries/XMCLib/src/xmc_eth_phy_ksz8031rnl.o
  .bss           0x00000000        0x0 ./Libraries/XMCLib/src/xmc_eth_phy_ksz8031rnl.o
  .debug_line    0x00000000        0x0 ./Libraries/XMCLib/src/xmc_eth_phy_ksz8031rnl.o
- .debug_str     0x00000000      0x171 ./Libraries/XMCLib/src/xmc_eth_phy_ksz8031rnl.o
+ .debug_str     0x00000000      0x15a ./Libraries/XMCLib/src/xmc_eth_phy_ksz8031rnl.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_eth_phy_ksz8031rnl.o
  .ARM.attributes
                 0x00000000       0x37 ./Libraries/XMCLib/src/xmc_eth_phy_ksz8031rnl.o
@@ -897,7 +897,7 @@ Discarded input sections
  .data          0x00000000        0x0 ./Libraries/XMCLib/src/xmc_eth_phy_ksz8081rnb.o
  .bss           0x00000000        0x0 ./Libraries/XMCLib/src/xmc_eth_phy_ksz8081rnb.o
  .debug_line    0x00000000        0x0 ./Libraries/XMCLib/src/xmc_eth_phy_ksz8081rnb.o
- .debug_str     0x00000000      0x171 ./Libraries/XMCLib/src/xmc_eth_phy_ksz8081rnb.o
+ .debug_str     0x00000000      0x15a ./Libraries/XMCLib/src/xmc_eth_phy_ksz8081rnb.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_eth_phy_ksz8081rnb.o
  .ARM.attributes
                 0x00000000       0x37 ./Libraries/XMCLib/src/xmc_eth_phy_ksz8081rnb.o
@@ -932,8 +932,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000       0x70 ./Libraries/XMCLib/src/xmc_fce.o
  .debug_ranges  0x00000000       0x60 ./Libraries/XMCLib/src/xmc_fce.o
- .debug_line    0x00000000      0x44a ./Libraries/XMCLib/src/xmc_fce.o
- .debug_str     0x00000000      0xa07 ./Libraries/XMCLib/src/xmc_fce.o
+ .debug_line    0x00000000      0x405 ./Libraries/XMCLib/src/xmc_fce.o
+ .debug_str     0x00000000      0x9f0 ./Libraries/XMCLib/src/xmc_fce.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_fce.o
  .debug_frame   0x00000000      0x1b0 ./Libraries/XMCLib/src/xmc_fce.o
  .ARM.attributes
@@ -991,8 +991,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000       0xb0 ./Libraries/XMCLib/src/xmc_hrpwm.o
  .debug_ranges  0x00000000       0xa0 ./Libraries/XMCLib/src/xmc_hrpwm.o
- .debug_line    0x00000000      0x4eb ./Libraries/XMCLib/src/xmc_hrpwm.o
- .debug_str     0x00000000     0x1ad4 ./Libraries/XMCLib/src/xmc_hrpwm.o
+ .debug_line    0x00000000      0x4a6 ./Libraries/XMCLib/src/xmc_hrpwm.o
+ .debug_str     0x00000000     0x1abd ./Libraries/XMCLib/src/xmc_hrpwm.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_hrpwm.o
  .debug_frame   0x00000000      0x308 ./Libraries/XMCLib/src/xmc_hrpwm.o
  .ARM.attributes
@@ -1044,8 +1044,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000       0xb0 ./Libraries/XMCLib/src/xmc_i2c.o
  .debug_ranges  0x00000000       0xa0 ./Libraries/XMCLib/src/xmc_i2c.o
- .debug_line    0x00000000      0x412 ./Libraries/XMCLib/src/xmc_i2c.o
- .debug_str     0x00000000      0xd67 ./Libraries/XMCLib/src/xmc_i2c.o
+ .debug_line    0x00000000      0x3e4 ./Libraries/XMCLib/src/xmc_i2c.o
+ .debug_str     0x00000000      0xd50 ./Libraries/XMCLib/src/xmc_i2c.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_i2c.o
  .debug_frame   0x00000000      0x308 ./Libraries/XMCLib/src/xmc_i2c.o
  .ARM.attributes
@@ -1083,8 +1083,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000       0x78 ./Libraries/XMCLib/src/xmc_i2s.o
  .debug_ranges  0x00000000       0x68 ./Libraries/XMCLib/src/xmc_i2s.o
- .debug_line    0x00000000      0x417 ./Libraries/XMCLib/src/xmc_i2s.o
- .debug_str     0x00000000      0xc03 ./Libraries/XMCLib/src/xmc_i2s.o
+ .debug_line    0x00000000      0x3d2 ./Libraries/XMCLib/src/xmc_i2s.o
+ .debug_str     0x00000000      0xbec ./Libraries/XMCLib/src/xmc_i2s.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_i2s.o
  .debug_frame   0x00000000      0x1f0 ./Libraries/XMCLib/src/xmc_i2s.o
  .ARM.attributes
@@ -1130,8 +1130,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000       0x98 ./Libraries/XMCLib/src/xmc_ledts.o
  .debug_ranges  0x00000000       0x88 ./Libraries/XMCLib/src/xmc_ledts.o
- .debug_line    0x00000000      0x427 ./Libraries/XMCLib/src/xmc_ledts.o
- .debug_str     0x00000000      0xe6d ./Libraries/XMCLib/src/xmc_ledts.o
+ .debug_line    0x00000000      0x3e2 ./Libraries/XMCLib/src/xmc_ledts.o
+ .debug_str     0x00000000      0xe56 ./Libraries/XMCLib/src/xmc_ledts.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_ledts.o
  .debug_frame   0x00000000      0x290 ./Libraries/XMCLib/src/xmc_ledts.o
  .ARM.attributes
@@ -1163,8 +1163,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000       0x60 ./Libraries/XMCLib/src/xmc_posif.o
  .debug_ranges  0x00000000       0x50 ./Libraries/XMCLib/src/xmc_posif.o
- .debug_line    0x00000000      0x3ad ./Libraries/XMCLib/src/xmc_posif.o
- .debug_str     0x00000000      0xe0f ./Libraries/XMCLib/src/xmc_posif.o
+ .debug_line    0x00000000      0x368 ./Libraries/XMCLib/src/xmc_posif.o
+ .debug_str     0x00000000      0xdf8 ./Libraries/XMCLib/src/xmc_posif.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_posif.o
  .debug_frame   0x00000000      0x178 ./Libraries/XMCLib/src/xmc_posif.o
  .ARM.attributes
@@ -1204,8 +1204,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000       0x80 ./Libraries/XMCLib/src/xmc_rtc.o
  .debug_ranges  0x00000000       0x70 ./Libraries/XMCLib/src/xmc_rtc.o
- .debug_line    0x00000000      0x43a ./Libraries/XMCLib/src/xmc_rtc.o
- .debug_str     0x00000000      0x5bc ./Libraries/XMCLib/src/xmc_rtc.o
+ .debug_line    0x00000000      0x3f5 ./Libraries/XMCLib/src/xmc_rtc.o
+ .debug_str     0x00000000      0x5a5 ./Libraries/XMCLib/src/xmc_rtc.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_rtc.o
  .debug_frame   0x00000000      0x1f8 ./Libraries/XMCLib/src/xmc_rtc.o
  .ARM.attributes
@@ -1217,8 +1217,8 @@ Discarded input sections
  .debug_abbrev  0x00000000       0xa2 ./Libraries/XMCLib/src/xmc_sdmmc.o
  .debug_aranges
                 0x00000000       0x18 ./Libraries/XMCLib/src/xmc_sdmmc.o
- .debug_line    0x00000000      0x167 ./Libraries/XMCLib/src/xmc_sdmmc.o
- .debug_str     0x00000000      0x2a1 ./Libraries/XMCLib/src/xmc_sdmmc.o
+ .debug_line    0x00000000      0x150 ./Libraries/XMCLib/src/xmc_sdmmc.o
+ .debug_str     0x00000000      0x28a ./Libraries/XMCLib/src/xmc_sdmmc.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_sdmmc.o
  .ARM.attributes
                 0x00000000       0x37 ./Libraries/XMCLib/src/xmc_sdmmc.o
@@ -1259,8 +1259,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000       0x88 ./Libraries/XMCLib/src/xmc_spi.o
  .debug_ranges  0x00000000       0x78 ./Libraries/XMCLib/src/xmc_spi.o
- .debug_line    0x00000000      0x43c ./Libraries/XMCLib/src/xmc_spi.o
- .debug_str     0x00000000      0xded ./Libraries/XMCLib/src/xmc_spi.o
+ .debug_line    0x00000000      0x3f7 ./Libraries/XMCLib/src/xmc_spi.o
+ .debug_str     0x00000000      0xdd6 ./Libraries/XMCLib/src/xmc_spi.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_spi.o
  .debug_frame   0x00000000      0x240 ./Libraries/XMCLib/src/xmc_spi.o
  .ARM.attributes
@@ -1298,8 +1298,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000       0x78 ./Libraries/XMCLib/src/xmc_uart.o
  .debug_ranges  0x00000000       0x68 ./Libraries/XMCLib/src/xmc_uart.o
- .debug_line    0x00000000      0x3ff ./Libraries/XMCLib/src/xmc_uart.o
- .debug_str     0x00000000      0xbd2 ./Libraries/XMCLib/src/xmc_uart.o
+ .debug_line    0x00000000      0x3ba ./Libraries/XMCLib/src/xmc_uart.o
+ .debug_str     0x00000000      0xbbb ./Libraries/XMCLib/src/xmc_uart.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_uart.o
  .debug_frame   0x00000000      0x1f0 ./Libraries/XMCLib/src/xmc_uart.o
  .ARM.attributes
@@ -1400,8 +1400,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000      0x158 ./Libraries/XMCLib/src/xmc_usbd.o
  .debug_ranges  0x00000000      0x148 ./Libraries/XMCLib/src/xmc_usbd.o
- .debug_line    0x00000000      0x949 ./Libraries/XMCLib/src/xmc_usbd.o
- .debug_str     0x00000000     0x251d ./Libraries/XMCLib/src/xmc_usbd.o
+ .debug_line    0x00000000      0x904 ./Libraries/XMCLib/src/xmc_usbd.o
+ .debug_str     0x00000000     0x2506 ./Libraries/XMCLib/src/xmc_usbd.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_usbd.o
  .debug_frame   0x00000000      0x634 ./Libraries/XMCLib/src/xmc_usbd.o
  .ARM.attributes
@@ -1414,8 +1414,8 @@ Discarded input sections
  .debug_abbrev  0x00000000       0xa2 ./Libraries/XMCLib/src/xmc_usbh.o
  .debug_aranges
                 0x00000000       0x18 ./Libraries/XMCLib/src/xmc_usbh.o
- .debug_line    0x00000000      0x167 ./Libraries/XMCLib/src/xmc_usbh.o
- .debug_str     0x00000000      0x2a0 ./Libraries/XMCLib/src/xmc_usbh.o
+ .debug_line    0x00000000      0x150 ./Libraries/XMCLib/src/xmc_usbh.o
+ .debug_str     0x00000000      0x289 ./Libraries/XMCLib/src/xmc_usbh.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_usbh.o
  .ARM.attributes
                 0x00000000       0x37 ./Libraries/XMCLib/src/xmc_usbh.o
@@ -1466,8 +1466,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000       0xb0 ./Libraries/XMCLib/src/xmc_usic.o
  .debug_ranges  0x00000000       0xa0 ./Libraries/XMCLib/src/xmc_usic.o
- .debug_line    0x00000000      0x55e ./Libraries/XMCLib/src/xmc_usic.o
- .debug_str     0x00000000     0x12d1 ./Libraries/XMCLib/src/xmc_usic.o
+ .debug_line    0x00000000      0x519 ./Libraries/XMCLib/src/xmc_usic.o
+ .debug_str     0x00000000     0x12ba ./Libraries/XMCLib/src/xmc_usic.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_usic.o
  .debug_frame   0x00000000      0x308 ./Libraries/XMCLib/src/xmc_usic.o
  .ARM.attributes
@@ -1637,8 +1637,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000      0x280 ./Libraries/XMCLib/src/xmc_vadc.o
  .debug_ranges  0x00000000      0x270 ./Libraries/XMCLib/src/xmc_vadc.o
- .debug_line    0x00000000      0xb55 ./Libraries/XMCLib/src/xmc_vadc.o
- .debug_str     0x00000000     0x2b3e ./Libraries/XMCLib/src/xmc_vadc.o
+ .debug_line    0x00000000      0xb10 ./Libraries/XMCLib/src/xmc_vadc.o
+ .debug_str     0x00000000     0x2b27 ./Libraries/XMCLib/src/xmc_vadc.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_vadc.o
  .debug_frame   0x00000000      0xc00 ./Libraries/XMCLib/src/xmc_vadc.o
  .ARM.attributes
@@ -1658,8 +1658,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000       0x30 ./Libraries/XMCLib/src/xmc_wdt.o
  .debug_ranges  0x00000000       0x20 ./Libraries/XMCLib/src/xmc_wdt.o
- .debug_line    0x00000000      0x30b ./Libraries/XMCLib/src/xmc_wdt.o
- .debug_str     0x00000000      0x812 ./Libraries/XMCLib/src/xmc_wdt.o
+ .debug_line    0x00000000      0x2c6 ./Libraries/XMCLib/src/xmc_wdt.o
+ .debug_str     0x00000000      0x7fb ./Libraries/XMCLib/src/xmc_wdt.o
  .comment       0x00000000       0x71 ./Libraries/XMCLib/src/xmc_wdt.o
  .debug_frame   0x00000000       0x70 ./Libraries/XMCLib/src/xmc_wdt.o
  .ARM.attributes
@@ -1720,8 +1720,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000       0x38 ./Dave/Generated/CPU_CTRL_XMC4/cpu_ctrl_xmc4.o
  .debug_ranges  0x00000000       0x28 ./Dave/Generated/CPU_CTRL_XMC4/cpu_ctrl_xmc4.o
- .debug_line    0x00000000      0x293 ./Dave/Generated/CPU_CTRL_XMC4/cpu_ctrl_xmc4.o
- .debug_str     0x00000000      0x464 ./Dave/Generated/CPU_CTRL_XMC4/cpu_ctrl_xmc4.o
+ .debug_line    0x00000000      0x265 ./Dave/Generated/CPU_CTRL_XMC4/cpu_ctrl_xmc4.o
+ .debug_str     0x00000000      0x44d ./Dave/Generated/CPU_CTRL_XMC4/cpu_ctrl_xmc4.o
  .comment       0x00000000       0x71 ./Dave/Generated/CPU_CTRL_XMC4/cpu_ctrl_xmc4.o
  .debug_frame   0x00000000       0xac ./Dave/Generated/CPU_CTRL_XMC4/cpu_ctrl_xmc4.o
  .ARM.attributes
@@ -2487,28 +2487,28 @@ USB_RAM         0x20000000        0x0
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_info     0x00000000     0xbcad
+.debug_info     0x00000000     0xbc96
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000       0xac ./Startup/startup_XMC4200.o
- .debug_info    0x000000ac      0xa06 ./Startup/system_XMC4200.o
- .debug_info    0x00000ab2      0x4db ./Libraries/XMCLib/src/xmc4_gpio.o
- .debug_info    0x00000f8d     0x26b4 ./Libraries/XMCLib/src/xmc4_scu.o
- .debug_info    0x00003641     0x1440 ./Libraries/XMCLib/src/xmc_can.o
- .debug_info    0x00004a81      0x456 ./Libraries/XMCLib/src/xmc_gpio.o
- .debug_info    0x00004ed7      0x11f ./Libraries/Newlib/syscalls.o
- .debug_info    0x00004ff6      0x8ec ./Dave/Generated/INTERRUPT/interrupt.o
- .debug_info    0x000058e2      0x3f7 ./Dave/Generated/INTERRUPT/interrupt_conf.o
- .debug_info    0x00005cd9      0x456 ./Dave/Generated/GLOBAL_CAN/global_can.o
- .debug_info    0x0000612f      0x374 ./Dave/Generated/GLOBAL_CAN/global_can_conf.o
- .debug_info    0x000064a3      0x595 ./Dave/Generated/DIGITAL_IO/digital_io.o
- .debug_info    0x00006a38      0x4e2 ./Dave/Generated/DIGITAL_IO/digital_io_conf.o
- .debug_info    0x00006f1a      0x52e ./Dave/Generated/CPU_CTRL_XMC4/cpu_ctrl_xmc4_conf.o
- .debug_info    0x00007448      0x2dd ./Dave/Generated/CLOCK_XMC4/clock_xmc4.o
- .debug_info    0x00007725      0x43e ./Dave/Generated/CLOCK_XMC4/clock_xmc4_conf.o
- .debug_info    0x00007b63     0x154d ./Dave/Generated/CAN_NODE/can_node.o
- .debug_info    0x000090b0      0xd16 ./Dave/Generated/CAN_NODE/can_node_conf.o
- .debug_info    0x00009dc6      0xfa5 ./Dave/Generated/DAVE.o
- .debug_info    0x0000ad6b      0xf42 ./main.o
+ .debug_info    0x00000000       0x95 ./Startup/startup_XMC4200.o
+ .debug_info    0x00000095      0xa06 ./Startup/system_XMC4200.o
+ .debug_info    0x00000a9b      0x4db ./Libraries/XMCLib/src/xmc4_gpio.o
+ .debug_info    0x00000f76     0x26b4 ./Libraries/XMCLib/src/xmc4_scu.o
+ .debug_info    0x0000362a     0x1440 ./Libraries/XMCLib/src/xmc_can.o
+ .debug_info    0x00004a6a      0x456 ./Libraries/XMCLib/src/xmc_gpio.o
+ .debug_info    0x00004ec0      0x11f ./Libraries/Newlib/syscalls.o
+ .debug_info    0x00004fdf      0x8ec ./Dave/Generated/INTERRUPT/interrupt.o
+ .debug_info    0x000058cb      0x3f7 ./Dave/Generated/INTERRUPT/interrupt_conf.o
+ .debug_info    0x00005cc2      0x456 ./Dave/Generated/GLOBAL_CAN/global_can.o
+ .debug_info    0x00006118      0x374 ./Dave/Generated/GLOBAL_CAN/global_can_conf.o
+ .debug_info    0x0000648c      0x595 ./Dave/Generated/DIGITAL_IO/digital_io.o
+ .debug_info    0x00006a21      0x4e2 ./Dave/Generated/DIGITAL_IO/digital_io_conf.o
+ .debug_info    0x00006f03      0x52e ./Dave/Generated/CPU_CTRL_XMC4/cpu_ctrl_xmc4_conf.o
+ .debug_info    0x00007431      0x2dd ./Dave/Generated/CLOCK_XMC4/clock_xmc4.o
+ .debug_info    0x0000770e      0x43e ./Dave/Generated/CLOCK_XMC4/clock_xmc4_conf.o
+ .debug_info    0x00007b4c     0x154d ./Dave/Generated/CAN_NODE/can_node.o
+ .debug_info    0x00009099      0xd16 ./Dave/Generated/CAN_NODE/can_node_conf.o
+ .debug_info    0x00009daf      0xfa5 ./Dave/Generated/DAVE.o
+ .debug_info    0x0000ad54      0xf42 ./main.o
 
 .debug_abbrev   0x00000000     0x1fb9
  *(.debug_abbrev)
@@ -2533,28 +2533,28 @@ USB_RAM         0x20000000        0x0
  .debug_abbrev  0x00001b8d      0x1bb ./Dave/Generated/DAVE.o
  .debug_abbrev  0x00001d48      0x271 ./main.o
 
-.debug_line     0x00000000     0x4ca3
+.debug_line     0x00000000     0x47e0
  *(.debug_line)
  .debug_line    0x00000000       0x87 ./Startup/startup_XMC4200.o
- .debug_line    0x00000087      0x32d ./Startup/system_XMC4200.o
- .debug_line    0x000003b4      0x254 ./Libraries/XMCLib/src/xmc4_gpio.o
- .debug_line    0x00000608      0xf69 ./Libraries/XMCLib/src/xmc4_scu.o
- .debug_line    0x00001571      0x72d ./Libraries/XMCLib/src/xmc_can.o
- .debug_line    0x00001c9e      0x248 ./Libraries/XMCLib/src/xmc_gpio.o
- .debug_line    0x00001ee6       0xbf ./Libraries/Newlib/syscalls.o
- .debug_line    0x00001fa5      0x37c ./Dave/Generated/INTERRUPT/interrupt.o
- .debug_line    0x00002321      0x244 ./Dave/Generated/INTERRUPT/interrupt_conf.o
- .debug_line    0x00002565      0x387 ./Dave/Generated/GLOBAL_CAN/global_can.o
- .debug_line    0x000028ec      0x2de ./Dave/Generated/GLOBAL_CAN/global_can_conf.o
- .debug_line    0x00002bca      0x2e2 ./Dave/Generated/DIGITAL_IO/digital_io.o
- .debug_line    0x00002eac      0x23c ./Dave/Generated/DIGITAL_IO/digital_io_conf.o
- .debug_line    0x000030e8      0x2b5 ./Dave/Generated/CPU_CTRL_XMC4/cpu_ctrl_xmc4_conf.o
- .debug_line    0x0000339d      0x318 ./Dave/Generated/CLOCK_XMC4/clock_xmc4.o
- .debug_line    0x000036b5      0x2ed ./Dave/Generated/CLOCK_XMC4/clock_xmc4_conf.o
- .debug_line    0x000039a2      0x678 ./Dave/Generated/CAN_NODE/can_node.o
- .debug_line    0x0000401a      0x345 ./Dave/Generated/CAN_NODE/can_node_conf.o
- .debug_line    0x0000435f      0x42f ./Dave/Generated/DAVE.o
- .debug_line    0x0000478e      0x515 ./main.o
+ .debug_line    0x00000087      0x2ff ./Startup/system_XMC4200.o
+ .debug_line    0x00000386      0x226 ./Libraries/XMCLib/src/xmc4_gpio.o
+ .debug_line    0x000005ac      0xf24 ./Libraries/XMCLib/src/xmc4_scu.o
+ .debug_line    0x000014d0      0x6e8 ./Libraries/XMCLib/src/xmc_can.o
+ .debug_line    0x00001bb8      0x21a ./Libraries/XMCLib/src/xmc_gpio.o
+ .debug_line    0x00001dd2       0xbf ./Libraries/Newlib/syscalls.o
+ .debug_line    0x00001e91      0x337 ./Dave/Generated/INTERRUPT/interrupt.o
+ .debug_line    0x000021c8      0x216 ./Dave/Generated/INTERRUPT/interrupt_conf.o
+ .debug_line    0x000023de      0x32b ./Dave/Generated/GLOBAL_CAN/global_can.o
+ .debug_line    0x00002709      0x299 ./Dave/Generated/GLOBAL_CAN/global_can_conf.o
+ .debug_line    0x000029a2      0x29d ./Dave/Generated/DIGITAL_IO/digital_io.o
+ .debug_line    0x00002c3f      0x20e ./Dave/Generated/DIGITAL_IO/digital_io_conf.o
+ .debug_line    0x00002e4d      0x287 ./Dave/Generated/CPU_CTRL_XMC4/cpu_ctrl_xmc4_conf.o
+ .debug_line    0x000030d4      0x2d3 ./Dave/Generated/CLOCK_XMC4/clock_xmc4.o
+ .debug_line    0x000033a7      0x2a8 ./Dave/Generated/CLOCK_XMC4/clock_xmc4_conf.o
+ .debug_line    0x0000364f      0x61c ./Dave/Generated/CAN_NODE/can_node.o
+ .debug_line    0x00003c6b      0x300 ./Dave/Generated/CAN_NODE/can_node_conf.o
+ .debug_line    0x00003f6b      0x3ea ./Dave/Generated/DAVE.o
+ .debug_line    0x00004355      0x48b ./main.o
 
 .debug_frame    0x00000000     0x2474
  *(.debug_frame)
@@ -2575,46 +2575,46 @@ USB_RAM         0x20000000        0x0
  .debug_frame   0x00002350       0xf8 ./main.o
  .debug_frame   0x00002448       0x2c c:/dave/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-init.o)
 
-.debug_str      0x00000000     0x5652
+.debug_str      0x00000000     0x563b
  *(.debug_str)
- .debug_str     0x00000000      0x5f6 ./Startup/system_XMC4200.o
-                                0x668 (size before relaxing)
- .debug_str     0x000005f6      0x544 ./Libraries/XMCLib/src/xmc4_gpio.o
-                                0x80b (size before relaxing)
- .debug_str     0x00000b3a     0x2628 ./Libraries/XMCLib/src/xmc4_scu.o
-                               0x2ba8 (size before relaxing)
- .debug_str     0x00003162      0xb92 ./Libraries/XMCLib/src/xmc_can.o
-                               0x131a (size before relaxing)
- .debug_str     0x00003cf4       0xca ./Libraries/XMCLib/src/xmc_gpio.o
-                                0x6b9 (size before relaxing)
- .debug_str     0x00003dbe       0x6a ./Libraries/Newlib/syscalls.o
-                                0x247 (size before relaxing)
- .debug_str     0x00003e28      0x60d ./Dave/Generated/INTERRUPT/interrupt.o
-                                0x94d (size before relaxing)
- .debug_str     0x00004435       0x41 ./Dave/Generated/INTERRUPT/interrupt_conf.o
-                                0x723 (size before relaxing)
- .debug_str     0x00004476       0xed ./Dave/Generated/GLOBAL_CAN/global_can.o
-                                0x488 (size before relaxing)
- .debug_str     0x00004563       0x3c ./Dave/Generated/GLOBAL_CAN/global_can_conf.o
-                                0x3a1 (size before relaxing)
- .debug_str     0x0000459f       0xdf ./Dave/Generated/DIGITAL_IO/digital_io.o
-                                0x948 (size before relaxing)
- .debug_str     0x0000467e       0x49 ./Dave/Generated/DIGITAL_IO/digital_io_conf.o
-                                0x8a3 (size before relaxing)
- .debug_str     0x000046c7       0x94 ./Dave/Generated/CPU_CTRL_XMC4/cpu_ctrl_xmc4_conf.o
-                                0x44b (size before relaxing)
- .debug_str     0x0000475b       0xe7 ./Dave/Generated/CLOCK_XMC4/clock_xmc4.o
-                                0x3fc (size before relaxing)
- .debug_str     0x00004842       0x50 ./Dave/Generated/CLOCK_XMC4/clock_xmc4_conf.o
-                                0x7dc (size before relaxing)
- .debug_str     0x00004892      0x941 ./Dave/Generated/CAN_NODE/can_node.o
-                               0x1678 (size before relaxing)
- .debug_str     0x000051d3      0x1ae ./Dave/Generated/CAN_NODE/can_node_conf.o
-                                0xf9a (size before relaxing)
- .debug_str     0x00005381       0x65 ./Dave/Generated/DAVE.o
-                               0x1347 (size before relaxing)
- .debug_str     0x000053e6      0x26c ./main.o
-                               0x12f4 (size before relaxing)
+ .debug_str     0x00000000      0x5df ./Startup/system_XMC4200.o
+                                0x651 (size before relaxing)
+ .debug_str     0x000005df      0x544 ./Libraries/XMCLib/src/xmc4_gpio.o
+                                0x7f4 (size before relaxing)
+ .debug_str     0x00000b23     0x2628 ./Libraries/XMCLib/src/xmc4_scu.o
+                               0x2b91 (size before relaxing)
+ .debug_str     0x0000314b      0xb92 ./Libraries/XMCLib/src/xmc_can.o
+                               0x1303 (size before relaxing)
+ .debug_str     0x00003cdd       0xca ./Libraries/XMCLib/src/xmc_gpio.o
+                                0x6a2 (size before relaxing)
+ .debug_str     0x00003da7       0x6a ./Libraries/Newlib/syscalls.o
+                                0x230 (size before relaxing)
+ .debug_str     0x00003e11      0x60d ./Dave/Generated/INTERRUPT/interrupt.o
+                                0x936 (size before relaxing)
+ .debug_str     0x0000441e       0x41 ./Dave/Generated/INTERRUPT/interrupt_conf.o
+                                0x70c (size before relaxing)
+ .debug_str     0x0000445f       0xed ./Dave/Generated/GLOBAL_CAN/global_can.o
+                                0x471 (size before relaxing)
+ .debug_str     0x0000454c       0x3c ./Dave/Generated/GLOBAL_CAN/global_can_conf.o
+                                0x38a (size before relaxing)
+ .debug_str     0x00004588       0xdf ./Dave/Generated/DIGITAL_IO/digital_io.o
+                                0x931 (size before relaxing)
+ .debug_str     0x00004667       0x49 ./Dave/Generated/DIGITAL_IO/digital_io_conf.o
+                                0x88c (size before relaxing)
+ .debug_str     0x000046b0       0x94 ./Dave/Generated/CPU_CTRL_XMC4/cpu_ctrl_xmc4_conf.o
+                                0x434 (size before relaxing)
+ .debug_str     0x00004744       0xe7 ./Dave/Generated/CLOCK_XMC4/clock_xmc4.o
+                                0x3e5 (size before relaxing)
+ .debug_str     0x0000482b       0x50 ./Dave/Generated/CLOCK_XMC4/clock_xmc4_conf.o
+                                0x7c5 (size before relaxing)
+ .debug_str     0x0000487b      0x941 ./Dave/Generated/CAN_NODE/can_node.o
+                               0x1661 (size before relaxing)
+ .debug_str     0x000051bc      0x1ae ./Dave/Generated/CAN_NODE/can_node_conf.o
+                                0xf83 (size before relaxing)
+ .debug_str     0x0000536a       0x65 ./Dave/Generated/DAVE.o
+                               0x1330 (size before relaxing)
+ .debug_str     0x000053cf      0x26c ./main.o
+                               0x12dd (size before relaxing)
 
 .debug_loc      0x00000000     0x4b2e
  *(.debug_loc)

@@ -138,7 +138,7 @@ static uint8_t thing_mac_address[ ( wificonfigMAX_BSSID_LEN * 2 ) + 1 ];
 int CheckWifi();
 int connect2AWS();
 int prvWifiConnect();
-int prvSendandWaitforCAN(char * command);
+int prvSendandWaitforCAN(char command);
 
 
 static BaseType_t prvCreateClientAndConnectToBroker( void )
@@ -347,6 +347,7 @@ static BaseType_t prvSubscribe( void )
     return xReturn;
 }
 /*-----------------------------------------------------------*/
+
 //reads form msg buffer for the command
 static MQTTBool_t prvMQTTCallback( void * pvUserData,
                                    const MQTTPublishData_t * const pxPublishParameters )
@@ -397,7 +398,6 @@ static MQTTBool_t prvMQTTCallback( void * pvUserData,
 }
 /*-----------------------------------------------------------*/
 
-
 void vStartMQTTEchoDemo()
 {
     configPRINTF( ( "Starting NMC...\r\n" ) );
@@ -436,7 +436,6 @@ void vStartMQTTEchoDemo()
 }
 /*-----------------------------------------------------------*/
 
-//TODO
 int CheckWifi(void)
 {
 	int check =0;
@@ -524,6 +523,7 @@ int connect2AWS()
 		}
 	return 1;//reconnectFlag
 }
+/*-----------------------------------------------------------*/
 
 int prvDirectConnection()
 {
@@ -548,8 +548,9 @@ int prvDirectConnection()
 //		// not enough memory for socket
 //	}
 }
-//TODO
-int prvSendandWaitforCAN(char * command)
+/*-----------------------------------------------------------*/
+
+int prvSendandWaitforCAN(char command)
 {
 	if(command == '1')//off
 	{
@@ -577,6 +578,7 @@ int prvSendandWaitforCAN(char * command)
 	MSG_RCVD = 0;
 	return 1;
 }
+/*-----------------------------------------------------------*/
 
 static void prvMacForHumans(uint8_t * humanAddress)
  {

@@ -95,15 +95,6 @@ __attribute__((section("ETH_RAM"))) uint8_t ucHeap[ configTOTAL_HEAP_SIZE ];
  */
 int main( void )
 {
-	//DAVE_STATUS_t status;
-
-	//DAVE_Init();           /* Initialization of DAVE APPs  */
-    /* Perform any hardware initialization that does not require the RTOS to be
-     * running.  */
-	MSG_RCVD = 0;
-
-	//TODO: Figure this out
-	//void initialise_monitor_handles();
 
     prvMiscInitialization();
 
@@ -121,10 +112,9 @@ int main( void )
 }
 /*-----------------------------------------------------------*/
 /* CAN_Node_Handler()
- * - used to receive command acknowledgment messages from window
+ * - used to receive command acknowledgment and status messages from window
  */
 void CAN_Node_Handler() {
-	//int isReceived = 0;
 
 	/* Check for Node error */
 	if(CAN_NODE_GetStatus(&CAN_Node) & XMC_CAN_NODE_STATUS_LAST_ERROR_CODE)
@@ -134,31 +124,17 @@ void CAN_Node_Handler() {
 		/* Read the received Message object and stores in Request_Node_LMO_02_Config*/
 		CAN_NODE_MO_Receive(&CAN_Node_LMO_01_Config);
 		int receivedBytes = CAN_Node_LMO_01_Config.mo_ptr->can_data_byte[0];
+		int temp_status = CAN_Node_LMO_01_Config.mo_ptr->can_data_byte[1];
 
 		if (receivedBytes == 0x01) // && (isReceived != 1)) { Turn on LED
 		{
-			//configPRINTF(("Got response from Window\r\n"));
 			MSG_RCVD = 1;
-			//DIGITAL_IO_ToggleOutput(&LED);
-			//XMC_DEBUG("4800: Message Received from 4200\n");
-			//XMC_DEBUG("Received with value: %d \n", receivedBytes);
-			//XMC_DEBUG("Toggle LED\n\n");
+			WINDOW_STATUS = temp_status;
 
-			//CAN_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = 0x03;
-			//uint32_t status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(CAN_Node_LMO_02_Config.mo_ptr);
-			//status = CAN_NODE_MO_Transmit(&CAN_Node_LMO_02_Config);
-			//XMC_DEBUG("4800: Message Sent to 4200 with value 3 (ACK)\n\n");
-
-			//isReceived = 1;
 		}
 		else if (receivedBytes == 0x03) //&& (isReceived != 1))
 		{
-			configPRINTF((" Window Has been interupted \r\n"));
-			//XMC_DEBUG("4800: Message Received from 4200\n");
-			//XMC_DEBUG("Received with value: %d \n", receivedBytes);
-			//XMC_DEBUG("ACK\n\n");
 
-			//isReceived = 1;
 		}
 
 	}
@@ -178,6 +154,7 @@ static void prvMiscInitialization( void )
 	extern void initialise_monitor_handles(void);
 	initialise_monitor_handles();
 #endif
+
 	DAVE_Init();
 	ENTROPY_HARDWARE_Init();
 }

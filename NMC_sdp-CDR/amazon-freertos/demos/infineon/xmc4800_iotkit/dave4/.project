@@ -158,11 +158,6 @@
 			<locationURI>AFR_HOME/demos/common/devmode_key_provisioning/aws_dev_mode_key_provisioning.c</locationURI>
 		</link>
 		<link>
-			<name>application_code/common_demos/source/aws_greengrass_discovery_demo.c</name>
-			<type>1</type>
-			<locationURI>AFR_HOME/demos/common/greengrass_connectivity/aws_greengrass_discovery_demo.c</locationURI>
-		</link>
-		<link>
 			<name>application_code/common_demos/source/aws_hello_world.c</name>
 			<type>1</type>
 			<locationURI>AFR_HOME/demos/common/mqtt/aws_hello_world.c</locationURI>
@@ -171,11 +166,6 @@
 			<name>application_code/common_demos/source/aws_logging_task_dynamic_buffers.c</name>
 			<type>1</type>
 			<locationURI>AFR_HOME/demos/common/logging/aws_logging_task_dynamic_buffers.c</locationURI>
-		</link>
-		<link>
-			<name>application_code/common_demos/source/aws_shadow_lightbulb_on_off.c</name>
-			<type>1</type>
-			<locationURI>AFR_HOME/demos/common/shadow/aws_shadow_lightbulb_on_off.c</locationURI>
 		</link>
 		<link>
 			<name>lib/aws/crypto/aws_crypto.c</name>

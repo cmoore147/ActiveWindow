@@ -50,7 +50,7 @@ LIST_FILES = $(addsuffix .o.lst, $(basename $(OBJS)))
 MAP_FILE = "4200_CAN_Project.map"
 
 TOOLCHAIN_ROOT=C:/Dave/DAVE-IDE-4.4.2-64Bit/eclipse/ARM-GCC-49
-PROJECT_LOC=C:/Users/moore/Downloads/DAVE-4.4.2-64Bit-20210222T201711Z-001/DAVE-4.4.2-64Bit/4200_CAN_Project
+PROJECT_LOC=C:/Users/moore/Documents/ConnorHW/recording/ActiveWindow/4200_CAN_Project
 
 # All Target
 all: 4200_CAN_Project.elf secondary-outputs
