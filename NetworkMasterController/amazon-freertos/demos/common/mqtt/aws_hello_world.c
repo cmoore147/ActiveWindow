@@ -38,6 +38,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "message_buffer.h"
+#include "queue.h"
 
 /* MQTT includes. */
 #include "aws_mqtt_agent.h"
@@ -133,13 +134,15 @@ static MessageBufferHandle_t xCommandMsgBuffer = NULL;
 static MQTTAgentHandle_t xMQTTHandle = NULL;
 
 /*-----------------------------------------------------------*/
+
+
 static void prvMacForHumans(uint8_t * humanAddress);
 static uint8_t thing_mac_address[ ( wificonfigMAX_BSSID_LEN * 2 ) + 1 ];
 int CheckWifi();
 int connect2AWS();
 int prvWifiConnect();
 int prvSendandWaitforCAN(char command);
-
+int prvSend2AWS();
 
 static BaseType_t prvCreateClientAndConnectToBroker( void )
 {
@@ -204,19 +207,23 @@ static BaseType_t prvCreateClientAndConnectToBroker( void )
 }
 /*-----------------------------------------------------------*/
 
-static void prvStatusSendTask( void * pvParameters )
+static void prvNMCmain(xCANqueue)
 {
-	MQTTAgentPublishParams_t xPublishParameters;
+
 	MQTTAgentReturnCode_t xReturned;
 	char cDataBuffer[ statusMAX_DATA_LENGTH ];
 	size_t xBytesReceived;
 	int reconnectFlag = 1;
-	/* Remove compiler warnings about unused parameters. */
-	( void ) pvParameters;
 
 	/* Message sent to AWS */
 	char message[16];
+	char CANmsg[16];
+	int ResponsefromAWS= 0x01;
 	reconnectFlag = connect2AWS();
+	int waitforResponseFlag = 0;
+
+	/* Queue Setup */
+	//CANmsgQueue_Init();
 
     for( ; ; )
     {
@@ -229,73 +236,48 @@ static void prvStatusSendTask( void * pvParameters )
     		{
 				memset( cDataBuffer, 0x00, sizeof( cDataBuffer ) );
 				//buffer that receives msg from AWS
+
 				xBytesReceived = xMessageBufferReceive( xCommandMsgBuffer,
 														cDataBuffer,
 														sizeof( cDataBuffer ),
 														0x01000);// time to wait until returning
 														//portMAX_DELAY );
 
-				if(xBytesReceived <= ( sizeof(cDataBuffer) ) && xBytesReceived > ( sizeof(cDataBuffer)-sizeof(cDataBuffer) ) )
+				/* ~Message from AWS~ */
+				if(waitforResponseFlag == 0 && xBytesReceived > ( sizeof(cDataBuffer)-sizeof(cDataBuffer) ) )
 				{
 					configPRINTF( ( "Message from AWS topic '%s': '%s'\r\n\n",
 									commandTOPIC_NAME, cDataBuffer ) );
 
-					if(*cDataBuffer== '0'){//Open Window
-						if(window_state == 0)
-						{
-							configPRINT(("[Xmc4800] Status: ~~~ Window Open ~~~\n"));
-							strcpy(message,"LED already on ");
-						}
-						else{
-							configPRINT(("[Xmc4800] Status: ~~~ Opening Window 50% ~~~\n"));
-							prvSendandWaitforCAN(*cDataBuffer);
-							strcpy(message,"Window Closed");
+					waitforResponseFlag = 1;
+					configPRINT(("Sending CAN Message"));
+					prvSendCAN(*cDataBuffer);
+				}
 
-							window_state = 0;
+				/* ~Message from CAN~ */
+				else if(uxQueueMessagesWaiting(xCANqueue))
+				{
+				int delayTime = 0x00;
+				xQueueReceive(xCANqueue,CANmsg,delayTime);
 
-						}
-					}
-					if(*cDataBuffer == '1'){//Close Window
-						if(window_state == 0)
-						{
-							configPRINT(("[Xmc4800] Status: ~~~ Closing Window 50% ~~~\n"));
-							prvSendandWaitforCAN(*cDataBuffer);
-							strcpy(message,"Window Closed");
-
-							window_state = 1;
-						}
-						else{
-							configPRINT(("[Xmc4800] Status: ~~~ Window Closed ~~~\n"));
-							strcpy(message,"Window Closed");
-						}
+					/* ~Response to command from AWS~ */
+					if(CANmsg[0]==ResponsefromAWS)
+					{
+						waitforResponseFlag = 0;
+						prvsend2AWS(CANmsg);
 					}
 
-					snprintf(cDataBuffer,sizeof(cDataBuffer),
-							"{"
-							"Window: %s"
-							"}",message);
-
-					xPublishParameters.pucTopic = status_TOPIC;//  "window/status"
-					xPublishParameters.pvData = cDataBuffer;
-					xPublishParameters.usTopicLength = ( uint16_t ) strlen( ( const char * ) status_TOPIC );
-					xPublishParameters.ulDataLength = ( uint32_t ) strlen( cDataBuffer );
-					xPublishParameters.xQoS = eMQTTQoS1;
-
-							/* Publish the message. */
-					xReturned = MQTT_AGENT_Publish( xMQTTHandle, &( xPublishParameters ), democonfigMQTT_TIMEOUT );
-
-					if( xReturned == eMQTTAgentSuccess )
-						{
-							configPRINTF( ( "Successfully published '%s' to '%s'\r\n", cDataBuffer, status_TOPIC ) );
-						}
+					/* ~Local switch Send a Message~ */
 					else
-						{
-							configPRINTF( ( "ERROR:  Failed to publish '%s' to '%s'\r\n", cDataBuffer, status_TOPIC) );
-						}
-				}//bytes<max
+					{
+						prvsend2AWS(CANmsg);
+					}
+
+				}
 
     		}//if(reconnectFlag == 0)
 		}//checkWifi
+
     	else
     		{
     		//IotMqtt_Disconnect(); <----2/15 this is where I was last google how to handle MQTT reconnection
@@ -314,7 +296,7 @@ static void prvStatusSendTask( void * pvParameters )
 
 static BaseType_t prvSubscribe( void )
 {
-    MQTTAgentReturnCode_t xReturned;
+	MQTTAgentReturnCode_t xReturned;
     BaseType_t xReturn;
     MQTTAgentSubscribeParams_t xSubscribeParams;
 
@@ -418,13 +400,9 @@ void vStartMQTTEchoDemo()
     configASSERT( xCommandMsgBuffer );
 
 
-    //if ( xReturned == pdPASS )
-    //{
-    	//xTaskCreate( prvCheckWifiTask, "WiFi_Status",democonfigMQTT_ECHO_TASK_STACK_SIZE,
-					//NULL,3,0);
 
-    xTaskCreate(prvStatusSendTask,
-    	             "Status",
+    xTaskCreate(prvNMCmain,
+    	             "NMC",
     	             democonfigMQTT_ECHO_TASK_STACK_SIZE, /* Size of the stack to allocate for the task, in words not bytes! */
     	             NULL,                                /* The task parameter is not used. */
     	             tskIDLE_PRIORITY,                    /* Runs at the lowest priority. */
@@ -550,32 +528,63 @@ int prvDirectConnection()
 }
 /*-----------------------------------------------------------*/
 
-int prvSendandWaitforCAN(char command)
-{
-	if(command == '1')//off
-	{
-		CAN_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = 0x01;
-	}
+void prvSend2AWS(cDataBuffer,message){
 
-	else if(command == '0')//On
-	{
-		CAN_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = 0x03;
-	}
+	MQTTAgentPublishParams_t xPublishParameters;
+	MQTTAgentReturnCode_t xReturned;
+
+	/* Remove compiler warnings about unused parameters. */
+	//( void ) pvParameters;
+
+	snprintf(cDataBuffer,sizeof(cDataBuffer),
+								"{"
+								"Window: %s"
+								"}",message);
+
+	xPublishParameters.pucTopic = status_TOPIC;//  "window/status"
+	xPublishParameters.pvData = cDataBuffer;
+	xPublishParameters.usTopicLength = ( uint16_t ) strlen( ( const char * ) status_TOPIC );
+	xPublishParameters.ulDataLength = ( uint32_t ) strlen( cDataBuffer );
+	xPublishParameters.xQoS = eMQTTQoS1;
+
+			/* Publish the message. */
+	xReturned = MQTT_AGENT_Publish( xMQTTHandle, &( xPublishParameters ), democonfigMQTT_TIMEOUT );
+
+	if( xReturned == eMQTTAgentSuccess )
+		{
+			configPRINTF( ( "Successfully published '%s' to '%s'\r\n", cDataBuffer, status_TOPIC ) );
+		}
+	else
+		{
+			configPRINTF( ( "ERROR:  Failed to publish '%s' to '%s'\r\n", cDataBuffer, status_TOPIC) );
+		}
+}
+
+
+int char2Int(data){
+	//TODO figure out if this is where we split up the function and parameter of the message
+
+	/* change string to int */
+		char* ptr;
+		int msg;
+		msg = strtol(data,&ptr,10);
+
+}
+
+int prvSendCAN(char command)
+{
+	int msg[2];
+	msg[0] = char2Int(command);
+	msg[1] = char2Int(command);
+
+
+	CAN_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = msg[0];
+	CAN_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = msg[1];
+
 
 	uint32_t status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(CAN_Node_LMO_02_Config.mo_ptr);
 	status = CAN_NODE_MO_Transmit(&CAN_Node_LMO_02_Config);
 
-	/* Wait for Global variable to be changed from 1 --> 0
-	 * this variable tells the 4800 that the motor module has
-	 * received the command and finished it successfully */
-	//vTaskDelay(3*1000);//let MSG_RCVD be updated
-	while(MSG_RCVD == 0)
-	{
-		configPRINT(("Waiting for response\r\n"));
-		vTaskDelay(10*1000);
-	}
-
-	MSG_RCVD = 0;
 	return 1;
 }
 /*-----------------------------------------------------------*/

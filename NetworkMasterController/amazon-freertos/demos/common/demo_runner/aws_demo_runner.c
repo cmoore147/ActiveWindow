@@ -35,7 +35,7 @@
 
 #include "aws_demo_runner.h"
 
-extern void vStartMQTTEchoDemo( );
+extern void vStartMQTTEchoDemo();
 
 
 /*-----------------------------------------------------------*/

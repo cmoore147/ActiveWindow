@@ -33,6 +33,7 @@
 /* FreeRTOS includes. */
 #include "FreeRTOS.h"
 #include "task.h"
+#include "queue.h"
 
 /* Demo includes */
 #include "aws_demo_runner.h"
@@ -65,6 +66,7 @@ const AppVersion32_t xAppFirmwareVersion = {
 
 /* The name of the devices for xApplicationDNSQueryHook. */
 #define mainDEVICE_NICK_NAME                "XMC4800_IoTKit_Demo"
+
 
 /**
  * @brief Application task startup hook for applications using Wi-Fi. If you are not 
@@ -114,7 +116,11 @@ int main( void )
 /* CAN_Node_Handler()
  * - used to receive command acknowledgment and status messages from window
  */
-void CAN_Node_Handler() {
+void CAN_Node_Handler( void ) {
+
+	portBASE_TYPE status;
+	portBASE_TYPE xHigherPriorityTaskWoken = 0 ;
+
 
 	/* Check for Node error */
 	if(CAN_NODE_GetStatus(&CAN_Node) & XMC_CAN_NODE_STATUS_LAST_ERROR_CODE)
@@ -123,21 +129,14 @@ void CAN_Node_Handler() {
 	{
 		/* Read the received Message object and stores in Request_Node_LMO_02_Config*/
 		CAN_NODE_MO_Receive(&CAN_Node_LMO_01_Config);
-		int receivedBytes = CAN_Node_LMO_01_Config.mo_ptr->can_data_byte[0];
-		int temp_status = CAN_Node_LMO_01_Config.mo_ptr->can_data_byte[1];
 
-		if (receivedBytes == 0x01) // && (isReceived != 1)) { Turn on LED
-		{
-			MSG_RCVD = 1;
-			WINDOW_STATUS = temp_status;
+		int msg[2] = {CAN_Node_LMO_01_Config.mo_ptr->can_data_byte[0],
+				CAN_Node_LMO_01_Config.mo_ptr->can_data_byte[1]};
 
-		}
-		else if (receivedBytes == 0x03) //&& (isReceived != 1))
-		{
-
-		}
+		xQueueSendFromISR(xCANqueue,&msg,xHigherPriorityTaskWoken);
 
 	}
+	portEXIT_SWITCHING_ISR( xHigherPriorityTaskWoken );
 
 }
 
@@ -163,10 +162,14 @@ static void prvMiscInitialization( void )
 void vApplicationDaemonTaskStartupHook( void )
 {
     vDevModeKeyProvisioning();
-    int check;
+
     /* Initialize the AWS Libraries system. */
     if ( SYSTEM_Init() == pdPASS )
     {
+
+    	xCANqueue = xQueueCreate( 3, sizeof( char ** ) );
+    	configASSERT( xCANqueue );
+
         prvWifiConnect();
 
         DEMO_RUNNER_RunDemos();
