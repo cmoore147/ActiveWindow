@@ -26,7 +26,7 @@
 
 /**
  * @file aws_hello_world.c
- * @brief Command and Status demo.
+ * @brief Network Master Controller Main function.
  *
  */
 
@@ -138,11 +138,11 @@ static MQTTAgentHandle_t xMQTTHandle = NULL;
 
 static void prvMacForHumans(uint8_t * humanAddress);
 static uint8_t thing_mac_address[ ( wificonfigMAX_BSSID_LEN * 2 ) + 1 ];
-int CheckWifi();
-int connect2AWS();
-int prvWifiConnect();
-int prvSendandWaitforCAN(char command);
-int prvSend2AWS();
+int CheckWifi( void );
+int connect2AWS( void );
+int prvWifiConnect( void );
+int prvSend2AWS(char cDataBuffer, int message);
+int prvSendCAN( char message );
 
 static BaseType_t prvCreateClientAndConnectToBroker( void )
 {
@@ -207,17 +207,16 @@ static BaseType_t prvCreateClientAndConnectToBroker( void )
 }
 /*-----------------------------------------------------------*/
 
-static void prvNMCmain(xCANqueue)
+static void prvNMCmain()
 {
 
-	MQTTAgentReturnCode_t xReturned;
 	char cDataBuffer[ statusMAX_DATA_LENGTH ];
 	size_t xBytesReceived;
 	int reconnectFlag = 1;
 
 	/* Message sent to AWS */
-	char message[16];
-	char CANmsg[16];
+	//char message[16];
+	char CANmsg[ statusMAX_DATA_LENGTH ];
 	int ResponsefromAWS= 0x01;
 	reconnectFlag = connect2AWS();
 	int waitforResponseFlag = 0;
@@ -251,26 +250,29 @@ static void prvNMCmain(xCANqueue)
 
 					waitforResponseFlag = 1;
 					configPRINT(("Sending CAN Message"));
-					prvSendCAN(*cDataBuffer);
+					if(prvSendCAN(cDataBuffer) != CAN_NODE_STATUS_SUCCESS)
+					{
+						configPRINTF((" Error: Sending CAN message failed \r\n "));
+					}
 				}
 
 				/* ~Message from CAN~ */
 				else if(uxQueueMessagesWaiting(xCANqueue))
 				{
 				int delayTime = 0x00;
-				xQueueReceive(xCANqueue,CANmsg,delayTime);
+				xQueueReceive(xCANqueue,&CANmsg,delayTime);
 
 					/* ~Response to command from AWS~ */
 					if(CANmsg[0]==ResponsefromAWS)
 					{
 						waitforResponseFlag = 0;
-						prvsend2AWS(CANmsg);
+						//prvSend2AWS(cDataBuffer,CANmsg);
 					}
 
 					/* ~Local switch Send a Message~ */
 					else
 					{
-						prvsend2AWS(CANmsg);
+						//prvSend2AWS(cDataBuffer,CANmsg);
 					}
 
 				}
@@ -345,10 +347,6 @@ static MQTTBool_t prvMQTTCallback( void * pvUserData,
     /* Don't expect the callback to be invoked for any other topics. */
     configASSERT( ( size_t ) ( pxPublishParameters->usTopicLength ) == strlen( ( const char * ) commandTOPIC_NAME ) );
     configASSERT( memcmp( pxPublishParameters->pucTopic, commandTOPIC_NAME, ( size_t ) ( pxPublishParameters->usTopicLength ) ) == 0 );
-    /*
-    configASSERT( ( size_t ) ( pxPublishParameters->usTopicLength ) == strlen( ( const char * ) echoTOPIC_NAME ) );
-    configASSERT( memcmp( pxPublishParameters->pucTopic, echoTOPIC_NAME, ( size_t ) ( pxPublishParameters->usTopicLength ) ) == 0 );
-   	*/
 
     /* THe ulBytesToCopy has already been initialized to ensure it does not copy
      * more bytes than will fit in the buffer.  Now check it does not copy more
@@ -528,7 +526,7 @@ int prvDirectConnection()
 }
 /*-----------------------------------------------------------*/
 
-void prvSend2AWS(cDataBuffer,message){
+void prvSend2AWS(char cDataBuffer, char CANmsg){
 
 	MQTTAgentPublishParams_t xPublishParameters;
 	MQTTAgentReturnCode_t xReturned;
@@ -539,7 +537,7 @@ void prvSend2AWS(cDataBuffer,message){
 	snprintf(cDataBuffer,sizeof(cDataBuffer),
 								"{"
 								"Window: %s"
-								"}",message);
+								"}",CANmsg);
 
 	xPublishParameters.pucTopic = status_TOPIC;//  "window/status"
 	xPublishParameters.pvData = cDataBuffer;
@@ -547,7 +545,7 @@ void prvSend2AWS(cDataBuffer,message){
 	xPublishParameters.ulDataLength = ( uint32_t ) strlen( cDataBuffer );
 	xPublishParameters.xQoS = eMQTTQoS1;
 
-			/* Publish the message. */
+	/* Publish the message. */
 	xReturned = MQTT_AGENT_Publish( xMQTTHandle, &( xPublishParameters ), democonfigMQTT_TIMEOUT );
 
 	if( xReturned == eMQTTAgentSuccess )
@@ -561,19 +559,19 @@ void prvSend2AWS(cDataBuffer,message){
 }
 
 
-int char2Int(data){
+int char2Int(char * data){
 	//TODO figure out if this is where we split up the function and parameter of the message
 
 	/* change string to int */
-		char* ptr;
-		int msg;
-		msg = strtol(data,&ptr,10);
+		//char* ptr;
+		//int msg;
+		//msg = strtol(data,&ptr,10);
 
 }
 
 int prvSendCAN(char command)
 {
-	int msg[2];
+	char msg[2];
 	msg[0] = char2Int(command);
 	msg[1] = char2Int(command);
 
@@ -581,11 +579,10 @@ int prvSendCAN(char command)
 	CAN_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = msg[0];
 	CAN_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = msg[1];
 
-
 	uint32_t status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(CAN_Node_LMO_02_Config.mo_ptr);
 	status = CAN_NODE_MO_Transmit(&CAN_Node_LMO_02_Config);
 
-	return 1;
+	return status;
 }
 /*-----------------------------------------------------------*/
 

@@ -166,11 +166,12 @@ void vApplicationDaemonTaskStartupHook( void )
     /* Initialize the AWS Libraries system. */
     if ( SYSTEM_Init() == pdPASS )
     {
-
-    	xCANqueue = xQueueCreate( 3, sizeof( char ** ) );
+    	/*xQueueCreate( elements allowed in queue, size in bytes of element); */
+    	xCANqueue = xQueueCreate( 3, 16 );
     	configASSERT( xCANqueue );
 
-        prvWifiConnect();
+
+    	prvWifiConnect();
 
         DEMO_RUNNER_RunDemos();
     }
