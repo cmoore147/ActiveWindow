@@ -225,6 +225,7 @@ void React_Node_Handler() {
 			XMC_DEBUG("Received with value: %d \n", receivedBytes);
 			XMC_DEBUG("Toggle LED\n\n");
 
+			React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = 0x01;
 			React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = 0x03;
 			uint32_t status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
 			status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);

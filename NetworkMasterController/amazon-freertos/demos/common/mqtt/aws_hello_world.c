@@ -141,7 +141,7 @@ static uint8_t thing_mac_address[ ( wificonfigMAX_BSSID_LEN * 2 ) + 1 ];
 int CheckWifi( void );
 int connect2AWS( void );
 int prvWifiConnect( void );
-int prvSend2AWS(char cDataBuffer, int message);
+void prvSend2AWS(char cDataBuffer, char * message);
 int prvSendCAN( char message );
 
 static BaseType_t prvCreateClientAndConnectToBroker( void )
@@ -216,8 +216,9 @@ static void prvNMCmain()
 
 	/* Message sent to AWS */
 	//char message[16];
-	char CANmsg[ statusMAX_DATA_LENGTH ];
-	int ResponsefromAWS= 0x01;
+
+	int CANmsg[ statusMAX_DATA_LENGTH ];
+	int ResponsefromAWS= 0x03;
 	reconnectFlag = connect2AWS();
 	int waitforResponseFlag = 0;
 
@@ -249,8 +250,8 @@ static void prvNMCmain()
 									commandTOPIC_NAME, cDataBuffer ) );
 
 					waitforResponseFlag = 1;
-					configPRINT(("Sending CAN Message"));
-					if(prvSendCAN(cDataBuffer) != CAN_NODE_STATUS_SUCCESS)
+					configPRINT(("Sending CAN Message \r\n"));
+					if(prvSendCAN(&cDataBuffer) != CAN_NODE_STATUS_SUCCESS)
 					{
 						configPRINTF((" Error: Sending CAN message failed \r\n "));
 					}
@@ -259,12 +260,15 @@ static void prvNMCmain()
 				/* ~Message from CAN~ */
 				else if(uxQueueMessagesWaiting(xCANqueue))
 				{
+				configPRINTF(("got message from CAN\r\n"));
 				int delayTime = 0x00;
 				xQueueReceive(xCANqueue,&CANmsg,delayTime);
+
 
 					/* ~Response to command from AWS~ */
 					if(CANmsg[0]==ResponsefromAWS)
 					{
+						configPRINTF((" CAN msg: %d",CANmsg));
 						waitforResponseFlag = 0;
 						//prvSend2AWS(cDataBuffer,CANmsg);
 					}
@@ -272,6 +276,7 @@ static void prvNMCmain()
 					/* ~Local switch Send a Message~ */
 					else
 					{
+						configPRINTF(("Not a response or an error somewhere\r\n"));
 						//prvSend2AWS(cDataBuffer,CANmsg);
 					}
 
@@ -526,7 +531,7 @@ int prvDirectConnection()
 }
 /*-----------------------------------------------------------*/
 
-void prvSend2AWS(char cDataBuffer, char CANmsg){
+void prvSend2AWS(char cDataBuffer, char * CANmsg){
 
 	MQTTAgentPublishParams_t xPublishParameters;
 	MQTTAgentReturnCode_t xReturned;
@@ -534,15 +539,15 @@ void prvSend2AWS(char cDataBuffer, char CANmsg){
 	/* Remove compiler warnings about unused parameters. */
 	//( void ) pvParameters;
 
-	snprintf(cDataBuffer,sizeof(cDataBuffer),
+	snprintf(cDataBuffer,sizeof(&cDataBuffer),
 								"{"
 								"Window: %s"
 								"}",CANmsg);
 
 	xPublishParameters.pucTopic = status_TOPIC;//  "window/status"
-	xPublishParameters.pvData = cDataBuffer;
+	xPublishParameters.pvData = &cDataBuffer;
 	xPublishParameters.usTopicLength = ( uint16_t ) strlen( ( const char * ) status_TOPIC );
-	xPublishParameters.ulDataLength = ( uint32_t ) strlen( cDataBuffer );
+	xPublishParameters.ulDataLength = ( uint32_t ) strlen( &cDataBuffer );
 	xPublishParameters.xQoS = eMQTTQoS1;
 
 	/* Publish the message. */
@@ -571,9 +576,16 @@ int char2Int(char * data){
 
 int prvSendCAN(char command)
 {
+	/*
+	 * Message from AWS will need to follow message format
+	 * - change from char --> simple byte
+	 * - or keep it the same format and pass it through
+	 */
 	char msg[2];
-	msg[0] = char2Int(command);
-	msg[1] = char2Int(command);
+	//msg[0] = char2Int(&command);
+	//msg[1] = char2Int(&command);
+	msg[0] = 0x01;
+	msg[1] = 0x03;
 
 
 	CAN_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = msg[0];

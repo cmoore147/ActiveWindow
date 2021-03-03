@@ -118,8 +118,8 @@ int main( void )
  */
 void CAN_Node_Handler( void ) {
 
-	portBASE_TYPE status;
-	portBASE_TYPE xHigherPriorityTaskWoken = 0 ;
+	//portBASE_TYPE status;
+	portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE ;
 
 
 	/* Check for Node error */
@@ -133,10 +133,10 @@ void CAN_Node_Handler( void ) {
 		int msg[2] = {CAN_Node_LMO_01_Config.mo_ptr->can_data_byte[0],
 				CAN_Node_LMO_01_Config.mo_ptr->can_data_byte[1]};
 
-		xQueueSendFromISR(xCANqueue,&msg,xHigherPriorityTaskWoken);
+		xQueueSendFromISR(xCANqueue,&msg, &xHigherPriorityTaskWoken );
 
 	}
-	portEXIT_SWITCHING_ISR( xHigherPriorityTaskWoken );
+	//portEXIT_SWITCHING_ISR( xHigherPriorityTaskWoken );
 
 }
 
