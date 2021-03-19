@@ -194,6 +194,7 @@
 
 #include <DAVE.h>			//Declarations from DAVE Code Generation (includes SFR declaration)
 #include <stdio.h>
+#include "string.h"
 /*
  * This Example shows transmission and reception of data frames
  * between two CAN nodes of the MultiCAN peripheral in Loop-Back Mode.
@@ -217,28 +218,24 @@ void React_Node_Handler() {
 	{
 		/* Read the received Message object and stores in Request_Node_LMO_02_Config*/
 		CAN_NODE_MO_Receive(&React_Node_LMO_01_Config);
-		int receivedBytes = React_Node_LMO_01_Config.mo_ptr->can_data_byte[0];
+		char * ID = React_Node_LMO_01_Config.mo_ptr->can_data_byte[0];
+		char * function = React_Node_LMO_01_Config.mo_ptr->can_data_byte[1];
+		int parameter = React_Node_LMO_01_Config.mo_ptr->can_data_byte[2];
 
-		if (receivedBytes == 0x01) { // Turn on LED
+		if (strcmp("window1",ID)==0) { // Turn on LED
+			if(strcmp("on",function) == 0){
 			DIGITAL_IO_ToggleOutput(&LED_Indicator);
 			XMC_DEBUG("4200: Message Received from 4200\n");
 			XMC_DEBUG("Received with value: %d \n", receivedBytes);
 			XMC_DEBUG("Toggle LED\n\n");
 
-			React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = 0x01;
+			//React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = 0x01;
 			React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = 0x03;
 			uint32_t status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
 			status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
+			}
 		}
-		else if (receivedBytes == 0x03)
-		{
-			XMC_DEBUG("4200: Message Received from 4200\n");
-			XMC_DEBUG("Received with value: %d \n", receivedBytes);
-			XMC_DEBUG("ACK\n\n");
-		}
-//		else{ // Turn off LED
-//			DIGITAL_IO_SetOutputLow(&LED_Indicator);
-//		}
+
 	}
 
 }
@@ -283,7 +280,7 @@ int main(void)
 	  		button_state = DIGITAL_IO_GetInput(&BoardButton);
 
 	  		if (button_state == 0) { // send message to turn toggle
-	  			React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = 0x01;
+	  			React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = 0x03;
 	  			XMC_DEBUG("4800: Message Sent to 4200 with value 1 (Toggle LED)\n\n");
 		  		uint32_t status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
 		  		status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
