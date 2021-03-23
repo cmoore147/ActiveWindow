@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Project MotherSystem_Version="" Name="4200_CAN_Project" Path="C:\Workspaces\DAVE-4.4.2-64Bit\4200_CAN_Project">
+<Project MotherSystem_Version="" Name="4200_CAN_Project" Path="C:\Users\Frank\Documents\GitHub\ActiveWindow\MotorModule">
     <COMPILER>
         <Name>ARM_GCC_HOME</Name>
         <Version/>
@@ -67,6 +67,16 @@
                 <Type>C File</Type>
             </Source_File>
             <Source_File>
+                <File_Name>global_ccu4.c</File_Name>
+                <Path>\Dave\Generated\GLOBAL_CCU4\global_ccu4.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>global_ccu4_conf.c</File_Name>
+                <Path>\Dave\Generated\GLOBAL_CCU4\global_ccu4_conf.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
                 <File_Name>interrupt.c</File_Name>
                 <Path>\Dave\Generated\INTERRUPT\interrupt.c</Path>
                 <Type>C File</Type>
@@ -74,6 +84,26 @@
             <Source_File>
                 <File_Name>interrupt_conf.c</File_Name>
                 <Path>\Dave\Generated\INTERRUPT\interrupt_conf.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>pwm.c</File_Name>
+                <Path>\Dave\Generated\PWM\pwm.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>pwm_conf.c</File_Name>
+                <Path>\Dave\Generated\PWM\pwm_conf.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>timer.c</File_Name>
+                <Path>\Dave\Generated\TIMER\timer.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>timer_conf.c</File_Name>
+                <Path>\Dave\Generated\TIMER\timer_conf.c</Path>
                 <Type>C File</Type>
             </Source_File>
         </Source_Files>
@@ -164,6 +194,21 @@
                 <Type>H File</Type>
             </Header_File>
             <Header_File>
+                <File_Name>global_ccu4.h</File_Name>
+                <Path>\Dave\Generated\GLOBAL_CCU4\global_ccu4.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>global_ccu4_conf.h</File_Name>
+                <Path>\Dave\Generated\GLOBAL_CCU4\global_ccu4_conf.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>global_ccu4_extern.h</File_Name>
+                <Path>\Dave\Generated\GLOBAL_CCU4\global_ccu4_extern.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
                 <File_Name>interrupt.h</File_Name>
                 <Path>\Dave\Generated\INTERRUPT\interrupt.h</Path>
                 <Type>H File</Type>
@@ -176,6 +221,36 @@
             <Header_File>
                 <File_Name>interrupt_extern.h</File_Name>
                 <Path>\Dave\Generated\INTERRUPT\interrupt_extern.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>pwm.h</File_Name>
+                <Path>\Dave\Generated\PWM\pwm.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>pwm_conf.h</File_Name>
+                <Path>\Dave\Generated\PWM\pwm_conf.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>pwm_extern.h</File_Name>
+                <Path>\Dave\Generated\PWM\pwm_extern.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>timer.h</File_Name>
+                <Path>\Dave\Generated\TIMER\timer.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>timer_conf.h</File_Name>
+                <Path>\Dave\Generated\TIMER\timer_conf.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>timer_extern.h</File_Name>
+                <Path>\Dave\Generated\TIMER\timer_extern.h</Path>
                 <Type>H File</Type>
             </Header_File>
         </Header_Files>

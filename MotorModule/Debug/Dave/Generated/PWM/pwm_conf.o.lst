@@ -1,0 +1,90 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,6
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "pwm_conf.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .global PWM_Motor_compare_config
+  20              	 .section .rodata.PWM_Motor_compare_config,"a",%progbits
+  21              	 .align 2
+  24              	PWM_Motor_compare_config:
+  25 0000 00       	 .byte 0
+  26 0001 00       	 .byte 0
+  27 0002 00       	 .byte 0
+  28 0003 00       	 .byte 0
+  29 0004 04       	 .byte 4
+  30 0005 00       	 .byte 0
+  31 0006 0000     	 .space 2
+  32              	 .global PWM_Motor_gpio_out_config
+  33              	 .section .rodata.PWM_Motor_gpio_out_config,"a",%progbits
+  34              	 .align 2
+  37              	PWM_Motor_gpio_out_config:
+  38 0000 98       	 .byte -104
+  39 0001 000000   	 .space 3
+  40 0004 00000100 	 .word 65536
+  41 0008 04       	 .byte 4
+  42 0009 000000   	 .space 3
+  43              	 .global PWM_Motor
+  44              	 .section .data.PWM_Motor,"aw",%progbits
+  45              	 .align 2
+  48              	PWM_Motor:
+  49 0000 00000000 	 .word GLOBAL_CCU4_0
+  50 0004 00000140 	 .word 1073807360
+  51 0008 00040140 	 .word 1073808384
+  52 000c 00000000 	 .word PWM_Motor_compare_config
+  53 0010 00820248 	 .word 1208123904
+  54 0014 00000000 	 .word PWM_Motor_gpio_out_config
+  55 0018 A8610000 	 .word 25000
+  56 001c 4FC30000 	 .word 49999
+  57 0020 88130000 	 .word 5000
+  58 0024 00500000 	 .word 20480
+  59 0028 00       	 .byte 0
+  60 0029 02       	 .byte 2
+  61 002a 00       	 .byte 0
+  62 002b 00       	 .byte 0
+  63 002c 02       	 .byte 2
+  64 002d 01       	 .byte 1
+  65 002e 03       	 .byte 3
+  66 002f 00       	 .byte 0
+  67 0030 00       	 .byte 0
+  68 0031 00       	 .byte 0
+  69 0032 0000     	 .space 2
+  70              	 .text
+  71              	.Letext0:
+  72              	 .file 1 "c:\\users\\frank\\desktop\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+  73              	 .file 2 "c:\\users\\frank\\desktop\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+  74              	 .file 3 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Infineon/XMC4200_series/Include/XMC4200.h"
+  75              	 .file 4 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc/xmc_gpio.h"
+  76              	 .file 5 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc/xmc4_gpio.h"
+  77              	 .file 6 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc/xmc_ccu4.h"
+  78              	 .file 7 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc/xmc4_scu.h"
+  79              	 .file 8 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/GLOBAL_CCU4/global_ccu4.h"
+  80              	 .file 9 "../Dave/Generated/PWM/pwm.h"
+  81              	 .file 10 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Include/cmsis_gcc.h"
+  82              	 .file 11 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Include/core_cm4.h"
+  83              	 .file 12 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Infineon/XMC4200_series/Include/system_XMC4200.h"
+  84              	 .file 13 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/GLOBAL_CCU4/global_ccu4_extern.h"
+  85              	 .file 14 "../Dave/Generated/PWM/pwm_conf.c"
+DEFINED SYMBOLS
+                            *ABS*:00000000 pwm_conf.c
+    {standard input}:24     .rodata.PWM_Motor_compare_config:00000000 PWM_Motor_compare_config
+    {standard input}:21     .rodata.PWM_Motor_compare_config:00000000 $d
+    {standard input}:37     .rodata.PWM_Motor_gpio_out_config:00000000 PWM_Motor_gpio_out_config
+    {standard input}:34     .rodata.PWM_Motor_gpio_out_config:00000000 $d
+    {standard input}:48     .data.PWM_Motor:00000000 PWM_Motor
+    {standard input}:45     .data.PWM_Motor:00000000 $d
+
+UNDEFINED SYMBOLS
+GLOBAL_CCU4_0

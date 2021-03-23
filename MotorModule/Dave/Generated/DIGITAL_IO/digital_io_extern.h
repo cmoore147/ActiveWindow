@@ -69,6 +69,16 @@ extern const DIGITAL_IO_t LED_Indicator;
 	
 extern const DIGITAL_IO_t BoardButton; 
 	
+extern const DIGITAL_IO_t LIMIT_SWITCH_BOTTOM; 
+	
+extern const DIGITAL_IO_t LIMIT_SWITCH_TOP; 
+	
+extern const DIGITAL_IO_t MOS_DOWN; 
+	
+extern const DIGITAL_IO_t MOS_UP; 
+	
+extern const DIGITAL_IO_t Motor_Direction; 
+	
  
 #endif  /* DIGITAL_IO_EXTERN_H */
 

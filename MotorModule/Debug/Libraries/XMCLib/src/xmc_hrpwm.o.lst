@@ -1,0 +1,2353 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,6
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "xmc_hrpwm.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .section .text.XMC_HRPWM_lDelay,"ax",%progbits
+  20              	 .align 2
+  21              	 .thumb
+  22              	 .thumb_func
+  24              	XMC_HRPWM_lDelay:
+  25              	.LFB224:
+  26              	 .file 1 "../Libraries/XMCLib/src/xmc_hrpwm.c"
+   1:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+   2:../Libraries/XMCLib/src/xmc_hrpwm.c **** /**
+   3:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * @file xmc_hrpwm.c
+   4:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * @date 2015-07-14
+   5:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *
+   6:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * @cond
+   7:../Libraries/XMCLib/src/xmc_hrpwm.c ****  **********************************************************************************
+   8:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * XMClib v2.1.24 - XMC Peripheral Driver Library 
+   9:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *
+  10:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * Copyright (c) 2015-2019, Infineon Technologies AG
+  11:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * All rights reserved.                        
+  12:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *                                             
+  13:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * Redistribution and use in source and binary forms, with or without           
+  14:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * modification,are permitted provided that the following conditions are met:   
+  15:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *                                                                              
+  16:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *   Redistributions of source code must retain the above copyright notice,      
+  17:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *   this list of conditions and the following disclaimer.                        
+  18:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * 
+  19:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *   Redistributions in binary form must reproduce the above copyright notice,   
+  20:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *   this list of conditions and the following disclaimer in the documentation    
+  21:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *   and/or other materials provided with the distribution.                       
+  22:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * 
+  23:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *   Neither the name of the copyright holders nor the names of its contributors 
+  24:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *   may be used to endorse or promote products derived from this software without
+  25:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *   specific prior written permission.                                           
+  26:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *                                                                              
+  27:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"  
+  28:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE    
+  29:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE   
+  30:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * ARE  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE   
+  31:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR         
+  32:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF         
+  33:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * SUBSTITUTE GOODS OR  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS    
+  34:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN      
+  35:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)       
+  36:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE   
+  37:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * POSSIBILITY OF SUCH DAMAGE.                                                  
+  38:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *                                                                              
+  39:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * To improve the quality of the software, users are encouraged to share        
+  40:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * modifications, enhancements or bug fixes with Infineon Technologies AG       
+  41:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * dave@infineon.com).                                                          
+  42:../Libraries/XMCLib/src/xmc_hrpwm.c ****  **********************************************************************************
+  43:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *
+  44:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * Change History
+  45:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * --------------
+  46:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *
+  47:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * 2015-02-18:
+  48:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *     - Variable g_hrpwm_char_data[] defined in startup file is used in place of trim data macro<b
+  49:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *      
+  50:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * 2015-05-12:
+  51:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *     - XMC_HRPWM_CSG_SelClampingInput() api is added to select the clamping input.<br>
+  52:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *     - In XMC_HRPWM_Init() api macros used to check 'ccu_clock' frequency are renamed for readabi
+  53:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *     - 80MHz HRC operation would need a minimum of 70 Mhz CCU clock.<br>
+  54:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *
+  55:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * 2015-06-20: 
+  56:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *     - Removed version macros and declaration of GetDriverVersion API <br>
+  57:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *     - Updated copyright and change history section.<br>
+  58:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *
+  59:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * 2015-07-06: 
+  60:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *     - CSG trimming data assignment is corrected.<br>
+  61:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *
+  62:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * 2015-07-14:
+  63:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *     - Redundant code removed in XMC_HRPWM_HRC_ConfigSourceSelect0() and XMC_HRPWM_HRC_ConfigSour
+  64:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *     - Enums and masks are type casted to uint32_t type.
+  65:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *
+  66:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * @endcond 
+  67:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *
+  68:../Libraries/XMCLib/src/xmc_hrpwm.c ****  */
+  69:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+  70:../Libraries/XMCLib/src/xmc_hrpwm.c **** /**
+  71:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *
+  72:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * @brief HRPWM low level driver API prototype definition for XMC family of microcontrollers <br>
+  73:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *
+  74:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * <b>Detailed description of file</b> <br>
+  75:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * APIs provided in this file cover the following functional blocks of HRPWM: <br>
+  76:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * -- High Resolution Channel (APIs prefixed with XMC_HRPWM_HRC_) <br>
+  77:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * -- Comparator and Slope Generator (APIs prefixed with XMC_HRPWM_CSG_) <br>
+  78:../Libraries/XMCLib/src/xmc_hrpwm.c ****  *
+  79:../Libraries/XMCLib/src/xmc_hrpwm.c ****  */
+  80:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+  81:../Libraries/XMCLib/src/xmc_hrpwm.c **** /**************************************************************************************************
+  82:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * HEADER FILES
+  83:../Libraries/XMCLib/src/xmc_hrpwm.c ****  **************************************************************************************************
+  84:../Libraries/XMCLib/src/xmc_hrpwm.c **** #include <xmc_hrpwm.h>
+  85:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+  86:../Libraries/XMCLib/src/xmc_hrpwm.c **** #if defined(HRPWM0)
+  87:../Libraries/XMCLib/src/xmc_hrpwm.c **** #include <xmc_scu.h>
+  88:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+  89:../Libraries/XMCLib/src/xmc_hrpwm.c **** /**************************************************************************************************
+  90:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * MACROS
+  91:../Libraries/XMCLib/src/xmc_hrpwm.c ****  **************************************************************************************************
+  92:../Libraries/XMCLib/src/xmc_hrpwm.c **** /* 70MHz is considered as the minimum range for 80MHz HRC operation */
+  93:../Libraries/XMCLib/src/xmc_hrpwm.c **** #define XMC_HRPWM_70MHZ_FREQUENCY   70000000U
+  94:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+  95:../Libraries/XMCLib/src/xmc_hrpwm.c **** /* 100MHz is considered as the maximum range for 80MHz HRC operation */
+  96:../Libraries/XMCLib/src/xmc_hrpwm.c **** #define XMC_HRPWM_100MHZ_FREQUENCY  100000000U
+  97:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+  98:../Libraries/XMCLib/src/xmc_hrpwm.c **** /* 150MHz is considered as the maximum range for 120MHz HRC operation */
+  99:../Libraries/XMCLib/src/xmc_hrpwm.c **** #define XMC_HRPWM_150MHZ_FREQUENCY  150000000U
+ 100:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 101:../Libraries/XMCLib/src/xmc_hrpwm.c **** /* 200MHz is considered as the maximum range for 180MHz HRC operation */
+ 102:../Libraries/XMCLib/src/xmc_hrpwm.c **** #define XMC_HRPWM_200MHZ_FREQUENCY  200000000U
+ 103:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 104:../Libraries/XMCLib/src/xmc_hrpwm.c **** #if (UC_SERIES == XMC44)
+ 105:../Libraries/XMCLib/src/xmc_hrpwm.c **** #define XMC_HRPWM_DELAY_CNT (28800U)  /* Provides ~2.8 msec delay @ 220MHz frequency */
+ 106:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 107:../Libraries/XMCLib/src/xmc_hrpwm.c **** #elif (UC_SERIES == XMC42)
+ 108:../Libraries/XMCLib/src/xmc_hrpwm.c **** #define XMC_HRPWM_DELAY_CNT (19200U)  /* Provides ~2.8 msec delay @ 150MHz frequency */
+ 109:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 110:../Libraries/XMCLib/src/xmc_hrpwm.c **** #else
+ 111:../Libraries/XMCLib/src/xmc_hrpwm.c **** #define XMC_HRPWM_DELAY_CNT (36000U)  /* Provides ~5.3 msec delay @ 150MHz frequency */
+ 112:../Libraries/XMCLib/src/xmc_hrpwm.c **** #endif
+ 113:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 114:../Libraries/XMCLib/src/xmc_hrpwm.c **** /**************************************************************************************************
+ 115:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * LOCAL ROUTINES
+ 116:../Libraries/XMCLib/src/xmc_hrpwm.c ****  **************************************************************************************************
+ 117:../Libraries/XMCLib/src/xmc_hrpwm.c ****  static void XMC_HRPWM_lDelay(void);
+ 118:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 119:../Libraries/XMCLib/src/xmc_hrpwm.c **** /**************************************************************************************************
+ 120:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * API IMPLEMENTATION - GENERAL
+ 121:../Libraries/XMCLib/src/xmc_hrpwm.c ****  **************************************************************************************************
+ 122:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 123:../Libraries/XMCLib/src/xmc_hrpwm.c **** /* Delay */
+ 124:../Libraries/XMCLib/src/xmc_hrpwm.c **** void XMC_HRPWM_lDelay(void)
+ 125:../Libraries/XMCLib/src/xmc_hrpwm.c **** {
+  27              	 .loc 1 125 0
+  28              	 .cfi_startproc
+  29              	 
+  30              	 
+  31              	 
+  32 0000 80B4     	 push {r7}
+  33              	.LCFI0:
+  34              	 .cfi_def_cfa_offset 4
+  35              	 .cfi_offset 7,-4
+  36 0002 83B0     	 sub sp,sp,#12
+  37              	.LCFI1:
+  38              	 .cfi_def_cfa_offset 16
+  39 0004 00AF     	 add r7,sp,#0
+  40              	.LCFI2:
+  41              	 .cfi_def_cfa_register 7
+ 126:../Libraries/XMCLib/src/xmc_hrpwm.c ****   volatile uint32_t i;
+ 127:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 128:../Libraries/XMCLib/src/xmc_hrpwm.c ****   for (i = 0U; i <= XMC_HRPWM_DELAY_CNT; i++)  /* Wait more than 2 microseconds */
+  42              	 .loc 1 128 0
+  43 0006 0023     	 movs r3,#0
+  44 0008 7B60     	 str r3,[r7,#4]
+  45 000a 03E0     	 b .L2
+  46              	.L3:
+ 129:../Libraries/XMCLib/src/xmc_hrpwm.c ****   {
+ 130:../Libraries/XMCLib/src/xmc_hrpwm.c ****     __NOP();
+  47              	 .loc 1 130 0 discriminator 3
+  48              	
+  49 000c 00BF     	 nop
+  50              	
+ 128:../Libraries/XMCLib/src/xmc_hrpwm.c ****   {
+  51              	 .loc 1 128 0 discriminator 3
+  52              	 .thumb
+  53 000e 7B68     	 ldr r3,[r7,#4]
+  54 0010 0133     	 adds r3,r3,#1
+  55 0012 7B60     	 str r3,[r7,#4]
+  56              	.L2:
+ 128:../Libraries/XMCLib/src/xmc_hrpwm.c ****   {
+  57              	 .loc 1 128 0 is_stmt 0 discriminator 1
+  58 0014 7B68     	 ldr r3,[r7,#4]
+  59 0016 B3F5964F 	 cmp r3,#19200
+  60 001a F7D9     	 bls .L3
+ 131:../Libraries/XMCLib/src/xmc_hrpwm.c ****   }
+ 132:../Libraries/XMCLib/src/xmc_hrpwm.c **** }
+  61              	 .loc 1 132 0 is_stmt 1
+  62 001c 0C37     	 adds r7,r7,#12
+  63              	.LCFI3:
+  64              	 .cfi_def_cfa_offset 4
+  65 001e BD46     	 mov sp,r7
+  66              	.LCFI4:
+  67              	 .cfi_def_cfa_register 13
+  68              	 
+  69 0020 5DF8047B 	 ldr r7,[sp],#4
+  70              	.LCFI5:
+  71              	 .cfi_restore 7
+  72              	 .cfi_def_cfa_offset 0
+  73 0024 7047     	 bx lr
+  74              	 .cfi_endproc
+  75              	.LFE224:
+  77 0026 00BF     	 .section .text.XMC_HRPWM_Init,"ax",%progbits
+  78              	 .align 2
+  79              	 .global XMC_HRPWM_Init
+  80              	 .thumb
+  81              	 .thumb_func
+  83              	XMC_HRPWM_Init:
+  84              	.LFB225:
+ 133:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 134:../Libraries/XMCLib/src/xmc_hrpwm.c **** /**************************************************************************************************
+ 135:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * API IMPLEMENTATION - HRPWM GLOBAL
+ 136:../Libraries/XMCLib/src/xmc_hrpwm.c ****  **************************************************************************************************
+ 137:../Libraries/XMCLib/src/xmc_hrpwm.c **** /* Initializes HRPWM global registers */
+ 138:../Libraries/XMCLib/src/xmc_hrpwm.c **** XMC_HRPWM_STATUS_t XMC_HRPWM_Init(XMC_HRPWM_t *const hrpwm)
+ 139:../Libraries/XMCLib/src/xmc_hrpwm.c **** {
+  85              	 .loc 1 139 0
+  86              	 .cfi_startproc
+  87              	 
+  88              	 
+  89 0000 80B5     	 push {r7,lr}
+  90              	.LCFI6:
+  91              	 .cfi_def_cfa_offset 8
+  92              	 .cfi_offset 7,-8
+  93              	 .cfi_offset 14,-4
+  94 0002 86B0     	 sub sp,sp,#24
+  95              	.LCFI7:
+  96              	 .cfi_def_cfa_offset 32
+  97 0004 00AF     	 add r7,sp,#0
+  98              	.LCFI8:
+  99              	 .cfi_def_cfa_register 7
+ 100 0006 7860     	 str r0,[r7,#4]
+ 140:../Libraries/XMCLib/src/xmc_hrpwm.c ****   uint32_t *csg_memory;
+ 141:../Libraries/XMCLib/src/xmc_hrpwm.c ****   uint32_t ccu_clock;
+ 142:../Libraries/XMCLib/src/xmc_hrpwm.c ****   uint32_t clkc;
+ 143:../Libraries/XMCLib/src/xmc_hrpwm.c ****   XMC_HRPWM_STATUS_t status;
+ 144:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 145:../Libraries/XMCLib/src/xmc_hrpwm.c ****   XMC_ASSERT("XMC_HRPWM_Init:Invalid module pointer", XMC_HRPWM_CHECK_MODULE_PTR(hrpwm));
+ 146:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 147:../Libraries/XMCLib/src/xmc_hrpwm.c ****   status = XMC_HRPWM_STATUS_ERROR;
+ 101              	 .loc 1 147 0
+ 102 0008 0223     	 movs r3,#2
+ 103 000a FB74     	 strb r3,[r7,#19]
+ 148:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 149:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /* Apply reset to HRPWM module */ 
+ 150:../Libraries/XMCLib/src/xmc_hrpwm.c ****   XMC_SCU_RESET_AssertPeripheralReset(XMC_SCU_PERIPHERAL_RESET_HRPWM0);
+ 104              	 .loc 1 150 0
+ 105 000c 4FF40000 	 mov r0,#8388608
+ 106 0010 FFF7FEFF 	 bl XMC_SCU_RESET_AssertPeripheralReset
+ 151:../Libraries/XMCLib/src/xmc_hrpwm.c ****  
+ 152:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /* Release reset for HRPWM module */
+ 153:../Libraries/XMCLib/src/xmc_hrpwm.c ****   XMC_SCU_RESET_DeassertPeripheralReset(XMC_SCU_PERIPHERAL_RESET_HRPWM0);
+ 107              	 .loc 1 153 0
+ 108 0014 4FF40000 	 mov r0,#8388608
+ 109 0018 FFF7FEFF 	 bl XMC_SCU_RESET_DeassertPeripheralReset
+ 154:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 155:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /* Ungate clock */
+ 156:../Libraries/XMCLib/src/xmc_hrpwm.c ****   XMC_SCU_CLOCK_UngatePeripheralClock(XMC_SCU_PERIPHERAL_CLOCK_HRPWM0);
+ 110              	 .loc 1 156 0
+ 111 001c 4FF40000 	 mov r0,#8388608
+ 112 0020 FFF7FEFF 	 bl XMC_SCU_CLOCK_UngatePeripheralClock
+ 157:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 158:../Libraries/XMCLib/src/xmc_hrpwm.c ****   hrpwm->GLBANA = (uint32_t)0x00004A4E;  /* Initialization sequence */
+ 113              	 .loc 1 158 0
+ 114 0024 7B68     	 ldr r3,[r7,#4]
+ 115 0026 44F64E22 	 movw r2,#19022
+ 116 002a 5A61     	 str r2,[r3,#20]
+ 159:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 160:../Libraries/XMCLib/src/xmc_hrpwm.c ****   hrpwm->HRBSC |= (uint32_t)HRPWM0_HRBSC_HRBE_Msk;  /* Enable Bias Generator of HRPWM */
+ 117              	 .loc 1 160 0
+ 118 002c 7B68     	 ldr r3,[r7,#4]
+ 119 002e 1B68     	 ldr r3,[r3]
+ 120 0030 43F48072 	 orr r2,r3,#256
+ 121 0034 7B68     	 ldr r3,[r7,#4]
+ 122 0036 1A60     	 str r2,[r3]
+ 161:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 162:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /* Update CSG0 memory data */
+ 163:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg_memory = (uint32_t *)XMC_HRPWM_CSG0_MEMORY_ADDRESS;
+ 123              	 .loc 1 163 0
+ 124 0038 444B     	 ldr r3,.L13
+ 125 003a FB60     	 str r3,[r7,#12]
+ 164:../Libraries/XMCLib/src/xmc_hrpwm.c ****   *csg_memory = g_hrpwm_char_data[0];
+ 126              	 .loc 1 164 0
+ 127 003c 444B     	 ldr r3,.L13+4
+ 128 003e 1A68     	 ldr r2,[r3]
+ 129 0040 FB68     	 ldr r3,[r7,#12]
+ 130 0042 1A60     	 str r2,[r3]
+ 165:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /* write csg memory bits[14:11] with 0b1100 */
+ 166:../Libraries/XMCLib/src/xmc_hrpwm.c ****   *csg_memory &= (uint32_t)(0xFFFF87FF);
+ 131              	 .loc 1 166 0
+ 132 0044 FB68     	 ldr r3,[r7,#12]
+ 133 0046 1B68     	 ldr r3,[r3]
+ 134 0048 23F4F042 	 bic r2,r3,#30720
+ 135 004c FB68     	 ldr r3,[r7,#12]
+ 136 004e 1A60     	 str r2,[r3]
+ 167:../Libraries/XMCLib/src/xmc_hrpwm.c ****   *csg_memory |= (uint32_t)(0x00006000);
+ 137              	 .loc 1 167 0
+ 138 0050 FB68     	 ldr r3,[r7,#12]
+ 139 0052 1B68     	 ldr r3,[r3]
+ 140 0054 43F4C042 	 orr r2,r3,#24576
+ 141 0058 FB68     	 ldr r3,[r7,#12]
+ 142 005a 1A60     	 str r2,[r3]
+ 168:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 169:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /* Update CSG1 trimming data */
+ 170:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg_memory = (uint32_t *)XMC_HRPWM_CSG1_MEMORY_ADDRESS;
+ 143              	 .loc 1 170 0
+ 144 005c 3D4B     	 ldr r3,.L13+8
+ 145 005e FB60     	 str r3,[r7,#12]
+ 171:../Libraries/XMCLib/src/xmc_hrpwm.c ****   *csg_memory = g_hrpwm_char_data[1];
+ 146              	 .loc 1 171 0
+ 147 0060 3B4B     	 ldr r3,.L13+4
+ 148 0062 5A68     	 ldr r2,[r3,#4]
+ 149 0064 FB68     	 ldr r3,[r7,#12]
+ 150 0066 1A60     	 str r2,[r3]
+ 172:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /* write csg memory bits[14:11] with 0b1100 */
+ 173:../Libraries/XMCLib/src/xmc_hrpwm.c ****   *csg_memory &= (uint32_t)(0xFFFF87FF);
+ 151              	 .loc 1 173 0
+ 152 0068 FB68     	 ldr r3,[r7,#12]
+ 153 006a 1B68     	 ldr r3,[r3]
+ 154 006c 23F4F042 	 bic r2,r3,#30720
+ 155 0070 FB68     	 ldr r3,[r7,#12]
+ 156 0072 1A60     	 str r2,[r3]
+ 174:../Libraries/XMCLib/src/xmc_hrpwm.c ****   *csg_memory |= (uint32_t)(0x00006000);
+ 157              	 .loc 1 174 0
+ 158 0074 FB68     	 ldr r3,[r7,#12]
+ 159 0076 1B68     	 ldr r3,[r3]
+ 160 0078 43F4C042 	 orr r2,r3,#24576
+ 161 007c FB68     	 ldr r3,[r7,#12]
+ 162 007e 1A60     	 str r2,[r3]
+ 175:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 176:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /* Update CSG2 trimming data */
+ 177:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg_memory = (uint32_t *)XMC_HRPWM_CSG2_MEMORY_ADDRESS;
+ 163              	 .loc 1 177 0
+ 164 0080 354B     	 ldr r3,.L13+12
+ 165 0082 FB60     	 str r3,[r7,#12]
+ 178:../Libraries/XMCLib/src/xmc_hrpwm.c ****   *csg_memory = g_hrpwm_char_data[2];
+ 166              	 .loc 1 178 0
+ 167 0084 324B     	 ldr r3,.L13+4
+ 168 0086 9A68     	 ldr r2,[r3,#8]
+ 169 0088 FB68     	 ldr r3,[r7,#12]
+ 170 008a 1A60     	 str r2,[r3]
+ 179:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /* write csg memory bits[14:11] with 0b1100 */
+ 180:../Libraries/XMCLib/src/xmc_hrpwm.c ****   *csg_memory &= (uint32_t)(0xFFFF87FF);
+ 171              	 .loc 1 180 0
+ 172 008c FB68     	 ldr r3,[r7,#12]
+ 173 008e 1B68     	 ldr r3,[r3]
+ 174 0090 23F4F042 	 bic r2,r3,#30720
+ 175 0094 FB68     	 ldr r3,[r7,#12]
+ 176 0096 1A60     	 str r2,[r3]
+ 181:../Libraries/XMCLib/src/xmc_hrpwm.c ****   *csg_memory |= (uint32_t)(0x00006000);
+ 177              	 .loc 1 181 0
+ 178 0098 FB68     	 ldr r3,[r7,#12]
+ 179 009a 1B68     	 ldr r3,[r3]
+ 180 009c 43F4C042 	 orr r2,r3,#24576
+ 181 00a0 FB68     	 ldr r3,[r7,#12]
+ 182 00a2 1A60     	 str r2,[r3]
+ 182:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 183:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /* Set CSG units to high speed mode */
+ 184:../Libraries/XMCLib/src/xmc_hrpwm.c ****   hrpwm->CSGCFG = (uint32_t)(0x0000003F);
+ 183              	 .loc 1 184 0
+ 184 00a4 7B68     	 ldr r3,[r7,#4]
+ 185 00a6 3F22     	 movs r2,#63
+ 186 00a8 1A62     	 str r2,[r3,#32]
+ 185:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 186:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /* Read CCU clock frequency */
+ 187:../Libraries/XMCLib/src/xmc_hrpwm.c ****   ccu_clock = XMC_SCU_CLOCK_GetCcuClockFrequency();
+ 187              	 .loc 1 187 0
+ 188 00aa FFF7FEFF 	 bl XMC_SCU_CLOCK_GetCcuClockFrequency
+ 189 00ae B860     	 str r0,[r7,#8]
+ 188:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 189:../Libraries/XMCLib/src/xmc_hrpwm.c ****   if ((ccu_clock > XMC_HRPWM_70MHZ_FREQUENCY) && (ccu_clock <= XMC_HRPWM_100MHZ_FREQUENCY))
+ 190              	 .loc 1 189 0
+ 191 00b0 BB68     	 ldr r3,[r7,#8]
+ 192 00b2 2A4A     	 ldr r2,.L13+16
+ 193 00b4 9342     	 cmp r3,r2
+ 194 00b6 06D9     	 bls .L5
+ 195              	 .loc 1 189 0 is_stmt 0 discriminator 1
+ 196 00b8 BB68     	 ldr r3,[r7,#8]
+ 197 00ba 294A     	 ldr r2,.L13+20
+ 198 00bc 9342     	 cmp r3,r2
+ 199 00be 02D8     	 bhi .L5
+ 190:../Libraries/XMCLib/src/xmc_hrpwm.c ****   {
+ 191:../Libraries/XMCLib/src/xmc_hrpwm.c ****     clkc = 3U; /* Clock frequency range 70MHz+ - 100MHz is considered as 80MHz HRC operation */
+ 200              	 .loc 1 191 0 is_stmt 1
+ 201 00c0 0323     	 movs r3,#3
+ 202 00c2 7B61     	 str r3,[r7,#20]
+ 203 00c4 17E0     	 b .L6
+ 204              	.L5:
+ 192:../Libraries/XMCLib/src/xmc_hrpwm.c ****   }
+ 193:../Libraries/XMCLib/src/xmc_hrpwm.c ****   else if ((ccu_clock > XMC_HRPWM_100MHZ_FREQUENCY) && (ccu_clock <= XMC_HRPWM_150MHZ_FREQUENCY))
+ 205              	 .loc 1 193 0
+ 206 00c6 BB68     	 ldr r3,[r7,#8]
+ 207 00c8 254A     	 ldr r2,.L13+20
+ 208 00ca 9342     	 cmp r3,r2
+ 209 00cc 06D9     	 bls .L7
+ 210              	 .loc 1 193 0 is_stmt 0 discriminator 1
+ 211 00ce BB68     	 ldr r3,[r7,#8]
+ 212 00d0 244A     	 ldr r2,.L13+24
+ 213 00d2 9342     	 cmp r3,r2
+ 214 00d4 02D8     	 bhi .L7
+ 194:../Libraries/XMCLib/src/xmc_hrpwm.c ****   {
+ 195:../Libraries/XMCLib/src/xmc_hrpwm.c ****     clkc = 2U; /* Clock frequency range 100MHz+ - 150MHz is considered as 120MHz HRC operation */
+ 215              	 .loc 1 195 0 is_stmt 1
+ 216 00d6 0223     	 movs r3,#2
+ 217 00d8 7B61     	 str r3,[r7,#20]
+ 218 00da 0CE0     	 b .L6
+ 219              	.L7:
+ 196:../Libraries/XMCLib/src/xmc_hrpwm.c ****   }
+ 197:../Libraries/XMCLib/src/xmc_hrpwm.c ****   else if ((ccu_clock > XMC_HRPWM_150MHZ_FREQUENCY) && (ccu_clock <= XMC_HRPWM_200MHZ_FREQUENCY))
+ 220              	 .loc 1 197 0
+ 221 00dc BB68     	 ldr r3,[r7,#8]
+ 222 00de 214A     	 ldr r2,.L13+24
+ 223 00e0 9342     	 cmp r3,r2
+ 224 00e2 06D9     	 bls .L8
+ 225              	 .loc 1 197 0 is_stmt 0 discriminator 1
+ 226 00e4 BB68     	 ldr r3,[r7,#8]
+ 227 00e6 204A     	 ldr r2,.L13+28
+ 228 00e8 9342     	 cmp r3,r2
+ 229 00ea 02D8     	 bhi .L8
+ 198:../Libraries/XMCLib/src/xmc_hrpwm.c ****   {
+ 199:../Libraries/XMCLib/src/xmc_hrpwm.c ****     clkc = 1U; /* Clock frequency range 150MHz+ - 200MHz is considered as 180MHz HRC operation */
+ 230              	 .loc 1 199 0 is_stmt 1
+ 231 00ec 0123     	 movs r3,#1
+ 232 00ee 7B61     	 str r3,[r7,#20]
+ 233 00f0 01E0     	 b .L6
+ 234              	.L8:
+ 200:../Libraries/XMCLib/src/xmc_hrpwm.c ****   }
+ 201:../Libraries/XMCLib/src/xmc_hrpwm.c ****   else
+ 202:../Libraries/XMCLib/src/xmc_hrpwm.c ****   {
+ 203:../Libraries/XMCLib/src/xmc_hrpwm.c ****     clkc = 0U; /* Invalid frequency for HRC operation: Clock frequency <= 60MHz & Clock frequency >
+ 235              	 .loc 1 203 0
+ 236 00f2 0023     	 movs r3,#0
+ 237 00f4 7B61     	 str r3,[r7,#20]
+ 238              	.L6:
+ 204:../Libraries/XMCLib/src/xmc_hrpwm.c ****   }
+ 205:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 206:../Libraries/XMCLib/src/xmc_hrpwm.c ****   if (clkc != 0U) /* Enter the loop only if the clock frequency is valid */
+ 239              	 .loc 1 206 0
+ 240 00f6 7B69     	 ldr r3,[r7,#20]
+ 241 00f8 002B     	 cmp r3,#0
+ 242 00fa 1FD0     	 beq .L9
+ 207:../Libraries/XMCLib/src/xmc_hrpwm.c ****   {
+ 208:../Libraries/XMCLib/src/xmc_hrpwm.c ****     /* Program HRC clock configuration with clock frequency information */
+ 209:../Libraries/XMCLib/src/xmc_hrpwm.c ****     hrpwm->HRCCFG |= (clkc << HRPWM0_HRCCFG_CLKC_Pos);
+ 243              	 .loc 1 209 0
+ 244 00fc 7B68     	 ldr r3,[r7,#4]
+ 245 00fe 1A6E     	 ldr r2,[r3,#96]
+ 246 0100 7B69     	 ldr r3,[r7,#20]
+ 247 0102 1B04     	 lsls r3,r3,#16
+ 248 0104 1A43     	 orrs r2,r2,r3
+ 249 0106 7B68     	 ldr r3,[r7,#4]
+ 250 0108 1A66     	 str r2,[r3,#96]
+ 210:../Libraries/XMCLib/src/xmc_hrpwm.c ****     
+ 211:../Libraries/XMCLib/src/xmc_hrpwm.c ****     hrpwm->HRCCFG |= (uint32_t)HRPWM0_HRCCFG_HRCPM_Msk; /* Release HR generation from power down mo
+ 251              	 .loc 1 211 0
+ 252 010a 7B68     	 ldr r3,[r7,#4]
+ 253 010c 1B6E     	 ldr r3,[r3,#96]
+ 254 010e 43F00102 	 orr r2,r3,#1
+ 255 0112 7B68     	 ldr r3,[r7,#4]
+ 256 0114 1A66     	 str r2,[r3,#96]
+ 212:../Libraries/XMCLib/src/xmc_hrpwm.c ****     
+ 213:../Libraries/XMCLib/src/xmc_hrpwm.c ****     XMC_HRPWM_lDelay(); /* As per Initialization sequence */
+ 257              	 .loc 1 213 0
+ 258 0116 FFF7FEFF 	 bl XMC_HRPWM_lDelay
+ 214:../Libraries/XMCLib/src/xmc_hrpwm.c ****     
+ 215:../Libraries/XMCLib/src/xmc_hrpwm.c ****     /* Enable global high resolution generation / Force charge pump down */
+ 216:../Libraries/XMCLib/src/xmc_hrpwm.c ****     hrpwm->GLBANA |= (uint32_t)HRPWM0_GLBANA_GHREN_Msk;
+ 259              	 .loc 1 216 0
+ 260 011a 7B68     	 ldr r3,[r7,#4]
+ 261 011c 5B69     	 ldr r3,[r3,#20]
+ 262 011e 43F48022 	 orr r2,r3,#262144
+ 263 0122 7B68     	 ldr r3,[r7,#4]
+ 264 0124 5A61     	 str r2,[r3,#20]
+ 217:../Libraries/XMCLib/src/xmc_hrpwm.c ****     
+ 218:../Libraries/XMCLib/src/xmc_hrpwm.c ****     XMC_HRPWM_lDelay();
+ 265              	 .loc 1 218 0
+ 266 0126 FFF7FEFF 	 bl XMC_HRPWM_lDelay
+ 219:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 220:../Libraries/XMCLib/src/xmc_hrpwm.c ****     /* Check High resolution ready bit field */
+ 221:../Libraries/XMCLib/src/xmc_hrpwm.c ****     if ((hrpwm->HRGHRS & HRPWM0_HRGHRS_HRGR_Msk) == 1U)
+ 267              	 .loc 1 221 0
+ 268 012a 7B68     	 ldr r3,[r7,#4]
+ 269 012c 1B6F     	 ldr r3,[r3,#112]
+ 270 012e 03F00103 	 and r3,r3,#1
+ 271 0132 002B     	 cmp r3,#0
+ 272 0134 04D0     	 beq .L11
+ 222:../Libraries/XMCLib/src/xmc_hrpwm.c ****     {
+ 223:../Libraries/XMCLib/src/xmc_hrpwm.c ****       /* High resolution logic unit is ready */
+ 224:../Libraries/XMCLib/src/xmc_hrpwm.c ****       status = XMC_HRPWM_STATUS_OK;
+ 273              	 .loc 1 224 0
+ 274 0136 0023     	 movs r3,#0
+ 275 0138 FB74     	 strb r3,[r7,#19]
+ 276 013a 01E0     	 b .L11
+ 277              	.L9:
+ 225:../Libraries/XMCLib/src/xmc_hrpwm.c ****     }
+ 226:../Libraries/XMCLib/src/xmc_hrpwm.c ****   }
+ 227:../Libraries/XMCLib/src/xmc_hrpwm.c ****   else
+ 228:../Libraries/XMCLib/src/xmc_hrpwm.c ****   {
+ 229:../Libraries/XMCLib/src/xmc_hrpwm.c ****     status = XMC_HRPWM_STATUS_ERROR; /* Clock frequency is invalid */
+ 278              	 .loc 1 229 0
+ 279 013c 0223     	 movs r3,#2
+ 280 013e FB74     	 strb r3,[r7,#19]
+ 281              	.L11:
+ 230:../Libraries/XMCLib/src/xmc_hrpwm.c ****   }
+ 231:../Libraries/XMCLib/src/xmc_hrpwm.c ****  
+ 232:../Libraries/XMCLib/src/xmc_hrpwm.c ****   return (status);
+ 282              	 .loc 1 232 0
+ 283 0140 FB7C     	 ldrb r3,[r7,#19]
+ 233:../Libraries/XMCLib/src/xmc_hrpwm.c **** }
+ 284              	 .loc 1 233 0
+ 285 0142 1846     	 mov r0,r3
+ 286 0144 1837     	 adds r7,r7,#24
+ 287              	.LCFI9:
+ 288              	 .cfi_def_cfa_offset 8
+ 289 0146 BD46     	 mov sp,r7
+ 290              	.LCFI10:
+ 291              	 .cfi_def_cfa_register 13
+ 292              	 
+ 293 0148 80BD     	 pop {r7,pc}
+ 294              	.L14:
+ 295 014a 00BF     	 .align 2
+ 296              	.L13:
+ 297 014c 400A0240 	 .word 1073875520
+ 298 0150 00000000 	 .word g_hrpwm_char_data
+ 299 0154 400B0240 	 .word 1073875776
+ 300 0158 400C0240 	 .word 1073876032
+ 301 015c 801D2C04 	 .word 70000000
+ 302 0160 00E1F505 	 .word 100000000
+ 303 0164 80D1F008 	 .word 150000000
+ 304 0168 00C2EB0B 	 .word 200000000
+ 305              	 .cfi_endproc
+ 306              	.LFE225:
+ 308              	 .section .text.XMC_HRPWM_EnableGlobalHR,"ax",%progbits
+ 309              	 .align 2
+ 310              	 .global XMC_HRPWM_EnableGlobalHR
+ 311              	 .thumb
+ 312              	 .thumb_func
+ 314              	XMC_HRPWM_EnableGlobalHR:
+ 315              	.LFB226:
+ 234:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 235:../Libraries/XMCLib/src/xmc_hrpwm.c **** /* Enable global high resolution generation */
+ 236:../Libraries/XMCLib/src/xmc_hrpwm.c **** void XMC_HRPWM_EnableGlobalHR(XMC_HRPWM_t *const hrpwm)
+ 237:../Libraries/XMCLib/src/xmc_hrpwm.c **** {
+ 316              	 .loc 1 237 0
+ 317              	 .cfi_startproc
+ 318              	 
+ 319              	 
+ 320 0000 80B5     	 push {r7,lr}
+ 321              	.LCFI11:
+ 322              	 .cfi_def_cfa_offset 8
+ 323              	 .cfi_offset 7,-8
+ 324              	 .cfi_offset 14,-4
+ 325 0002 82B0     	 sub sp,sp,#8
+ 326              	.LCFI12:
+ 327              	 .cfi_def_cfa_offset 16
+ 328 0004 00AF     	 add r7,sp,#0
+ 329              	.LCFI13:
+ 330              	 .cfi_def_cfa_register 7
+ 331 0006 7860     	 str r0,[r7,#4]
+ 238:../Libraries/XMCLib/src/xmc_hrpwm.c ****   XMC_ASSERT("XMC_HRPWM_EnableGlobalHR:Invalid module pointer", XMC_HRPWM_CHECK_MODULE_PTR(hrpwm));
+ 239:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 240:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /* Enable global high resolution generation / Force charge pump down */
+ 241:../Libraries/XMCLib/src/xmc_hrpwm.c ****   hrpwm->GLBANA |= (uint32_t)HRPWM0_GLBANA_GHREN_Msk;
+ 332              	 .loc 1 241 0
+ 333 0008 7B68     	 ldr r3,[r7,#4]
+ 334 000a 5B69     	 ldr r3,[r3,#20]
+ 335 000c 43F48022 	 orr r2,r3,#262144
+ 336 0010 7B68     	 ldr r3,[r7,#4]
+ 337 0012 5A61     	 str r2,[r3,#20]
+ 242:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 243:../Libraries/XMCLib/src/xmc_hrpwm.c ****   XMC_HRPWM_lDelay(); /* Elapse startup time */
+ 338              	 .loc 1 243 0
+ 339 0014 FFF7FEFF 	 bl XMC_HRPWM_lDelay
+ 244:../Libraries/XMCLib/src/xmc_hrpwm.c **** }
+ 340              	 .loc 1 244 0
+ 341 0018 0837     	 adds r7,r7,#8
+ 342              	.LCFI14:
+ 343              	 .cfi_def_cfa_offset 8
+ 344 001a BD46     	 mov sp,r7
+ 345              	.LCFI15:
+ 346              	 .cfi_def_cfa_register 13
+ 347              	 
+ 348 001c 80BD     	 pop {r7,pc}
+ 349              	 .cfi_endproc
+ 350              	.LFE226:
+ 352 001e 00BF     	 .section .text.XMC_HRPWM_DisableGlobalHR,"ax",%progbits
+ 353              	 .align 2
+ 354              	 .global XMC_HRPWM_DisableGlobalHR
+ 355              	 .thumb
+ 356              	 .thumb_func
+ 358              	XMC_HRPWM_DisableGlobalHR:
+ 359              	.LFB227:
+ 245:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 246:../Libraries/XMCLib/src/xmc_hrpwm.c **** /* Disable global high resolution generation */
+ 247:../Libraries/XMCLib/src/xmc_hrpwm.c **** void XMC_HRPWM_DisableGlobalHR(XMC_HRPWM_t *const hrpwm)
+ 248:../Libraries/XMCLib/src/xmc_hrpwm.c **** {
+ 360              	 .loc 1 248 0
+ 361              	 .cfi_startproc
+ 362              	 
+ 363              	 
+ 364              	 
+ 365 0000 80B4     	 push {r7}
+ 366              	.LCFI16:
+ 367              	 .cfi_def_cfa_offset 4
+ 368              	 .cfi_offset 7,-4
+ 369 0002 83B0     	 sub sp,sp,#12
+ 370              	.LCFI17:
+ 371              	 .cfi_def_cfa_offset 16
+ 372 0004 00AF     	 add r7,sp,#0
+ 373              	.LCFI18:
+ 374              	 .cfi_def_cfa_register 7
+ 375 0006 7860     	 str r0,[r7,#4]
+ 249:../Libraries/XMCLib/src/xmc_hrpwm.c ****   XMC_ASSERT("XMC_HRPWM_DisableGlobalHR:Invalid module pointer", XMC_HRPWM_CHECK_MODULE_PTR(hrpwm))
+ 250:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 251:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /* Enable global high resolution generation / Force charge pump down */
+ 252:../Libraries/XMCLib/src/xmc_hrpwm.c ****   hrpwm->GLBANA &= ~((uint32_t)HRPWM0_GLBANA_GHREN_Msk);
+ 376              	 .loc 1 252 0
+ 377 0008 7B68     	 ldr r3,[r7,#4]
+ 378 000a 5B69     	 ldr r3,[r3,#20]
+ 379 000c 23F48022 	 bic r2,r3,#262144
+ 380 0010 7B68     	 ldr r3,[r7,#4]
+ 381 0012 5A61     	 str r2,[r3,#20]
+ 253:../Libraries/XMCLib/src/xmc_hrpwm.c **** }
+ 382              	 .loc 1 253 0
+ 383 0014 0C37     	 adds r7,r7,#12
+ 384              	.LCFI19:
+ 385              	 .cfi_def_cfa_offset 4
+ 386 0016 BD46     	 mov sp,r7
+ 387              	.LCFI20:
+ 388              	 .cfi_def_cfa_register 13
+ 389              	 
+ 390 0018 5DF8047B 	 ldr r7,[sp],#4
+ 391              	.LCFI21:
+ 392              	 .cfi_restore 7
+ 393              	 .cfi_def_cfa_offset 0
+ 394 001c 7047     	 bx lr
+ 395              	 .cfi_endproc
+ 396              	.LFE227:
+ 398 001e 00BF     	 .section .text.XMC_HRPWM_GetHRGenReadyStatus,"ax",%progbits
+ 399              	 .align 2
+ 400              	 .global XMC_HRPWM_GetHRGenReadyStatus
+ 401              	 .thumb
+ 402              	 .thumb_func
+ 404              	XMC_HRPWM_GetHRGenReadyStatus:
+ 405              	.LFB228:
+ 254:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 255:../Libraries/XMCLib/src/xmc_hrpwm.c **** /**************************************************************************************************
+ 256:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * API IMPLEMENTATION - HRPWM HRC GLOBAL
+ 257:../Libraries/XMCLib/src/xmc_hrpwm.c ****  **************************************************************************************************
+ 258:../Libraries/XMCLib/src/xmc_hrpwm.c **** /* Checks and returns high resolution generation working status */
+ 259:../Libraries/XMCLib/src/xmc_hrpwm.c **** XMC_HRPWM_HR_LOGIC_t XMC_HRPWM_GetHRGenReadyStatus(XMC_HRPWM_t *const hrpwm)
+ 260:../Libraries/XMCLib/src/xmc_hrpwm.c **** {
+ 406              	 .loc 1 260 0
+ 407              	 .cfi_startproc
+ 408              	 
+ 409              	 
+ 410              	 
+ 411 0000 80B4     	 push {r7}
+ 412              	.LCFI22:
+ 413              	 .cfi_def_cfa_offset 4
+ 414              	 .cfi_offset 7,-4
+ 415 0002 85B0     	 sub sp,sp,#20
+ 416              	.LCFI23:
+ 417              	 .cfi_def_cfa_offset 24
+ 418 0004 00AF     	 add r7,sp,#0
+ 419              	.LCFI24:
+ 420              	 .cfi_def_cfa_register 7
+ 421 0006 7860     	 str r0,[r7,#4]
+ 261:../Libraries/XMCLib/src/xmc_hrpwm.c ****   XMC_HRPWM_HR_LOGIC_t status;
+ 262:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 263:../Libraries/XMCLib/src/xmc_hrpwm.c ****   XMC_ASSERT("XMC_HRPWM_GetHRGenReadyStatus:Invalid module pointer", XMC_HRPWM_CHECK_MODULE_PTR(hrp
+ 264:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 265:../Libraries/XMCLib/src/xmc_hrpwm.c ****   if (hrpwm->HRGHRS)
+ 422              	 .loc 1 265 0
+ 423 0008 7B68     	 ldr r3,[r7,#4]
+ 424 000a 1B6F     	 ldr r3,[r3,#112]
+ 425 000c 002B     	 cmp r3,#0
+ 426 000e 02D0     	 beq .L18
+ 266:../Libraries/XMCLib/src/xmc_hrpwm.c ****   {
+ 267:../Libraries/XMCLib/src/xmc_hrpwm.c ****     status = XMC_HRPWM_HR_LOGIC_WORKING;
+ 427              	 .loc 1 267 0
+ 428 0010 0123     	 movs r3,#1
+ 429 0012 FB73     	 strb r3,[r7,#15]
+ 430 0014 01E0     	 b .L19
+ 431              	.L18:
+ 268:../Libraries/XMCLib/src/xmc_hrpwm.c ****   }
+ 269:../Libraries/XMCLib/src/xmc_hrpwm.c ****   else
+ 270:../Libraries/XMCLib/src/xmc_hrpwm.c ****   {
+ 271:../Libraries/XMCLib/src/xmc_hrpwm.c ****     status = XMC_HRPWM_HR_LOGIC_NOT_WORKING;
+ 432              	 .loc 1 271 0
+ 433 0016 0023     	 movs r3,#0
+ 434 0018 FB73     	 strb r3,[r7,#15]
+ 435              	.L19:
+ 272:../Libraries/XMCLib/src/xmc_hrpwm.c ****   }
+ 273:../Libraries/XMCLib/src/xmc_hrpwm.c ****   return status;
+ 436              	 .loc 1 273 0
+ 437 001a FB7B     	 ldrb r3,[r7,#15]
+ 274:../Libraries/XMCLib/src/xmc_hrpwm.c **** }
+ 438              	 .loc 1 274 0
+ 439 001c 1846     	 mov r0,r3
+ 440 001e 1437     	 adds r7,r7,#20
+ 441              	.LCFI25:
+ 442              	 .cfi_def_cfa_offset 4
+ 443 0020 BD46     	 mov sp,r7
+ 444              	.LCFI26:
+ 445              	 .cfi_def_cfa_register 13
+ 446              	 
+ 447 0022 5DF8047B 	 ldr r7,[sp],#4
+ 448              	.LCFI27:
+ 449              	 .cfi_restore 7
+ 450              	 .cfi_def_cfa_offset 0
+ 451 0026 7047     	 bx lr
+ 452              	 .cfi_endproc
+ 453              	.LFE228:
+ 455              	 .section .text.XMC_HRPWM_HRC_Init,"ax",%progbits
+ 456              	 .align 2
+ 457              	 .global XMC_HRPWM_HRC_Init
+ 458              	 .thumb
+ 459              	 .thumb_func
+ 461              	XMC_HRPWM_HRC_Init:
+ 462              	.LFB229:
+ 275:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 276:../Libraries/XMCLib/src/xmc_hrpwm.c **** /**************************************************************************************************
+ 277:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * API IMPLEMENTATION - HRPWM HRC CHANNEL
+ 278:../Libraries/XMCLib/src/xmc_hrpwm.c ****  **************************************************************************************************
+ 279:../Libraries/XMCLib/src/xmc_hrpwm.c **** /* Initialize HRPWM HRC channel */
+ 280:../Libraries/XMCLib/src/xmc_hrpwm.c **** void XMC_HRPWM_HRC_Init(XMC_HRPWM_HRC_t *const hrc, const XMC_HRPWM_HRC_CONFIG_t *const config)
+ 281:../Libraries/XMCLib/src/xmc_hrpwm.c **** { 
+ 463              	 .loc 1 281 0
+ 464              	 .cfi_startproc
+ 465              	 
+ 466              	 
+ 467              	 
+ 468 0000 80B4     	 push {r7}
+ 469              	.LCFI28:
+ 470              	 .cfi_def_cfa_offset 4
+ 471              	 .cfi_offset 7,-4
+ 472 0002 83B0     	 sub sp,sp,#12
+ 473              	.LCFI29:
+ 474              	 .cfi_def_cfa_offset 16
+ 475 0004 00AF     	 add r7,sp,#0
+ 476              	.LCFI30:
+ 477              	 .cfi_def_cfa_register 7
+ 478 0006 7860     	 str r0,[r7,#4]
+ 479 0008 3960     	 str r1,[r7]
+ 282:../Libraries/XMCLib/src/xmc_hrpwm.c ****   XMC_ASSERT("XMC_HRPWM_HRC_Init:Invalid HRC pointer", XMC_HRPWM_CHECK_HRC_PTR(hrc));
+ 283:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 284:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /* Setting of HRCy mode configuration */
+ 285:../Libraries/XMCLib/src/xmc_hrpwm.c ****   hrc->GC = config->gc;
+ 480              	 .loc 1 285 0
+ 481 000a 3B68     	 ldr r3,[r7]
+ 482 000c 1A68     	 ldr r2,[r3]
+ 483 000e 7B68     	 ldr r3,[r7,#4]
+ 484 0010 1A60     	 str r2,[r3]
+ 286:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 287:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /* Passive level configuration */
+ 288:../Libraries/XMCLib/src/xmc_hrpwm.c ****   hrc->PL = config->psl;
+ 485              	 .loc 1 288 0
+ 486 0012 3B68     	 ldr r3,[r7]
+ 487 0014 5A68     	 ldr r2,[r3,#4]
+ 488 0016 7B68     	 ldr r3,[r7,#4]
+ 489 0018 5A60     	 str r2,[r3,#4]
+ 289:../Libraries/XMCLib/src/xmc_hrpwm.c **** }
+ 490              	 .loc 1 289 0
+ 491 001a 0C37     	 adds r7,r7,#12
+ 492              	.LCFI31:
+ 493              	 .cfi_def_cfa_offset 4
+ 494 001c BD46     	 mov sp,r7
+ 495              	.LCFI32:
+ 496              	 .cfi_def_cfa_register 13
+ 497              	 
+ 498 001e 5DF8047B 	 ldr r7,[sp],#4
+ 499              	.LCFI33:
+ 500              	 .cfi_restore 7
+ 501              	 .cfi_def_cfa_offset 0
+ 502 0022 7047     	 bx lr
+ 503              	 .cfi_endproc
+ 504              	.LFE229:
+ 506              	 .section .text.XMC_HRPWM_HRC_ConfigSourceSelect0,"ax",%progbits
+ 507              	 .align 2
+ 508              	 .global XMC_HRPWM_HRC_ConfigSourceSelect0
+ 509              	 .thumb
+ 510              	 .thumb_func
+ 512              	XMC_HRPWM_HRC_ConfigSourceSelect0:
+ 513              	.LFB230:
+ 290:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 291:../Libraries/XMCLib/src/xmc_hrpwm.c **** /* Configure Source selector 0 */
+ 292:../Libraries/XMCLib/src/xmc_hrpwm.c **** void XMC_HRPWM_HRC_ConfigSourceSelect0(XMC_HRPWM_HRC_t *const hrc, const XMC_HRPWM_HRC_SRC_CONFIG_t
+ 293:../Libraries/XMCLib/src/xmc_hrpwm.c **** {
+ 514              	 .loc 1 293 0
+ 515              	 .cfi_startproc
+ 516              	 
+ 517              	 
+ 518              	 
+ 519 0000 80B4     	 push {r7}
+ 520              	.LCFI34:
+ 521              	 .cfi_def_cfa_offset 4
+ 522              	 .cfi_offset 7,-4
+ 523 0002 85B0     	 sub sp,sp,#20
+ 524              	.LCFI35:
+ 525              	 .cfi_def_cfa_offset 24
+ 526 0004 00AF     	 add r7,sp,#0
+ 527              	.LCFI36:
+ 528              	 .cfi_def_cfa_register 7
+ 529 0006 7860     	 str r0,[r7,#4]
+ 530 0008 3960     	 str r1,[r7]
+ 294:../Libraries/XMCLib/src/xmc_hrpwm.c ****   uint32_t reg;
+ 295:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 296:../Libraries/XMCLib/src/xmc_hrpwm.c ****   XMC_ASSERT("XMC_HRPWM_HRC_ConfigSourceSelect0:Invalid HRC pointer", XMC_HRPWM_CHECK_HRC_PTR(hrc))
+ 297:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 298:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /* HRC mode config for source selector 0 */
+ 299:../Libraries/XMCLib/src/xmc_hrpwm.c ****   hrc->GC &= ~((uint32_t)HRPWM0_HRC_GC_HRM0_Msk);
+ 531              	 .loc 1 299 0
+ 532 000a 7B68     	 ldr r3,[r7,#4]
+ 533 000c 1B68     	 ldr r3,[r3]
+ 534 000e 23F00302 	 bic r2,r3,#3
+ 535 0012 7B68     	 ldr r3,[r7,#4]
+ 536 0014 1A60     	 str r2,[r3]
+ 300:../Libraries/XMCLib/src/xmc_hrpwm.c ****   hrc->GC |= ((uint32_t)config->high_res_mode) << HRPWM0_HRC_GC_HRM0_Pos;
+ 537              	 .loc 1 300 0
+ 538 0016 7B68     	 ldr r3,[r7,#4]
+ 539 0018 1B68     	 ldr r3,[r3]
+ 540 001a 3A68     	 ldr r2,[r7]
+ 541 001c 1278     	 ldrb r2,[r2]
+ 542 001e 1A43     	 orrs r2,r2,r3
+ 543 0020 7B68     	 ldr r3,[r7,#4]
+ 544 0022 1A60     	 str r2,[r3]
+ 301:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 302:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /*****************************************************************************
+ 303:../Libraries/XMCLib/src/xmc_hrpwm.c ****    * HRCy global control selection (HRCyGSEL)
+ 304:../Libraries/XMCLib/src/xmc_hrpwm.c ****    ****************************************************************************/
+ 305:../Libraries/XMCLib/src/xmc_hrpwm.c ****   reg = 0U;
+ 545              	 .loc 1 305 0
+ 546 0024 0023     	 movs r3,#0
+ 547 0026 FB60     	 str r3,[r7,#12]
+ 306:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 307:../Libraries/XMCLib/src/xmc_hrpwm.c ****   if(config->set_config == XMC_HRPWM_HRC_SRC_INPUT_CSG)
+ 548              	 .loc 1 307 0
+ 549 0028 3B68     	 ldr r3,[r7]
+ 550 002a 5B78     	 ldrb r3,[r3,#1]
+ 551 002c 012B     	 cmp r3,#1
+ 552 002e 06D1     	 bne .L23
+ 308:../Libraries/XMCLib/src/xmc_hrpwm.c ****   {
+ 309:../Libraries/XMCLib/src/xmc_hrpwm.c ****     reg  = ((uint32_t)config->cmp_set) << HRPWM0_HRC_GSEL_C0SS_Pos;
+ 553              	 .loc 1 309 0
+ 554 0030 3B68     	 ldr r3,[r7]
+ 555 0032 DB78     	 ldrb r3,[r3,#3]
+ 556 0034 FB60     	 str r3,[r7,#12]
+ 310:../Libraries/XMCLib/src/xmc_hrpwm.c ****     reg |= ((uint32_t)XMC_HRPWM_HRC_SRC_INPUT_CSG) << HRPWM0_HRC_GSEL_S0M_Pos;  /* comparator outpu
+ 557              	 .loc 1 310 0
+ 558 0036 FB68     	 ldr r3,[r7,#12]
+ 559 0038 43F04003 	 orr r3,r3,#64
+ 560 003c FB60     	 str r3,[r7,#12]
+ 561              	.L23:
+ 311:../Libraries/XMCLib/src/xmc_hrpwm.c ****   }
+ 312:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 313:../Libraries/XMCLib/src/xmc_hrpwm.c ****   if (config->clear_config == XMC_HRPWM_HRC_SRC_INPUT_CSG)
+ 562              	 .loc 1 313 0
+ 563 003e 3B68     	 ldr r3,[r7]
+ 564 0040 9B78     	 ldrb r3,[r3,#2]
+ 565 0042 012B     	 cmp r3,#1
+ 566 0044 09D1     	 bne .L24
+ 314:../Libraries/XMCLib/src/xmc_hrpwm.c ****   {
+ 315:../Libraries/XMCLib/src/xmc_hrpwm.c ****     reg |= ((uint32_t)config->cmp_clear) << HRPWM0_HRC_GSEL_C0CS_Pos;
+ 567              	 .loc 1 315 0
+ 568 0046 3B68     	 ldr r3,[r7]
+ 569 0048 1B79     	 ldrb r3,[r3,#4]
+ 570 004a DB00     	 lsls r3,r3,#3
+ 571 004c FA68     	 ldr r2,[r7,#12]
+ 572 004e 1343     	 orrs r3,r3,r2
+ 573 0050 FB60     	 str r3,[r7,#12]
+ 316:../Libraries/XMCLib/src/xmc_hrpwm.c ****     reg |= ((uint32_t)XMC_HRPWM_HRC_SRC_INPUT_CSG) << HRPWM0_HRC_GSEL_C0M_Pos;  /* comparator outpu
+ 574              	 .loc 1 316 0
+ 575 0052 FB68     	 ldr r3,[r7,#12]
+ 576 0054 43F48073 	 orr r3,r3,#256
+ 577 0058 FB60     	 str r3,[r7,#12]
+ 578              	.L24:
+ 317:../Libraries/XMCLib/src/xmc_hrpwm.c ****   }
+ 318:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 319:../Libraries/XMCLib/src/xmc_hrpwm.c ****   reg |= ((uint32_t)config->set_edge_config) << HRPWM0_HRC_GSEL_S0ES_Pos;
+ 579              	 .loc 1 319 0
+ 580 005a 3B68     	 ldr r3,[r7]
+ 581 005c 9B79     	 ldrb r3,[r3,#6]
+ 582 005e 9B02     	 lsls r3,r3,#10
+ 583 0060 FA68     	 ldr r2,[r7,#12]
+ 584 0062 1343     	 orrs r3,r3,r2
+ 585 0064 FB60     	 str r3,[r7,#12]
+ 320:../Libraries/XMCLib/src/xmc_hrpwm.c ****   reg |= ((uint32_t)config->clear_edge_config) << HRPWM0_HRC_GSEL_C0ES_Pos;
+ 586              	 .loc 1 320 0
+ 587 0066 3B68     	 ldr r3,[r7]
+ 588 0068 DB79     	 ldrb r3,[r3,#7]
+ 589 006a 1B03     	 lsls r3,r3,#12
+ 590 006c FA68     	 ldr r2,[r7,#12]
+ 591 006e 1343     	 orrs r3,r3,r2
+ 592 0070 FB60     	 str r3,[r7,#12]
+ 321:../Libraries/XMCLib/src/xmc_hrpwm.c ****   hrc->GSEL &= (uint32_t)0xFFFF0000;
+ 593              	 .loc 1 321 0
+ 594 0072 7B68     	 ldr r3,[r7,#4]
+ 595 0074 9B68     	 ldr r3,[r3,#8]
+ 596 0076 1B0C     	 lsrs r3,r3,#16
+ 597 0078 1B04     	 lsls r3,r3,#16
+ 598 007a 7A68     	 ldr r2,[r7,#4]
+ 599 007c 9360     	 str r3,[r2,#8]
+ 322:../Libraries/XMCLib/src/xmc_hrpwm.c ****   hrc->GSEL |= reg;
+ 600              	 .loc 1 322 0
+ 601 007e 7B68     	 ldr r3,[r7,#4]
+ 602 0080 9A68     	 ldr r2,[r3,#8]
+ 603 0082 FB68     	 ldr r3,[r7,#12]
+ 604 0084 1A43     	 orrs r2,r2,r3
+ 605 0086 7B68     	 ldr r3,[r7,#4]
+ 606 0088 9A60     	 str r2,[r3,#8]
+ 323:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 324:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /*****************************************************************************
+ 325:../Libraries/XMCLib/src/xmc_hrpwm.c ****    * HRCy timer selection (HRCyTSEL)
+ 326:../Libraries/XMCLib/src/xmc_hrpwm.c ****    ****************************************************************************/
+ 327:../Libraries/XMCLib/src/xmc_hrpwm.c ****   reg = (uint32_t)config->timer_sel;
+ 607              	 .loc 1 327 0
+ 608 008a 3B68     	 ldr r3,[r7]
+ 609 008c 5B79     	 ldrb r3,[r3,#5]
+ 610 008e FB60     	 str r3,[r7,#12]
+ 328:../Libraries/XMCLib/src/xmc_hrpwm.c ****   reg |= ((uint32_t)config->src_trap_enable) << HRPWM0_HRC_TSEL_TS0E_Pos;
+ 611              	 .loc 1 328 0
+ 612 0090 3B68     	 ldr r3,[r7]
+ 613 0092 1B7A     	 ldrb r3,[r3,#8]
+ 614 0094 1B04     	 lsls r3,r3,#16
+ 615 0096 FA68     	 ldr r2,[r7,#12]
+ 616 0098 1343     	 orrs r3,r3,r2
+ 617 009a FB60     	 str r3,[r7,#12]
+ 329:../Libraries/XMCLib/src/xmc_hrpwm.c ****   hrc->TSEL &= (uint32_t)0xFFFEFFF8;
+ 618              	 .loc 1 329 0
+ 619 009c 7B68     	 ldr r3,[r7,#4]
+ 620 009e DB68     	 ldr r3,[r3,#12]
+ 621 00a0 23F48033 	 bic r3,r3,#65536
+ 622 00a4 23F00703 	 bic r3,r3,#7
+ 623 00a8 7A68     	 ldr r2,[r7,#4]
+ 624 00aa D360     	 str r3,[r2,#12]
+ 330:../Libraries/XMCLib/src/xmc_hrpwm.c ****   hrc->TSEL |= reg;
+ 625              	 .loc 1 330 0
+ 626 00ac 7B68     	 ldr r3,[r7,#4]
+ 627 00ae DA68     	 ldr r2,[r3,#12]
+ 628 00b0 FB68     	 ldr r3,[r7,#12]
+ 629 00b2 1A43     	 orrs r2,r2,r3
+ 630 00b4 7B68     	 ldr r3,[r7,#4]
+ 631 00b6 DA60     	 str r2,[r3,#12]
+ 331:../Libraries/XMCLib/src/xmc_hrpwm.c **** }
+ 632              	 .loc 1 331 0
+ 633 00b8 1437     	 adds r7,r7,#20
+ 634              	.LCFI37:
+ 635              	 .cfi_def_cfa_offset 4
+ 636 00ba BD46     	 mov sp,r7
+ 637              	.LCFI38:
+ 638              	 .cfi_def_cfa_register 13
+ 639              	 
+ 640 00bc 5DF8047B 	 ldr r7,[sp],#4
+ 641              	.LCFI39:
+ 642              	 .cfi_restore 7
+ 643              	 .cfi_def_cfa_offset 0
+ 644 00c0 7047     	 bx lr
+ 645              	 .cfi_endproc
+ 646              	.LFE230:
+ 648 00c2 00BF     	 .section .text.XMC_HRPWM_HRC_ConfigSourceSelect1,"ax",%progbits
+ 649              	 .align 2
+ 650              	 .global XMC_HRPWM_HRC_ConfigSourceSelect1
+ 651              	 .thumb
+ 652              	 .thumb_func
+ 654              	XMC_HRPWM_HRC_ConfigSourceSelect1:
+ 655              	.LFB231:
+ 332:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 333:../Libraries/XMCLib/src/xmc_hrpwm.c **** /* Configure Source selector 1 */
+ 334:../Libraries/XMCLib/src/xmc_hrpwm.c **** void XMC_HRPWM_HRC_ConfigSourceSelect1(XMC_HRPWM_HRC_t *const hrc, const XMC_HRPWM_HRC_SRC_CONFIG_t
+ 335:../Libraries/XMCLib/src/xmc_hrpwm.c **** {
+ 656              	 .loc 1 335 0
+ 657              	 .cfi_startproc
+ 658              	 
+ 659              	 
+ 660              	 
+ 661 0000 80B4     	 push {r7}
+ 662              	.LCFI40:
+ 663              	 .cfi_def_cfa_offset 4
+ 664              	 .cfi_offset 7,-4
+ 665 0002 85B0     	 sub sp,sp,#20
+ 666              	.LCFI41:
+ 667              	 .cfi_def_cfa_offset 24
+ 668 0004 00AF     	 add r7,sp,#0
+ 669              	.LCFI42:
+ 670              	 .cfi_def_cfa_register 7
+ 671 0006 7860     	 str r0,[r7,#4]
+ 672 0008 3960     	 str r1,[r7]
+ 336:../Libraries/XMCLib/src/xmc_hrpwm.c ****   uint32_t reg;
+ 337:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 338:../Libraries/XMCLib/src/xmc_hrpwm.c ****   XMC_ASSERT("XMC_HRPWM_HRC_ConfigSourceSelect1:Invalid HRC pointer", XMC_HRPWM_CHECK_HRC_PTR(hrc))
+ 339:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 340:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /* HRC mode config for source selector 1 */
+ 341:../Libraries/XMCLib/src/xmc_hrpwm.c ****   hrc->GC &= ~((uint32_t)HRPWM0_HRC_GC_HRM1_Msk);
+ 673              	 .loc 1 341 0
+ 674 000a 7B68     	 ldr r3,[r7,#4]
+ 675 000c 1B68     	 ldr r3,[r3]
+ 676 000e 23F00C02 	 bic r2,r3,#12
+ 677 0012 7B68     	 ldr r3,[r7,#4]
+ 678 0014 1A60     	 str r2,[r3]
+ 342:../Libraries/XMCLib/src/xmc_hrpwm.c ****   hrc->GC |= ((uint32_t)config->high_res_mode) << HRPWM0_HRC_GC_HRM1_Pos;
+ 679              	 .loc 1 342 0
+ 680 0016 7B68     	 ldr r3,[r7,#4]
+ 681 0018 1A68     	 ldr r2,[r3]
+ 682 001a 3B68     	 ldr r3,[r7]
+ 683 001c 1B78     	 ldrb r3,[r3]
+ 684 001e 9B00     	 lsls r3,r3,#2
+ 685 0020 1A43     	 orrs r2,r2,r3
+ 686 0022 7B68     	 ldr r3,[r7,#4]
+ 687 0024 1A60     	 str r2,[r3]
+ 343:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 344:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /*****************************************************************************
+ 345:../Libraries/XMCLib/src/xmc_hrpwm.c ****    * HRCy global control selection (HRCyGSEL)
+ 346:../Libraries/XMCLib/src/xmc_hrpwm.c ****    ****************************************************************************/
+ 347:../Libraries/XMCLib/src/xmc_hrpwm.c ****   reg = 0U;
+ 688              	 .loc 1 347 0
+ 689 0026 0023     	 movs r3,#0
+ 690 0028 FB60     	 str r3,[r7,#12]
+ 348:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 349:../Libraries/XMCLib/src/xmc_hrpwm.c ****   if(config->set_config == XMC_HRPWM_HRC_SRC_INPUT_CSG)
+ 691              	 .loc 1 349 0
+ 692 002a 3B68     	 ldr r3,[r7]
+ 693 002c 5B78     	 ldrb r3,[r3,#1]
+ 694 002e 012B     	 cmp r3,#1
+ 695 0030 07D1     	 bne .L26
+ 350:../Libraries/XMCLib/src/xmc_hrpwm.c ****   {
+ 351:../Libraries/XMCLib/src/xmc_hrpwm.c ****     reg  = ((uint32_t)config->cmp_set) << HRPWM0_HRC_GSEL_C1SS_Pos;
+ 696              	 .loc 1 351 0
+ 697 0032 3B68     	 ldr r3,[r7]
+ 698 0034 DB78     	 ldrb r3,[r3,#3]
+ 699 0036 1B04     	 lsls r3,r3,#16
+ 700 0038 FB60     	 str r3,[r7,#12]
+ 352:../Libraries/XMCLib/src/xmc_hrpwm.c ****     reg |= ((uint32_t)XMC_HRPWM_HRC_SRC_INPUT_CSG) << HRPWM0_HRC_GSEL_S1M_Pos;  /* comparator outpu
+ 701              	 .loc 1 352 0
+ 702 003a FB68     	 ldr r3,[r7,#12]
+ 703 003c 43F48003 	 orr r3,r3,#4194304
+ 704 0040 FB60     	 str r3,[r7,#12]
+ 705              	.L26:
+ 353:../Libraries/XMCLib/src/xmc_hrpwm.c ****   }
+ 354:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 355:../Libraries/XMCLib/src/xmc_hrpwm.c ****   if (config->clear_config == XMC_HRPWM_HRC_SRC_INPUT_CSG)
+ 706              	 .loc 1 355 0
+ 707 0042 3B68     	 ldr r3,[r7]
+ 708 0044 9B78     	 ldrb r3,[r3,#2]
+ 709 0046 012B     	 cmp r3,#1
+ 710 0048 09D1     	 bne .L27
+ 356:../Libraries/XMCLib/src/xmc_hrpwm.c ****   {
+ 357:../Libraries/XMCLib/src/xmc_hrpwm.c ****     reg |= ((uint32_t)config->cmp_clear) << HRPWM0_HRC_GSEL_C1CS_Pos;
+ 711              	 .loc 1 357 0
+ 712 004a 3B68     	 ldr r3,[r7]
+ 713 004c 1B79     	 ldrb r3,[r3,#4]
+ 714 004e DB04     	 lsls r3,r3,#19
+ 715 0050 FA68     	 ldr r2,[r7,#12]
+ 716 0052 1343     	 orrs r3,r3,r2
+ 717 0054 FB60     	 str r3,[r7,#12]
+ 358:../Libraries/XMCLib/src/xmc_hrpwm.c ****     reg |= ((uint32_t)XMC_HRPWM_HRC_SRC_INPUT_CSG) << HRPWM0_HRC_GSEL_C1M_Pos;  /* comparator outpu
+ 718              	 .loc 1 358 0
+ 719 0056 FB68     	 ldr r3,[r7,#12]
+ 720 0058 43F08073 	 orr r3,r3,#16777216
+ 721 005c FB60     	 str r3,[r7,#12]
+ 722              	.L27:
+ 359:../Libraries/XMCLib/src/xmc_hrpwm.c ****   }
+ 360:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 361:../Libraries/XMCLib/src/xmc_hrpwm.c ****   reg |= ((uint32_t)config->set_edge_config) << HRPWM0_HRC_GSEL_S1ES_Pos;
+ 723              	 .loc 1 361 0
+ 724 005e 3B68     	 ldr r3,[r7]
+ 725 0060 9B79     	 ldrb r3,[r3,#6]
+ 726 0062 9B06     	 lsls r3,r3,#26
+ 727 0064 FA68     	 ldr r2,[r7,#12]
+ 728 0066 1343     	 orrs r3,r3,r2
+ 729 0068 FB60     	 str r3,[r7,#12]
+ 362:../Libraries/XMCLib/src/xmc_hrpwm.c ****   reg |= ((uint32_t)config->clear_edge_config) << HRPWM0_HRC_GSEL_C1ES_Pos;
+ 730              	 .loc 1 362 0
+ 731 006a 3B68     	 ldr r3,[r7]
+ 732 006c DB79     	 ldrb r3,[r3,#7]
+ 733 006e 1B07     	 lsls r3,r3,#28
+ 734 0070 FA68     	 ldr r2,[r7,#12]
+ 735 0072 1343     	 orrs r3,r3,r2
+ 736 0074 FB60     	 str r3,[r7,#12]
+ 363:../Libraries/XMCLib/src/xmc_hrpwm.c ****   hrc->GSEL &= (uint32_t)0x0000FFFF;
+ 737              	 .loc 1 363 0
+ 738 0076 7B68     	 ldr r3,[r7,#4]
+ 739 0078 9B68     	 ldr r3,[r3,#8]
+ 740 007a 9AB2     	 uxth r2,r3
+ 741 007c 7B68     	 ldr r3,[r7,#4]
+ 742 007e 9A60     	 str r2,[r3,#8]
+ 364:../Libraries/XMCLib/src/xmc_hrpwm.c ****   hrc->GSEL |= reg;
+ 743              	 .loc 1 364 0
+ 744 0080 7B68     	 ldr r3,[r7,#4]
+ 745 0082 9A68     	 ldr r2,[r3,#8]
+ 746 0084 FB68     	 ldr r3,[r7,#12]
+ 747 0086 1A43     	 orrs r2,r2,r3
+ 748 0088 7B68     	 ldr r3,[r7,#4]
+ 749 008a 9A60     	 str r2,[r3,#8]
+ 365:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 366:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /*****************************************************************************
+ 367:../Libraries/XMCLib/src/xmc_hrpwm.c ****    * HRCy timer selection (HRCyTSEL)
+ 368:../Libraries/XMCLib/src/xmc_hrpwm.c ****    ****************************************************************************/
+ 369:../Libraries/XMCLib/src/xmc_hrpwm.c ****   reg = (uint32_t)config->timer_sel;
+ 750              	 .loc 1 369 0
+ 751 008c 3B68     	 ldr r3,[r7]
+ 752 008e 5B79     	 ldrb r3,[r3,#5]
+ 753 0090 FB60     	 str r3,[r7,#12]
+ 370:../Libraries/XMCLib/src/xmc_hrpwm.c ****   reg |= ((uint32_t)config->src_trap_enable) << HRPWM0_HRC_TSEL_TS1E_Pos;
+ 754              	 .loc 1 370 0
+ 755 0092 3B68     	 ldr r3,[r7]
+ 756 0094 1B7A     	 ldrb r3,[r3,#8]
+ 757 0096 5B04     	 lsls r3,r3,#17
+ 758 0098 FA68     	 ldr r2,[r7,#12]
+ 759 009a 1343     	 orrs r3,r3,r2
+ 760 009c FB60     	 str r3,[r7,#12]
+ 371:../Libraries/XMCLib/src/xmc_hrpwm.c ****   hrc->TSEL &= (uint32_t)0xFFFDFFC7;
+ 761              	 .loc 1 371 0
+ 762 009e 7B68     	 ldr r3,[r7,#4]
+ 763 00a0 DB68     	 ldr r3,[r3,#12]
+ 764 00a2 23F40033 	 bic r3,r3,#131072
+ 765 00a6 23F03803 	 bic r3,r3,#56
+ 766 00aa 7A68     	 ldr r2,[r7,#4]
+ 767 00ac D360     	 str r3,[r2,#12]
+ 372:../Libraries/XMCLib/src/xmc_hrpwm.c ****   hrc->TSEL |= reg;
+ 768              	 .loc 1 372 0
+ 769 00ae 7B68     	 ldr r3,[r7,#4]
+ 770 00b0 DA68     	 ldr r2,[r3,#12]
+ 771 00b2 FB68     	 ldr r3,[r7,#12]
+ 772 00b4 1A43     	 orrs r2,r2,r3
+ 773 00b6 7B68     	 ldr r3,[r7,#4]
+ 774 00b8 DA60     	 str r2,[r3,#12]
+ 373:../Libraries/XMCLib/src/xmc_hrpwm.c **** }
+ 775              	 .loc 1 373 0
+ 776 00ba 1437     	 adds r7,r7,#20
+ 777              	.LCFI43:
+ 778              	 .cfi_def_cfa_offset 4
+ 779 00bc BD46     	 mov sp,r7
+ 780              	.LCFI44:
+ 781              	 .cfi_def_cfa_register 13
+ 782              	 
+ 783 00be 5DF8047B 	 ldr r7,[sp],#4
+ 784              	.LCFI45:
+ 785              	 .cfi_restore 7
+ 786              	 .cfi_def_cfa_offset 0
+ 787 00c2 7047     	 bx lr
+ 788              	 .cfi_endproc
+ 789              	.LFE231:
+ 791              	 .section .text.XMC_HRPWM_CSG_Init,"ax",%progbits
+ 792              	 .align 2
+ 793              	 .global XMC_HRPWM_CSG_Init
+ 794              	 .thumb
+ 795              	 .thumb_func
+ 797              	XMC_HRPWM_CSG_Init:
+ 798              	.LFB232:
+ 374:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 375:../Libraries/XMCLib/src/xmc_hrpwm.c **** /**************************************************************************************************
+ 376:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * API IMPLEMENTATION - HRPWM CSG GLOBAL
+ 377:../Libraries/XMCLib/src/xmc_hrpwm.c ****  **************************************************************************************************
+ 378:../Libraries/XMCLib/src/xmc_hrpwm.c **** /* No api's for CSG GLOBAL in xmc_hrpwm.c file */
+ 379:../Libraries/XMCLib/src/xmc_hrpwm.c ****  
+ 380:../Libraries/XMCLib/src/xmc_hrpwm.c **** /**************************************************************************************************
+ 381:../Libraries/XMCLib/src/xmc_hrpwm.c ****  * API IMPLEMENTATION - HRPWM CSG SLICE
+ 382:../Libraries/XMCLib/src/xmc_hrpwm.c ****  **************************************************************************************************
+ 383:../Libraries/XMCLib/src/xmc_hrpwm.c **** /* Initialization of CSG slice */
+ 384:../Libraries/XMCLib/src/xmc_hrpwm.c **** void XMC_HRPWM_CSG_Init(XMC_HRPWM_CSG_t *const csg, const XMC_HRPWM_CSG_CONFIG_t *const config)
+ 385:../Libraries/XMCLib/src/xmc_hrpwm.c **** {
+ 799              	 .loc 1 385 0
+ 800              	 .cfi_startproc
+ 801              	 
+ 802              	 
+ 803              	 
+ 804 0000 80B4     	 push {r7}
+ 805              	.LCFI46:
+ 806              	 .cfi_def_cfa_offset 4
+ 807              	 .cfi_offset 7,-4
+ 808 0002 85B0     	 sub sp,sp,#20
+ 809              	.LCFI47:
+ 810              	 .cfi_def_cfa_offset 24
+ 811 0004 00AF     	 add r7,sp,#0
+ 812              	.LCFI48:
+ 813              	 .cfi_def_cfa_register 7
+ 814 0006 7860     	 str r0,[r7,#4]
+ 815 0008 3960     	 str r1,[r7]
+ 386:../Libraries/XMCLib/src/xmc_hrpwm.c ****   uint32_t reg;
+ 387:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 388:../Libraries/XMCLib/src/xmc_hrpwm.c ****   XMC_ASSERT("XMC_HRPWM_CSG_Init:Invalid CSG pointer", XMC_HRPWM_CHECK_CSG_PTR(csg));
+ 389:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 390:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /* Passive level configuration */
+ 391:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->PLC = config->cmp_config.plc;
+ 816              	 .loc 1 391 0
+ 817 000a 3B68     	 ldr r3,[r7]
+ 818 000c 9A68     	 ldr r2,[r3,#8]
+ 819 000e 7B68     	 ldr r3,[r7,#4]
+ 820 0010 5A62     	 str r2,[r3,#36]
+ 392:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 393:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /* DAC Reference values */
+ 394:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->SDSV1 = config->dac_config.dac_dsv1;
+ 821              	 .loc 1 394 0
+ 822 0012 3B68     	 ldr r3,[r7]
+ 823 0014 1A69     	 ldr r2,[r3,#16]
+ 824 0016 7B68     	 ldr r3,[r7,#4]
+ 825 0018 9A61     	 str r2,[r3,#24]
+ 395:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->DSV2  = config->dac_config.dac_dsv2;
+ 826              	 .loc 1 395 0
+ 827 001a 3B68     	 ldr r3,[r7]
+ 828 001c 5A69     	 ldr r2,[r3,#20]
+ 829 001e 7B68     	 ldr r3,[r7,#4]
+ 830 0020 5A61     	 str r2,[r3,#20]
+ 396:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 397:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /* Pulse Swallow value */
+ 398:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->SPC = config->sgen_config.pulse_swallow_val;
+ 831              	 .loc 1 398 0
+ 832 0022 3B68     	 ldr r3,[r7]
+ 833 0024 DA69     	 ldr r2,[r3,#28]
+ 834 0026 7B68     	 ldr r3,[r7,#4]
+ 835 0028 DA61     	 str r2,[r3,#28]
+ 399:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 400:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /* Slope generation control (CSGySC) */
+ 401:../Libraries/XMCLib/src/xmc_hrpwm.c ****   if(config->sgen_config.ctrl_mode != (uint32_t) XMC_HRPWM_CSG_SLOPE_CTRL_MODE_STATIC)
+ 836              	 .loc 1 401 0
+ 837 002a 3B68     	 ldr r3,[r7]
+ 838 002c 5B7E     	 ldrb r3,[r3,#25]
+ 839 002e 03F00303 	 and r3,r3,#3
+ 840 0032 DBB2     	 uxtb r3,r3
+ 841 0034 002B     	 cmp r3,#0
+ 842 0036 04D0     	 beq .L29
+ 402:../Libraries/XMCLib/src/xmc_hrpwm.c ****   {
+ 403:../Libraries/XMCLib/src/xmc_hrpwm.c ****     /* Dynamic Slope Generation */
+ 404:../Libraries/XMCLib/src/xmc_hrpwm.c ****     csg->SC = config->sgen_config.sc;
+ 843              	 .loc 1 404 0
+ 844 0038 3B68     	 ldr r3,[r7]
+ 845 003a 9A69     	 ldr r2,[r3,#24]
+ 846 003c 7B68     	 ldr r3,[r7,#4]
+ 847 003e 9A60     	 str r2,[r3,#8]
+ 848 0040 07E0     	 b .L30
+ 849              	.L29:
+ 405:../Libraries/XMCLib/src/xmc_hrpwm.c ****   }
+ 406:../Libraries/XMCLib/src/xmc_hrpwm.c ****   else
+ 407:../Libraries/XMCLib/src/xmc_hrpwm.c ****   {
+ 408:../Libraries/XMCLib/src/xmc_hrpwm.c ****     /* Static Mode */
+ 409:../Libraries/XMCLib/src/xmc_hrpwm.c ****     csg->SC = ((uint32_t)config->sgen_config.static_mode_ist_enable) << HRPWM0_CSG_SC_IST_Pos;
+ 850              	 .loc 1 409 0
+ 851 0042 3B68     	 ldr r3,[r7]
+ 852 0044 9B7E     	 ldrb r3,[r3,#26]
+ 853 0046 C3F30013 	 ubfx r3,r3,#4,#1
+ 854 004a DBB2     	 uxtb r3,r3
+ 855 004c 1A05     	 lsls r2,r3,#20
+ 856 004e 7B68     	 ldr r3,[r7,#4]
+ 857 0050 9A60     	 str r2,[r3,#8]
+ 858              	.L30:
+ 410:../Libraries/XMCLib/src/xmc_hrpwm.c ****   }
+ 411:../Libraries/XMCLib/src/xmc_hrpwm.c ****   reg = ((uint32_t)config->dac_config.start_mode) << HRPWM0_CSG_SC_SWSM_Pos;
+ 859              	 .loc 1 411 0
+ 860 0052 3B68     	 ldr r3,[r7]
+ 861 0054 1B7B     	 ldrb r3,[r3,#12]
+ 862 0056 1B04     	 lsls r3,r3,#16
+ 863 0058 FB60     	 str r3,[r7,#12]
+ 412:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->SC |= reg;
+ 864              	 .loc 1 412 0
+ 865 005a 7B68     	 ldr r3,[r7,#4]
+ 866 005c 9A68     	 ldr r2,[r3,#8]
+ 867 005e FB68     	 ldr r3,[r7,#12]
+ 868 0060 1A43     	 orrs r2,r2,r3
+ 869 0062 7B68     	 ldr r3,[r7,#4]
+ 870 0064 9A60     	 str r2,[r3,#8]
+ 413:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 414:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /* Comparator Initialization */
+ 415:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->CC = config->cmp_config.cc;
+ 871              	 .loc 1 415 0
+ 872 0066 3B68     	 ldr r3,[r7]
+ 873 0068 1A68     	 ldr r2,[r3]
+ 874 006a 7B68     	 ldr r3,[r7,#4]
+ 875 006c 1A62     	 str r2,[r3,#32]
+ 416:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 417:../Libraries/XMCLib/src/xmc_hrpwm.c ****   /* Blanking value */
+ 418:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->BLV = config->cmp_config.blanking_val;
+ 876              	 .loc 1 418 0
+ 877 006e 3B68     	 ldr r3,[r7]
+ 878 0070 5A68     	 ldr r2,[r3,#4]
+ 879 0072 7B68     	 ldr r3,[r7,#4]
+ 880 0074 9A62     	 str r2,[r3,#40]
+ 419:../Libraries/XMCLib/src/xmc_hrpwm.c **** }
+ 881              	 .loc 1 419 0
+ 882 0076 1437     	 adds r7,r7,#20
+ 883              	.LCFI49:
+ 884              	 .cfi_def_cfa_offset 4
+ 885 0078 BD46     	 mov sp,r7
+ 886              	.LCFI50:
+ 887              	 .cfi_def_cfa_register 13
+ 888              	 
+ 889 007a 5DF8047B 	 ldr r7,[sp],#4
+ 890              	.LCFI51:
+ 891              	 .cfi_restore 7
+ 892              	 .cfi_def_cfa_offset 0
+ 893 007e 7047     	 bx lr
+ 894              	 .cfi_endproc
+ 895              	.LFE232:
+ 897              	 .section .text.XMC_HRPWM_CSG_SetCMPInput,"ax",%progbits
+ 898              	 .align 2
+ 899              	 .global XMC_HRPWM_CSG_SetCMPInput
+ 900              	 .thumb
+ 901              	 .thumb_func
+ 903              	XMC_HRPWM_CSG_SetCMPInput:
+ 904              	.LFB233:
+ 420:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 421:../Libraries/XMCLib/src/xmc_hrpwm.c **** /* Set either CINA or CINB as inverting input of the comparator */
+ 422:../Libraries/XMCLib/src/xmc_hrpwm.c **** void XMC_HRPWM_CSG_SetCMPInput(XMC_HRPWM_CSG_t *const csg, const XMC_HRPWM_CSG_CMP_INPUT_t input)
+ 423:../Libraries/XMCLib/src/xmc_hrpwm.c **** {
+ 905              	 .loc 1 423 0
+ 906              	 .cfi_startproc
+ 907              	 
+ 908              	 
+ 909              	 
+ 910 0000 80B4     	 push {r7}
+ 911              	.LCFI52:
+ 912              	 .cfi_def_cfa_offset 4
+ 913              	 .cfi_offset 7,-4
+ 914 0002 83B0     	 sub sp,sp,#12
+ 915              	.LCFI53:
+ 916              	 .cfi_def_cfa_offset 16
+ 917 0004 00AF     	 add r7,sp,#0
+ 918              	.LCFI54:
+ 919              	 .cfi_def_cfa_register 7
+ 920 0006 7860     	 str r0,[r7,#4]
+ 921 0008 0B46     	 mov r3,r1
+ 922 000a FB70     	 strb r3,[r7,#3]
+ 424:../Libraries/XMCLib/src/xmc_hrpwm.c ****   XMC_ASSERT("XMC_HRPWM_CSG_SetCMPInput:Invalid CSG pointer", XMC_HRPWM_CHECK_CSG_PTR(csg));
+ 425:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 426:../Libraries/XMCLib/src/xmc_hrpwm.c ****   if (input == XMC_HRPWM_CSG_CMP_INPUT_CINA)
+ 923              	 .loc 1 426 0
+ 924 000c FB78     	 ldrb r3,[r7,#3]
+ 925 000e 002B     	 cmp r3,#0
+ 926 0010 06D1     	 bne .L32
+ 427:../Libraries/XMCLib/src/xmc_hrpwm.c ****   {
+ 428:../Libraries/XMCLib/src/xmc_hrpwm.c ****     /* Inverting comparator input connected to CINA */
+ 429:../Libraries/XMCLib/src/xmc_hrpwm.c ****     csg->CC &= ~((uint32_t)HRPWM0_CSG_CC_IMCS_Msk);
+ 927              	 .loc 1 429 0
+ 928 0012 7B68     	 ldr r3,[r7,#4]
+ 929 0014 1B6A     	 ldr r3,[r3,#32]
+ 930 0016 23F48072 	 bic r2,r3,#256
+ 931 001a 7B68     	 ldr r3,[r7,#4]
+ 932 001c 1A62     	 str r2,[r3,#32]
+ 933 001e 05E0     	 b .L31
+ 934              	.L32:
+ 430:../Libraries/XMCLib/src/xmc_hrpwm.c ****   }
+ 431:../Libraries/XMCLib/src/xmc_hrpwm.c ****   else
+ 432:../Libraries/XMCLib/src/xmc_hrpwm.c ****   {
+ 433:../Libraries/XMCLib/src/xmc_hrpwm.c ****     /* Inverting comparator input connected to CINB */    
+ 434:../Libraries/XMCLib/src/xmc_hrpwm.c ****     csg->CC |= (uint32_t)HRPWM0_CSG_CC_IMCS_Msk;
+ 935              	 .loc 1 434 0
+ 936 0020 7B68     	 ldr r3,[r7,#4]
+ 937 0022 1B6A     	 ldr r3,[r3,#32]
+ 938 0024 43F48072 	 orr r2,r3,#256
+ 939 0028 7B68     	 ldr r3,[r7,#4]
+ 940 002a 1A62     	 str r2,[r3,#32]
+ 941              	.L31:
+ 435:../Libraries/XMCLib/src/xmc_hrpwm.c ****   }
+ 436:../Libraries/XMCLib/src/xmc_hrpwm.c **** }
+ 942              	 .loc 1 436 0
+ 943 002c 0C37     	 adds r7,r7,#12
+ 944              	.LCFI55:
+ 945              	 .cfi_def_cfa_offset 4
+ 946 002e BD46     	 mov sp,r7
+ 947              	.LCFI56:
+ 948              	 .cfi_def_cfa_register 13
+ 949              	 
+ 950 0030 5DF8047B 	 ldr r7,[sp],#4
+ 951              	.LCFI57:
+ 952              	 .cfi_restore 7
+ 953              	 .cfi_def_cfa_offset 0
+ 954 0034 7047     	 bx lr
+ 955              	 .cfi_endproc
+ 956              	.LFE233:
+ 958 0036 00BF     	 .section .text.XMC_HRPWM_CSG_SelBlankingInput,"ax",%progbits
+ 959              	 .align 2
+ 960              	 .global XMC_HRPWM_CSG_SelBlankingInput
+ 961              	 .thumb
+ 962              	 .thumb_func
+ 964              	XMC_HRPWM_CSG_SelBlankingInput:
+ 965              	.LFB234:
+ 437:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 438:../Libraries/XMCLib/src/xmc_hrpwm.c **** /* Configure input selection for Blanking function */
+ 439:../Libraries/XMCLib/src/xmc_hrpwm.c **** void XMC_HRPWM_CSG_SelBlankingInput(XMC_HRPWM_CSG_t *const csg, const XMC_HRPWM_CSG_INPUT_CONFIG_t 
+ 440:../Libraries/XMCLib/src/xmc_hrpwm.c **** {
+ 966              	 .loc 1 440 0
+ 967              	 .cfi_startproc
+ 968              	 
+ 969              	 
+ 970              	 
+ 971 0000 80B4     	 push {r7}
+ 972              	.LCFI58:
+ 973              	 .cfi_def_cfa_offset 4
+ 974              	 .cfi_offset 7,-4
+ 975 0002 85B0     	 sub sp,sp,#20
+ 976              	.LCFI59:
+ 977              	 .cfi_def_cfa_offset 24
+ 978 0004 00AF     	 add r7,sp,#0
+ 979              	.LCFI60:
+ 980              	 .cfi_def_cfa_register 7
+ 981 0006 7860     	 str r0,[r7,#4]
+ 982 0008 3960     	 str r1,[r7]
+ 441:../Libraries/XMCLib/src/xmc_hrpwm.c ****   uint32_t reg;
+ 442:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 443:../Libraries/XMCLib/src/xmc_hrpwm.c ****   XMC_ASSERT("XMC_HRPWM_CSG_SelBlankingInput:Invalid CSG pointer", XMC_HRPWM_CHECK_CSG_PTR(csg));
+ 444:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 445:../Libraries/XMCLib/src/xmc_hrpwm.c ****   reg = csg->CC;
+ 983              	 .loc 1 445 0
+ 984 000a 7B68     	 ldr r3,[r7,#4]
+ 985 000c 1B6A     	 ldr r3,[r3,#32]
+ 986 000e FB60     	 str r3,[r7,#12]
+ 446:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 447:../Libraries/XMCLib/src/xmc_hrpwm.c ****   if ((reg & HRPWM0_CSG_CC_EBE_Msk) != 0U)  /* external blanking trigger enabled? */
+ 987              	 .loc 1 447 0
+ 988 0010 FB68     	 ldr r3,[r7,#12]
+ 989 0012 03F48033 	 and r3,r3,#65536
+ 990 0016 002B     	 cmp r3,#0
+ 991 0018 09D0     	 beq .L35
+ 448:../Libraries/XMCLib/src/xmc_hrpwm.c ****   {
+ 449:../Libraries/XMCLib/src/xmc_hrpwm.c ****     reg &= ~((uint32_t)HRPWM0_CSG_CC_IBS_Msk);
+ 992              	 .loc 1 449 0
+ 993 001a FB68     	 ldr r3,[r7,#12]
+ 994 001c 23F00F03 	 bic r3,r3,#15
+ 995 0020 FB60     	 str r3,[r7,#12]
+ 450:../Libraries/XMCLib/src/xmc_hrpwm.c ****     reg |= (uint32_t) config->mapped_input;
+ 996              	 .loc 1 450 0
+ 997 0022 3B68     	 ldr r3,[r7]
+ 998 0024 1B78     	 ldrb r3,[r3]
+ 999 0026 1A46     	 mov r2,r3
+ 1000 0028 FB68     	 ldr r3,[r7,#12]
+ 1001 002a 1343     	 orrs r3,r3,r2
+ 1002 002c FB60     	 str r3,[r7,#12]
+ 1003              	.L35:
+ 451:../Libraries/XMCLib/src/xmc_hrpwm.c ****   }
+ 452:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 453:../Libraries/XMCLib/src/xmc_hrpwm.c ****   reg &= ~((uint32_t)HRPWM0_CSG_CC_BLMC_Msk);
+ 1004              	 .loc 1 453 0
+ 1005 002e FB68     	 ldr r3,[r7,#12]
+ 1006 0030 23F44043 	 bic r3,r3,#49152
+ 1007 0034 FB60     	 str r3,[r7,#12]
+ 454:../Libraries/XMCLib/src/xmc_hrpwm.c ****   reg |= ((uint32_t) config->edge) << HRPWM0_CSG_CC_BLMC_Pos;
+ 1008              	 .loc 1 454 0
+ 1009 0036 3B68     	 ldr r3,[r7]
+ 1010 0038 5B78     	 ldrb r3,[r3,#1]
+ 1011 003a 9B03     	 lsls r3,r3,#14
+ 1012 003c FA68     	 ldr r2,[r7,#12]
+ 1013 003e 1343     	 orrs r3,r3,r2
+ 1014 0040 FB60     	 str r3,[r7,#12]
+ 455:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 456:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->CC = reg;
+ 1015              	 .loc 1 456 0
+ 1016 0042 7B68     	 ldr r3,[r7,#4]
+ 1017 0044 FA68     	 ldr r2,[r7,#12]
+ 1018 0046 1A62     	 str r2,[r3,#32]
+ 457:../Libraries/XMCLib/src/xmc_hrpwm.c **** }
+ 1019              	 .loc 1 457 0
+ 1020 0048 1437     	 adds r7,r7,#20
+ 1021              	.LCFI61:
+ 1022              	 .cfi_def_cfa_offset 4
+ 1023 004a BD46     	 mov sp,r7
+ 1024              	.LCFI62:
+ 1025              	 .cfi_def_cfa_register 13
+ 1026              	 
+ 1027 004c 5DF8047B 	 ldr r7,[sp],#4
+ 1028              	.LCFI63:
+ 1029              	 .cfi_restore 7
+ 1030              	 .cfi_def_cfa_offset 0
+ 1031 0050 7047     	 bx lr
+ 1032              	 .cfi_endproc
+ 1033              	.LFE234:
+ 1035 0052 00BF     	 .section .text.XMC_HRPWM_CSG_SelClampingInput,"ax",%progbits
+ 1036              	 .align 2
+ 1037              	 .global XMC_HRPWM_CSG_SelClampingInput
+ 1038              	 .thumb
+ 1039              	 .thumb_func
+ 1041              	XMC_HRPWM_CSG_SelClampingInput:
+ 1042              	.LFB235:
+ 458:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 459:../Libraries/XMCLib/src/xmc_hrpwm.c **** /* Configure input selection for Clamping */
+ 460:../Libraries/XMCLib/src/xmc_hrpwm.c **** void XMC_HRPWM_CSG_SelClampingInput(XMC_HRPWM_CSG_t *const csg, const XMC_HRPWM_CSG_INPUT_CONFIG_t 
+ 461:../Libraries/XMCLib/src/xmc_hrpwm.c **** {
+ 1043              	 .loc 1 461 0
+ 1044              	 .cfi_startproc
+ 1045              	 
+ 1046              	 
+ 1047              	 
+ 1048 0000 80B4     	 push {r7}
+ 1049              	.LCFI64:
+ 1050              	 .cfi_def_cfa_offset 4
+ 1051              	 .cfi_offset 7,-4
+ 1052 0002 85B0     	 sub sp,sp,#20
+ 1053              	.LCFI65:
+ 1054              	 .cfi_def_cfa_offset 24
+ 1055 0004 00AF     	 add r7,sp,#0
+ 1056              	.LCFI66:
+ 1057              	 .cfi_def_cfa_register 7
+ 1058 0006 7860     	 str r0,[r7,#4]
+ 1059 0008 3960     	 str r1,[r7]
+ 462:../Libraries/XMCLib/src/xmc_hrpwm.c ****   uint32_t reg;
+ 463:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 464:../Libraries/XMCLib/src/xmc_hrpwm.c ****   XMC_ASSERT("XMC_HRPWM_CSG_SelClampingInput:Invalid CSG pointer", XMC_HRPWM_CHECK_CSG_PTR(csg));
+ 465:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 466:../Libraries/XMCLib/src/xmc_hrpwm.c ****   reg = csg->PLC;
+ 1060              	 .loc 1 466 0
+ 1061 000a 7B68     	 ldr r3,[r7,#4]
+ 1062 000c 5B6A     	 ldr r3,[r3,#36]
+ 1063 000e FB60     	 str r3,[r7,#12]
+ 467:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 468:../Libraries/XMCLib/src/xmc_hrpwm.c ****   reg &= ~((uint32_t)HRPWM0_CSG_PLC_IPLS_Msk);
+ 1064              	 .loc 1 468 0
+ 1065 0010 FB68     	 ldr r3,[r7,#12]
+ 1066 0012 23F00F03 	 bic r3,r3,#15
+ 1067 0016 FB60     	 str r3,[r7,#12]
+ 469:../Libraries/XMCLib/src/xmc_hrpwm.c ****   reg |= (uint32_t) config->mapped_input;
+ 1068              	 .loc 1 469 0
+ 1069 0018 3B68     	 ldr r3,[r7]
+ 1070 001a 1B78     	 ldrb r3,[r3]
+ 1071 001c 1A46     	 mov r2,r3
+ 1072 001e FB68     	 ldr r3,[r7,#12]
+ 1073 0020 1343     	 orrs r3,r3,r2
+ 1074 0022 FB60     	 str r3,[r7,#12]
+ 470:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 471:../Libraries/XMCLib/src/xmc_hrpwm.c ****   reg &= ~((uint32_t)HRPWM0_CSG_PLC_PLCL_Msk);
+ 1075              	 .loc 1 471 0
+ 1076 0024 FB68     	 ldr r3,[r7,#12]
+ 1077 0026 23F44073 	 bic r3,r3,#768
+ 1078 002a FB60     	 str r3,[r7,#12]
+ 472:../Libraries/XMCLib/src/xmc_hrpwm.c ****   reg |= ((uint32_t) config->level) << HRPWM0_CSG_PLC_PLCL_Pos;
+ 1079              	 .loc 1 472 0
+ 1080 002c 3B68     	 ldr r3,[r7]
+ 1081 002e 9B78     	 ldrb r3,[r3,#2]
+ 1082 0030 1B02     	 lsls r3,r3,#8
+ 1083 0032 FA68     	 ldr r2,[r7,#12]
+ 1084 0034 1343     	 orrs r3,r3,r2
+ 1085 0036 FB60     	 str r3,[r7,#12]
+ 473:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 474:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->PLC = reg;
+ 1086              	 .loc 1 474 0
+ 1087 0038 7B68     	 ldr r3,[r7,#4]
+ 1088 003a FA68     	 ldr r2,[r7,#12]
+ 1089 003c 5A62     	 str r2,[r3,#36]
+ 475:../Libraries/XMCLib/src/xmc_hrpwm.c **** }
+ 1090              	 .loc 1 475 0
+ 1091 003e 1437     	 adds r7,r7,#20
+ 1092              	.LCFI67:
+ 1093              	 .cfi_def_cfa_offset 4
+ 1094 0040 BD46     	 mov sp,r7
+ 1095              	.LCFI68:
+ 1096              	 .cfi_def_cfa_register 13
+ 1097              	 
+ 1098 0042 5DF8047B 	 ldr r7,[sp],#4
+ 1099              	.LCFI69:
+ 1100              	 .cfi_restore 7
+ 1101              	 .cfi_def_cfa_offset 0
+ 1102 0046 7047     	 bx lr
+ 1103              	 .cfi_endproc
+ 1104              	.LFE235:
+ 1106              	 .section .text.XMC_HRPWM_CSG_StartSlopeGenConfig,"ax",%progbits
+ 1107              	 .align 2
+ 1108              	 .global XMC_HRPWM_CSG_StartSlopeGenConfig
+ 1109              	 .thumb
+ 1110              	 .thumb_func
+ 1112              	XMC_HRPWM_CSG_StartSlopeGenConfig:
+ 1113              	.LFB236:
+ 476:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 477:../Libraries/XMCLib/src/xmc_hrpwm.c **** /* Configure input selection to start slope generation function */
+ 478:../Libraries/XMCLib/src/xmc_hrpwm.c **** void XMC_HRPWM_CSG_StartSlopeGenConfig(XMC_HRPWM_CSG_t *const csg, const XMC_HRPWM_CSG_INPUT_CONFIG
+ 479:../Libraries/XMCLib/src/xmc_hrpwm.c **** {
+ 1114              	 .loc 1 479 0
+ 1115              	 .cfi_startproc
+ 1116              	 
+ 1117              	 
+ 1118              	 
+ 1119 0000 80B4     	 push {r7}
+ 1120              	.LCFI70:
+ 1121              	 .cfi_def_cfa_offset 4
+ 1122              	 .cfi_offset 7,-4
+ 1123 0002 83B0     	 sub sp,sp,#12
+ 1124              	.LCFI71:
+ 1125              	 .cfi_def_cfa_offset 16
+ 1126 0004 00AF     	 add r7,sp,#0
+ 1127              	.LCFI72:
+ 1128              	 .cfi_def_cfa_register 7
+ 1129 0006 7860     	 str r0,[r7,#4]
+ 1130 0008 3960     	 str r1,[r7]
+ 480:../Libraries/XMCLib/src/xmc_hrpwm.c ****   XMC_ASSERT("XMC_HRPWM_CSG_StartSlopeGenConfig:Invalid CSG pointer", XMC_HRPWM_CHECK_CSG_PTR(csg))
+ 481:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 482:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->DCI &= ~((uint32_t)HRPWM0_CSG0_DCI_STRIS_Msk);
+ 1131              	 .loc 1 482 0
+ 1132 000a 7B68     	 ldr r3,[r7,#4]
+ 1133 000c 1B68     	 ldr r3,[r3]
+ 1134 000e 23F0F002 	 bic r2,r3,#240
+ 1135 0012 7B68     	 ldr r3,[r7,#4]
+ 1136 0014 1A60     	 str r2,[r3]
+ 483:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->DCI |= ((uint32_t)config->mapped_input) << HRPWM0_CSG0_DCI_STRIS_Pos;
+ 1137              	 .loc 1 483 0
+ 1138 0016 7B68     	 ldr r3,[r7,#4]
+ 1139 0018 1A68     	 ldr r2,[r3]
+ 1140 001a 3B68     	 ldr r3,[r7]
+ 1141 001c 1B78     	 ldrb r3,[r3]
+ 1142 001e 1B01     	 lsls r3,r3,#4
+ 1143 0020 1A43     	 orrs r2,r2,r3
+ 1144 0022 7B68     	 ldr r3,[r7,#4]
+ 1145 0024 1A60     	 str r2,[r3]
+ 484:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->IES &= ~((uint32_t)HRPWM0_CSG_IES_STRES_Msk);
+ 1146              	 .loc 1 484 0
+ 1147 0026 7B68     	 ldr r3,[r7,#4]
+ 1148 0028 5B68     	 ldr r3,[r3,#4]
+ 1149 002a 23F00C02 	 bic r2,r3,#12
+ 1150 002e 7B68     	 ldr r3,[r7,#4]
+ 1151 0030 5A60     	 str r2,[r3,#4]
+ 485:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->IES |= ((uint32_t)config->edge) << HRPWM0_CSG_IES_STRES_Pos;
+ 1152              	 .loc 1 485 0
+ 1153 0032 7B68     	 ldr r3,[r7,#4]
+ 1154 0034 5A68     	 ldr r2,[r3,#4]
+ 1155 0036 3B68     	 ldr r3,[r7]
+ 1156 0038 5B78     	 ldrb r3,[r3,#1]
+ 1157 003a 9B00     	 lsls r3,r3,#2
+ 1158 003c 1A43     	 orrs r2,r2,r3
+ 1159 003e 7B68     	 ldr r3,[r7,#4]
+ 1160 0040 5A60     	 str r2,[r3,#4]
+ 486:../Libraries/XMCLib/src/xmc_hrpwm.c **** }
+ 1161              	 .loc 1 486 0
+ 1162 0042 0C37     	 adds r7,r7,#12
+ 1163              	.LCFI73:
+ 1164              	 .cfi_def_cfa_offset 4
+ 1165 0044 BD46     	 mov sp,r7
+ 1166              	.LCFI74:
+ 1167              	 .cfi_def_cfa_register 13
+ 1168              	 
+ 1169 0046 5DF8047B 	 ldr r7,[sp],#4
+ 1170              	.LCFI75:
+ 1171              	 .cfi_restore 7
+ 1172              	 .cfi_def_cfa_offset 0
+ 1173 004a 7047     	 bx lr
+ 1174              	 .cfi_endproc
+ 1175              	.LFE236:
+ 1177              	 .section .text.XMC_HRPWM_CSG_StopSlopeGenConfig,"ax",%progbits
+ 1178              	 .align 2
+ 1179              	 .global XMC_HRPWM_CSG_StopSlopeGenConfig
+ 1180              	 .thumb
+ 1181              	 .thumb_func
+ 1183              	XMC_HRPWM_CSG_StopSlopeGenConfig:
+ 1184              	.LFB237:
+ 487:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 488:../Libraries/XMCLib/src/xmc_hrpwm.c **** /* Configure input selection to stop slope generation function */
+ 489:../Libraries/XMCLib/src/xmc_hrpwm.c **** void XMC_HRPWM_CSG_StopSlopeGenConfig(XMC_HRPWM_CSG_t *const csg, const XMC_HRPWM_CSG_INPUT_CONFIG_
+ 490:../Libraries/XMCLib/src/xmc_hrpwm.c **** {
+ 1185              	 .loc 1 490 0
+ 1186              	 .cfi_startproc
+ 1187              	 
+ 1188              	 
+ 1189              	 
+ 1190 0000 80B4     	 push {r7}
+ 1191              	.LCFI76:
+ 1192              	 .cfi_def_cfa_offset 4
+ 1193              	 .cfi_offset 7,-4
+ 1194 0002 83B0     	 sub sp,sp,#12
+ 1195              	.LCFI77:
+ 1196              	 .cfi_def_cfa_offset 16
+ 1197 0004 00AF     	 add r7,sp,#0
+ 1198              	.LCFI78:
+ 1199              	 .cfi_def_cfa_register 7
+ 1200 0006 7860     	 str r0,[r7,#4]
+ 1201 0008 3960     	 str r1,[r7]
+ 491:../Libraries/XMCLib/src/xmc_hrpwm.c ****   XMC_ASSERT("XMC_HRPWM_CSG_StopSlopeGenConfig:Invalid CSG pointer", XMC_HRPWM_CHECK_CSG_PTR(csg));
+ 492:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 493:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->DCI &= ~((uint32_t)HRPWM0_CSG0_DCI_STPIS_Msk);
+ 1202              	 .loc 1 493 0
+ 1203 000a 7B68     	 ldr r3,[r7,#4]
+ 1204 000c 1B68     	 ldr r3,[r3]
+ 1205 000e 23F47062 	 bic r2,r3,#3840
+ 1206 0012 7B68     	 ldr r3,[r7,#4]
+ 1207 0014 1A60     	 str r2,[r3]
+ 494:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->DCI |= ((uint32_t)config->mapped_input) << HRPWM0_CSG0_DCI_STPIS_Pos;
+ 1208              	 .loc 1 494 0
+ 1209 0016 7B68     	 ldr r3,[r7,#4]
+ 1210 0018 1A68     	 ldr r2,[r3]
+ 1211 001a 3B68     	 ldr r3,[r7]
+ 1212 001c 1B78     	 ldrb r3,[r3]
+ 1213 001e 1B02     	 lsls r3,r3,#8
+ 1214 0020 1A43     	 orrs r2,r2,r3
+ 1215 0022 7B68     	 ldr r3,[r7,#4]
+ 1216 0024 1A60     	 str r2,[r3]
+ 495:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->IES &= ~((uint32_t)HRPWM0_CSG_IES_STPES_Msk);
+ 1217              	 .loc 1 495 0
+ 1218 0026 7B68     	 ldr r3,[r7,#4]
+ 1219 0028 5B68     	 ldr r3,[r3,#4]
+ 1220 002a 23F03002 	 bic r2,r3,#48
+ 1221 002e 7B68     	 ldr r3,[r7,#4]
+ 1222 0030 5A60     	 str r2,[r3,#4]
+ 496:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->IES |= ((uint32_t)config->edge) << HRPWM0_CSG_IES_STPES_Pos;
+ 1223              	 .loc 1 496 0
+ 1224 0032 7B68     	 ldr r3,[r7,#4]
+ 1225 0034 5A68     	 ldr r2,[r3,#4]
+ 1226 0036 3B68     	 ldr r3,[r7]
+ 1227 0038 5B78     	 ldrb r3,[r3,#1]
+ 1228 003a 1B01     	 lsls r3,r3,#4
+ 1229 003c 1A43     	 orrs r2,r2,r3
+ 1230 003e 7B68     	 ldr r3,[r7,#4]
+ 1231 0040 5A60     	 str r2,[r3,#4]
+ 497:../Libraries/XMCLib/src/xmc_hrpwm.c **** }
+ 1232              	 .loc 1 497 0
+ 1233 0042 0C37     	 adds r7,r7,#12
+ 1234              	.LCFI79:
+ 1235              	 .cfi_def_cfa_offset 4
+ 1236 0044 BD46     	 mov sp,r7
+ 1237              	.LCFI80:
+ 1238              	 .cfi_def_cfa_register 13
+ 1239              	 
+ 1240 0046 5DF8047B 	 ldr r7,[sp],#4
+ 1241              	.LCFI81:
+ 1242              	 .cfi_restore 7
+ 1243              	 .cfi_def_cfa_offset 0
+ 1244 004a 7047     	 bx lr
+ 1245              	 .cfi_endproc
+ 1246              	.LFE237:
+ 1248              	 .section .text.XMC_HRPWM_CSG_TriggerDACConvConfig,"ax",%progbits
+ 1249              	 .align 2
+ 1250              	 .global XMC_HRPWM_CSG_TriggerDACConvConfig
+ 1251              	 .thumb
+ 1252              	 .thumb_func
+ 1254              	XMC_HRPWM_CSG_TriggerDACConvConfig:
+ 1255              	.LFB238:
+ 498:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 499:../Libraries/XMCLib/src/xmc_hrpwm.c **** /* Configure input selection for triggering DAC conversion */
+ 500:../Libraries/XMCLib/src/xmc_hrpwm.c **** void XMC_HRPWM_CSG_TriggerDACConvConfig(XMC_HRPWM_CSG_t *const csg, const XMC_HRPWM_CSG_INPUT_CONFI
+ 501:../Libraries/XMCLib/src/xmc_hrpwm.c **** {
+ 1256              	 .loc 1 501 0
+ 1257              	 .cfi_startproc
+ 1258              	 
+ 1259              	 
+ 1260              	 
+ 1261 0000 80B4     	 push {r7}
+ 1262              	.LCFI82:
+ 1263              	 .cfi_def_cfa_offset 4
+ 1264              	 .cfi_offset 7,-4
+ 1265 0002 83B0     	 sub sp,sp,#12
+ 1266              	.LCFI83:
+ 1267              	 .cfi_def_cfa_offset 16
+ 1268 0004 00AF     	 add r7,sp,#0
+ 1269              	.LCFI84:
+ 1270              	 .cfi_def_cfa_register 7
+ 1271 0006 7860     	 str r0,[r7,#4]
+ 1272 0008 3960     	 str r1,[r7]
+ 502:../Libraries/XMCLib/src/xmc_hrpwm.c ****   XMC_ASSERT("XMC_HRPWM_CSG_TriggerDACConvConfig:Invalid CSG pointer", XMC_HRPWM_CHECK_CSG_PTR(csg)
+ 503:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 504:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->DCI &= ~((uint32_t)HRPWM0_CSG0_DCI_TRGIS_Msk);
+ 1273              	 .loc 1 504 0
+ 1274 000a 7B68     	 ldr r3,[r7,#4]
+ 1275 000c 1B68     	 ldr r3,[r3]
+ 1276 000e 23F47042 	 bic r2,r3,#61440
+ 1277 0012 7B68     	 ldr r3,[r7,#4]
+ 1278 0014 1A60     	 str r2,[r3]
+ 505:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->DCI |= ((uint32_t)config->mapped_input) << HRPWM0_CSG0_DCI_TRGIS_Pos;
+ 1279              	 .loc 1 505 0
+ 1280 0016 7B68     	 ldr r3,[r7,#4]
+ 1281 0018 1A68     	 ldr r2,[r3]
+ 1282 001a 3B68     	 ldr r3,[r7]
+ 1283 001c 1B78     	 ldrb r3,[r3]
+ 1284 001e 1B03     	 lsls r3,r3,#12
+ 1285 0020 1A43     	 orrs r2,r2,r3
+ 1286 0022 7B68     	 ldr r3,[r7,#4]
+ 1287 0024 1A60     	 str r2,[r3]
+ 506:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->IES &= ~((uint32_t)HRPWM0_CSG_IES_TRGES_Msk);
+ 1288              	 .loc 1 506 0
+ 1289 0026 7B68     	 ldr r3,[r7,#4]
+ 1290 0028 5B68     	 ldr r3,[r3,#4]
+ 1291 002a 23F0C002 	 bic r2,r3,#192
+ 1292 002e 7B68     	 ldr r3,[r7,#4]
+ 1293 0030 5A60     	 str r2,[r3,#4]
+ 507:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->IES |= ((uint32_t)config->edge) << HRPWM0_CSG_IES_TRGES_Pos;
+ 1294              	 .loc 1 507 0
+ 1295 0032 7B68     	 ldr r3,[r7,#4]
+ 1296 0034 5A68     	 ldr r2,[r3,#4]
+ 1297 0036 3B68     	 ldr r3,[r7]
+ 1298 0038 5B78     	 ldrb r3,[r3,#1]
+ 1299 003a 9B01     	 lsls r3,r3,#6
+ 1300 003c 1A43     	 orrs r2,r2,r3
+ 1301 003e 7B68     	 ldr r3,[r7,#4]
+ 1302 0040 5A60     	 str r2,[r3,#4]
+ 508:../Libraries/XMCLib/src/xmc_hrpwm.c **** }
+ 1303              	 .loc 1 508 0
+ 1304 0042 0C37     	 adds r7,r7,#12
+ 1305              	.LCFI85:
+ 1306              	 .cfi_def_cfa_offset 4
+ 1307 0044 BD46     	 mov sp,r7
+ 1308              	.LCFI86:
+ 1309              	 .cfi_def_cfa_register 13
+ 1310              	 
+ 1311 0046 5DF8047B 	 ldr r7,[sp],#4
+ 1312              	.LCFI87:
+ 1313              	 .cfi_restore 7
+ 1314              	 .cfi_def_cfa_offset 0
+ 1315 004a 7047     	 bx lr
+ 1316              	 .cfi_endproc
+ 1317              	.LFE238:
+ 1319              	 .section .text.XMC_HRPWM_CSG_TriggerShadowXferConfig,"ax",%progbits
+ 1320              	 .align 2
+ 1321              	 .global XMC_HRPWM_CSG_TriggerShadowXferConfig
+ 1322              	 .thumb
+ 1323              	 .thumb_func
+ 1325              	XMC_HRPWM_CSG_TriggerShadowXferConfig:
+ 1326              	.LFB239:
+ 509:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 510:../Libraries/XMCLib/src/xmc_hrpwm.c **** /* Configure input selection for triggering shadow transfer */
+ 511:../Libraries/XMCLib/src/xmc_hrpwm.c **** void XMC_HRPWM_CSG_TriggerShadowXferConfig(XMC_HRPWM_CSG_t *const csg, const XMC_HRPWM_CSG_INPUT_CO
+ 512:../Libraries/XMCLib/src/xmc_hrpwm.c **** {
+ 1327              	 .loc 1 512 0
+ 1328              	 .cfi_startproc
+ 1329              	 
+ 1330              	 
+ 1331              	 
+ 1332 0000 80B4     	 push {r7}
+ 1333              	.LCFI88:
+ 1334              	 .cfi_def_cfa_offset 4
+ 1335              	 .cfi_offset 7,-4
+ 1336 0002 83B0     	 sub sp,sp,#12
+ 1337              	.LCFI89:
+ 1338              	 .cfi_def_cfa_offset 16
+ 1339 0004 00AF     	 add r7,sp,#0
+ 1340              	.LCFI90:
+ 1341              	 .cfi_def_cfa_register 7
+ 1342 0006 7860     	 str r0,[r7,#4]
+ 1343 0008 3960     	 str r1,[r7]
+ 513:../Libraries/XMCLib/src/xmc_hrpwm.c ****   XMC_ASSERT("XMC_HRPWM_CSG_TriggerShadowXferConfig:Invalid CSG pointer", XMC_HRPWM_CHECK_CSG_PTR(c
+ 514:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 515:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->DCI &= ~((uint32_t)HRPWM0_CSG0_DCI_STIS_Msk);
+ 1344              	 .loc 1 515 0
+ 1345 000a 7B68     	 ldr r3,[r7,#4]
+ 1346 000c 1B68     	 ldr r3,[r3]
+ 1347 000e 23F47022 	 bic r2,r3,#983040
+ 1348 0012 7B68     	 ldr r3,[r7,#4]
+ 1349 0014 1A60     	 str r2,[r3]
+ 516:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->DCI |= ((uint32_t)config->mapped_input) << HRPWM0_CSG0_DCI_STIS_Pos;
+ 1350              	 .loc 1 516 0
+ 1351 0016 7B68     	 ldr r3,[r7,#4]
+ 1352 0018 1A68     	 ldr r2,[r3]
+ 1353 001a 3B68     	 ldr r3,[r7]
+ 1354 001c 1B78     	 ldrb r3,[r3]
+ 1355 001e 1B04     	 lsls r3,r3,#16
+ 1356 0020 1A43     	 orrs r2,r2,r3
+ 1357 0022 7B68     	 ldr r3,[r7,#4]
+ 1358 0024 1A60     	 str r2,[r3]
+ 517:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->IES &= ~((uint32_t)HRPWM0_CSG_IES_STES_Msk);
+ 1359              	 .loc 1 517 0
+ 1360 0026 7B68     	 ldr r3,[r7,#4]
+ 1361 0028 5B68     	 ldr r3,[r3,#4]
+ 1362 002a 23F44072 	 bic r2,r3,#768
+ 1363 002e 7B68     	 ldr r3,[r7,#4]
+ 1364 0030 5A60     	 str r2,[r3,#4]
+ 518:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->IES |= ((uint32_t)config->edge) << HRPWM0_CSG_IES_STES_Pos;
+ 1365              	 .loc 1 518 0
+ 1366 0032 7B68     	 ldr r3,[r7,#4]
+ 1367 0034 5A68     	 ldr r2,[r3,#4]
+ 1368 0036 3B68     	 ldr r3,[r7]
+ 1369 0038 5B78     	 ldrb r3,[r3,#1]
+ 1370 003a 1B02     	 lsls r3,r3,#8
+ 1371 003c 1A43     	 orrs r2,r2,r3
+ 1372 003e 7B68     	 ldr r3,[r7,#4]
+ 1373 0040 5A60     	 str r2,[r3,#4]
+ 519:../Libraries/XMCLib/src/xmc_hrpwm.c **** }
+ 1374              	 .loc 1 519 0
+ 1375 0042 0C37     	 adds r7,r7,#12
+ 1376              	.LCFI91:
+ 1377              	 .cfi_def_cfa_offset 4
+ 1378 0044 BD46     	 mov sp,r7
+ 1379              	.LCFI92:
+ 1380              	 .cfi_def_cfa_register 13
+ 1381              	 
+ 1382 0046 5DF8047B 	 ldr r7,[sp],#4
+ 1383              	.LCFI93:
+ 1384              	 .cfi_restore 7
+ 1385              	 .cfi_def_cfa_offset 0
+ 1386 004a 7047     	 bx lr
+ 1387              	 .cfi_endproc
+ 1388              	.LFE239:
+ 1390              	 .section .text.XMC_HRPWM_CSG_DACRefValSwitchingConfig,"ax",%progbits
+ 1391              	 .align 2
+ 1392              	 .global XMC_HRPWM_CSG_DACRefValSwitchingConfig
+ 1393              	 .thumb
+ 1394              	 .thumb_func
+ 1396              	XMC_HRPWM_CSG_DACRefValSwitchingConfig:
+ 1397              	.LFB240:
+ 520:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 521:../Libraries/XMCLib/src/xmc_hrpwm.c **** /* Configure input selection to trigger a switch in DAC reference value. This is only applicable to
+ 522:../Libraries/XMCLib/src/xmc_hrpwm.c **** void XMC_HRPWM_CSG_DACRefValSwitchingConfig(XMC_HRPWM_CSG_t *const csg, const XMC_HRPWM_CSG_INPUT_C
+ 523:../Libraries/XMCLib/src/xmc_hrpwm.c **** {
+ 1398              	 .loc 1 523 0
+ 1399              	 .cfi_startproc
+ 1400              	 
+ 1401              	 
+ 1402              	 
+ 1403 0000 80B4     	 push {r7}
+ 1404              	.LCFI94:
+ 1405              	 .cfi_def_cfa_offset 4
+ 1406              	 .cfi_offset 7,-4
+ 1407 0002 83B0     	 sub sp,sp,#12
+ 1408              	.LCFI95:
+ 1409              	 .cfi_def_cfa_offset 16
+ 1410 0004 00AF     	 add r7,sp,#0
+ 1411              	.LCFI96:
+ 1412              	 .cfi_def_cfa_register 7
+ 1413 0006 7860     	 str r0,[r7,#4]
+ 1414 0008 3960     	 str r1,[r7]
+ 524:../Libraries/XMCLib/src/xmc_hrpwm.c ****   XMC_ASSERT("XMC_HRPWM_CSG_DACRefValSwitchingConfig:Invalid CSG pointer", XMC_HRPWM_CHECK_CSG_PTR(
+ 525:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 526:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->DCI &= ~((uint32_t)HRPWM0_CSG0_DCI_SVIS_Msk);
+ 1415              	 .loc 1 526 0
+ 1416 000a 7B68     	 ldr r3,[r7,#4]
+ 1417 000c 1B68     	 ldr r3,[r3]
+ 1418 000e 23F00F02 	 bic r2,r3,#15
+ 1419 0012 7B68     	 ldr r3,[r7,#4]
+ 1420 0014 1A60     	 str r2,[r3]
+ 527:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->DCI |= ((uint32_t)config->mapped_input) << HRPWM0_CSG0_DCI_SVIS_Pos;
+ 1421              	 .loc 1 527 0
+ 1422 0016 7B68     	 ldr r3,[r7,#4]
+ 1423 0018 1B68     	 ldr r3,[r3]
+ 1424 001a 3A68     	 ldr r2,[r7]
+ 1425 001c 1278     	 ldrb r2,[r2]
+ 1426 001e 1A43     	 orrs r2,r2,r3
+ 1427 0020 7B68     	 ldr r3,[r7,#4]
+ 1428 0022 1A60     	 str r2,[r3]
+ 528:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->IES &= ~((uint32_t)HRPWM0_CSG_IES_SVLS_Msk);
+ 1429              	 .loc 1 528 0
+ 1430 0024 7B68     	 ldr r3,[r7,#4]
+ 1431 0026 5B68     	 ldr r3,[r3,#4]
+ 1432 0028 23F00302 	 bic r2,r3,#3
+ 1433 002c 7B68     	 ldr r3,[r7,#4]
+ 1434 002e 5A60     	 str r2,[r3,#4]
+ 529:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->IES |= ((uint32_t)config->level) << HRPWM0_CSG_IES_SVLS_Pos;
+ 1435              	 .loc 1 529 0
+ 1436 0030 7B68     	 ldr r3,[r7,#4]
+ 1437 0032 5B68     	 ldr r3,[r3,#4]
+ 1438 0034 3A68     	 ldr r2,[r7]
+ 1439 0036 9278     	 ldrb r2,[r2,#2]
+ 1440 0038 1A43     	 orrs r2,r2,r3
+ 1441 003a 7B68     	 ldr r3,[r7,#4]
+ 1442 003c 5A60     	 str r2,[r3,#4]
+ 530:../Libraries/XMCLib/src/xmc_hrpwm.c **** }
+ 1443              	 .loc 1 530 0
+ 1444 003e 0C37     	 adds r7,r7,#12
+ 1445              	.LCFI97:
+ 1446              	 .cfi_def_cfa_offset 4
+ 1447 0040 BD46     	 mov sp,r7
+ 1448              	.LCFI98:
+ 1449              	 .cfi_def_cfa_register 13
+ 1450              	 
+ 1451 0042 5DF8047B 	 ldr r7,[sp],#4
+ 1452              	.LCFI99:
+ 1453              	 .cfi_restore 7
+ 1454              	 .cfi_def_cfa_offset 0
+ 1455 0046 7047     	 bx lr
+ 1456              	 .cfi_endproc
+ 1457              	.LFE240:
+ 1459              	 .section .text.XMC_HRPWM_CSG_SelSlopeGenClkInput,"ax",%progbits
+ 1460              	 .align 2
+ 1461              	 .global XMC_HRPWM_CSG_SelSlopeGenClkInput
+ 1462              	 .thumb
+ 1463              	 .thumb_func
+ 1465              	XMC_HRPWM_CSG_SelSlopeGenClkInput:
+ 1466              	.LFB241:
+ 531:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 532:../Libraries/XMCLib/src/xmc_hrpwm.c **** /* Configure input selection for clock selection used in slope generation */
+ 533:../Libraries/XMCLib/src/xmc_hrpwm.c **** void XMC_HRPWM_CSG_SelSlopeGenClkInput(XMC_HRPWM_CSG_t *const csg, const XMC_HRPWM_CSG_CLK_INPUT_t 
+ 534:../Libraries/XMCLib/src/xmc_hrpwm.c **** {
+ 1467              	 .loc 1 534 0
+ 1468              	 .cfi_startproc
+ 1469              	 
+ 1470              	 
+ 1471              	 
+ 1472 0000 80B4     	 push {r7}
+ 1473              	.LCFI100:
+ 1474              	 .cfi_def_cfa_offset 4
+ 1475              	 .cfi_offset 7,-4
+ 1476 0002 83B0     	 sub sp,sp,#12
+ 1477              	.LCFI101:
+ 1478              	 .cfi_def_cfa_offset 16
+ 1479 0004 00AF     	 add r7,sp,#0
+ 1480              	.LCFI102:
+ 1481              	 .cfi_def_cfa_register 7
+ 1482 0006 7860     	 str r0,[r7,#4]
+ 1483 0008 0B46     	 mov r3,r1
+ 1484 000a FB70     	 strb r3,[r7,#3]
+ 535:../Libraries/XMCLib/src/xmc_hrpwm.c ****   XMC_ASSERT("XMC_HRPWM_CSG_SelSlopeGenClkInput:Invalid CSG pointer", XMC_HRPWM_CHECK_CSG_PTR(csg))
+ 536:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 537:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->DCI &= ~((uint32_t)HRPWM0_CSG0_DCI_SCS_Msk);
+ 1485              	 .loc 1 537 0
+ 1486 000c 7B68     	 ldr r3,[r7,#4]
+ 1487 000e 1B68     	 ldr r3,[r3]
+ 1488 0010 23F44012 	 bic r2,r3,#3145728
+ 1489 0014 7B68     	 ldr r3,[r7,#4]
+ 1490 0016 1A60     	 str r2,[r3]
+ 538:../Libraries/XMCLib/src/xmc_hrpwm.c ****   csg->DCI |= ((uint32_t)input_clk) << HRPWM0_CSG0_DCI_SCS_Pos;
+ 1491              	 .loc 1 538 0
+ 1492 0018 7B68     	 ldr r3,[r7,#4]
+ 1493 001a 1A68     	 ldr r2,[r3]
+ 1494 001c FB78     	 ldrb r3,[r7,#3]
+ 1495 001e 1B05     	 lsls r3,r3,#20
+ 1496 0020 1A43     	 orrs r2,r2,r3
+ 1497 0022 7B68     	 ldr r3,[r7,#4]
+ 1498 0024 1A60     	 str r2,[r3]
+ 539:../Libraries/XMCLib/src/xmc_hrpwm.c **** }
+ 1499              	 .loc 1 539 0
+ 1500 0026 0C37     	 adds r7,r7,#12
+ 1501              	.LCFI103:
+ 1502              	 .cfi_def_cfa_offset 4
+ 1503 0028 BD46     	 mov sp,r7
+ 1504              	.LCFI104:
+ 1505              	 .cfi_def_cfa_register 13
+ 1506              	 
+ 1507 002a 5DF8047B 	 ldr r7,[sp],#4
+ 1508              	.LCFI105:
+ 1509              	 .cfi_restore 7
+ 1510              	 .cfi_def_cfa_offset 0
+ 1511 002e 7047     	 bx lr
+ 1512              	 .cfi_endproc
+ 1513              	.LFE241:
+ 1515              	 .section .text.XMC_HRPWM_CSG_SetSRNode,"ax",%progbits
+ 1516              	 .align 2
+ 1517              	 .global XMC_HRPWM_CSG_SetSRNode
+ 1518              	 .thumb
+ 1519              	 .thumb_func
+ 1521              	XMC_HRPWM_CSG_SetSRNode:
+ 1522              	.LFB242:
+ 540:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 541:../Libraries/XMCLib/src/xmc_hrpwm.c **** /* Set the service request interrupt node */
+ 542:../Libraries/XMCLib/src/xmc_hrpwm.c **** void XMC_HRPWM_CSG_SetSRNode(XMC_HRPWM_CSG_t *const csg, const XMC_HRPWM_CSG_IRQ_ID_t event,
+ 543:../Libraries/XMCLib/src/xmc_hrpwm.c ****                                    const XMC_HRPWM_CSG_IRQ_SR_LINE_t sr)
+ 544:../Libraries/XMCLib/src/xmc_hrpwm.c **** {
+ 1523              	 .loc 1 544 0
+ 1524              	 .cfi_startproc
+ 1525              	 
+ 1526              	 
+ 1527              	 
+ 1528 0000 80B4     	 push {r7}
+ 1529              	.LCFI106:
+ 1530              	 .cfi_def_cfa_offset 4
+ 1531              	 .cfi_offset 7,-4
+ 1532 0002 83B0     	 sub sp,sp,#12
+ 1533              	.LCFI107:
+ 1534              	 .cfi_def_cfa_offset 16
+ 1535 0004 00AF     	 add r7,sp,#0
+ 1536              	.LCFI108:
+ 1537              	 .cfi_def_cfa_register 7
+ 1538 0006 7860     	 str r0,[r7,#4]
+ 1539 0008 0B46     	 mov r3,r1
+ 1540 000a 7B80     	 strh r3,[r7,#2]
+ 1541 000c 1346     	 mov r3,r2
+ 1542 000e 7B70     	 strb r3,[r7,#1]
+ 545:../Libraries/XMCLib/src/xmc_hrpwm.c ****   XMC_ASSERT("XMC_HRPWM_CSG_SetSRNode:Invalid CSG pointer", XMC_HRPWM_CHECK_CSG_PTR(csg));
+ 546:../Libraries/XMCLib/src/xmc_hrpwm.c ****   
+ 547:../Libraries/XMCLib/src/xmc_hrpwm.c ****   switch (event)
+ 1543              	 .loc 1 547 0
+ 1544 0010 7B88     	 ldrh r3,[r7,#2]
+ 1545 0012 102B     	 cmp r3,#16
+ 1546 0014 43D0     	 beq .L45
+ 1547 0016 102B     	 cmp r3,#16
+ 1548 0018 0BDC     	 bgt .L46
+ 1549 001a 022B     	 cmp r3,#2
+ 1550 001c 23D0     	 beq .L47
+ 1551 001e 022B     	 cmp r3,#2
+ 1552 0020 02DC     	 bgt .L48
+ 1553 0022 012B     	 cmp r3,#1
+ 1554 0024 12D0     	 beq .L49
+ 548:../Libraries/XMCLib/src/xmc_hrpwm.c ****   {
+ 549:../Libraries/XMCLib/src/xmc_hrpwm.c ****     case (XMC_HRPWM_CSG_IRQ_ID_VLS1):
+ 550:../Libraries/XMCLib/src/xmc_hrpwm.c ****       csg->SRS &= ~((uint32_t)HRPWM0_CSG_SRS_VLS1S_Msk);
+ 551:../Libraries/XMCLib/src/xmc_hrpwm.c ****       csg->SRS |= (uint32_t)sr;
+ 552:../Libraries/XMCLib/src/xmc_hrpwm.c ****       break;
+ 553:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 554:../Libraries/XMCLib/src/xmc_hrpwm.c ****     case (XMC_HRPWM_CSG_IRQ_ID_VLS2):
+ 555:../Libraries/XMCLib/src/xmc_hrpwm.c ****       csg->SRS &= ~((uint32_t)HRPWM0_CSG_SRS_VLS2S_Msk);
+ 556:../Libraries/XMCLib/src/xmc_hrpwm.c ****       csg->SRS |= ((uint32_t)sr) << HRPWM0_CSG_SRS_VLS2S_Pos;
+ 557:../Libraries/XMCLib/src/xmc_hrpwm.c ****       break;
+ 558:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 559:../Libraries/XMCLib/src/xmc_hrpwm.c ****     case (XMC_HRPWM_CSG_IRQ_ID_TRGS):
+ 560:../Libraries/XMCLib/src/xmc_hrpwm.c ****       csg->SRS &= ~((uint32_t)HRPWM0_CSG_SRS_TRLS_Msk);
+ 561:../Libraries/XMCLib/src/xmc_hrpwm.c ****       csg->SRS |= ((uint32_t)sr) << HRPWM0_CSG_SRS_TRLS_Pos;
+ 562:../Libraries/XMCLib/src/xmc_hrpwm.c ****       break;
+ 563:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 564:../Libraries/XMCLib/src/xmc_hrpwm.c ****     case (XMC_HRPWM_CSG_IRQ_ID_STRS):
+ 565:../Libraries/XMCLib/src/xmc_hrpwm.c ****     case (XMC_HRPWM_CSG_IRQ_ID_STPS):
+ 566:../Libraries/XMCLib/src/xmc_hrpwm.c ****       csg->SRS &= ~((uint32_t)HRPWM0_CSG_SRS_SSLS_Msk);
+ 567:../Libraries/XMCLib/src/xmc_hrpwm.c ****       csg->SRS |= ((uint32_t)sr) << HRPWM0_CSG_SRS_SSLS_Pos;
+ 568:../Libraries/XMCLib/src/xmc_hrpwm.c ****       break;
+ 569:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 570:../Libraries/XMCLib/src/xmc_hrpwm.c ****     case (XMC_HRPWM_CSG_IRQ_ID_STD):
+ 571:../Libraries/XMCLib/src/xmc_hrpwm.c ****       csg->SRS &= ~((uint32_t)HRPWM0_CSG_SRS_STLS_Msk);
+ 572:../Libraries/XMCLib/src/xmc_hrpwm.c ****       csg->SRS |= ((uint32_t)sr) << HRPWM0_CSG_SRS_STLS_Pos;
+ 573:../Libraries/XMCLib/src/xmc_hrpwm.c ****       break;
+ 574:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 575:../Libraries/XMCLib/src/xmc_hrpwm.c ****     case (XMC_HRPWM_CSG_IRQ_ID_CRSE):
+ 576:../Libraries/XMCLib/src/xmc_hrpwm.c ****     case (XMC_HRPWM_CSG_IRQ_ID_CFSE):
+ 577:../Libraries/XMCLib/src/xmc_hrpwm.c ****       csg->SRS &= ~((uint32_t)HRPWM0_CSG_SRS_CRFLS_Msk);
+ 578:../Libraries/XMCLib/src/xmc_hrpwm.c ****       csg->SRS |= ((uint32_t)sr) << HRPWM0_CSG_SRS_CRFLS_Pos;
+ 579:../Libraries/XMCLib/src/xmc_hrpwm.c ****       break;
+ 580:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 581:../Libraries/XMCLib/src/xmc_hrpwm.c ****     case (XMC_HRPWM_CSG_IRQ_ID_CSEE):
+ 582:../Libraries/XMCLib/src/xmc_hrpwm.c ****       csg->SRS &= ~((uint32_t)HRPWM0_CSG_SRS_CSLS_Msk);
+ 583:../Libraries/XMCLib/src/xmc_hrpwm.c ****       csg->SRS |= ((uint32_t)sr) << HRPWM0_CSG_SRS_CSLS_Pos;
+ 584:../Libraries/XMCLib/src/xmc_hrpwm.c ****       break;
+ 585:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 586:../Libraries/XMCLib/src/xmc_hrpwm.c ****     default:
+ 587:../Libraries/XMCLib/src/xmc_hrpwm.c ****       break;
+ 1555              	 .loc 1 587 0
+ 1556 0026 72E0     	 b .L43
+ 1557              	.L48:
+ 547:../Libraries/XMCLib/src/xmc_hrpwm.c ****   {
+ 1558              	 .loc 1 547 0
+ 1559 0028 042B     	 cmp r3,#4
+ 1560 002a 2AD0     	 beq .L50
+ 1561 002c 082B     	 cmp r3,#8
+ 1562 002e 36D0     	 beq .L45
+ 1563              	 .loc 1 587 0
+ 1564 0030 6DE0     	 b .L43
+ 1565              	.L46:
+ 547:../Libraries/XMCLib/src/xmc_hrpwm.c ****   {
+ 1566              	 .loc 1 547 0
+ 1567 0032 402B     	 cmp r3,#64
+ 1568 0034 4FD0     	 beq .L51
+ 1569 0036 402B     	 cmp r3,#64
+ 1570 0038 02DC     	 bgt .L52
+ 1571 003a 202B     	 cmp r3,#32
+ 1572 003c 3DD0     	 beq .L53
+ 1573              	 .loc 1 587 0
+ 1574 003e 66E0     	 b .L43
+ 1575              	.L52:
+ 547:../Libraries/XMCLib/src/xmc_hrpwm.c ****   {
+ 1576              	 .loc 1 547 0
+ 1577 0040 802B     	 cmp r3,#128
+ 1578 0042 48D0     	 beq .L51
+ 1579 0044 B3F5807F 	 cmp r3,#256
+ 1580 0048 53D0     	 beq .L54
+ 1581              	 .loc 1 587 0
+ 1582 004a 60E0     	 b .L43
+ 1583              	.L49:
+ 550:../Libraries/XMCLib/src/xmc_hrpwm.c ****       csg->SRS |= (uint32_t)sr;
+ 1584              	 .loc 1 550 0
+ 1585 004c 7B68     	 ldr r3,[r7,#4]
+ 1586 004e 1B6B     	 ldr r3,[r3,#48]
+ 1587 0050 23F00302 	 bic r2,r3,#3
+ 1588 0054 7B68     	 ldr r3,[r7,#4]
+ 1589 0056 1A63     	 str r2,[r3,#48]
+ 551:../Libraries/XMCLib/src/xmc_hrpwm.c ****       break;
+ 1590              	 .loc 1 551 0
+ 1591 0058 7B68     	 ldr r3,[r7,#4]
+ 1592 005a 1A6B     	 ldr r2,[r3,#48]
+ 1593 005c 7B78     	 ldrb r3,[r7,#1]
+ 1594 005e 1A43     	 orrs r2,r2,r3
+ 1595 0060 7B68     	 ldr r3,[r7,#4]
+ 1596 0062 1A63     	 str r2,[r3,#48]
+ 552:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 1597              	 .loc 1 552 0
+ 1598 0064 53E0     	 b .L43
+ 1599              	.L47:
+ 555:../Libraries/XMCLib/src/xmc_hrpwm.c ****       csg->SRS |= ((uint32_t)sr) << HRPWM0_CSG_SRS_VLS2S_Pos;
+ 1600              	 .loc 1 555 0
+ 1601 0066 7B68     	 ldr r3,[r7,#4]
+ 1602 0068 1B6B     	 ldr r3,[r3,#48]
+ 1603 006a 23F00C02 	 bic r2,r3,#12
+ 1604 006e 7B68     	 ldr r3,[r7,#4]
+ 1605 0070 1A63     	 str r2,[r3,#48]
+ 556:../Libraries/XMCLib/src/xmc_hrpwm.c ****       break;
+ 1606              	 .loc 1 556 0
+ 1607 0072 7B68     	 ldr r3,[r7,#4]
+ 1608 0074 1A6B     	 ldr r2,[r3,#48]
+ 1609 0076 7B78     	 ldrb r3,[r7,#1]
+ 1610 0078 9B00     	 lsls r3,r3,#2
+ 1611 007a 1A43     	 orrs r2,r2,r3
+ 1612 007c 7B68     	 ldr r3,[r7,#4]
+ 1613 007e 1A63     	 str r2,[r3,#48]
+ 557:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 1614              	 .loc 1 557 0
+ 1615 0080 45E0     	 b .L43
+ 1616              	.L50:
+ 560:../Libraries/XMCLib/src/xmc_hrpwm.c ****       csg->SRS |= ((uint32_t)sr) << HRPWM0_CSG_SRS_TRLS_Pos;
+ 1617              	 .loc 1 560 0
+ 1618 0082 7B68     	 ldr r3,[r7,#4]
+ 1619 0084 1B6B     	 ldr r3,[r3,#48]
+ 1620 0086 23F03002 	 bic r2,r3,#48
+ 1621 008a 7B68     	 ldr r3,[r7,#4]
+ 1622 008c 1A63     	 str r2,[r3,#48]
+ 561:../Libraries/XMCLib/src/xmc_hrpwm.c ****       break;
+ 1623              	 .loc 1 561 0
+ 1624 008e 7B68     	 ldr r3,[r7,#4]
+ 1625 0090 1A6B     	 ldr r2,[r3,#48]
+ 1626 0092 7B78     	 ldrb r3,[r7,#1]
+ 1627 0094 1B01     	 lsls r3,r3,#4
+ 1628 0096 1A43     	 orrs r2,r2,r3
+ 1629 0098 7B68     	 ldr r3,[r7,#4]
+ 1630 009a 1A63     	 str r2,[r3,#48]
+ 562:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 1631              	 .loc 1 562 0
+ 1632 009c 37E0     	 b .L43
+ 1633              	.L45:
+ 566:../Libraries/XMCLib/src/xmc_hrpwm.c ****       csg->SRS |= ((uint32_t)sr) << HRPWM0_CSG_SRS_SSLS_Pos;
+ 1634              	 .loc 1 566 0
+ 1635 009e 7B68     	 ldr r3,[r7,#4]
+ 1636 00a0 1B6B     	 ldr r3,[r3,#48]
+ 1637 00a2 23F0C002 	 bic r2,r3,#192
+ 1638 00a6 7B68     	 ldr r3,[r7,#4]
+ 1639 00a8 1A63     	 str r2,[r3,#48]
+ 567:../Libraries/XMCLib/src/xmc_hrpwm.c ****       break;
+ 1640              	 .loc 1 567 0
+ 1641 00aa 7B68     	 ldr r3,[r7,#4]
+ 1642 00ac 1A6B     	 ldr r2,[r3,#48]
+ 1643 00ae 7B78     	 ldrb r3,[r7,#1]
+ 1644 00b0 9B01     	 lsls r3,r3,#6
+ 1645 00b2 1A43     	 orrs r2,r2,r3
+ 1646 00b4 7B68     	 ldr r3,[r7,#4]
+ 1647 00b6 1A63     	 str r2,[r3,#48]
+ 568:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 1648              	 .loc 1 568 0
+ 1649 00b8 29E0     	 b .L43
+ 1650              	.L53:
+ 571:../Libraries/XMCLib/src/xmc_hrpwm.c ****       csg->SRS |= ((uint32_t)sr) << HRPWM0_CSG_SRS_STLS_Pos;
+ 1651              	 .loc 1 571 0
+ 1652 00ba 7B68     	 ldr r3,[r7,#4]
+ 1653 00bc 1B6B     	 ldr r3,[r3,#48]
+ 1654 00be 23F44072 	 bic r2,r3,#768
+ 1655 00c2 7B68     	 ldr r3,[r7,#4]
+ 1656 00c4 1A63     	 str r2,[r3,#48]
+ 572:../Libraries/XMCLib/src/xmc_hrpwm.c ****       break;
+ 1657              	 .loc 1 572 0
+ 1658 00c6 7B68     	 ldr r3,[r7,#4]
+ 1659 00c8 1A6B     	 ldr r2,[r3,#48]
+ 1660 00ca 7B78     	 ldrb r3,[r7,#1]
+ 1661 00cc 1B02     	 lsls r3,r3,#8
+ 1662 00ce 1A43     	 orrs r2,r2,r3
+ 1663 00d0 7B68     	 ldr r3,[r7,#4]
+ 1664 00d2 1A63     	 str r2,[r3,#48]
+ 573:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 1665              	 .loc 1 573 0
+ 1666 00d4 1BE0     	 b .L43
+ 1667              	.L51:
+ 577:../Libraries/XMCLib/src/xmc_hrpwm.c ****       csg->SRS |= ((uint32_t)sr) << HRPWM0_CSG_SRS_CRFLS_Pos;
+ 1668              	 .loc 1 577 0
+ 1669 00d6 7B68     	 ldr r3,[r7,#4]
+ 1670 00d8 1B6B     	 ldr r3,[r3,#48]
+ 1671 00da 23F44062 	 bic r2,r3,#3072
+ 1672 00de 7B68     	 ldr r3,[r7,#4]
+ 1673 00e0 1A63     	 str r2,[r3,#48]
+ 578:../Libraries/XMCLib/src/xmc_hrpwm.c ****       break;
+ 1674              	 .loc 1 578 0
+ 1675 00e2 7B68     	 ldr r3,[r7,#4]
+ 1676 00e4 1A6B     	 ldr r2,[r3,#48]
+ 1677 00e6 7B78     	 ldrb r3,[r7,#1]
+ 1678 00e8 9B02     	 lsls r3,r3,#10
+ 1679 00ea 1A43     	 orrs r2,r2,r3
+ 1680 00ec 7B68     	 ldr r3,[r7,#4]
+ 1681 00ee 1A63     	 str r2,[r3,#48]
+ 579:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 1682              	 .loc 1 579 0
+ 1683 00f0 0DE0     	 b .L43
+ 1684              	.L54:
+ 582:../Libraries/XMCLib/src/xmc_hrpwm.c ****       csg->SRS |= ((uint32_t)sr) << HRPWM0_CSG_SRS_CSLS_Pos;
+ 1685              	 .loc 1 582 0
+ 1686 00f2 7B68     	 ldr r3,[r7,#4]
+ 1687 00f4 1B6B     	 ldr r3,[r3,#48]
+ 1688 00f6 23F44052 	 bic r2,r3,#12288
+ 1689 00fa 7B68     	 ldr r3,[r7,#4]
+ 1690 00fc 1A63     	 str r2,[r3,#48]
+ 583:../Libraries/XMCLib/src/xmc_hrpwm.c ****       break;
+ 1691              	 .loc 1 583 0
+ 1692 00fe 7B68     	 ldr r3,[r7,#4]
+ 1693 0100 1A6B     	 ldr r2,[r3,#48]
+ 1694 0102 7B78     	 ldrb r3,[r7,#1]
+ 1695 0104 1B03     	 lsls r3,r3,#12
+ 1696 0106 1A43     	 orrs r2,r2,r3
+ 1697 0108 7B68     	 ldr r3,[r7,#4]
+ 1698 010a 1A63     	 str r2,[r3,#48]
+ 584:../Libraries/XMCLib/src/xmc_hrpwm.c **** 
+ 1699              	 .loc 1 584 0
+ 1700 010c 00BF     	 nop
+ 1701              	.L43:
+ 588:../Libraries/XMCLib/src/xmc_hrpwm.c ****   }
+ 589:../Libraries/XMCLib/src/xmc_hrpwm.c **** }
+ 1702              	 .loc 1 589 0
+ 1703 010e 0C37     	 adds r7,r7,#12
+ 1704              	.LCFI109:
+ 1705              	 .cfi_def_cfa_offset 4
+ 1706 0110 BD46     	 mov sp,r7
+ 1707              	.LCFI110:
+ 1708              	 .cfi_def_cfa_register 13
+ 1709              	 
+ 1710 0112 5DF8047B 	 ldr r7,[sp],#4
+ 1711              	.LCFI111:
+ 1712              	 .cfi_restore 7
+ 1713              	 .cfi_def_cfa_offset 0
+ 1714 0116 7047     	 bx lr
+ 1715              	 .cfi_endproc
+ 1716              	.LFE242:
+ 1718              	 .text
+ 1719              	.Letext0:
+ 1720              	 .file 2 "c:\\users\\frank\\desktop\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 1721              	 .file 3 "c:\\users\\frank\\desktop\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 1722              	 .file 4 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Infineon/XMC4200_series/Include/XMC4200.h"
+ 1723              	 .file 5 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc/xmc_hrpwm.h"
+ 1724              	 .file 6 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc/xmc4_scu.h"
+ 1725              	 .file 7 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Include/cmsis_gcc.h"
+ 1726              	 .file 8 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Include/core_cm4.h"
+ 1727              	 .file 9 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Infineon/XMC4200_series/Include/system_XMC4200.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 xmc_hrpwm.c
+    {standard input}:20     .text.XMC_HRPWM_lDelay:00000000 $t
+    {standard input}:24     .text.XMC_HRPWM_lDelay:00000000 XMC_HRPWM_lDelay
+    {standard input}:78     .text.XMC_HRPWM_Init:00000000 $t
+    {standard input}:83     .text.XMC_HRPWM_Init:00000000 XMC_HRPWM_Init
+    {standard input}:297    .text.XMC_HRPWM_Init:0000014c $d
+    {standard input}:309    .text.XMC_HRPWM_EnableGlobalHR:00000000 $t
+    {standard input}:314    .text.XMC_HRPWM_EnableGlobalHR:00000000 XMC_HRPWM_EnableGlobalHR
+    {standard input}:353    .text.XMC_HRPWM_DisableGlobalHR:00000000 $t
+    {standard input}:358    .text.XMC_HRPWM_DisableGlobalHR:00000000 XMC_HRPWM_DisableGlobalHR
+    {standard input}:399    .text.XMC_HRPWM_GetHRGenReadyStatus:00000000 $t
+    {standard input}:404    .text.XMC_HRPWM_GetHRGenReadyStatus:00000000 XMC_HRPWM_GetHRGenReadyStatus
+    {standard input}:456    .text.XMC_HRPWM_HRC_Init:00000000 $t
+    {standard input}:461    .text.XMC_HRPWM_HRC_Init:00000000 XMC_HRPWM_HRC_Init
+    {standard input}:507    .text.XMC_HRPWM_HRC_ConfigSourceSelect0:00000000 $t
+    {standard input}:512    .text.XMC_HRPWM_HRC_ConfigSourceSelect0:00000000 XMC_HRPWM_HRC_ConfigSourceSelect0
+    {standard input}:649    .text.XMC_HRPWM_HRC_ConfigSourceSelect1:00000000 $t
+    {standard input}:654    .text.XMC_HRPWM_HRC_ConfigSourceSelect1:00000000 XMC_HRPWM_HRC_ConfigSourceSelect1
+    {standard input}:792    .text.XMC_HRPWM_CSG_Init:00000000 $t
+    {standard input}:797    .text.XMC_HRPWM_CSG_Init:00000000 XMC_HRPWM_CSG_Init
+    {standard input}:898    .text.XMC_HRPWM_CSG_SetCMPInput:00000000 $t
+    {standard input}:903    .text.XMC_HRPWM_CSG_SetCMPInput:00000000 XMC_HRPWM_CSG_SetCMPInput
+    {standard input}:959    .text.XMC_HRPWM_CSG_SelBlankingInput:00000000 $t
+    {standard input}:964    .text.XMC_HRPWM_CSG_SelBlankingInput:00000000 XMC_HRPWM_CSG_SelBlankingInput
+    {standard input}:1036   .text.XMC_HRPWM_CSG_SelClampingInput:00000000 $t
+    {standard input}:1041   .text.XMC_HRPWM_CSG_SelClampingInput:00000000 XMC_HRPWM_CSG_SelClampingInput
+    {standard input}:1107   .text.XMC_HRPWM_CSG_StartSlopeGenConfig:00000000 $t
+    {standard input}:1112   .text.XMC_HRPWM_CSG_StartSlopeGenConfig:00000000 XMC_HRPWM_CSG_StartSlopeGenConfig
+    {standard input}:1178   .text.XMC_HRPWM_CSG_StopSlopeGenConfig:00000000 $t
+    {standard input}:1183   .text.XMC_HRPWM_CSG_StopSlopeGenConfig:00000000 XMC_HRPWM_CSG_StopSlopeGenConfig
+    {standard input}:1249   .text.XMC_HRPWM_CSG_TriggerDACConvConfig:00000000 $t
+    {standard input}:1254   .text.XMC_HRPWM_CSG_TriggerDACConvConfig:00000000 XMC_HRPWM_CSG_TriggerDACConvConfig
+    {standard input}:1320   .text.XMC_HRPWM_CSG_TriggerShadowXferConfig:00000000 $t
+    {standard input}:1325   .text.XMC_HRPWM_CSG_TriggerShadowXferConfig:00000000 XMC_HRPWM_CSG_TriggerShadowXferConfig
+    {standard input}:1391   .text.XMC_HRPWM_CSG_DACRefValSwitchingConfig:00000000 $t
+    {standard input}:1396   .text.XMC_HRPWM_CSG_DACRefValSwitchingConfig:00000000 XMC_HRPWM_CSG_DACRefValSwitchingConfig
+    {standard input}:1460   .text.XMC_HRPWM_CSG_SelSlopeGenClkInput:00000000 $t
+    {standard input}:1465   .text.XMC_HRPWM_CSG_SelSlopeGenClkInput:00000000 XMC_HRPWM_CSG_SelSlopeGenClkInput
+    {standard input}:1516   .text.XMC_HRPWM_CSG_SetSRNode:00000000 $t
+    {standard input}:1521   .text.XMC_HRPWM_CSG_SetSRNode:00000000 XMC_HRPWM_CSG_SetSRNode
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+XMC_SCU_RESET_AssertPeripheralReset
+XMC_SCU_RESET_DeassertPeripheralReset
+XMC_SCU_CLOCK_UngatePeripheralClock
+XMC_SCU_CLOCK_GetCcuClockFrequency
+g_hrpwm_char_data

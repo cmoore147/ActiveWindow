@@ -58,11 +58,15 @@
 	
 #define React_Node_Handler IRQ_Hdlr_77
 		
+#define TimerHandler IRQ_Hdlr_49
+		
 /***********************************************************************************************************************
  * EXTERN DECLARATIONS
 ***********************************************************************************************************************/
 	
 extern const INTERRUPT_t Receive_CAN_Handler; 
+	
+extern const INTERRUPT_t Timer_Interrupt; 
 	
 #endif  /* INTERRUPT_EXTERN_H */
 

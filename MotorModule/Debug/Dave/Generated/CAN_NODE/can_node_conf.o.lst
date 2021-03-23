@@ -1,0 +1,217 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,6
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "can_node_conf.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .global React_Node_gpio_out
+  20              	 .section .rodata.React_Node_gpio_out,"a",%progbits
+  21              	 .align 2
+  24              	React_Node_gpio_out:
+  25 0000 00820248 	 .word 1208123904
+  26 0004 00       	 .byte 0
+  27 0005 000000   	 .space 3
+  28              	 .global React_Node_gpio_out_config
+  29              	 .section .rodata.React_Node_gpio_out_config,"a",%progbits
+  30              	 .align 2
+  33              	React_Node_gpio_out_config:
+  34 0000 88       	 .byte -120
+  35 0001 000000   	 .space 3
+  36 0004 01000000 	 .word 1
+  37 0008 02       	 .byte 2
+  38 0009 000000   	 .space 3
+  39              	 .global React_Node_gpio_in
+  40              	 .section .rodata.React_Node_gpio_in,"a",%progbits
+  41              	 .align 2
+  44              	React_Node_gpio_in:
+  45 0000 008E0248 	 .word 1208126976
+  46 0004 03       	 .byte 3
+  47 0005 000000   	 .space 3
+  48              	 .global React_Node_gpio_in_config
+  49              	 .section .rodata.React_Node_gpio_in_config,"a",%progbits
+  50              	 .align 2
+  53              	React_Node_gpio_in_config:
+  54 0000 00000000 	 .space 12
+  54      00000000 
+  54      00000000 
+  55              	 .global React_Node_BitTimeConfig
+  56              	 .section .data.React_Node_BitTimeConfig,"aw",%progbits
+  57              	 .align 2
+  60              	React_Node_BitTimeConfig:
+  61 0000 00B4C404 	 .word 80000000
+  62 0004 A0860100 	 .word 100000
+  63 0008 401F     	 .short 8000
+  64 000a 0100     	 .short 1
+  65              	 .global React_Node_sr
+  66              	 .section .rodata.React_Node_sr,"a",%progbits
+  67              	 .align 2
+  70              	React_Node_sr:
+  71 0000 00000000 	 .space 4
+  72              	 .global React_Node_LMO_01
+  73              	 .section .data.React_Node_LMO_01,"aw",%progbits
+  74              	 .align 3
+  77              	React_Node_LMO_01:
+  78 0000 60540148 	 .word 1208046688
+  79 0004 FF       	 .byte 255
+  80 0005 07       	 .byte 7
+  81 0006 00       	 .byte 0
+  82 0007 80       	 .byte 128
+  83 0008 FF       	 .byte 255
+  84 0009 07       	 .byte 7
+  85 000a 00       	 .byte 0
+  86 000b 20       	 .byte 32
+  87 000c 08       	 .byte 8
+  88 000d 000000   	 .space 3
+  89 0010 00000000 	 .word 0
+  90 0014 00000000 	 .word 0
+  91 0018 00       	 .byte 0
+  92 0019 00000000 	 .space 7
+  92      000000
+  93              	 .global React_Node_LMO_01_Config
+  94              	 .section .rodata.React_Node_LMO_01_Config,"a",%progbits
+  95              	 .align 2
+  98              	React_Node_LMO_01_Config:
+  99 0000 00000000 	 .word React_Node_LMO_01
+ 100 0004 23       	 .byte 35
+ 101 0005 00       	 .byte 0
+ 102 0006 01       	 .byte 1
+ 103 0007 00       	 .byte 0
+ 104 0008 01       	 .byte 1
+ 105 0009 000000   	 .space 3
+ 106              	 .global React_Node_LMO_02
+ 107              	 .section .data.React_Node_LMO_02,"aw",%progbits
+ 108              	 .align 3
+ 111              	React_Node_LMO_02:
+ 112 0000 40540148 	 .word 1208046656
+ 113 0004 FF       	 .byte 255
+ 114 0005 07       	 .byte 7
+ 115 0006 00       	 .byte 0
+ 116 0007 80       	 .byte 128
+ 117 0008 FF       	 .byte 255
+ 118 0009 07       	 .byte 7
+ 119 000a 00       	 .byte 0
+ 120 000b 20       	 .byte 32
+ 121 000c 08       	 .byte 8
+ 122 000d 000000   	 .space 3
+ 123 0010 00000000 	 .word 0
+ 124 0014 00000000 	 .word 0
+ 125 0018 01       	 .byte 1
+ 126 0019 00000000 	 .space 7
+ 126      000000
+ 127              	 .global React_Node_LMO_02_Config
+ 128              	 .section .rodata.React_Node_LMO_02_Config,"a",%progbits
+ 129              	 .align 2
+ 132              	React_Node_LMO_02_Config:
+ 133 0000 00000000 	 .word React_Node_LMO_02
+ 134 0004 22       	 .byte 34
+ 135 0005 00       	 .byte 0
+ 136 0006 00       	 .byte 0
+ 137 0007 00       	 .byte 0
+ 138 0008 00       	 .byte 0
+ 139 0009 000000   	 .space 3
+ 140              	 .global React_Node
+ 141              	 .section .rodata.React_Node,"a",%progbits
+ 142              	 .align 2
+ 145              	React_Node:
+ 146 0000 00000000 	 .word GLOBAL_CAN_0
+ 147 0004 00420148 	 .word 1208041984
+ 148 0008 00000000 	 .word React_Node_BitTimeConfig
+ 149 000c 00000000 	 .word React_Node_LMO_01_Config
+ 150 0010 00000000 	 .word React_Node_LMO_02_Config
+ 151 0014 00000000 	 .word 0
+ 152 0018 00000000 	 .word 0
+ 153 001c 00000000 	 .word 0
+ 154 0020 00000000 	 .word 0
+ 155 0024 00000000 	 .word 0
+ 156 0028 00000000 	 .word 0
+ 157 002c 00000000 	 .word 0
+ 158 0030 00000000 	 .word 0
+ 159 0034 00000000 	 .word 0
+ 160 0038 00000000 	 .word 0
+ 161 003c 00000000 	 .word 0
+ 162 0040 00000000 	 .word 0
+ 163 0044 00000000 	 .word 0
+ 164 0048 00000000 	 .word 0
+ 165 004c 00000000 	 .word 0
+ 166 0050 00000000 	 .word 0
+ 167 0054 00000000 	 .word 0
+ 168 0058 00000000 	 .word 0
+ 169 005c 00000000 	 .word 0
+ 170 0060 00000000 	 .word 0
+ 171 0064 00000000 	 .word 0
+ 172 0068 00000000 	 .word 0
+ 173 006c 00000000 	 .word 0
+ 174 0070 00000000 	 .word 0
+ 175 0074 00000000 	 .word 0
+ 176 0078 00000000 	 .word 0
+ 177 007c 00000000 	 .word 0
+ 178 0080 00000000 	 .word 0
+ 179 0084 00000000 	 .word 0
+ 180 0088 00000000 	 .word 0
+ 181 008c 00000000 	 .word React_Node_sr
+ 182 0090 00000000 	 .word React_Node_gpio_out
+ 183 0094 00000000 	 .word React_Node_gpio_out_config
+ 184 0098 00000000 	 .word React_Node_gpio_in
+ 185 009c 00000000 	 .word React_Node_gpio_in_config
+ 186 00a0 01       	 .byte 1
+ 187 00a1 00       	 .byte 0
+ 188 00a2 02       	 .byte 2
+ 189 00a3 00       	 .byte 0
+ 190 00a4 00       	 .byte 0
+ 191 00a5 00       	 .byte 0
+ 192 00a6 00       	 .byte 0
+ 193 00a7 00       	 .byte 0
+ 194              	 .text
+ 195              	.Letext0:
+ 196              	 .file 1 "c:\\users\\frank\\desktop\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 197              	 .file 2 "c:\\users\\frank\\desktop\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 198              	 .file 3 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Infineon/XMC4200_series/Include/XMC4200.h"
+ 199              	 .file 4 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc/xmc_can.h"
+ 200              	 .file 5 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc/xmc_gpio.h"
+ 201              	 .file 6 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc/xmc4_gpio.h"
+ 202              	 .file 7 "../Dave/Generated/CAN_NODE/../GLOBAL_CAN/global_can.h"
+ 203              	 .file 8 "../Dave/Generated/CAN_NODE/can_node.h"
+ 204              	 .file 9 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Include/cmsis_gcc.h"
+ 205              	 .file 10 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Include/core_cm4.h"
+ 206              	 .file 11 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Infineon/XMC4200_series/Include/system_XMC4200.h"
+ 207              	 .file 12 "../Dave/Generated/CAN_NODE/../GLOBAL_CAN/global_can_extern.h"
+ 208              	 .file 13 "../Dave/Generated/CAN_NODE/can_node_conf.c"
+DEFINED SYMBOLS
+                            *ABS*:00000000 can_node_conf.c
+    {standard input}:24     .rodata.React_Node_gpio_out:00000000 React_Node_gpio_out
+    {standard input}:21     .rodata.React_Node_gpio_out:00000000 $d
+    {standard input}:33     .rodata.React_Node_gpio_out_config:00000000 React_Node_gpio_out_config
+    {standard input}:30     .rodata.React_Node_gpio_out_config:00000000 $d
+    {standard input}:44     .rodata.React_Node_gpio_in:00000000 React_Node_gpio_in
+    {standard input}:41     .rodata.React_Node_gpio_in:00000000 $d
+    {standard input}:53     .rodata.React_Node_gpio_in_config:00000000 React_Node_gpio_in_config
+    {standard input}:50     .rodata.React_Node_gpio_in_config:00000000 $d
+    {standard input}:60     .data.React_Node_BitTimeConfig:00000000 React_Node_BitTimeConfig
+    {standard input}:57     .data.React_Node_BitTimeConfig:00000000 $d
+    {standard input}:70     .rodata.React_Node_sr:00000000 React_Node_sr
+    {standard input}:67     .rodata.React_Node_sr:00000000 $d
+    {standard input}:77     .data.React_Node_LMO_01:00000000 React_Node_LMO_01
+    {standard input}:74     .data.React_Node_LMO_01:00000000 $d
+    {standard input}:98     .rodata.React_Node_LMO_01_Config:00000000 React_Node_LMO_01_Config
+    {standard input}:95     .rodata.React_Node_LMO_01_Config:00000000 $d
+    {standard input}:111    .data.React_Node_LMO_02:00000000 React_Node_LMO_02
+    {standard input}:108    .data.React_Node_LMO_02:00000000 $d
+    {standard input}:132    .rodata.React_Node_LMO_02_Config:00000000 React_Node_LMO_02_Config
+    {standard input}:129    .rodata.React_Node_LMO_02_Config:00000000 $d
+    {standard input}:145    .rodata.React_Node:00000000 React_Node
+    {standard input}:142    .rodata.React_Node:00000000 $d
+
+UNDEFINED SYMBOLS
+GLOBAL_CAN_0

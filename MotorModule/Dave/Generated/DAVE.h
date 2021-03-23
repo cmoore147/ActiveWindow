@@ -66,6 +66,15 @@
 
 #include "INTERRUPT/interrupt.h"
   
+
+#include "GLOBAL_CCU4/global_ccu4.h"
+  
+
+#include "PWM/pwm.h"
+  
+
+#include "TIMER/timer.h"
+  
 	
 
 /**********************************************************************************************************************

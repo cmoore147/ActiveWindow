@@ -1,0 +1,130 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,6
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "digital_io_conf.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .global LED_Indicator
+  20              	 .section .rodata.LED_Indicator,"a",%progbits
+  21              	 .align 2
+  24              	LED_Indicator:
+  25 0000 00800248 	 .word 1208123392
+  26 0004 80       	 .byte -128
+  27 0005 000000   	 .space 3
+  28 0008 00000100 	 .word 65536
+  29 000c 00000000 	 .space 4
+  30 0010 01       	 .byte 1
+  31 0011 00       	 .byte 0
+  32 0012 0000     	 .space 2
+  33              	 .global BoardButton
+  34              	 .section .rodata.BoardButton,"a",%progbits
+  35              	 .align 2
+  38              	BoardButton:
+  39 0000 00810248 	 .word 1208123648
+  40 0004 00       	 .byte 0
+  41 0005 00000000 	 .space 11
+  41      00000000 
+  41      000000
+  42 0010 0F       	 .byte 15
+  43 0011 00       	 .byte 0
+  44 0012 0000     	 .space 2
+  45              	 .global LIMIT_SWITCH_BOTTOM
+  46              	 .section .rodata.LIMIT_SWITCH_BOTTOM,"a",%progbits
+  47              	 .align 2
+  50              	LIMIT_SWITCH_BOTTOM:
+  51 0000 00820248 	 .word 1208123904
+  52 0004 10       	 .byte 16
+  53 0005 00000000 	 .space 11
+  53      00000000 
+  53      000000
+  54 0010 09       	 .byte 9
+  55 0011 00       	 .byte 0
+  56 0012 0000     	 .space 2
+  57              	 .global LIMIT_SWITCH_TOP
+  58              	 .section .rodata.LIMIT_SWITCH_TOP,"a",%progbits
+  59              	 .align 2
+  62              	LIMIT_SWITCH_TOP:
+  63 0000 00820248 	 .word 1208123904
+  64 0004 10       	 .byte 16
+  65 0005 00000000 	 .space 11
+  65      00000000 
+  65      000000
+  66 0010 03       	 .byte 3
+  67 0011 00       	 .byte 0
+  68 0012 0000     	 .space 2
+  69              	 .global MOS_DOWN
+  70              	 .section .rodata.MOS_DOWN,"a",%progbits
+  71              	 .align 2
+  74              	MOS_DOWN:
+  75 0000 00800248 	 .word 1208123392
+  76 0004 00       	 .byte 0
+  77 0005 00000000 	 .space 11
+  77      00000000 
+  77      000000
+  78 0010 06       	 .byte 6
+  79 0011 00       	 .byte 0
+  80 0012 0000     	 .space 2
+  81              	 .global MOS_UP
+  82              	 .section .rodata.MOS_UP,"a",%progbits
+  83              	 .align 2
+  86              	MOS_UP:
+  87 0000 00800248 	 .word 1208123392
+  88 0004 00       	 .byte 0
+  89 0005 00000000 	 .space 11
+  89      00000000 
+  89      000000
+  90 0010 08       	 .byte 8
+  91 0011 00       	 .byte 0
+  92 0012 0000     	 .space 2
+  93              	 .global Motor_Direction
+  94              	 .section .rodata.Motor_Direction,"a",%progbits
+  95              	 .align 2
+  98              	Motor_Direction:
+  99 0000 00810248 	 .word 1208123648
+ 100 0004 80       	 .byte -128
+ 101 0005 000000   	 .space 3
+ 102 0008 00000100 	 .word 65536
+ 103 000c 00000000 	 .space 4
+ 104 0010 00       	 .byte 0
+ 105 0011 00       	 .byte 0
+ 106 0012 0000     	 .space 2
+ 107              	 .text
+ 108              	.Letext0:
+ 109              	 .file 1 "c:\\users\\frank\\desktop\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 110              	 .file 2 "c:\\users\\frank\\desktop\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 111              	 .file 3 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc/xmc_gpio.h"
+ 112              	 .file 4 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc/xmc4_gpio.h"
+ 113              	 .file 5 "../Dave/Generated/DIGITAL_IO/digital_io.h"
+ 114              	 .file 6 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Include/cmsis_gcc.h"
+ 115              	 .file 7 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Include/core_cm4.h"
+ 116              	 .file 8 "../Dave/Generated/DIGITAL_IO/digital_io_conf.c"
+DEFINED SYMBOLS
+                            *ABS*:00000000 digital_io_conf.c
+    {standard input}:24     .rodata.LED_Indicator:00000000 LED_Indicator
+    {standard input}:21     .rodata.LED_Indicator:00000000 $d
+    {standard input}:38     .rodata.BoardButton:00000000 BoardButton
+    {standard input}:35     .rodata.BoardButton:00000000 $d
+    {standard input}:50     .rodata.LIMIT_SWITCH_BOTTOM:00000000 LIMIT_SWITCH_BOTTOM
+    {standard input}:47     .rodata.LIMIT_SWITCH_BOTTOM:00000000 $d
+    {standard input}:62     .rodata.LIMIT_SWITCH_TOP:00000000 LIMIT_SWITCH_TOP
+    {standard input}:59     .rodata.LIMIT_SWITCH_TOP:00000000 $d
+    {standard input}:74     .rodata.MOS_DOWN:00000000 MOS_DOWN
+    {standard input}:71     .rodata.MOS_DOWN:00000000 $d
+    {standard input}:86     .rodata.MOS_UP:00000000 MOS_UP
+    {standard input}:83     .rodata.MOS_UP:00000000 $d
+    {standard input}:98     .rodata.Motor_Direction:00000000 Motor_Direction
+    {standard input}:95     .rodata.Motor_Direction:00000000 $d
+
+NO UNDEFINED SYMBOLS

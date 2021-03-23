@@ -1,0 +1,2568 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,6
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "main.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .section .text.XMC_GPIO_SetOutputHigh,"ax",%progbits
+  20              	 .align 2
+  21              	 .thumb
+  22              	 .thumb_func
+  24              	XMC_GPIO_SetOutputHigh:
+  25              	.LFB139:
+  26              	 .file 1 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc/xmc_gpio.h"
+   1:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+   2:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @file xmc_gpio.h
+   3:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @date 2015-06-20
+   4:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+   5:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @cond
+   6:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+   7:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * XMClib v2.1.24 - XMC Peripheral Driver Library 
+   8:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+   9:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Copyright (c) 2015-2019, Infineon Technologies AG
+  10:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * All rights reserved.                        
+  11:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *                                             
+  12:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  13:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * following conditions are met:   
+  14:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *                                                                              
+  15:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  16:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * disclaimer.                        
+  17:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * 
+  18:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  19:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
+  20:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * 
+  21:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  22:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * products derived from this software without specific prior written permission.                  
+  23:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *                                                                              
+  24:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  25:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  26:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  27:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  28:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  29:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  30:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
+  31:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *                                                                              
+  32:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  33:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Infineon Technologies AG dave@infineon.com).                                                    
+  34:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+  35:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  36:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Change History
+  37:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * --------------
+  38:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  39:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * 2015-02-20:
+  40:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *     - Initial draft<br>
+  41:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *     - Documentation improved <br>
+  42:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *      
+  43:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * 2015-06-20:
+  44:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *     - Removed version macros and declaration of GetDriverVersion API
+  45:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  46:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @endcond
+  47:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  48:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+  49:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  50:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** #ifndef XMC_GPIO_H
+  51:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** #define XMC_GPIO_H
+  52:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  53:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+  54:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * HEADER FILES
+  55:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+  56:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  57:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** #include "xmc_common.h"
+  58:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  59:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+  60:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @addtogroup XMClib XMC Peripheral Library
+  61:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @{
+  62:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+  63:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  64:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+  65:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @addtogroup GPIO
+  66:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @brief General Purpose Input Output (GPIO) driver for the XMC microcontroller family.
+  67:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  68:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * GPIO driver provide a generic and very flexible software interface for all standard digital I/O 
+  69:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Each port slice has individual interfaces for the operation as General Purpose I/O and it furthe
+  70:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * connectivity to the on-chip periphery and the control for the pad characteristics. 
+  71:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  72:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * The driver is divided into Input and Output mode.
+  73:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  74:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Input mode features:
+  75:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Configuration structure XMC_GPIO_CONFIG_t and initialization function XMC_GPIO_Init()
+  76:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of weak pull-up or pull-down device. Configuration structure XMC_GPIO_MO
+  77:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \if XMC1
+  78:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of input hysteresis. XMC_GPIO_SetInputHysteresis()
+  79:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \endif
+  80:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  81:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * 
+  82:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Output mode features:
+  83:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of push pull/open drain and Alternate output. Configuration structure XM
+  84:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \if XMC4
+  85:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of pad driver strength. Configuration structure XMC_GPIO_OUTPUT_STRENGTH
+  86:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \endif
+  87:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  88:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of initial output level. Configuration structure XMC_GPIO_OUTPUT_LEVEL_t
+  89:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  90:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *@{
+  91:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+  92:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  
+  93:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+  94:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * MACROS
+  95:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+  96:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  97:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** #define PORT_IOCR_PC_Pos PORT0_IOCR0_PC0_Pos
+  98:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** #define PORT_IOCR_PC_Msk PORT0_IOCR0_PC0_Msk
+  99:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 100:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** #define PORT_IOCR_PC_Size 				(8U)
+ 101:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 											
+ 102:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 103:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** #define XMC_GPIO_CHECK_OUTPUT_LEVEL(level) ((level == XMC_GPIO_OUTPUT_LEVEL_LOW) || \
+ 104:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****                                             (level == XMC_GPIO_OUTPUT_LEVEL_HIGH))
+ 105:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****                                             
+ 106:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** #define XMC_GPIO_CHECK_HWCTRL(hwctrl) ((hwctrl == XMC_GPIO_HWCTRL_DISABLED) || \
+ 107:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****                                        (hwctrl == XMC_GPIO_HWCTRL_PERIPHERAL1) || \
+ 108:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****                                        (hwctrl == XMC_GPIO_HWCTRL_PERIPHERAL2))                    
+ 109:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****                                             
+ 110:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+ 111:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * ENUMS
+ 112:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+ 113:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 114:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 115:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 116:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Defines output level of a pin. Use type \a XMC_GPIO_OUTPUT_LEVEL_t for this enum.
+ 117:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 118:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** typedef enum XMC_GPIO_OUTPUT_LEVEL
+ 119:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** {
+ 120:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_OUTPUT_LEVEL_LOW  = 0x10000U, /**<  Reset bit */
+ 121:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_OUTPUT_LEVEL_HIGH = 0x1U, 	/**< Set bit  */
+ 122:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** } XMC_GPIO_OUTPUT_LEVEL_t;
+ 123:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 124:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 125:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Defines direct hardware control characteristics of the pin . Use type \a XMC_GPIO_HWCTRL_t for t
+ 126:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 127:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** typedef enum XMC_GPIO_HWCTRL
+ 128:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** {
+ 129:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_HWCTRL_DISABLED     = 0x0U, /**<  Software control only */
+ 130:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_HWCTRL_PERIPHERAL1  = 0x1U, /**<  HWI0/HWO0 control path can override the software confi
+ 131:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_HWCTRL_PERIPHERAL2  = 0x2U  /**<  HWI1/HWO1 control path can override the software confi
+ 132:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** } XMC_GPIO_HWCTRL_t;
+ 133:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 134:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+ 135:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * DEVICE FAMILY EXTENSIONS
+ 136:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+ 137:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 138:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  #if UC_FAMILY == XMC1
+ 139:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** #include "xmc1_gpio.h"
+ 140:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** #elif UC_FAMILY == XMC4
+ 141:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** #include "xmc4_gpio.h"
+ 142:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** #else
+ 143:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** #error "xmc_gpio.h: family device not supported"
+ 144:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** #endif
+ 145:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 146:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+ 147:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * API PROTOTYPES
+ 148:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+ 149:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 150:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** #ifdef __cplusplus
+ 151:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** extern "C" {
+ 152:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** #endif
+ 153:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 154:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 155:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 156:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  port	  Constant pointer pointing to GPIO port, to access port registers like Pn_OUT,Pn_O
+ 157:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  pin	  Port pin number.
+ 158:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  config GPIO configuration data structure. Refer data structure @ref XMC_GPIO_CONFIG_t fo
+ 159:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 160:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return None
+ 161:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 162:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Description:</b><br>
+ 163:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \if XMC1
+ 164:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Initializes input / output mode settings like, pull up / pull down devices,hysteresis, push pull
+ 165:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Also configures alternate function outputs and clears hardware port control for a selected \a po
+ 166:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \a config provides selected I/O settings. It configures hardware registers Pn_IOCR,Pn_OUT, Pn_OM
+ 167:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \endif
+ 168:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \if XMC4
+ 169:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Initializes input / output mode settings like, pull up / pull down devices,push pull /open drain
+ 170:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Also configures alternate function outputs and clears hardware port control for selected \a port
+ 171:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * It configures hardware registers Pn_IOCR,Pn_OUT,Pn_OMR,Pn_PDISC and Pn_PDR.\n
+ 172:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \endif
+ 173:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 174:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>
+ 175:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *  None
+ 176:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 177:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Note:</b><br>
+ 178:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * This API is called in definition of DAVE_init by code generation and therefore should not be exp
+ 179:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * for the normal operation. Use other APIs only after DAVE_init is called successfully (returns DA
+ 180:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 181:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 182:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 183:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 184:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  
+ 185:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** void XMC_GPIO_Init(XMC_GPIO_PORT_t *const port, const uint8_t pin, const XMC_GPIO_CONFIG_t *const c
+ 186:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  
+ 187:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 188:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 189:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  port	Constant pointer pointing to GPIO port, to access hardware register Pn_IOCR.
+ 190:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  pin	Port pin number.
+ 191:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  mode input / output functionality selection. Refer @ref XMC_GPIO_MODE_t for valid values
+ 192:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 193:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return None
+ 194:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 195:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Description:</b><br>
+ 196:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Sets digital input and output driver functionality and characteristics of a GPIO port pin. It co
+ 197:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * registers Pn_IOCR. \a mode is initially configured during initialization in XMC_GPIO_Init(). Cal
+ 198:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * the port direction functionality as needed later in the program.
+ 199:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 200:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>
+ 201:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *  None
+ 202:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 203:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 204:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 205:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** void XMC_GPIO_SetMode(XMC_GPIO_PORT_t *const port, const uint8_t pin, const XMC_GPIO_MODE_t mode);
+ 206:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 207:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 208:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 209:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 210:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  port	 Constant pointer pointing to GPIO port, to access hardware register Pn_OMR.
+ 211:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  pin	 Port pin number.
+ 212:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  level output level selection. Refer @ref XMC_GPIO_OUTPUT_LEVEL_t for valid values.
+ 213:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 214:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return None
+ 215:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 216:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Description:</b><br>
+ 217:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Set port pin output level to high or low.It configures hardware registers Pn_OMR.\a level is ini
+ 218:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * configured during initialization in XMC_GPIO_Init(). Call this API to alter output level as need
+ 219:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 220:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>
+ 221:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *  XMC_GPIO_SetOutputHigh(), XMC_GPIO_SetOutputLow().
+ 222:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 223:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Note:</b><br>
+ 224:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Prior to this api, user has to configure port pin to output mode using XMC_GPIO_SetMode().
+ 225:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 226:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 227:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 228:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 229:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** __STATIC_INLINE void XMC_GPIO_SetOutputLevel(XMC_GPIO_PORT_t *const port, const uint8_t pin, const 
+ 230:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** {
+ 231:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_SetOutputLevel: Invalid port", XMC_GPIO_CHECK_OUTPUT_PORT(port));
+ 232:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_SetOutputLevel: Invalid output level", XMC_GPIO_CHECK_OUTPUT_LEVEL(level));
+ 233:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****   
+ 234:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****   port->OMR = (uint32_t)level << pin;
+ 235:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** }
+ 236:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 237:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 238:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 239:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  port constant pointer pointing to GPIO port, to access hardware register Pn_OMR.
+ 240:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  pin	Port pin number.
+ 241:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 242:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return None
+ 243:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 244:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Description:</b><br>
+ 245:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *  Sets port pin output to high. It configures hardware registers Pn_OMR.
+ 246:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 247:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *  \par<b>Related APIs:</b><BR>
+ 248:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *  XMC_GPIO_SetOutputLow()
+ 249:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 250:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Note:</b><br>
+ 251:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Prior to this api, user has to configure port pin to output mode using XMC_GPIO_SetMode().\n
+ 252:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Register Pn_OMR is virtual and does not contain any flip-flop. A read action delivers the value 
+ 253:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 254:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 255:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 256:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** __STATIC_INLINE void XMC_GPIO_SetOutputHigh(XMC_GPIO_PORT_t *const port, const uint8_t pin)
+ 257:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** {
+  27              	 .loc 1 257 0
+  28              	 .cfi_startproc
+  29              	 
+  30              	 
+  31              	 
+  32 0000 80B4     	 push {r7}
+  33              	.LCFI0:
+  34              	 .cfi_def_cfa_offset 4
+  35              	 .cfi_offset 7,-4
+  36 0002 83B0     	 sub sp,sp,#12
+  37              	.LCFI1:
+  38              	 .cfi_def_cfa_offset 16
+  39 0004 00AF     	 add r7,sp,#0
+  40              	.LCFI2:
+  41              	 .cfi_def_cfa_register 7
+  42 0006 7860     	 str r0,[r7,#4]
+  43 0008 0B46     	 mov r3,r1
+  44 000a FB70     	 strb r3,[r7,#3]
+ 258:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_SetOutputHigh: Invalid port", XMC_GPIO_CHECK_OUTPUT_PORT(port));
+ 259:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 260:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****   port->OMR = (uint32_t)0x1U << pin;
+  45              	 .loc 1 260 0
+  46 000c FB78     	 ldrb r3,[r7,#3]
+  47 000e 0122     	 movs r2,#1
+  48 0010 9A40     	 lsls r2,r2,r3
+  49 0012 7B68     	 ldr r3,[r7,#4]
+  50 0014 5A60     	 str r2,[r3,#4]
+ 261:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** }
+  51              	 .loc 1 261 0
+  52 0016 0C37     	 adds r7,r7,#12
+  53              	.LCFI3:
+  54              	 .cfi_def_cfa_offset 4
+  55 0018 BD46     	 mov sp,r7
+  56              	.LCFI4:
+  57              	 .cfi_def_cfa_register 13
+  58              	 
+  59 001a 5DF8047B 	 ldr r7,[sp],#4
+  60              	.LCFI5:
+  61              	 .cfi_restore 7
+  62              	 .cfi_def_cfa_offset 0
+  63 001e 7047     	 bx lr
+  64              	 .cfi_endproc
+  65              	.LFE139:
+  67              	 .section .text.XMC_GPIO_SetOutputLow,"ax",%progbits
+  68              	 .align 2
+  69              	 .thumb
+  70              	 .thumb_func
+  72              	XMC_GPIO_SetOutputLow:
+  73              	.LFB140:
+ 262:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 263:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 264:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 265:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  port	constant pointer pointing to GPIO port, to access hardware register Pn_OMR.
+ 266:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  pin	port pin number.
+ 267:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 268:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return  None
+ 269:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 270:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *\par<b>Description:</b><br>
+ 271:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Sets port pin output to low. It configures hardware registers Pn_OMR.\n
+ 272:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 273:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>>
+ 274:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * XMC_GPIO_SetOutputHigh()
+ 275:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 276:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *\par<b>Note:</b><br>
+ 277:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Prior to this api, user has to configure port pin to output mode using XMC_GPIO_SetMode().
+ 278:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Register Pn_OMR is virtual and does not contain any flip-flop. A read action delivers the value 
+ 279:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 280:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 281:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 282:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** __STATIC_INLINE void XMC_GPIO_SetOutputLow(XMC_GPIO_PORT_t *const port, const uint8_t pin)
+ 283:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** {
+  74              	 .loc 1 283 0
+  75              	 .cfi_startproc
+  76              	 
+  77              	 
+  78              	 
+  79 0000 80B4     	 push {r7}
+  80              	.LCFI6:
+  81              	 .cfi_def_cfa_offset 4
+  82              	 .cfi_offset 7,-4
+  83 0002 83B0     	 sub sp,sp,#12
+  84              	.LCFI7:
+  85              	 .cfi_def_cfa_offset 16
+  86 0004 00AF     	 add r7,sp,#0
+  87              	.LCFI8:
+  88              	 .cfi_def_cfa_register 7
+  89 0006 7860     	 str r0,[r7,#4]
+  90 0008 0B46     	 mov r3,r1
+  91 000a FB70     	 strb r3,[r7,#3]
+ 284:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_SetOutputLow: Invalid port", XMC_GPIO_CHECK_OUTPUT_PORT(port));
+ 285:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 286:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****   port->OMR = 0x10000U << pin;
+  92              	 .loc 1 286 0
+  93 000c FB78     	 ldrb r3,[r7,#3]
+  94 000e 4FF48032 	 mov r2,#65536
+  95 0012 9A40     	 lsls r2,r2,r3
+  96 0014 7B68     	 ldr r3,[r7,#4]
+  97 0016 5A60     	 str r2,[r3,#4]
+ 287:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** }
+  98              	 .loc 1 287 0
+  99 0018 0C37     	 adds r7,r7,#12
+ 100              	.LCFI9:
+ 101              	 .cfi_def_cfa_offset 4
+ 102 001a BD46     	 mov sp,r7
+ 103              	.LCFI10:
+ 104              	 .cfi_def_cfa_register 13
+ 105              	 
+ 106 001c 5DF8047B 	 ldr r7,[sp],#4
+ 107              	.LCFI11:
+ 108              	 .cfi_restore 7
+ 109              	 .cfi_def_cfa_offset 0
+ 110 0020 7047     	 bx lr
+ 111              	 .cfi_endproc
+ 112              	.LFE140:
+ 114 0022 00BF     	 .section .text.XMC_GPIO_GetInput,"ax",%progbits
+ 115              	 .align 2
+ 116              	 .thumb
+ 117              	 .thumb_func
+ 119              	XMC_GPIO_GetInput:
+ 120              	.LFB142:
+ 288:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 289:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 290:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 291:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param port constant pointer pointing to GPIO port, to access hardware register Pn_OMR.
+ 292:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param pin  port pin number.
+ 293:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 294:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return None
+ 295:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 296:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Description:</b><br>
+ 297:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Configures port pin output to Toggle. It configures hardware registers Pn_OMR.
+ 298:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 299:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>
+ 300:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * XMC_GPIO_SetOutputHigh(), XMC_GPIO_SetOutputLow().
+ 301:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 302:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Note:</b><br>
+ 303:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Prior to this api, user has to configure port pin to output mode using XMC_GPIO_SetMode(). Regis
+ 304:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * and does not contain any flip-flop. A read action delivers the value of 0.
+ 305:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 306:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 307:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 308:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** __STATIC_INLINE void XMC_GPIO_ToggleOutput(XMC_GPIO_PORT_t *const port, const uint8_t pin)
+ 309:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** {
+ 310:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_ToggleOutput: Invalid port", XMC_GPIO_CHECK_OUTPUT_PORT(port));
+ 311:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 312:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****   port->OMR = 0x10001U << pin;
+ 313:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** }
+ 314:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 315:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 316:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 317:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param port constant pointer pointing to GPIO port, to access hardware register Pn_IN.
+ 318:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param pin  Port pin number.
+ 319:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 320:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return uint32_t pin logic level status.
+ 321:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 322:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *\par<b>Description:</b><br>
+ 323:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Reads the Pn_IN register and returns the current logical value at the GPIO pin.
+ 324:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 325:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>
+ 326:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * None
+ 327:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 328:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Note:</b><br>
+ 329:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  * Prior to this api, user has to configure port pin to input mode using XMC_GPIO_SetMode().
+ 330:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 331:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 332:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 333:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** __STATIC_INLINE uint32_t XMC_GPIO_GetInput(XMC_GPIO_PORT_t *const port, const uint8_t pin)
+ 334:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** {
+ 121              	 .loc 1 334 0
+ 122              	 .cfi_startproc
+ 123              	 
+ 124              	 
+ 125              	 
+ 126 0000 80B4     	 push {r7}
+ 127              	.LCFI12:
+ 128              	 .cfi_def_cfa_offset 4
+ 129              	 .cfi_offset 7,-4
+ 130 0002 83B0     	 sub sp,sp,#12
+ 131              	.LCFI13:
+ 132              	 .cfi_def_cfa_offset 16
+ 133 0004 00AF     	 add r7,sp,#0
+ 134              	.LCFI14:
+ 135              	 .cfi_def_cfa_register 7
+ 136 0006 7860     	 str r0,[r7,#4]
+ 137 0008 0B46     	 mov r3,r1
+ 138 000a FB70     	 strb r3,[r7,#3]
+ 335:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_GetInput: Invalid port", XMC_GPIO_CHECK_PORT(port));
+ 336:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 337:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h ****   return (((port->IN) >> pin) & 0x1U);
+ 139              	 .loc 1 337 0
+ 140 000c 7B68     	 ldr r3,[r7,#4]
+ 141 000e 5A6A     	 ldr r2,[r3,#36]
+ 142 0010 FB78     	 ldrb r3,[r7,#3]
+ 143 0012 22FA03F3 	 lsr r3,r2,r3
+ 144 0016 03F00103 	 and r3,r3,#1
+ 338:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc\xmc_gpio.h **** }
+ 145              	 .loc 1 338 0
+ 146 001a 1846     	 mov r0,r3
+ 147 001c 0C37     	 adds r7,r7,#12
+ 148              	.LCFI15:
+ 149              	 .cfi_def_cfa_offset 4
+ 150 001e BD46     	 mov sp,r7
+ 151              	.LCFI16:
+ 152              	 .cfi_def_cfa_register 13
+ 153              	 
+ 154 0020 5DF8047B 	 ldr r7,[sp],#4
+ 155              	.LCFI17:
+ 156              	 .cfi_restore 7
+ 157              	 .cfi_def_cfa_offset 0
+ 158 0024 7047     	 bx lr
+ 159              	 .cfi_endproc
+ 160              	.LFE142:
+ 162 0026 00BF     	 .section .text.DIGITAL_IO_SetOutputHigh,"ax",%progbits
+ 163              	 .align 2
+ 164              	 .thumb
+ 165              	 .thumb_func
+ 167              	DIGITAL_IO_SetOutputHigh:
+ 168              	.LFB147:
+ 169              	 .file 2 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO/digital_io.h"
+   1:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** /*
+   2:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+   3:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * @file digital_io.h
+   4:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * @date 2016-07-08
+   5:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+   6:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * NOTE:
+   7:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * This file is generated by DAVE. Any manual modification done to this file will be lost when the 
+   8:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+   9:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * @cond
+  10:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  **************************************************************************************************
+  11:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * DIGITAL_IO v4.0.16 - The DIGITAL_IO APP is used to configure a port pin as digital Input/Output.
+  12:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  13:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * Copyright (c) 2015-2016, Infineon Technologies AG
+  14:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * All rights reserved.
+  15:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  16:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  17:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * following conditions are met:
+  18:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  19:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *   Redistributions of source code must retain the above copyright notice, this list of conditions
+  20:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *   disclaimer.
+  21:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  22:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *   Redistributions in binary form must reproduce the above copyright notice, this list of conditi
+  23:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *   following disclaimer in the documentation and/or other materials provided with the distributio
+  24:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  25:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *   Neither the name of the copyright holders nor the names of its contributors may be used to end
+  26:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *   products derived from this software without specific prior written permission.
+  27:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  28:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  29:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  30:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  31:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  32:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  33:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  34:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  35:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  36:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  37:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * with Infineon Technologies AG (dave@infineon.com).
+  38:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  **************************************************************************************************
+  39:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  40:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * Change History
+  41:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * --------------
+  42:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  43:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * 2015-02-16
+  44:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *     - Initial version
+  45:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  46:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * 2015-04-22
+  47:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *     - XMC_ASSERT is added in static inline functions.<br>
+  48:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  49:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * 2015-06-20
+  50:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *     - Version check added for XMCLib dependency.<br>
+  51:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  52:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * 2015-12-22
+  53:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *     - Added hardware controlled IO feature.
+  54:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * 2016-07-08:
+  55:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *     - Fixed incorrect case for an included header.<br>
+  56:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  57:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * @endcond
+  58:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  59:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  */
+  60:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+  61:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** /**************************************************************************************************
+  62:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * HEADER FILES
+  63:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  **************************************************************************************************
+  64:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+  65:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** #ifndef DIGITAL_IO_H
+  66:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** #define DIGITAL_IO_H
+  67:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+  68:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** #include <xmc_gpio.h>
+  69:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** #include <DAVE_Common.h>
+  70:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** #include "digital_io_conf.h"
+  71:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+  72:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** /**************************************************************************************************
+  73:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * MACROS
+  74:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  **************************************************************************************************
+  75:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** #if (!((XMC_LIB_MAJOR_VERSION == 2U) && \
+  76:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****        (XMC_LIB_MINOR_VERSION >= 0U) && \
+  77:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****        (XMC_LIB_PATCH_VERSION >= 0U)))
+  78:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** #error "DIGITAL_IO requires XMC Peripheral Library v2.0.0 or higher"
+  79:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** #endif
+  80:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+  81:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  /*************************************************************************************************
+  82:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * ENUMS
+  83:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  **************************************************************************************************
+  84:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+  85:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+  86:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @ingroup DIGITAL_IO_enumerations
+  87:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @{
+  88:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+  89:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+  90:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+  91:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @brief Initialization status of DIGITAL_IO APP.
+  92:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+  93:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** typedef enum DIGITAL_IO_STATUS
+  94:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** {
+  95:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****   DIGITAL_IO_STATUS_OK = 0U,/**< 0=Status OK */
+  96:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****   DIGITAL_IO_STATUS_FAILURE = 1U/**< 1=Status Failed */
+  97:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** } DIGITAL_IO_STATUS_t;
+  98:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+  99:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 100:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @}
+ 101:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 102:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 103:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** /**************************************************************************************************
+ 104:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * DATA STRUCTURES
+ 105:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  **************************************************************************************************
+ 106:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 107:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @ingroup DIGITAL_IO_datastructures
+ 108:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @{
+ 109:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 110:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 111:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 112:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @brief Initialization data structure of DIGITAL_IO APP
+ 113:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 114:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** typedef struct DIGITAL_IO
+ 115:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** {
+ 116:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****   XMC_GPIO_PORT_t *const gpio_port;             /**< port number */
+ 117:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****   const XMC_GPIO_CONFIG_t gpio_config;          /**< mode, initial output level and pad driver stre
+ 118:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****   const uint8_t gpio_pin;                       /**< pin number */
+ 119:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****   const XMC_GPIO_HWCTRL_t hwctrl;               /**< Hardware port control */
+ 120:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** } DIGITAL_IO_t;
+ 121:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 122:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 123:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 124:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @}
+ 125:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 126:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 127:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 128:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** /**************************************************************************************************
+ 129:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  * API Prototypes
+ 130:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****  **************************************************************************************************
+ 131:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 132:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 133:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** #ifdef __cplusplus
+ 134:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** extern "C" {
+ 135:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** #endif
+ 136:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 137:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 138:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @ingroup DIGITAL_IO_apidoc
+ 139:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @{
+ 140:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 141:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 142:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 143:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 144:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 145:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @brief Get DIGITAL_IO APP version
+ 146:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @return DAVE_APP_VERSION_t APP version information (major, minor and patch number)
+ 147:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 148:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Description: </b><br>
+ 149:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * The function can be used to check application software compatibility with a
+ 150:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * specific version of the APP.
+ 151:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 152:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * Example Usage:
+ 153:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 154:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @code
+ 155:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * #include <DAVE.h>
+ 156:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 157:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * int main(void)
+ 158:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * {
+ 159:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   DAVE_STATUS_t init_status;
+ 160:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   DAVE_APP_VERSION_t version;
+ 161:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 162:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   // Initialize DIGITAL_IO APP:
+ 163:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   // DIGITAL_IO_Init() is called from within DAVE_Init().
+ 164:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   init_status = DAVE_Init();
+ 165:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   if(init_status == DAVE_STATUS_SUCCESS)
+ 166:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 167:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     version = DIGITAL_IO_GetAppVersion();
+ 168:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     if (version.major != 4U) {
+ 169:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     // Probably, not the right version.
+ 170:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     }
+ 171:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 172:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 173:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     // More code here
+ 174:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     while(1) {
+ 175:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 176:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     }
+ 177:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     return (1);
+ 178:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *  }
+ 179:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @endcode<BR>
+ 180:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 181:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 182:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** DAVE_APP_VERSION_t DIGITAL_IO_GetAppVersion(void);
+ 183:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 184:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 185:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 186:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @brief Function to initialize the port pin as per UI settings.
+ 187:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @param handler Pointer pointing to APP data structure. Refer @ref DIGITAL_IO_t for details.
+ 188:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @return DIGITAL_IO_STATUS_t DIGITAL_IO APP status. Refer @ref DIGITAL_IO_STATUS_t structure for d
+ 189:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 190:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Description:</b><br>
+ 191:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * This function initializes GPIO port registers IOCR,PDISC,OMR,PDR/PHCR to configure pin direction,
+ 192:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * and pad driver strength/hysteresis.
+ 193:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 194:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Related APIs:</b><BR>
+ 195:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * None
+ 196:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 197:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * Example Usage:
+ 198:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @code
+ 199:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * #include <DAVE.h>//Declarations from DAVE Code Generation (includes SFR declaration)
+ 200:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * int main(void)
+ 201:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * {
+ 202:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   DAVE_STATUS_t status;
+ 203:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   status = DAVE_Init();  //(DAVE_STATUS_t)DIGITAL_IO_Init(&DIGITAL_IO_0) is called within DAVE_In
+ 204:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   if(status == DAVE_STATUS_SUCCESS)
+ 205:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 206:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     XMC_DEBUG("DAVE Apps initialization success\n");
+ 207:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 208:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   else
+ 209:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 210:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     XMC_DEBUG(("DAVE Apps initialization failed with status %d\n", status));
+ 211:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     while(1U)
+ 212:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     {
+ 213:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     }
+ 214:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 215:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   //Placeholder for user application code. The while loop below can be replaced with user applica
+ 216:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   while(1U)
+ 217:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 218:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 219:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   return 1U;
+ 220:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *  }
+ 221:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *  @endcode
+ 222:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 223:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 224:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** DIGITAL_IO_STATUS_t DIGITAL_IO_Init(const DIGITAL_IO_t *const handler);
+ 225:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 226:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 227:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 228:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @brief Function to set port pin high.
+ 229:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @param handler Pointer pointing to APP data structure. Refer @ref DIGITAL_IO_t for details.
+ 230:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @return None
+ 231:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 232:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Description:</b><br>
+ 233:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * This function configures port output modification register Pn_OMR, to make port pin to high level
+ 234:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 235:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Related APIs:</b><BR>
+ 236:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *  DIGITAL_IO_SetOutputLow()
+ 237:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 238:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * Example Usage:
+ 239:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @code
+ 240:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * #include <DAVE.h>//Declarations from DAVE Code Generation (includes SFR declaration)
+ 241:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * int main(void)
+ 242:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * {
+ 243:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   DAVE_STATUS_t status;
+ 244:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   status = DAVE_Init();  //(DAVE_STATUS_t)DIGITAL_IO_Init(&DIGITAL_IO_0) is called within DAVE_In
+ 245:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   if(status == DAVE_STATUS_SUCCESS)
+ 246:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 247:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     XMC_DEBUG("DAVE Apps initialization success\n");
+ 248:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 249:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   else
+ 250:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 251:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     XMC_DEBUG(("DAVE Apps initialization failed with status %d\n", status));
+ 252:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     while(1U)
+ 253:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     {
+ 254:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     }
+ 255:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 256:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   //Placeholder for user application code. The while loop below can be replaced with user applica
+ 257:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   DIGITAL_IO_SetOutputHigh(&DIGITAL_IO_0);
+ 258:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   while(1U)
+ 259:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 260:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     // Add application code here
+ 261:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 262:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 263:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   return (1);
+ 264:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * }
+ 265:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *  @endcode
+ 266:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 267:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 268:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** __STATIC_INLINE void DIGITAL_IO_SetOutputHigh(const DIGITAL_IO_t *const handler)
+ 269:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** {
+ 170              	 .loc 2 269 0
+ 171              	 .cfi_startproc
+ 172              	 
+ 173              	 
+ 174 0000 80B5     	 push {r7,lr}
+ 175              	.LCFI18:
+ 176              	 .cfi_def_cfa_offset 8
+ 177              	 .cfi_offset 7,-8
+ 178              	 .cfi_offset 14,-4
+ 179 0002 82B0     	 sub sp,sp,#8
+ 180              	.LCFI19:
+ 181              	 .cfi_def_cfa_offset 16
+ 182 0004 00AF     	 add r7,sp,#0
+ 183              	.LCFI20:
+ 184              	 .cfi_def_cfa_register 7
+ 185 0006 7860     	 str r0,[r7,#4]
+ 270:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****   XMC_ASSERT("DIGITAL_IO_SetOutputHigh: handler null pointer", handler != NULL);
+ 271:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****   XMC_GPIO_SetOutputHigh(handler->gpio_port, handler->gpio_pin);
+ 186              	 .loc 2 271 0
+ 187 0008 7B68     	 ldr r3,[r7,#4]
+ 188 000a 1A68     	 ldr r2,[r3]
+ 189 000c 7B68     	 ldr r3,[r7,#4]
+ 190 000e 1B7C     	 ldrb r3,[r3,#16]
+ 191 0010 1046     	 mov r0,r2
+ 192 0012 1946     	 mov r1,r3
+ 193 0014 FFF7FEFF 	 bl XMC_GPIO_SetOutputHigh
+ 272:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** }
+ 194              	 .loc 2 272 0
+ 195 0018 0837     	 adds r7,r7,#8
+ 196              	.LCFI21:
+ 197              	 .cfi_def_cfa_offset 8
+ 198 001a BD46     	 mov sp,r7
+ 199              	.LCFI22:
+ 200              	 .cfi_def_cfa_register 13
+ 201              	 
+ 202 001c 80BD     	 pop {r7,pc}
+ 203              	 .cfi_endproc
+ 204              	.LFE147:
+ 206 001e 00BF     	 .section .text.DIGITAL_IO_SetOutputLow,"ax",%progbits
+ 207              	 .align 2
+ 208              	 .thumb
+ 209              	 .thumb_func
+ 211              	DIGITAL_IO_SetOutputLow:
+ 212              	.LFB148:
+ 273:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 274:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 275:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @brief Function to reset port pin.
+ 276:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @param handler Pointer pointing to APP data structure. Refer @ref DIGITAL_IO_t for details.
+ 277:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @return None
+ 278:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 279:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Description:</b><br>
+ 280:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * This function configures port output modification register Pn_OMR, to make port pin to low level.
+ 281:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 282:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Related APIs:</b><BR>
+ 283:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * DIGITAL_IO_SetOutputHigh()
+ 284:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 285:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * Example Usage:
+ 286:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @code
+ 287:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *  #include <DAVE.h>//Declarations from DAVE Code Generation (includes SFR declaration)
+ 288:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *  int main(void)
+ 289:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *  {
+ 290:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *    DAVE_STATUS_t status;
+ 291:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *    status = DAVE_Init();  //(DAVE_STATUS_t)DIGITAL_IO_Init(&DIGITAL_IO_0) is called within DAVE_I
+ 292:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *    if(status == DAVE_STATUS_SUCCESS)
+ 293:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *    {
+ 294:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *      XMC_DEBUG("DAVE Apps initialization success\n");
+ 295:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *    }
+ 296:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *    else
+ 297:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *    {
+ 298:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *      XMC_DEBUG(("DAVE Apps initialization failed with status %d\n", status));
+ 299:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *      while(1U)
+ 300:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *      {
+ 301:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *      }
+ 302:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *    }
+ 303:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *    //Placeholder for user application code. The while loop below can be replaced with user applic
+ 304:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *    DIGITAL_IO_SetOutputLow(&DIGITAL_IO_0);
+ 305:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *    while(1U)
+ 306:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *    {
+ 307:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *      // Add application code here
+ 308:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *    }
+ 309:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 310:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   return (1);
+ 311:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * }
+ 312:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *  @endcode
+ 313:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 314:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 315:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** __STATIC_INLINE void DIGITAL_IO_SetOutputLow(const DIGITAL_IO_t *const handler)
+ 316:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** {
+ 213              	 .loc 2 316 0
+ 214              	 .cfi_startproc
+ 215              	 
+ 216              	 
+ 217 0000 80B5     	 push {r7,lr}
+ 218              	.LCFI23:
+ 219              	 .cfi_def_cfa_offset 8
+ 220              	 .cfi_offset 7,-8
+ 221              	 .cfi_offset 14,-4
+ 222 0002 82B0     	 sub sp,sp,#8
+ 223              	.LCFI24:
+ 224              	 .cfi_def_cfa_offset 16
+ 225 0004 00AF     	 add r7,sp,#0
+ 226              	.LCFI25:
+ 227              	 .cfi_def_cfa_register 7
+ 228 0006 7860     	 str r0,[r7,#4]
+ 317:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****   XMC_ASSERT("DIGITAL_IO_SetOutputLow: handler null pointer", handler != NULL);
+ 318:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****   XMC_GPIO_SetOutputLow(handler->gpio_port,handler->gpio_pin);
+ 229              	 .loc 2 318 0
+ 230 0008 7B68     	 ldr r3,[r7,#4]
+ 231 000a 1A68     	 ldr r2,[r3]
+ 232 000c 7B68     	 ldr r3,[r7,#4]
+ 233 000e 1B7C     	 ldrb r3,[r3,#16]
+ 234 0010 1046     	 mov r0,r2
+ 235 0012 1946     	 mov r1,r3
+ 236 0014 FFF7FEFF 	 bl XMC_GPIO_SetOutputLow
+ 319:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** }
+ 237              	 .loc 2 319 0
+ 238 0018 0837     	 adds r7,r7,#8
+ 239              	.LCFI26:
+ 240              	 .cfi_def_cfa_offset 8
+ 241 001a BD46     	 mov sp,r7
+ 242              	.LCFI27:
+ 243              	 .cfi_def_cfa_register 13
+ 244              	 
+ 245 001c 80BD     	 pop {r7,pc}
+ 246              	 .cfi_endproc
+ 247              	.LFE148:
+ 249 001e 00BF     	 .section .text.DIGITAL_IO_GetInput,"ax",%progbits
+ 250              	 .align 2
+ 251              	 .thumb
+ 252              	 .thumb_func
+ 254              	DIGITAL_IO_GetInput:
+ 255              	.LFB150:
+ 320:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 321:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 322:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @brief Function to Toggle port pin.
+ 323:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @param handler Pointer pointing to APP data structure. Refer @ref DIGITAL_IO_t for details.
+ 324:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @return None
+ 325:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 326:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Description:</b><br>
+ 327:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * This function configures port output modification register Pn_OMR, to toggle port pin.
+ 328:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 329:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Related APIs:</b><BR>
+ 330:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * DIGITAL_IO_SetOutputLow(), DIGITAL_IO_SetOutputHigh()
+ 331:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 332:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * Example Usage:
+ 333:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 334:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @code
+ 335:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * #include <DAVE.h>//Declarations from DAVE Code Generation (includes SFR declaration)
+ 336:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * int main(void)
+ 337:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * {
+ 338:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   DAVE_STATUS_t status;
+ 339:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   uint32_t delay_count;;
+ 340:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   status = DAVE_Init();  //(DAVE_STATUS_t)DIGITAL_IO_Init(&DIGITAL_IO_0) is called within DAVE_In
+ 341:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   if(status == DAVE_STATUS_SUCCESS)
+ 342:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 343:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     XMC_DEBUG("DAVE Apps initialization success\n");
+ 344:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 345:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   else
+ 346:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 347:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *      XMC_DEBUG(("DAVE Apps initialization failed with status %d\n", status));
+ 348:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *      while(1U)
+ 349:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *      {
+ 350:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *      }
+ 351:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 352:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   //Placeholder for user application code. The while loop below can be replaced with user applica
+ 353:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   while(1U)
+ 354:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 355:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *      DIGITAL_IO_ToggleOutput(&DIGITAL_IO_0); //toggles : 1 -> 0 (if initial output level is logic
+ 356:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *      //Add application code here
+ 357:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *      for(delay_count = 0;delay_count<0xfffff;delay_count++);
+ 358:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *      DIGITAL_IO_ToggleOutput(&DIGITAL_IO_0); //toggles : 0 -> 1
+ 359:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *      //Add application code here
+ 360:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *      for(delay_count = 0;delay_count<0xfffff;delay_count++);
+ 361:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 362:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   return (1);
+ 363:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * }
+ 364:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *  @endcode
+ 365:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 366:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 367:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** __STATIC_INLINE void DIGITAL_IO_ToggleOutput(const DIGITAL_IO_t *const handler)
+ 368:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** {
+ 369:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****   XMC_ASSERT("DIGITAL_IO_ToggleOutput: handler null pointer", handler != NULL);
+ 370:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****   XMC_GPIO_ToggleOutput(handler->gpio_port, handler->gpio_pin);
+ 371:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** }
+ 372:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 373:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 374:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @brief Function to read input level of port pin.
+ 375:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @param handler Pointer pointing to APP data structure. Refer @ref DIGITAL_IO_t for details.
+ 376:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @return uint32_t input logic level. Range:0-1
+ 377:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 378:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Description:</b><br>
+ 379:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * This function reads the Pn_IN register and returns the current logical value at the GPIO pin.
+ 380:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 381:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Related APIs:</b><BR>
+ 382:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *  None
+ 383:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 384:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * Example Usage:
+ 385:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * @code
+ 386:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * #include <DAVE.h>//Declarations from DAVE Code Generation (includes SFR declaration)
+ 387:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * int main(void)
+ 388:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * {
+ 389:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   DAVE_STATUS_t status;
+ 390:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   uint32_t pin_status;
+ 391:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   status = DAVE_Init();   // (DAVE_STATUS_t)DIGITAL_IO_Init(&DIGITAL_IO_0) is called within DAVE_
+ 392:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   if(status == DAVE_STATUS_SUCCESS)
+ 393:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 394:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     XMC_DEBUG("DAVE Apps initialization success\n");
+ 395:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 396:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   else
+ 397:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 398:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     XMC_DEBUG(("DAVE Apps initialization failed with status %d\n", status));
+ 399:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     while(1U)
+ 400:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     {
+ 401:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     }
+ 402:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 403:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   //Placeholder for user application code. The while loop below can be replaced with user applica
+ 404:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   while(1U)
+ 405:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 406:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     pin_status = DIGITAL_IO_GetInput(&DIGITAL_IO_0);
+ 407:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     if(pin_status == 1)
+ 408:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     {
+ 409:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *       // Add application code here
+ 410:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     }
+ 411:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     else
+ 412:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     {
+ 413:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *       // Add application code here
+ 414:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *     }
+ 415:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 416:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *   return (1);
+ 417:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** * }
+ 418:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** *  @endcode
+ 419:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 420:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 421:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** __STATIC_INLINE uint32_t DIGITAL_IO_GetInput(const DIGITAL_IO_t *const handler)
+ 422:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** {
+ 256              	 .loc 2 422 0
+ 257              	 .cfi_startproc
+ 258              	 
+ 259              	 
+ 260 0000 80B5     	 push {r7,lr}
+ 261              	.LCFI28:
+ 262              	 .cfi_def_cfa_offset 8
+ 263              	 .cfi_offset 7,-8
+ 264              	 .cfi_offset 14,-4
+ 265 0002 82B0     	 sub sp,sp,#8
+ 266              	.LCFI29:
+ 267              	 .cfi_def_cfa_offset 16
+ 268 0004 00AF     	 add r7,sp,#0
+ 269              	.LCFI30:
+ 270              	 .cfi_def_cfa_register 7
+ 271 0006 7860     	 str r0,[r7,#4]
+ 423:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****   XMC_ASSERT("DIGITAL_IO_GetInput: handler null pointer", handler != NULL);
+ 424:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h ****   return XMC_GPIO_GetInput(handler->gpio_port, handler->gpio_pin);
+ 272              	 .loc 2 424 0
+ 273 0008 7B68     	 ldr r3,[r7,#4]
+ 274 000a 1A68     	 ldr r2,[r3]
+ 275 000c 7B68     	 ldr r3,[r7,#4]
+ 276 000e 1B7C     	 ldrb r3,[r3,#16]
+ 277 0010 1046     	 mov r0,r2
+ 278 0012 1946     	 mov r1,r3
+ 279 0014 FFF7FEFF 	 bl XMC_GPIO_GetInput
+ 280 0018 0346     	 mov r3,r0
+ 425:C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO\digital_io.h **** }
+ 281              	 .loc 2 425 0
+ 282 001a 1846     	 mov r0,r3
+ 283 001c 0837     	 adds r7,r7,#8
+ 284              	.LCFI31:
+ 285              	 .cfi_def_cfa_offset 8
+ 286 001e BD46     	 mov sp,r7
+ 287              	.LCFI32:
+ 288              	 .cfi_def_cfa_register 13
+ 289              	 
+ 290 0020 80BD     	 pop {r7,pc}
+ 291              	 .cfi_endproc
+ 292              	.LFE150:
+ 294              	 .global top_button_state
+ 295 0022 00BF     	 .section .data.top_button_state,"aw",%progbits
+ 296              	 .align 2
+ 299              	top_button_state:
+ 300 0000 01000000 	 .word 1
+ 301              	 .global bottom_button_state
+ 302              	 .section .data.bottom_button_state,"aw",%progbits
+ 303              	 .align 2
+ 306              	bottom_button_state:
+ 307 0000 01000000 	 .word 1
+ 308              	 .global MOTOR_MODULE_ID
+ 309              	 .section .data.MOTOR_MODULE_ID,"aw",%progbits
+ 310              	 .align 2
+ 313              	MOTOR_MODULE_ID:
+ 314 0000 01000000 	 .word 1
+ 315              	 .global isRegistered
+ 316              	 .section .bss.isRegistered,"aw",%nobits
+ 317              	 .align 2
+ 320              	isRegistered:
+ 321 0000 00000000 	 .space 4
+ 322              	 .global closedToOpenTime
+ 323              	 .section .bss.closedToOpenTime,"aw",%nobits
+ 324              	 .align 2
+ 327              	closedToOpenTime:
+ 328 0000 00000000 	 .space 4
+ 329              	 .global time
+ 330              	 .section .bss.time,"aw",%nobits
+ 331              	 .align 2
+ 334              	time:
+ 335 0000 00000000 	 .space 4
+ 336              	 .comm WindowState,4,4
+ 337              	 .comm stateTimingVariables,44,4
+ 338              	 .section .text.CAN0_1_IRQHandler,"ax",%progbits
+ 339              	 .align 2
+ 340              	 .global CAN0_1_IRQHandler
+ 341              	 .thumb
+ 342              	 .thumb_func
+ 344              	CAN0_1_IRQHandler:
+ 345              	.LFB305:
+ 346              	 .file 3 "../main.c"
+   1:../main.c     **** ///*******************************************************************************
+   2:../main.c     **** // Copyright (c) 2015, Infineon Technologies AG                                 **
+   3:../main.c     **** // All rights reserved.                                                         **
+   4:../main.c     **** //                                                                              **
+   5:../main.c     **** // Redistribution and use in source and binary forms, with or without           **
+   6:../main.c     **** // modification,are permitted provided that the following conditions are met:   **
+   7:../main.c     **** //                                                                              **
+   8:../main.c     **** // *Redistributions of source code must retain the above copyright notice,      **
+   9:../main.c     **** // this list of conditions and the following disclaimer.                        **
+  10:../main.c     **** // *Redistributions in binary form must reproduce the above copyright notice,   **
+  11:../main.c     **** // this list of conditions and the following disclaimer in the documentation    **
+  12:../main.c     **** // and/or other materials provided with the distribution.                       **
+  13:../main.c     **** // *Neither the name of the copyright holders nor the names of its contributors **
+  14:../main.c     **** // may be used to endorse or promote products derived from this software without**
+  15:../main.c     **** // specific prior written permission.                                           **
+  16:../main.c     **** //                                                                              **
+  17:../main.c     **** // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"  **
+  18:../main.c     **** // AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE    **
+  19:../main.c     **** // IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE   **
+  20:../main.c     **** // ARE  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE   **
+  21:../main.c     **** // LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR         **
+  22:../main.c     **** // CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF         **
+  23:../main.c     **** // SUBSTITUTE GOODS OR  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS    **
+  24:../main.c     **** // INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN      **
+  25:../main.c     **** // CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)       **
+  26:../main.c     **** // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE   **
+  27:../main.c     **** // POSSIBILITY OF SUCH DAMAGE.                                                  **
+  28:../main.c     **** //                                                                              **
+  29:../main.c     **** // To improve the quality of the software, users are encouraged to share        **
+  30:../main.c     **** // modifications, enhancements or bug fixes with Infineon Technologies AG       **
+  31:../main.c     **** // dave@infineon.com).                                                          **
+  32:../main.c     **** //                                                                              **
+  33:../main.c     **** //********************************************************************************
+  34:../main.c     **** //**                                                                            **
+  35:../main.c     **** //**                                                                            **
+  36:../main.c     **** //** PLATFORM : Infineon XMC4500 Series                                         **
+  37:../main.c     **** //**                                                                            **
+  38:../main.c     **** //** AUTHOR : Application Engineering Team                                      **
+  39:../main.c     **** //**                                                                            **
+  40:../main.c     **** //** version 4.0.0  Initial version                                             **
+  41:../main.c     **** //**         4.1.2  Modified for APP updates                                    **
+  42:../main.c     **** //**         4.1.4  Modified for APP updates									  **
+  43:../main.c     **** //**                                                                            **
+  44:../main.c     **** //** MODIFICATION DATE : OCT, 30, 2015                                          **
+  45:../main.c     **** //**                                                                            **
+  46:../main.c     **** //*******************************************************************************/
+  47:../main.c     **** //
+  48:../main.c     **** //#include <DAVE.h>			//Declarations from DAVE Code Generation (includes SFR declaration)
+  49:../main.c     **** //
+  50:../main.c     **** ///*
+  51:../main.c     **** // * This Example shows transmission and reception of data frames
+  52:../main.c     **** // * between two CAN nodes of the MultiCAN peripheral in Loop-Back Mode.
+  53:../main.c     **** // */
+  54:../main.c     **** //
+  55:../main.c     **** //
+  56:../main.c     **** //uint32_t led_state = 0;
+  57:../main.c     **** //uint32_t button_state = 1;
+  58:../main.c     **** //
+  59:../main.c     **** //void React_Node_Handler() {
+  60:../main.c     **** //	/* Check for Node error */
+  61:../main.c     **** //	if(CAN_NODE_GetStatus(&React_Node) & XMC_CAN_NODE_STATUS_LAST_ERROR_CODE)
+  62:../main.c     **** //	{}
+  63:../main.c     **** //	else if(CAN_NODE_MO_GetStatus(&React_Node_LMO_01_Config) & XMC_CAN_MO_STATUS_RX_PENDING)
+  64:../main.c     **** //	{
+  65:../main.c     **** //		/* Read the received Message object and stores in Request_Node_LMO_02_Config*/
+  66:../main.c     **** //
+  67:../main.c     **** //		CAN_NODE_MO_Receive(&React_Node_LMO_01_Config);
+  68:../main.c     **** //
+  69:../main.c     **** //		if (React_Node_LMO_01_Config.mo_ptr->can_data_byte[0] == 0x01) { // Turn on LED
+  70:../main.c     **** //			DIGITAL_IO_SetOutputHigh(&LED_Indicator);
+  71:../main.c     **** //		}
+  72:../main.c     **** //		else { // Turn off LED
+  73:../main.c     **** //			DIGITAL_IO_SetOutputLow(&LED_Indicator);
+  74:../main.c     **** //		}
+  75:../main.c     **** //
+  76:../main.c     **** //	 /* Switch on LED Pin 3.9  to indicate that the requested message is received*/
+  77:../main.c     **** //	 //DIGITAL_IO_ToggleOutput(&LED_Indicator);
+  78:../main.c     **** //	}
+  79:../main.c     **** //
+  80:../main.c     **** //}
+  81:../main.c     **** //
+  82:../main.c     **** ////void Send_CAN_React() {
+  83:../main.c     **** ////
+  84:../main.c     **** ////}
+  85:../main.c     **** //
+  86:../main.c     **** //void Read_Button() {
+  87:../main.c     **** //	// check if state has changed
+  88:../main.c     **** //	if (button_state != DIGITAL_IO_GetInput(&BoardButton)) {
+  89:../main.c     **** //		button_state = DIGITAL_IO_GetInput(&BoardButton);
+  90:../main.c     **** //
+  91:../main.c     **** //		if (button_state == 0) { // send message to turn led on
+  92:../main.c     **** //			React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = 0x01;
+  93:../main.c     **** //		} else { // send message to turn led off
+  94:../main.c     **** //			React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = 0x00;
+  95:../main.c     **** //		}
+  96:../main.c     **** //
+  97:../main.c     **** //		uint32_t status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
+  98:../main.c     **** //		status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
+  99:../main.c     **** //	}
+ 100:../main.c     **** //}
+ 101:../main.c     **** //
+ 102:../main.c     **** //int main(void)
+ 103:../main.c     **** //{
+ 104:../main.c     **** //
+ 105:../main.c     **** //  DAVE_Init();		/* Initialization of DAVE APPs  */
+ 106:../main.c     **** //
+ 107:../main.c     **** //  uint32_t TimerId = (uint32_t)SYSTIMER_CreateTimer(100000U,SYSTIMER_MODE_PERIODIC,(void*)Read_Bu
+ 108:../main.c     **** //  SYSTIMER_StartTimer(TimerId);
+ 109:../main.c     **** //
+ 110:../main.c     **** //  //CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
+ 111:../main.c     **** //
+ 112:../main.c     **** //  while(1U);
+ 113:../main.c     **** //  return 0;
+ 114:../main.c     **** //}
+ 115:../main.c     **** //
+ 116:../main.c     **** /////*
+ 117:../main.c     **** //// * This function is the Interrupt Event Handler for the CAN Node Request
+ 118:../main.c     **** //// *
+ 119:../main.c     **** //// */
+ 120:../main.c     **** ////void Request_Node_Interrupt()
+ 121:../main.c     **** ////{
+ 122:../main.c     **** ////  /* Check for Node error */
+ 123:../main.c     **** ////  if(CAN_NODE_GetStatus(&Request_Node) & XMC_CAN_NODE_STATUS_LAST_ERROR_CODE)
+ 124:../main.c     **** ////  {}
+ 125:../main.c     **** ////  else if(CAN_NODE_MO_GetStatus(&Request_Node_LMO_02_Config) & XMC_CAN_MO_STATUS_RX_PENDING)
+ 126:../main.c     **** ////  {
+ 127:../main.c     **** ////     /* Read the received Message object and stores in Request_Node_LMO_02_Config*/
+ 128:../main.c     **** ////
+ 129:../main.c     **** ////	  CAN_NODE_MO_Receive(&Request_Node_LMO_02_Config);
+ 130:../main.c     **** ////
+ 131:../main.c     **** ////	  if (Request_Node_LMO_02_Config.mo_ptr->can_data_byte[0] == 0x01) { // Turn on LED
+ 132:../main.c     **** ////		  DIGITAL_IO_SetOutputHigh(&LED_Indicator);
+ 133:../main.c     **** ////	  }
+ 134:../main.c     **** ////	  else { // Turn off LED
+ 135:../main.c     **** ////		  DIGITAL_IO_SetOutputLow(&LED_Indicator);
+ 136:../main.c     **** ////	  }
+ 137:../main.c     **** ////
+ 138:../main.c     **** ////     /* Switch on LED Pin 3.9  to indicate that the requested message is received*/
+ 139:../main.c     **** ////     //DIGITAL_IO_ToggleOutput(&LED_Indicator);
+ 140:../main.c     **** ////  }
+ 141:../main.c     **** ////
+ 142:../main.c     **** ////}
+ 143:../main.c     **** ////
+ 144:../main.c     **** ///////*
+ 145:../main.c     **** //// * This function is the Interrupt Event Handler for the CAN Node React
+ 146:../main.c     **** //// */
+ 147:../main.c     **** 
+ 148:../main.c     **** /*******************************************************************************
+ 149:../main.c     ****  Copyright (c) 2015, Infineon Technologies AG                                 **
+ 150:../main.c     ****  All rights reserved.                                                         **
+ 151:../main.c     ****                                                                               **
+ 152:../main.c     ****  Redistribution and use in source and binary forms, with or without           **
+ 153:../main.c     ****  modification,are permitted provided that the following conditions are met:   **
+ 154:../main.c     ****                                                                               **
+ 155:../main.c     ****  *Redistributions of source code must retain the above copyright notice,      **
+ 156:../main.c     ****  this list of conditions and the following disclaimer.                        **
+ 157:../main.c     ****  *Redistributions in binary form must reproduce the above copyright notice,   **
+ 158:../main.c     ****  this list of conditions and the following disclaimer in the documentation    **
+ 159:../main.c     ****  and/or other materials provided with the distribution.                       **
+ 160:../main.c     ****  *Neither the name of the copyright holders nor the names of its contributors **
+ 161:../main.c     ****  may be used to endorse or promote products derived from this software without**
+ 162:../main.c     ****  specific prior written permission.                                           **
+ 163:../main.c     ****                                                                               **
+ 164:../main.c     ****  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"  **
+ 165:../main.c     ****  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE    **
+ 166:../main.c     ****  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE   **
+ 167:../main.c     ****  ARE  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE   **
+ 168:../main.c     ****  LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR         **
+ 169:../main.c     ****  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF         **
+ 170:../main.c     ****  SUBSTITUTE GOODS OR  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS    **
+ 171:../main.c     ****  INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN      **
+ 172:../main.c     ****  CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)       **
+ 173:../main.c     ****  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE   **
+ 174:../main.c     ****  POSSIBILITY OF SUCH DAMAGE.                                                  **
+ 175:../main.c     ****                                                                               **
+ 176:../main.c     ****  To improve the quality of the software, users are encouraged to share        **
+ 177:../main.c     ****  modifications, enhancements or bug fixes with Infineon Technologies AG       **
+ 178:../main.c     ****  dave@infineon.com).                                                          **
+ 179:../main.c     ****                                                                               **
+ 180:../main.c     **** ********************************************************************************
+ 181:../main.c     **** **                                                                            **
+ 182:../main.c     **** **                                                                            **
+ 183:../main.c     **** ** PLATFORM : Infineon XMC4500 Series                                         **
+ 184:../main.c     **** **                                                                            **
+ 185:../main.c     **** ** AUTHOR : Application Engineering Team                                      **
+ 186:../main.c     **** **                                                                            **
+ 187:../main.c     **** ** version 4.0.0  Initial version                                             **
+ 188:../main.c     **** **         4.1.2  Modified for APP updates                                    **
+ 189:../main.c     **** **         4.1.4  Modified for APP updates									  **
+ 190:../main.c     **** **                                                                            **
+ 191:../main.c     **** ** MODIFICATION DATE : OCT, 30, 2015                                          **
+ 192:../main.c     **** **                                                                            **
+ 193:../main.c     **** *******************************************************************************/
+ 194:../main.c     **** 
+ 195:../main.c     **** #include <DAVE.h>			//Declarations from DAVE Code Generation (includes SFR declaration)
+ 196:../main.c     **** #include <stdio.h>
+ 197:../main.c     **** 
+ 198:../main.c     **** // Globals
+ 199:../main.c     **** uint32_t top_button_state = 1;
+ 200:../main.c     **** uint32_t bottom_button_state = 1;
+ 201:../main.c     **** int MOTOR_MODULE_ID = 0x01;	//ID of this motor module device
+ 202:../main.c     **** int isRegistered = 0;		//Initially 0, will be 1 once registered with NMC
+ 203:../main.c     **** int closedToOpenTime = 0;	//Initially 0, will be set by homing routine
+ 204:../main.c     **** 
+ 205:../main.c     **** //Time Variable
+ 206:../main.c     **** int time = 0;
+ 207:../main.c     **** 
+ 208:../main.c     **** //State Variables
+ 209:../main.c     **** int WindowState;			//Current state of window (0 = closed, 11 = fully open), TODO : Set in homing ro
+ 210:../main.c     **** int stateTimingVariables[11];	//Contains variables for time to take to move to certain location
+ 211:../main.c     **** 
+ 212:../main.c     **** // Function Prototypes
+ 213:../main.c     **** //void initialise_monitor_handles();
+ 214:../main.c     **** void RegisterDevice();
+ 215:../main.c     **** int HomeWindow();
+ 216:../main.c     **** int MoveWindow(int percentage);
+ 217:../main.c     **** int CheckTopLimitSwitch();
+ 218:../main.c     **** int CheckBottomLimitSwitch();
+ 219:../main.c     **** 
+ 220:../main.c     **** void React_Node_Handler() {
+ 347              	 .loc 3 220 0
+ 348              	 .cfi_startproc
+ 349              	 
+ 350              	 
+ 351 0000 80B5     	 push {r7,lr}
+ 352              	.LCFI33:
+ 353              	 .cfi_def_cfa_offset 8
+ 354              	 .cfi_offset 7,-8
+ 355              	 .cfi_offset 14,-4
+ 356 0002 86B0     	 sub sp,sp,#24
+ 357              	.LCFI34:
+ 358              	 .cfi_def_cfa_offset 32
+ 359 0004 00AF     	 add r7,sp,#0
+ 360              	.LCFI35:
+ 361              	 .cfi_def_cfa_register 7
+ 221:../main.c     **** 	/* Check for Node error */
+ 222:../main.c     **** 	uint32_t status;
+ 223:../main.c     **** 	if(CAN_NODE_GetStatus(&React_Node) & XMC_CAN_NODE_STATUS_LAST_ERROR_CODE)
+ 362              	 .loc 3 223 0
+ 363 0006 5048     	 ldr r0,.L15
+ 364 0008 FFF7FEFF 	 bl CAN_NODE_GetStatus
+ 365 000c 0346     	 mov r3,r0
+ 366 000e 03F00703 	 and r3,r3,#7
+ 367 0012 002B     	 cmp r3,#0
+ 368 0014 40F09580 	 bne .L9
+ 224:../main.c     **** 	{}
+ 225:../main.c     **** 	else if(CAN_NODE_MO_GetStatus(&React_Node_LMO_01_Config) & XMC_CAN_MO_STATUS_RX_PENDING)
+ 369              	 .loc 3 225 0
+ 370 0018 4C48     	 ldr r0,.L15+4
+ 371 001a FFF7FEFF 	 bl CAN_NODE_MO_GetStatus
+ 372 001e 0346     	 mov r3,r0
+ 373 0020 03F00103 	 and r3,r3,#1
+ 374 0024 002B     	 cmp r3,#0
+ 375 0026 00F08C80 	 beq .L9
+ 376              	.LBB2:
+ 226:../main.c     **** 	{
+ 227:../main.c     **** 		/* Read the received Message object and stores in Request_Node_LMO_02_Config*/
+ 228:../main.c     **** 		CAN_NODE_MO_Receive(&React_Node_LMO_01_Config);
+ 377              	 .loc 3 228 0
+ 378 002a 4848     	 ldr r0,.L15+4
+ 379 002c FFF7FEFF 	 bl CAN_NODE_MO_Receive
+ 229:../main.c     **** 		int requestedID = React_Node_LMO_01_Config.mo_ptr->can_data_byte[0];	//grab 0th byte
+ 380              	 .loc 3 229 0
+ 381 0030 464B     	 ldr r3,.L15+4
+ 382 0032 1B68     	 ldr r3,[r3]
+ 383 0034 1B7C     	 ldrb r3,[r3,#16]
+ 384 0036 7B61     	 str r3,[r7,#20]
+ 230:../main.c     **** 
+ 231:../main.c     **** 		if(requestedID == MOTOR_MODULE_ID)		//Check if ID requested is equal to this motor module
+ 385              	 .loc 3 231 0
+ 386 0038 454B     	 ldr r3,.L15+8
+ 387 003a 1B68     	 ldr r3,[r3]
+ 388 003c 7A69     	 ldr r2,[r7,#20]
+ 389 003e 9A42     	 cmp r2,r3
+ 390 0040 7FD1     	 bne .L9
+ 391              	.LBB3:
+ 232:../main.c     **** 		{
+ 233:../main.c     **** 			int requestedCommand = React_Node_LMO_01_Config.mo_ptr->can_data_byte[1];	//grab 1st byte
+ 392              	 .loc 3 233 0
+ 393 0042 424B     	 ldr r3,.L15+4
+ 394 0044 1B68     	 ldr r3,[r3]
+ 395 0046 5B7C     	 ldrb r3,[r3,#17]
+ 396 0048 3B61     	 str r3,[r7,#16]
+ 234:../main.c     **** 
+ 235:../main.c     **** 			if(requestedCommand == 0x01)		//operate window
+ 397              	 .loc 3 235 0
+ 398 004a 3B69     	 ldr r3,[r7,#16]
+ 399 004c 012B     	 cmp r3,#1
+ 400 004e 4CD1     	 bne .L11
+ 401              	.LBB4:
+ 236:../main.c     **** 			{
+ 237:../main.c     **** 				int requestedPercentage = React_Node_LMO_01_Config.mo_ptr->can_data_byte[2];	//grab 2nd byte
+ 402              	 .loc 3 237 0
+ 403 0050 3E4B     	 ldr r3,.L15+4
+ 404 0052 1B68     	 ldr r3,[r3]
+ 405 0054 9B7C     	 ldrb r3,[r3,#18]
+ 406 0056 FB60     	 str r3,[r7,#12]
+ 238:../main.c     **** 				requestedPercentage = (requestedPercentage / 10);
+ 407              	 .loc 3 238 0
+ 408 0058 FB68     	 ldr r3,[r7,#12]
+ 409 005a 3E4A     	 ldr r2,.L15+12
+ 410 005c 82FB0312 	 smull r1,r2,r2,r3
+ 411 0060 9210     	 asrs r2,r2,#2
+ 412 0062 DB17     	 asrs r3,r3,#31
+ 413 0064 D31A     	 subs r3,r2,r3
+ 414 0066 FB60     	 str r3,[r7,#12]
+ 239:../main.c     **** 				int windowMovementStatus = MoveWindow(requestedPercentage);
+ 415              	 .loc 3 239 0
+ 416 0068 F868     	 ldr r0,[r7,#12]
+ 417 006a FFF7FEFF 	 bl MoveWindow
+ 418 006e B860     	 str r0,[r7,#8]
+ 240:../main.c     **** 				if(windowMovementStatus == 0)
+ 419              	 .loc 3 240 0
+ 420 0070 BB68     	 ldr r3,[r7,#8]
+ 421 0072 002B     	 cmp r3,#0
+ 422 0074 1AD1     	 bne .L12
+ 241:../main.c     **** 				{
+ 242:../main.c     **** 					React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = MOTOR_MODULE_ID;
+ 423              	 .loc 3 242 0
+ 424 0076 384B     	 ldr r3,.L15+16
+ 425 0078 1B68     	 ldr r3,[r3]
+ 426 007a 354A     	 ldr r2,.L15+8
+ 427 007c 1268     	 ldr r2,[r2]
+ 428 007e D2B2     	 uxtb r2,r2
+ 429 0080 1A74     	 strb r2,[r3,#16]
+ 243:../main.c     **** 					React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x02;	//Successful Command
+ 430              	 .loc 3 243 0
+ 431 0082 354B     	 ldr r3,.L15+16
+ 432 0084 1B68     	 ldr r3,[r3]
+ 433 0086 0222     	 movs r2,#2
+ 434 0088 5A74     	 strb r2,[r3,#17]
+ 244:../main.c     **** 					React_Node_LMO_02_Config.mo_ptr->can_data_byte[3] = 1;	//
+ 435              	 .loc 3 244 0
+ 436 008a 334B     	 ldr r3,.L15+16
+ 437 008c 1B68     	 ldr r3,[r3]
+ 438 008e 0122     	 movs r2,#1
+ 439 0090 DA74     	 strb r2,[r3,#19]
+ 245:../main.c     **** 					status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
+ 440              	 .loc 3 245 0
+ 441 0092 314B     	 ldr r3,.L15+16
+ 442 0094 1B68     	 ldr r3,[r3]
+ 443 0096 1846     	 mov r0,r3
+ 444 0098 FFF7FEFF 	 bl XMC_CAN_MO_UpdateData
+ 445 009c 0346     	 mov r3,r0
+ 446 009e 7B60     	 str r3,[r7,#4]
+ 246:../main.c     **** 					status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
+ 447              	 .loc 3 246 0
+ 448 00a0 2D48     	 ldr r0,.L15+16
+ 449 00a2 FFF7FEFF 	 bl CAN_NODE_MO_Transmit
+ 450 00a6 0346     	 mov r3,r0
+ 451 00a8 7B60     	 str r3,[r7,#4]
+ 452 00aa 1DE0     	 b .L13
+ 453              	.L12:
+ 247:../main.c     **** 				}
+ 248:../main.c     **** 				else if(windowMovementStatus == 1)
+ 454              	 .loc 3 248 0
+ 455 00ac BB68     	 ldr r3,[r7,#8]
+ 456 00ae 012B     	 cmp r3,#1
+ 457 00b0 1AD1     	 bne .L13
+ 249:../main.c     **** 				{
+ 250:../main.c     **** 					React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = MOTOR_MODULE_ID;
+ 458              	 .loc 3 250 0
+ 459 00b2 294B     	 ldr r3,.L15+16
+ 460 00b4 1B68     	 ldr r3,[r3]
+ 461 00b6 264A     	 ldr r2,.L15+8
+ 462 00b8 1268     	 ldr r2,[r2]
+ 463 00ba D2B2     	 uxtb r2,r2
+ 464 00bc 1A74     	 strb r2,[r3,#16]
+ 251:../main.c     **** 					React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x02;	//Successful Command
+ 465              	 .loc 3 251 0
+ 466 00be 264B     	 ldr r3,.L15+16
+ 467 00c0 1B68     	 ldr r3,[r3]
+ 468 00c2 0222     	 movs r2,#2
+ 469 00c4 5A74     	 strb r2,[r3,#17]
+ 252:../main.c     **** 					React_Node_LMO_02_Config.mo_ptr->can_data_byte[3] = 0;	//
+ 470              	 .loc 3 252 0
+ 471 00c6 244B     	 ldr r3,.L15+16
+ 472 00c8 1B68     	 ldr r3,[r3]
+ 473 00ca 0022     	 movs r2,#0
+ 474 00cc DA74     	 strb r2,[r3,#19]
+ 253:../main.c     **** 					status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
+ 475              	 .loc 3 253 0
+ 476 00ce 224B     	 ldr r3,.L15+16
+ 477 00d0 1B68     	 ldr r3,[r3]
+ 478 00d2 1846     	 mov r0,r3
+ 479 00d4 FFF7FEFF 	 bl XMC_CAN_MO_UpdateData
+ 480 00d8 0346     	 mov r3,r0
+ 481 00da 7B60     	 str r3,[r7,#4]
+ 254:../main.c     **** 					status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
+ 482              	 .loc 3 254 0
+ 483 00dc 1E48     	 ldr r0,.L15+16
+ 484 00de FFF7FEFF 	 bl CAN_NODE_MO_Transmit
+ 485 00e2 0346     	 mov r3,r0
+ 486 00e4 7B60     	 str r3,[r7,#4]
+ 487              	.LBE4:
+ 488 00e6 2CE0     	 b .L9
+ 489              	.L13:
+ 490 00e8 2BE0     	 b .L9
+ 491              	.L11:
+ 255:../main.c     **** 				}
+ 256:../main.c     **** 			}
+ 257:../main.c     **** 			else if(requestedCommand == 0x02)	//acknowledge registration
+ 492              	 .loc 3 257 0
+ 493 00ea 3B69     	 ldr r3,[r7,#16]
+ 494 00ec 022B     	 cmp r3,#2
+ 495 00ee 03D1     	 bne .L14
+ 258:../main.c     **** 			{
+ 259:../main.c     **** 				isRegistered = 1;
+ 496              	 .loc 3 259 0
+ 497 00f0 1A4B     	 ldr r3,.L15+20
+ 498 00f2 0122     	 movs r2,#1
+ 499 00f4 1A60     	 str r2,[r3]
+ 500 00f6 24E0     	 b .L9
+ 501              	.L14:
+ 260:../main.c     **** 			}
+ 261:../main.c     **** 			else if(requestedCommand == 0x03)	//state request
+ 502              	 .loc 3 261 0
+ 503 00f8 3B69     	 ldr r3,[r7,#16]
+ 504 00fa 032B     	 cmp r3,#3
+ 505 00fc 21D1     	 bne .L9
+ 506              	.LBB5:
+ 262:../main.c     **** 			{
+ 263:../main.c     **** 				int WindowStatePercentage = (WindowState * 10);
+ 507              	 .loc 3 263 0
+ 508 00fe 184B     	 ldr r3,.L15+24
+ 509 0100 1A68     	 ldr r2,[r3]
+ 510 0102 1346     	 mov r3,r2
+ 511 0104 9B00     	 lsls r3,r3,#2
+ 512 0106 1344     	 add r3,r3,r2
+ 513 0108 5B00     	 lsls r3,r3,#1
+ 514 010a 3B60     	 str r3,[r7]
+ 264:../main.c     **** 
+ 265:../main.c     **** 				React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = MOTOR_MODULE_ID;
+ 515              	 .loc 3 265 0
+ 516 010c 124B     	 ldr r3,.L15+16
+ 517 010e 1B68     	 ldr r3,[r3]
+ 518 0110 0F4A     	 ldr r2,.L15+8
+ 519 0112 1268     	 ldr r2,[r2]
+ 520 0114 D2B2     	 uxtb r2,r2
+ 521 0116 1A74     	 strb r2,[r3,#16]
+ 266:../main.c     **** 				React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x04;	//Status update
+ 522              	 .loc 3 266 0
+ 523 0118 0F4B     	 ldr r3,.L15+16
+ 524 011a 1B68     	 ldr r3,[r3]
+ 525 011c 0422     	 movs r2,#4
+ 526 011e 5A74     	 strb r2,[r3,#17]
+ 267:../main.c     **** 				React_Node_LMO_02_Config.mo_ptr->can_data_byte[2] = WindowStatePercentage;
+ 527              	 .loc 3 267 0
+ 528 0120 0D4B     	 ldr r3,.L15+16
+ 529 0122 1B68     	 ldr r3,[r3]
+ 530 0124 3A68     	 ldr r2,[r7]
+ 531 0126 D2B2     	 uxtb r2,r2
+ 532 0128 9A74     	 strb r2,[r3,#18]
+ 268:../main.c     **** 				status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
+ 533              	 .loc 3 268 0
+ 534 012a 0B4B     	 ldr r3,.L15+16
+ 535 012c 1B68     	 ldr r3,[r3]
+ 536 012e 1846     	 mov r0,r3
+ 537 0130 FFF7FEFF 	 bl XMC_CAN_MO_UpdateData
+ 538 0134 0346     	 mov r3,r0
+ 539 0136 7B60     	 str r3,[r7,#4]
+ 269:../main.c     **** 				status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
+ 540              	 .loc 3 269 0
+ 541 0138 0748     	 ldr r0,.L15+16
+ 542 013a FFF7FEFF 	 bl CAN_NODE_MO_Transmit
+ 543 013e 0346     	 mov r3,r0
+ 544 0140 7B60     	 str r3,[r7,#4]
+ 545              	.L9:
+ 546              	.LBE5:
+ 547              	.LBE3:
+ 548              	.LBE2:
+ 270:../main.c     **** 			}
+ 271:../main.c     **** 		}
+ 272:../main.c     **** 	}
+ 273:../main.c     **** }
+ 549              	 .loc 3 273 0
+ 550 0142 1837     	 adds r7,r7,#24
+ 551              	.LCFI36:
+ 552              	 .cfi_def_cfa_offset 8
+ 553 0144 BD46     	 mov sp,r7
+ 554              	.LCFI37:
+ 555              	 .cfi_def_cfa_register 13
+ 556              	 
+ 557 0146 80BD     	 pop {r7,pc}
+ 558              	.L16:
+ 559              	 .align 2
+ 560              	.L15:
+ 561 0148 00000000 	 .word React_Node
+ 562 014c 00000000 	 .word React_Node_LMO_01_Config
+ 563 0150 00000000 	 .word MOTOR_MODULE_ID
+ 564 0154 67666666 	 .word 1717986919
+ 565 0158 00000000 	 .word React_Node_LMO_02_Config
+ 566 015c 00000000 	 .word isRegistered
+ 567 0160 00000000 	 .word WindowState
+ 568              	 .cfi_endproc
+ 569              	.LFE305:
+ 571              	 .section .text.CCU41_1_IRQHandler,"ax",%progbits
+ 572              	 .align 2
+ 573              	 .global CCU41_1_IRQHandler
+ 574              	 .thumb
+ 575              	 .thumb_func
+ 577              	CCU41_1_IRQHandler:
+ 578              	.LFB306:
+ 274:../main.c     **** 
+ 275:../main.c     **** void TimerHandler()
+ 276:../main.c     **** {
+ 579              	 .loc 3 276 0
+ 580              	 .cfi_startproc
+ 581              	 
+ 582              	 
+ 583              	 
+ 584 0000 80B4     	 push {r7}
+ 585              	.LCFI38:
+ 586              	 .cfi_def_cfa_offset 4
+ 587              	 .cfi_offset 7,-4
+ 588 0002 00AF     	 add r7,sp,#0
+ 589              	.LCFI39:
+ 590              	 .cfi_def_cfa_register 7
+ 277:../main.c     **** 	time++;
+ 591              	 .loc 3 277 0
+ 592 0004 044B     	 ldr r3,.L18
+ 593 0006 1B68     	 ldr r3,[r3]
+ 594 0008 0133     	 adds r3,r3,#1
+ 595 000a 034A     	 ldr r2,.L18
+ 596 000c 1360     	 str r3,[r2]
+ 278:../main.c     **** }
+ 597              	 .loc 3 278 0
+ 598 000e BD46     	 mov sp,r7
+ 599              	.LCFI40:
+ 600              	 .cfi_def_cfa_register 13
+ 601              	 
+ 602 0010 5DF8047B 	 ldr r7,[sp],#4
+ 603              	.LCFI41:
+ 604              	 .cfi_restore 7
+ 605              	 .cfi_def_cfa_offset 0
+ 606 0014 7047     	 bx lr
+ 607              	.L19:
+ 608 0016 00BF     	 .align 2
+ 609              	.L18:
+ 610 0018 00000000 	 .word time
+ 611              	 .cfi_endproc
+ 612              	.LFE306:
+ 614              	 .section .text.main,"ax",%progbits
+ 615              	 .align 2
+ 616              	 .global main
+ 617              	 .thumb
+ 618              	 .thumb_func
+ 620              	main:
+ 621              	.LFB307:
+ 279:../main.c     **** 
+ 280:../main.c     **** int main(void)
+ 281:../main.c     **** {
+ 622              	 .loc 3 281 0
+ 623              	 .cfi_startproc
+ 624              	 
+ 625              	 
+ 626 0000 80B5     	 push {r7,lr}
+ 627              	.LCFI42:
+ 628              	 .cfi_def_cfa_offset 8
+ 629              	 .cfi_offset 7,-8
+ 630              	 .cfi_offset 14,-4
+ 631 0002 00AF     	 add r7,sp,#0
+ 632              	.LCFI43:
+ 633              	 .cfi_def_cfa_register 7
+ 282:../main.c     **** 
+ 283:../main.c     ****   DAVE_Init();		/* Initialization of DAVE APPs  */
+ 634              	 .loc 3 283 0
+ 635 0004 FFF7FEFF 	 bl DAVE_Init
+ 284:../main.c     **** 
+ 285:../main.c     ****   // Startup functions
+ 286:../main.c     ****   //RegisterDevice();
+ 287:../main.c     ****   HomeWindow();	// TODO : Uncomment when done
+ 636              	 .loc 3 287 0
+ 637 0008 FFF7FEFF 	 bl HomeWindow
+ 288:../main.c     **** 
+ 289:../main.c     ****   // Function to initialize debug printing
+ 290:../main.c     ****   // initialise_monitor_handles();
+ 291:../main.c     **** 
+ 292:../main.c     ****   MoveWindow(5);	// 50%
+ 638              	 .loc 3 292 0
+ 639 000c 0520     	 movs r0,#5
+ 640 000e FFF7FEFF 	 bl MoveWindow
+ 293:../main.c     ****   MoveWindow(0);	//0%
+ 641              	 .loc 3 293 0
+ 642 0012 0020     	 movs r0,#0
+ 643 0014 FFF7FEFF 	 bl MoveWindow
+ 644              	.L21:
+ 294:../main.c     **** 
+ 295:../main.c     ****   while(1U)
+ 296:../main.c     ****   {
+ 297:../main.c     **** 
+ 298:../main.c     ****   }
+ 645              	 .loc 3 298 0 discriminator 1
+ 646 0018 FEE7     	 b .L21
+ 647              	 .cfi_endproc
+ 648              	.LFE307:
+ 650 001a 00BF     	 .section .text.RegisterDevice,"ax",%progbits
+ 651              	 .align 2
+ 652              	 .global RegisterDevice
+ 653              	 .thumb
+ 654              	 .thumb_func
+ 656              	RegisterDevice:
+ 657              	.LFB308:
+ 299:../main.c     ****   return 0;
+ 300:../main.c     **** }
+ 301:../main.c     **** 
+ 302:../main.c     **** // Sends message to NMC on startup to register device
+ 303:../main.c     **** void RegisterDevice()
+ 304:../main.c     **** {
+ 658              	 .loc 3 304 0
+ 659              	 .cfi_startproc
+ 660              	 
+ 661              	 
+ 662 0000 80B5     	 push {r7,lr}
+ 663              	.LCFI44:
+ 664              	 .cfi_def_cfa_offset 8
+ 665              	 .cfi_offset 7,-8
+ 666              	 .cfi_offset 14,-4
+ 667 0002 82B0     	 sub sp,sp,#8
+ 668              	.LCFI45:
+ 669              	 .cfi_def_cfa_offset 16
+ 670 0004 00AF     	 add r7,sp,#0
+ 671              	.LCFI46:
+ 672              	 .cfi_def_cfa_register 7
+ 305:../main.c     **** 	React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = MOTOR_MODULE_ID;
+ 673              	 .loc 3 305 0
+ 674 0006 0C4B     	 ldr r3,.L23
+ 675 0008 1B68     	 ldr r3,[r3]
+ 676 000a 0C4A     	 ldr r2,.L23+4
+ 677 000c 1268     	 ldr r2,[r2]
+ 678 000e D2B2     	 uxtb r2,r2
+ 679 0010 1A74     	 strb r2,[r3,#16]
+ 306:../main.c     **** 	React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x05;	//device registration
+ 680              	 .loc 3 306 0
+ 681 0012 094B     	 ldr r3,.L23
+ 682 0014 1B68     	 ldr r3,[r3]
+ 683 0016 0522     	 movs r2,#5
+ 684 0018 5A74     	 strb r2,[r3,#17]
+ 307:../main.c     **** 	uint32_t status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
+ 685              	 .loc 3 307 0
+ 686 001a 074B     	 ldr r3,.L23
+ 687 001c 1B68     	 ldr r3,[r3]
+ 688 001e 1846     	 mov r0,r3
+ 689 0020 FFF7FEFF 	 bl XMC_CAN_MO_UpdateData
+ 690 0024 0346     	 mov r3,r0
+ 691 0026 7B60     	 str r3,[r7,#4]
+ 308:../main.c     **** 	status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
+ 692              	 .loc 3 308 0
+ 693 0028 0348     	 ldr r0,.L23
+ 694 002a FFF7FEFF 	 bl CAN_NODE_MO_Transmit
+ 695 002e 0346     	 mov r3,r0
+ 696 0030 7B60     	 str r3,[r7,#4]
+ 309:../main.c     **** 
+ 310:../main.c     **** 	//TODO : Add delay until registered, retransmit after delay if not
+ 311:../main.c     **** 
+ 312:../main.c     **** }
+ 697              	 .loc 3 312 0
+ 698 0032 0837     	 adds r7,r7,#8
+ 699              	.LCFI47:
+ 700              	 .cfi_def_cfa_offset 8
+ 701 0034 BD46     	 mov sp,r7
+ 702              	.LCFI48:
+ 703              	 .cfi_def_cfa_register 13
+ 704              	 
+ 705 0036 80BD     	 pop {r7,pc}
+ 706              	.L24:
+ 707              	 .align 2
+ 708              	.L23:
+ 709 0038 00000000 	 .word React_Node_LMO_02_Config
+ 710 003c 00000000 	 .word MOTOR_MODULE_ID
+ 711              	 .cfi_endproc
+ 712              	.LFE308:
+ 714              	 .global __aeabi_i2d
+ 715              	 .global __aeabi_dmul
+ 716              	 .global __aeabi_d2iz
+ 717              	 .section .text.HomeWindow,"ax",%progbits
+ 718              	 .align 2
+ 719              	 .global HomeWindow
+ 720              	 .thumb
+ 721              	 .thumb_func
+ 723              	HomeWindow:
+ 724              	.LFB309:
+ 313:../main.c     **** 
+ 314:../main.c     **** //Homes the motor to acquire constants needed for operation. Also for tuning
+ 315:../main.c     **** int HomeWindow()
+ 316:../main.c     **** {
+ 725              	 .loc 3 316 0
+ 726              	 .cfi_startproc
+ 727              	 
+ 728              	 
+ 729 0000 80B5     	 push {r7,lr}
+ 730              	.LCFI49:
+ 731              	 .cfi_def_cfa_offset 8
+ 732              	 .cfi_offset 7,-8
+ 733              	 .cfi_offset 14,-4
+ 734 0002 82B0     	 sub sp,sp,#8
+ 735              	.LCFI50:
+ 736              	 .cfi_def_cfa_offset 16
+ 737 0004 00AF     	 add r7,sp,#0
+ 738              	.LCFI51:
+ 739              	 .cfi_def_cfa_register 7
+ 317:../main.c     **** 	// TODO : Home window to find constants needed for proper window operation
+ 318:../main.c     **** 	int BottomLimitSwitchState = CheckBottomLimitSwitch();
+ 740              	 .loc 3 318 0
+ 741 0006 FFF7FEFF 	 bl CheckBottomLimitSwitch
+ 742 000a 7860     	 str r0,[r7,#4]
+ 319:../main.c     **** 
+ 320:../main.c     **** 	if (BottomLimitSwitchState == 1)		// TODO : Change to 0 bc 0 means button pressed
+ 743              	 .loc 3 320 0
+ 744 000c 7B68     	 ldr r3,[r7,#4]
+ 745 000e 012B     	 cmp r3,#1
+ 746 0010 27D1     	 bne .L26
+ 321:../main.c     **** 	{
+ 322:../main.c     **** 		// TODO : verify that starting PWM before direction is ok
+ 323:../main.c     **** 		TIMER_Start(&TIMER_Motor);
+ 747              	 .loc 3 323 0
+ 748 0012 9548     	 ldr r0,.L32+64
+ 749 0014 FFF7FEFF 	 bl TIMER_Start
+ 324:../main.c     **** 		while(CheckTopLimitSwitch() == 1)	//drive motor until top limit switch is reached
+ 750              	 .loc 3 324 0
+ 751 0018 05E0     	 b .L27
+ 752              	.L28:
+ 325:../main.c     **** 		{
+ 326:../main.c     **** 			PWM_Start(&PWM_Motor);
+ 753              	 .loc 3 326 0
+ 754 001a 9448     	 ldr r0,.L32+68
+ 755 001c FFF7FEFF 	 bl PWM_Start
+ 327:../main.c     **** 			DIGITAL_IO_SetOutputLow(&Motor_Direction); //Move up
+ 756              	 .loc 3 327 0
+ 757 0020 9348     	 ldr r0,.L32+72
+ 758 0022 FFF7FEFF 	 bl DIGITAL_IO_SetOutputLow
+ 759              	.L27:
+ 324:../main.c     **** 		while(CheckTopLimitSwitch() == 1)	//drive motor until top limit switch is reached
+ 760              	 .loc 3 324 0
+ 761 0026 FFF7FEFF 	 bl CheckTopLimitSwitch
+ 762 002a 0346     	 mov r3,r0
+ 763 002c 012B     	 cmp r3,#1
+ 764 002e F4D0     	 beq .L28
+ 328:../main.c     **** 		}
+ 329:../main.c     **** 		PWM_Stop(&PWM_Motor);
+ 765              	 .loc 3 329 0
+ 766 0030 8E48     	 ldr r0,.L32+68
+ 767 0032 FFF7FEFF 	 bl PWM_Stop
+ 330:../main.c     **** 		TIMER_Stop(&TIMER_Motor);
+ 768              	 .loc 3 330 0
+ 769 0036 8C48     	 ldr r0,.L32+64
+ 770 0038 FFF7FEFF 	 bl TIMER_Stop
+ 331:../main.c     **** 		closedToOpenTime = time;
+ 771              	 .loc 3 331 0
+ 772 003c 8D4B     	 ldr r3,.L32+76
+ 773 003e 1B68     	 ldr r3,[r3]
+ 774 0040 8D4A     	 ldr r2,.L32+80
+ 775 0042 1360     	 str r3,[r2]
+ 332:../main.c     **** 		while(CheckBottomLimitSwitch() == 1)
+ 776              	 .loc 3 332 0
+ 777 0044 05E0     	 b .L29
+ 778              	.L30:
+ 333:../main.c     **** 		{
+ 334:../main.c     **** 			PWM_Start(&PWM_Motor);
+ 779              	 .loc 3 334 0
+ 780 0046 8948     	 ldr r0,.L32+68
+ 781 0048 FFF7FEFF 	 bl PWM_Start
+ 335:../main.c     **** 			DIGITAL_IO_SetOutputHigh(&Motor_Direction);
+ 782              	 .loc 3 335 0
+ 783 004c 8848     	 ldr r0,.L32+72
+ 784 004e FFF7FEFF 	 bl DIGITAL_IO_SetOutputHigh
+ 785              	.L29:
+ 332:../main.c     **** 		while(CheckBottomLimitSwitch() == 1)
+ 786              	 .loc 3 332 0
+ 787 0052 FFF7FEFF 	 bl CheckBottomLimitSwitch
+ 788 0056 0346     	 mov r3,r0
+ 789 0058 012B     	 cmp r3,#1
+ 790 005a F4D0     	 beq .L30
+ 336:../main.c     **** 		}
+ 337:../main.c     **** 		PWM_Stop(&PWM_Motor);	//Turn off PWM once bottom reached
+ 791              	 .loc 3 337 0
+ 792 005c 8348     	 ldr r0,.L32+68
+ 793 005e FFF7FEFF 	 bl PWM_Stop
+ 794              	.L26:
+ 338:../main.c     **** 	}
+ 339:../main.c     **** 	WindowState = 0;	// Set initial state to zero
+ 795              	 .loc 3 339 0
+ 796 0062 864B     	 ldr r3,.L32+84
+ 797 0064 0022     	 movs r2,#0
+ 798 0066 1A60     	 str r2,[r3]
+ 340:../main.c     **** 	time = 0;			// reset global timer variable
+ 799              	 .loc 3 340 0
+ 800 0068 824B     	 ldr r3,.L32+76
+ 801 006a 0022     	 movs r2,#0
+ 802 006c 1A60     	 str r2,[r3]
+ 341:../main.c     **** 	// Create State table
+ 342:../main.c     **** 	stateTimingVariables[0]  = 0;								//0%
+ 803              	 .loc 3 342 0
+ 804 006e 844B     	 ldr r3,.L32+88
+ 805 0070 0022     	 movs r2,#0
+ 806 0072 1A60     	 str r2,[r3]
+ 343:../main.c     **** 	stateTimingVariables[1]  = (closedToOpenTime * (0.1));		//10%
+ 807              	 .loc 3 343 0
+ 808 0074 804B     	 ldr r3,.L32+80
+ 809 0076 1B68     	 ldr r3,[r3]
+ 810 0078 1846     	 mov r0,r3
+ 811 007a FFF7FEFF 	 bl __aeabi_i2d
+ 812 007e 0246     	 mov r2,r0
+ 813 0080 0B46     	 mov r3,r1
+ 814 0082 1046     	 mov r0,r2
+ 815 0084 1946     	 mov r1,r3
+ 816 0086 68A3     	 adr r3,.L32
+ 817 0088 D3E90023 	 ldrd r2,[r3]
+ 818 008c FFF7FEFF 	 bl __aeabi_dmul
+ 819 0090 0246     	 mov r2,r0
+ 820 0092 0B46     	 mov r3,r1
+ 821 0094 1046     	 mov r0,r2
+ 822 0096 1946     	 mov r1,r3
+ 823 0098 FFF7FEFF 	 bl __aeabi_d2iz
+ 824 009c 0246     	 mov r2,r0
+ 825 009e 784B     	 ldr r3,.L32+88
+ 826 00a0 5A60     	 str r2,[r3,#4]
+ 344:../main.c     **** 	stateTimingVariables[2]  = (closedToOpenTime * (0.2));		//20%
+ 827              	 .loc 3 344 0
+ 828 00a2 754B     	 ldr r3,.L32+80
+ 829 00a4 1B68     	 ldr r3,[r3]
+ 830 00a6 1846     	 mov r0,r3
+ 831 00a8 FFF7FEFF 	 bl __aeabi_i2d
+ 832 00ac 0246     	 mov r2,r0
+ 833 00ae 0B46     	 mov r3,r1
+ 834 00b0 1046     	 mov r0,r2
+ 835 00b2 1946     	 mov r1,r3
+ 836 00b4 5EA3     	 adr r3,.L32+8
+ 837 00b6 D3E90023 	 ldrd r2,[r3]
+ 838 00ba FFF7FEFF 	 bl __aeabi_dmul
+ 839 00be 0246     	 mov r2,r0
+ 840 00c0 0B46     	 mov r3,r1
+ 841 00c2 1046     	 mov r0,r2
+ 842 00c4 1946     	 mov r1,r3
+ 843 00c6 FFF7FEFF 	 bl __aeabi_d2iz
+ 844 00ca 0246     	 mov r2,r0
+ 845 00cc 6C4B     	 ldr r3,.L32+88
+ 846 00ce 9A60     	 str r2,[r3,#8]
+ 345:../main.c     **** 	stateTimingVariables[3]  = (closedToOpenTime * (0.3));		//30%
+ 847              	 .loc 3 345 0
+ 848 00d0 694B     	 ldr r3,.L32+80
+ 849 00d2 1B68     	 ldr r3,[r3]
+ 850 00d4 1846     	 mov r0,r3
+ 851 00d6 FFF7FEFF 	 bl __aeabi_i2d
+ 852 00da 0246     	 mov r2,r0
+ 853 00dc 0B46     	 mov r3,r1
+ 854 00de 1046     	 mov r0,r2
+ 855 00e0 1946     	 mov r1,r3
+ 856 00e2 55A3     	 adr r3,.L32+16
+ 857 00e4 D3E90023 	 ldrd r2,[r3]
+ 858 00e8 FFF7FEFF 	 bl __aeabi_dmul
+ 859 00ec 0246     	 mov r2,r0
+ 860 00ee 0B46     	 mov r3,r1
+ 861 00f0 1046     	 mov r0,r2
+ 862 00f2 1946     	 mov r1,r3
+ 863 00f4 FFF7FEFF 	 bl __aeabi_d2iz
+ 864 00f8 0246     	 mov r2,r0
+ 865 00fa 614B     	 ldr r3,.L32+88
+ 866 00fc DA60     	 str r2,[r3,#12]
+ 346:../main.c     **** 	stateTimingVariables[4]  = (closedToOpenTime * (0.4));		//40%
+ 867              	 .loc 3 346 0
+ 868 00fe 5E4B     	 ldr r3,.L32+80
+ 869 0100 1B68     	 ldr r3,[r3]
+ 870 0102 1846     	 mov r0,r3
+ 871 0104 FFF7FEFF 	 bl __aeabi_i2d
+ 872 0108 0246     	 mov r2,r0
+ 873 010a 0B46     	 mov r3,r1
+ 874 010c 1046     	 mov r0,r2
+ 875 010e 1946     	 mov r1,r3
+ 876 0110 4BA3     	 adr r3,.L32+24
+ 877 0112 D3E90023 	 ldrd r2,[r3]
+ 878 0116 FFF7FEFF 	 bl __aeabi_dmul
+ 879 011a 0246     	 mov r2,r0
+ 880 011c 0B46     	 mov r3,r1
+ 881 011e 1046     	 mov r0,r2
+ 882 0120 1946     	 mov r1,r3
+ 883 0122 FFF7FEFF 	 bl __aeabi_d2iz
+ 884 0126 0246     	 mov r2,r0
+ 885 0128 554B     	 ldr r3,.L32+88
+ 886 012a 1A61     	 str r2,[r3,#16]
+ 347:../main.c     **** 	stateTimingVariables[5]  = (closedToOpenTime * (0.5));		//50%
+ 887              	 .loc 3 347 0
+ 888 012c 524B     	 ldr r3,.L32+80
+ 889 012e 1B68     	 ldr r3,[r3]
+ 890 0130 1846     	 mov r0,r3
+ 891 0132 FFF7FEFF 	 bl __aeabi_i2d
+ 892 0136 0246     	 mov r2,r0
+ 893 0138 0B46     	 mov r3,r1
+ 894 013a 1046     	 mov r0,r2
+ 895 013c 1946     	 mov r1,r3
+ 896 013e 4FF00002 	 mov r2,#0
+ 897 0142 504B     	 ldr r3,.L32+92
+ 898 0144 FFF7FEFF 	 bl __aeabi_dmul
+ 899 0148 0246     	 mov r2,r0
+ 900 014a 0B46     	 mov r3,r1
+ 901 014c 1046     	 mov r0,r2
+ 902 014e 1946     	 mov r1,r3
+ 903 0150 FFF7FEFF 	 bl __aeabi_d2iz
+ 904 0154 0246     	 mov r2,r0
+ 905 0156 4A4B     	 ldr r3,.L32+88
+ 906 0158 5A61     	 str r2,[r3,#20]
+ 348:../main.c     **** 	stateTimingVariables[6]  = (closedToOpenTime * (0.6));		//60%
+ 907              	 .loc 3 348 0
+ 908 015a 474B     	 ldr r3,.L32+80
+ 909 015c 1B68     	 ldr r3,[r3]
+ 910 015e 1846     	 mov r0,r3
+ 911 0160 FFF7FEFF 	 bl __aeabi_i2d
+ 912 0164 0246     	 mov r2,r0
+ 913 0166 0B46     	 mov r3,r1
+ 914 0168 1046     	 mov r0,r2
+ 915 016a 1946     	 mov r1,r3
+ 916 016c 36A3     	 adr r3,.L32+32
+ 917 016e D3E90023 	 ldrd r2,[r3]
+ 918 0172 FFF7FEFF 	 bl __aeabi_dmul
+ 919 0176 0246     	 mov r2,r0
+ 920 0178 0B46     	 mov r3,r1
+ 921 017a 1046     	 mov r0,r2
+ 922 017c 1946     	 mov r1,r3
+ 923 017e FFF7FEFF 	 bl __aeabi_d2iz
+ 924 0182 0246     	 mov r2,r0
+ 925 0184 3E4B     	 ldr r3,.L32+88
+ 926 0186 9A61     	 str r2,[r3,#24]
+ 349:../main.c     **** 	stateTimingVariables[7]  = (closedToOpenTime * (0.7));		//70%
+ 927              	 .loc 3 349 0
+ 928 0188 3B4B     	 ldr r3,.L32+80
+ 929 018a 1B68     	 ldr r3,[r3]
+ 930 018c 1846     	 mov r0,r3
+ 931 018e FFF7FEFF 	 bl __aeabi_i2d
+ 932 0192 0246     	 mov r2,r0
+ 933 0194 0B46     	 mov r3,r1
+ 934 0196 1046     	 mov r0,r2
+ 935 0198 1946     	 mov r1,r3
+ 936 019a 2DA3     	 adr r3,.L32+40
+ 937 019c D3E90023 	 ldrd r2,[r3]
+ 938 01a0 FFF7FEFF 	 bl __aeabi_dmul
+ 939 01a4 0246     	 mov r2,r0
+ 940 01a6 0B46     	 mov r3,r1
+ 941 01a8 1046     	 mov r0,r2
+ 942 01aa 1946     	 mov r1,r3
+ 943 01ac FFF7FEFF 	 bl __aeabi_d2iz
+ 944 01b0 0246     	 mov r2,r0
+ 945 01b2 334B     	 ldr r3,.L32+88
+ 946 01b4 DA61     	 str r2,[r3,#28]
+ 350:../main.c     **** 	stateTimingVariables[8]  = (closedToOpenTime * (0.8));		//80%
+ 947              	 .loc 3 350 0
+ 948 01b6 304B     	 ldr r3,.L32+80
+ 949 01b8 1B68     	 ldr r3,[r3]
+ 950 01ba 1846     	 mov r0,r3
+ 951 01bc FFF7FEFF 	 bl __aeabi_i2d
+ 952 01c0 0246     	 mov r2,r0
+ 953 01c2 0B46     	 mov r3,r1
+ 954 01c4 1046     	 mov r0,r2
+ 955 01c6 1946     	 mov r1,r3
+ 956 01c8 23A3     	 adr r3,.L32+48
+ 957 01ca D3E90023 	 ldrd r2,[r3]
+ 958 01ce FFF7FEFF 	 bl __aeabi_dmul
+ 959 01d2 0246     	 mov r2,r0
+ 960 01d4 0B46     	 mov r3,r1
+ 961 01d6 1046     	 mov r0,r2
+ 962 01d8 1946     	 mov r1,r3
+ 963 01da FFF7FEFF 	 bl __aeabi_d2iz
+ 964 01de 0246     	 mov r2,r0
+ 965 01e0 274B     	 ldr r3,.L32+88
+ 966 01e2 1A62     	 str r2,[r3,#32]
+ 351:../main.c     **** 	stateTimingVariables[9]  = (closedToOpenTime * (0.9));		//90%
+ 967              	 .loc 3 351 0
+ 968 01e4 244B     	 ldr r3,.L32+80
+ 969 01e6 1B68     	 ldr r3,[r3]
+ 970 01e8 1846     	 mov r0,r3
+ 971 01ea FFF7FEFF 	 bl __aeabi_i2d
+ 972 01ee 0246     	 mov r2,r0
+ 973 01f0 0B46     	 mov r3,r1
+ 974 01f2 1046     	 mov r0,r2
+ 975 01f4 1946     	 mov r1,r3
+ 976 01f6 1AA3     	 adr r3,.L32+56
+ 977 01f8 D3E90023 	 ldrd r2,[r3]
+ 978 01fc FFF7FEFF 	 bl __aeabi_dmul
+ 979 0200 0246     	 mov r2,r0
+ 980 0202 0B46     	 mov r3,r1
+ 981 0204 1046     	 mov r0,r2
+ 982 0206 1946     	 mov r1,r3
+ 983 0208 FFF7FEFF 	 bl __aeabi_d2iz
+ 984 020c 0246     	 mov r2,r0
+ 985 020e 1C4B     	 ldr r3,.L32+88
+ 986 0210 5A62     	 str r2,[r3,#36]
+ 352:../main.c     **** 	stateTimingVariables[10] = (closedToOpenTime);		        //100%
+ 987              	 .loc 3 352 0
+ 988 0212 194B     	 ldr r3,.L32+80
+ 989 0214 1B68     	 ldr r3,[r3]
+ 990 0216 1A4A     	 ldr r2,.L32+88
+ 991 0218 9362     	 str r3,[r2,#40]
+ 353:../main.c     **** 	return 1;
+ 992              	 .loc 3 353 0
+ 993 021a 0123     	 movs r3,#1
+ 354:../main.c     **** }
+ 994              	 .loc 3 354 0
+ 995 021c 1846     	 mov r0,r3
+ 996 021e 0837     	 adds r7,r7,#8
+ 997              	.LCFI52:
+ 998              	 .cfi_def_cfa_offset 8
+ 999 0220 BD46     	 mov sp,r7
+ 1000              	.LCFI53:
+ 1001              	 .cfi_def_cfa_register 13
+ 1002              	 
+ 1003 0222 80BD     	 pop {r7,pc}
+ 1004              	.L33:
+ 1005 0224 AFF30080 	 .align 3
+ 1006              	.L32:
+ 1007 0228 9A999999 	 .word -1717986918
+ 1008 022c 9999B93F 	 .word 1069128089
+ 1009 0230 9A999999 	 .word -1717986918
+ 1010 0234 9999C93F 	 .word 1070176665
+ 1011 0238 33333333 	 .word 858993459
+ 1012 023c 3333D33F 	 .word 1070805811
+ 1013 0240 9A999999 	 .word -1717986918
+ 1014 0244 9999D93F 	 .word 1071225241
+ 1015 0248 33333333 	 .word 858993459
+ 1016 024c 3333E33F 	 .word 1071854387
+ 1017 0250 66666666 	 .word 1717986918
+ 1018 0254 6666E63F 	 .word 1072064102
+ 1019 0258 9A999999 	 .word -1717986918
+ 1020 025c 9999E93F 	 .word 1072273817
+ 1021 0260 CDCCCCCC 	 .word -858993459
+ 1022 0264 CCCCEC3F 	 .word 1072483532
+ 1023 0268 00000000 	 .word TIMER_Motor
+ 1024 026c 00000000 	 .word PWM_Motor
+ 1025 0270 00000000 	 .word Motor_Direction
+ 1026 0274 00000000 	 .word time
+ 1027 0278 00000000 	 .word closedToOpenTime
+ 1028 027c 00000000 	 .word WindowState
+ 1029 0280 00000000 	 .word stateTimingVariables
+ 1030 0284 0000E03F 	 .word 1071644672
+ 1031              	 .cfi_endproc
+ 1032              	.LFE309:
+ 1034              	 .section .text.MoveWindow,"ax",%progbits
+ 1035              	 .align 2
+ 1036              	 .global MoveWindow
+ 1037              	 .thumb
+ 1038              	 .thumb_func
+ 1040              	MoveWindow:
+ 1041              	.LFB310:
+ 355:../main.c     **** 
+ 356:../main.c     **** //Function to move window to desired percentage
+ 357:../main.c     **** // NOTE: HIGH = DOWM; LOW = UP !!!
+ 358:../main.c     **** int MoveWindow(int percentage)
+ 359:../main.c     **** {
+ 1042              	 .loc 3 359 0
+ 1043              	 .cfi_startproc
+ 1044              	 
+ 1045              	 
+ 1046 0000 80B5     	 push {r7,lr}
+ 1047              	.LCFI54:
+ 1048              	 .cfi_def_cfa_offset 8
+ 1049              	 .cfi_offset 7,-8
+ 1050              	 .cfi_offset 14,-4
+ 1051 0002 84B0     	 sub sp,sp,#16
+ 1052              	.LCFI55:
+ 1053              	 .cfi_def_cfa_offset 24
+ 1054 0004 00AF     	 add r7,sp,#0
+ 1055              	.LCFI56:
+ 1056              	 .cfi_def_cfa_register 7
+ 1057 0006 7860     	 str r0,[r7,#4]
+ 360:../main.c     **** 	// TODO : Move motor to requested percentage. return 1 for success, 0 for failure
+ 361:../main.c     **** 	/*
+ 362:../main.c     **** 	 -----Methodology-----
+ 363:../main.c     **** 	 - Key into global time array using requested percentage
+ 364:../main.c     **** 	 - Take current state, subtract requested state from it
+ 365:../main.c     **** 	 - use + or - value of the number to know which direction to move, and magnitude for how much time
+ 366:../main.c     **** 	 - drive motor and update timer variable with timer interrupt until motor has been driven appropri
+ 367:../main.c     **** 	 - stop timer and update current state variable
+ 368:../main.c     **** 	 - return with success and smile :)
+ 369:../main.c     **** 	*/
+ 370:../main.c     **** 	int requestedPercentage = percentage;
+ 1058              	 .loc 3 370 0
+ 1059 0008 7B68     	 ldr r3,[r7,#4]
+ 1060 000a FB60     	 str r3,[r7,#12]
+ 371:../main.c     **** 	int timeToMove = (stateTimingVariables[requestedPercentage] - stateTimingVariables[WindowState]);	
+ 1061              	 .loc 3 371 0
+ 1062 000c 284A     	 ldr r2,.L43
+ 1063 000e FB68     	 ldr r3,[r7,#12]
+ 1064 0010 52F82320 	 ldr r2,[r2,r3,lsl#2]
+ 1065 0014 274B     	 ldr r3,.L43+4
+ 1066 0016 1B68     	 ldr r3,[r3]
+ 1067 0018 2549     	 ldr r1,.L43
+ 1068 001a 51F82330 	 ldr r3,[r1,r3,lsl#2]
+ 1069 001e D31A     	 subs r3,r2,r3
+ 1070 0020 BB60     	 str r3,[r7,#8]
+ 372:../main.c     **** 																										// Difference will be time needed to drive motor,
+ 373:../main.c     **** 																										// sign will be direction (+ = up, - = down)
+ 374:../main.c     **** 
+ 375:../main.c     **** 	if (timeToMove > 0)			// Positive, so need to drive up
+ 1071              	 .loc 3 375 0
+ 1072 0022 BB68     	 ldr r3,[r7,#8]
+ 1073 0024 002B     	 cmp r3,#0
+ 1074 0026 18DD     	 ble .L35
+ 376:../main.c     **** 	{
+ 377:../main.c     **** 		TIMER_Start(&TIMER_Motor);
+ 1075              	 .loc 3 377 0
+ 1076 0028 2348     	 ldr r0,.L43+8
+ 1077 002a FFF7FEFF 	 bl TIMER_Start
+ 378:../main.c     **** 		while(time < timeToMove)	//drive motor until time is equal to state
+ 1078              	 .loc 3 378 0
+ 1079 002e 05E0     	 b .L36
+ 1080              	.L37:
+ 379:../main.c     **** 		{
+ 380:../main.c     **** 			PWM_Start(&PWM_Motor);
+ 1081              	 .loc 3 380 0
+ 1082 0030 2248     	 ldr r0,.L43+12
+ 1083 0032 FFF7FEFF 	 bl PWM_Start
+ 381:../main.c     **** 			DIGITAL_IO_SetOutputLow(&Motor_Direction); //Move up
+ 1084              	 .loc 3 381 0
+ 1085 0036 2248     	 ldr r0,.L43+16
+ 1086 0038 FFF7FEFF 	 bl DIGITAL_IO_SetOutputLow
+ 1087              	.L36:
+ 378:../main.c     **** 		while(time < timeToMove)	//drive motor until time is equal to state
+ 1088              	 .loc 3 378 0
+ 1089 003c 214B     	 ldr r3,.L43+20
+ 1090 003e 1A68     	 ldr r2,[r3]
+ 1091 0040 BB68     	 ldr r3,[r7,#8]
+ 1092 0042 9A42     	 cmp r2,r3
+ 1093 0044 F4DB     	 blt .L37
+ 382:../main.c     **** 		}
+ 383:../main.c     **** 		PWM_Stop(&PWM_Motor);
+ 1094              	 .loc 3 383 0
+ 1095 0046 1D48     	 ldr r0,.L43+12
+ 1096 0048 FFF7FEFF 	 bl PWM_Stop
+ 384:../main.c     **** 		time = 0;
+ 1097              	 .loc 3 384 0
+ 1098 004c 1D4B     	 ldr r3,.L43+20
+ 1099 004e 0022     	 movs r2,#0
+ 1100 0050 1A60     	 str r2,[r3]
+ 385:../main.c     **** 		WindowState = requestedPercentage;
+ 1101              	 .loc 3 385 0
+ 1102 0052 184A     	 ldr r2,.L43+4
+ 1103 0054 FB68     	 ldr r3,[r7,#12]
+ 1104 0056 1360     	 str r3,[r2]
+ 1105 0058 25E0     	 b .L38
+ 1106              	.L35:
+ 386:../main.c     **** 	}
+ 387:../main.c     **** 	else if (timeToMove < 0)	// Negative, need to drive down
+ 1107              	 .loc 3 387 0
+ 1108 005a BB68     	 ldr r3,[r7,#8]
+ 1109 005c 002B     	 cmp r3,#0
+ 1110 005e 1DDA     	 bge .L39
+ 1111              	.LBB6:
+ 388:../main.c     **** 	{
+ 389:../main.c     **** 		timeToMove = abs(timeToMove);
+ 1112              	 .loc 3 389 0
+ 1113 0060 BB68     	 ldr r3,[r7,#8]
+ 1114 0062 002B     	 cmp r3,#0
+ 1115 0064 B8BF     	 it lt
+ 1116 0066 5B42     	 rsblt r3,r3,#0
+ 1117 0068 BB60     	 str r3,[r7,#8]
+ 390:../main.c     **** 		TIMER_Start(&TIMER_Motor);
+ 1118              	 .loc 3 390 0
+ 1119 006a 1348     	 ldr r0,.L43+8
+ 1120 006c FFF7FEFF 	 bl TIMER_Start
+ 391:../main.c     **** 		while(time < timeToMove)	//drive motor until top limit switch is reached
+ 1121              	 .loc 3 391 0
+ 1122 0070 05E0     	 b .L40
+ 1123              	.L41:
+ 392:../main.c     **** 		{
+ 393:../main.c     **** 			PWM_Start(&PWM_Motor);
+ 1124              	 .loc 3 393 0
+ 1125 0072 1248     	 ldr r0,.L43+12
+ 1126 0074 FFF7FEFF 	 bl PWM_Start
+ 394:../main.c     **** 			DIGITAL_IO_SetOutputHigh(&Motor_Direction); //Move down
+ 1127              	 .loc 3 394 0
+ 1128 0078 1148     	 ldr r0,.L43+16
+ 1129 007a FFF7FEFF 	 bl DIGITAL_IO_SetOutputHigh
+ 1130              	.L40:
+ 391:../main.c     **** 		while(time < timeToMove)	//drive motor until top limit switch is reached
+ 1131              	 .loc 3 391 0
+ 1132 007e 114B     	 ldr r3,.L43+20
+ 1133 0080 1A68     	 ldr r2,[r3]
+ 1134 0082 BB68     	 ldr r3,[r7,#8]
+ 1135 0084 9A42     	 cmp r2,r3
+ 1136 0086 F4DB     	 blt .L41
+ 395:../main.c     **** 		}
+ 396:../main.c     **** 		PWM_Stop(&PWM_Motor);
+ 1137              	 .loc 3 396 0
+ 1138 0088 0C48     	 ldr r0,.L43+12
+ 1139 008a FFF7FEFF 	 bl PWM_Stop
+ 397:../main.c     **** 		time = 0;
+ 1140              	 .loc 3 397 0
+ 1141 008e 0D4B     	 ldr r3,.L43+20
+ 1142 0090 0022     	 movs r2,#0
+ 1143 0092 1A60     	 str r2,[r3]
+ 398:../main.c     **** 		WindowState = requestedPercentage;
+ 1144              	 .loc 3 398 0
+ 1145 0094 074A     	 ldr r2,.L43+4
+ 1146 0096 FB68     	 ldr r3,[r7,#12]
+ 1147 0098 1360     	 str r3,[r2]
+ 1148              	.LBE6:
+ 1149 009a 04E0     	 b .L38
+ 1150              	.L39:
+ 399:../main.c     **** 	}
+ 400:../main.c     **** 	else if (timeToMove == 0)
+ 1151              	 .loc 3 400 0
+ 1152 009c BB68     	 ldr r3,[r7,#8]
+ 1153 009e 002B     	 cmp r3,#0
+ 1154 00a0 01D0     	 beq .L38
+ 401:../main.c     **** 	{
+ 402:../main.c     **** 		// Requesting same state, so do nothing
+ 403:../main.c     **** 	}
+ 404:../main.c     **** 	else
+ 405:../main.c     **** 	{
+ 406:../main.c     **** 		return 0;
+ 1155              	 .loc 3 406 0
+ 1156 00a2 0023     	 movs r3,#0
+ 1157 00a4 00E0     	 b .L42
+ 1158              	.L38:
+ 407:../main.c     **** 	}
+ 408:../main.c     **** 	return 1;
+ 1159              	 .loc 3 408 0
+ 1160 00a6 0123     	 movs r3,#1
+ 1161              	.L42:
+ 409:../main.c     **** }
+ 1162              	 .loc 3 409 0
+ 1163 00a8 1846     	 mov r0,r3
+ 1164 00aa 1037     	 adds r7,r7,#16
+ 1165              	.LCFI57:
+ 1166              	 .cfi_def_cfa_offset 8
+ 1167 00ac BD46     	 mov sp,r7
+ 1168              	.LCFI58:
+ 1169              	 .cfi_def_cfa_register 13
+ 1170              	 
+ 1171 00ae 80BD     	 pop {r7,pc}
+ 1172              	.L44:
+ 1173              	 .align 2
+ 1174              	.L43:
+ 1175 00b0 00000000 	 .word stateTimingVariables
+ 1176 00b4 00000000 	 .word WindowState
+ 1177 00b8 00000000 	 .word TIMER_Motor
+ 1178 00bc 00000000 	 .word PWM_Motor
+ 1179 00c0 00000000 	 .word Motor_Direction
+ 1180 00c4 00000000 	 .word time
+ 1181              	 .cfi_endproc
+ 1182              	.LFE310:
+ 1184              	 .section .text.CheckTopLimitSwitch,"ax",%progbits
+ 1185              	 .align 2
+ 1186              	 .global CheckTopLimitSwitch
+ 1187              	 .thumb
+ 1188              	 .thumb_func
+ 1190              	CheckTopLimitSwitch:
+ 1191              	.LFB311:
+ 410:../main.c     **** 
+ 411:../main.c     **** int CheckTopLimitSwitch()
+ 412:../main.c     **** {
+ 1192              	 .loc 3 412 0
+ 1193              	 .cfi_startproc
+ 1194              	 
+ 1195              	 
+ 1196 0000 80B5     	 push {r7,lr}
+ 1197              	.LCFI59:
+ 1198              	 .cfi_def_cfa_offset 8
+ 1199              	 .cfi_offset 7,-8
+ 1200              	 .cfi_offset 14,-4
+ 1201 0002 82B0     	 sub sp,sp,#8
+ 1202              	.LCFI60:
+ 1203              	 .cfi_def_cfa_offset 16
+ 1204 0004 00AF     	 add r7,sp,#0
+ 1205              	.LCFI61:
+ 1206              	 .cfi_def_cfa_register 7
+ 413:../main.c     **** 	int TopSwitchState = DIGITAL_IO_GetInput(&LIMIT_SWITCH_TOP);
+ 1207              	 .loc 3 413 0
+ 1208 0006 0A48     	 ldr r0,.L48
+ 1209 0008 FFF7FEFF 	 bl DIGITAL_IO_GetInput
+ 1210 000c 0346     	 mov r3,r0
+ 1211 000e 7B60     	 str r3,[r7,#4]
+ 414:../main.c     **** 	if (TopSwitchState != top_button_state)
+ 1212              	 .loc 3 414 0
+ 1213 0010 7A68     	 ldr r2,[r7,#4]
+ 1214 0012 084B     	 ldr r3,.L48+4
+ 1215 0014 1B68     	 ldr r3,[r3]
+ 1216 0016 9A42     	 cmp r2,r3
+ 1217 0018 04D0     	 beq .L46
+ 415:../main.c     **** 	{
+ 416:../main.c     **** 		DIGITAL_IO_SetOutputHigh(&LED_Indicator);
+ 1218              	 .loc 3 416 0
+ 1219 001a 0748     	 ldr r0,.L48+8
+ 1220 001c FFF7FEFF 	 bl DIGITAL_IO_SetOutputHigh
+ 417:../main.c     **** 		return 0;	//Top switch pressed
+ 1221              	 .loc 3 417 0
+ 1222 0020 0023     	 movs r3,#0
+ 1223 0022 00E0     	 b .L47
+ 1224              	.L46:
+ 418:../main.c     **** 	}
+ 419:../main.c     **** 
+ 420:../main.c     **** 	return 1; 	//Base case that neither is pressed
+ 1225              	 .loc 3 420 0
+ 1226 0024 0123     	 movs r3,#1
+ 1227              	.L47:
+ 421:../main.c     **** 	// TODO : Make this meaningful
+ 422:../main.c     **** }
+ 1228              	 .loc 3 422 0
+ 1229 0026 1846     	 mov r0,r3
+ 1230 0028 0837     	 adds r7,r7,#8
+ 1231              	.LCFI62:
+ 1232              	 .cfi_def_cfa_offset 8
+ 1233 002a BD46     	 mov sp,r7
+ 1234              	.LCFI63:
+ 1235              	 .cfi_def_cfa_register 13
+ 1236              	 
+ 1237 002c 80BD     	 pop {r7,pc}
+ 1238              	.L49:
+ 1239 002e 00BF     	 .align 2
+ 1240              	.L48:
+ 1241 0030 00000000 	 .word LIMIT_SWITCH_TOP
+ 1242 0034 00000000 	 .word top_button_state
+ 1243 0038 00000000 	 .word LED_Indicator
+ 1244              	 .cfi_endproc
+ 1245              	.LFE311:
+ 1247              	 .section .text.CheckBottomLimitSwitch,"ax",%progbits
+ 1248              	 .align 2
+ 1249              	 .global CheckBottomLimitSwitch
+ 1250              	 .thumb
+ 1251              	 .thumb_func
+ 1253              	CheckBottomLimitSwitch:
+ 1254              	.LFB312:
+ 423:../main.c     **** int CheckBottomLimitSwitch()
+ 424:../main.c     **** {
+ 1255              	 .loc 3 424 0
+ 1256              	 .cfi_startproc
+ 1257              	 
+ 1258              	 
+ 1259 0000 80B5     	 push {r7,lr}
+ 1260              	.LCFI64:
+ 1261              	 .cfi_def_cfa_offset 8
+ 1262              	 .cfi_offset 7,-8
+ 1263              	 .cfi_offset 14,-4
+ 1264 0002 82B0     	 sub sp,sp,#8
+ 1265              	.LCFI65:
+ 1266              	 .cfi_def_cfa_offset 16
+ 1267 0004 00AF     	 add r7,sp,#0
+ 1268              	.LCFI66:
+ 1269              	 .cfi_def_cfa_register 7
+ 425:../main.c     **** 	int BottomSwitchState = DIGITAL_IO_GetInput(&LIMIT_SWITCH_BOTTOM);
+ 1270              	 .loc 3 425 0
+ 1271 0006 0A48     	 ldr r0,.L53
+ 1272 0008 FFF7FEFF 	 bl DIGITAL_IO_GetInput
+ 1273 000c 0346     	 mov r3,r0
+ 1274 000e 7B60     	 str r3,[r7,#4]
+ 426:../main.c     **** 	if (BottomSwitchState != bottom_button_state)
+ 1275              	 .loc 3 426 0
+ 1276 0010 7A68     	 ldr r2,[r7,#4]
+ 1277 0012 084B     	 ldr r3,.L53+4
+ 1278 0014 1B68     	 ldr r3,[r3]
+ 1279 0016 9A42     	 cmp r2,r3
+ 1280 0018 04D0     	 beq .L51
+ 427:../main.c     **** 	{
+ 428:../main.c     **** 		DIGITAL_IO_SetOutputLow(&LED_Indicator);
+ 1281              	 .loc 3 428 0
+ 1282 001a 0748     	 ldr r0,.L53+8
+ 1283 001c FFF7FEFF 	 bl DIGITAL_IO_SetOutputLow
+ 429:../main.c     **** 		return 0; 	//Bottom switch pressed
+ 1284              	 .loc 3 429 0
+ 1285 0020 0023     	 movs r3,#0
+ 1286 0022 00E0     	 b .L52
+ 1287              	.L51:
+ 430:../main.c     **** 	}
+ 431:../main.c     **** 
+ 432:../main.c     **** 	return 1; 	//Base case that neither is pressed
+ 1288              	 .loc 3 432 0
+ 1289 0024 0123     	 movs r3,#1
+ 1290              	.L52:
+ 433:../main.c     **** 	// TODO : Make this meaningful
+ 434:../main.c     **** }
+ 1291              	 .loc 3 434 0
+ 1292 0026 1846     	 mov r0,r3
+ 1293 0028 0837     	 adds r7,r7,#8
+ 1294              	.LCFI67:
+ 1295              	 .cfi_def_cfa_offset 8
+ 1296 002a BD46     	 mov sp,r7
+ 1297              	.LCFI68:
+ 1298              	 .cfi_def_cfa_register 13
+ 1299              	 
+ 1300 002c 80BD     	 pop {r7,pc}
+ 1301              	.L54:
+ 1302 002e 00BF     	 .align 2
+ 1303              	.L53:
+ 1304 0030 00000000 	 .word LIMIT_SWITCH_BOTTOM
+ 1305 0034 00000000 	 .word bottom_button_state
+ 1306 0038 00000000 	 .word LED_Indicator
+ 1307              	 .cfi_endproc
+ 1308              	.LFE312:
+ 1310              	 .text
+ 1311              	.Letext0:
+ 1312              	 .file 4 "c:\\users\\frank\\desktop\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 1313              	 .file 5 "c:\\users\\frank\\desktop\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 1314              	 .file 6 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Infineon/XMC4200_series/Include/XMC4200.h"
+ 1315              	 .file 7 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc/xmc4_gpio.h"
+ 1316              	 .file 8 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc/xmc4_scu.h"
+ 1317              	 .file 9 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc/xmc_can.h"
+ 1318              	 .file 10 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/GLOBAL_CAN/global_can.h"
+ 1319              	 .file 11 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/CAN_NODE/can_node.h"
+ 1320              	 .file 12 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc/xmc_ccu4.h"
+ 1321              	 .file 13 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/GLOBAL_CCU4/global_ccu4.h"
+ 1322              	 .file 14 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/PWM/pwm.h"
+ 1323              	 .file 15 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/TIMER/timer.h"
+ 1324              	 .file 16 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Include/cmsis_gcc.h"
+ 1325              	 .file 17 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Include/core_cm4.h"
+ 1326              	 .file 18 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Infineon/XMC4200_series/Include/system_XMC4200.h"
+ 1327              	 .file 19 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO/digital_io_extern.h"
+ 1328              	 .file 20 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/CAN_NODE/can_node_extern.h"
+ 1329              	 .file 21 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/PWM/PWM_Extern.h"
+ 1330              	 .file 22 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/TIMER/timer_extern.h"
+ 1331              	 .file 23 "<built-in>"
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+    {standard input}:20     .text.XMC_GPIO_SetOutputHigh:00000000 $t
+    {standard input}:24     .text.XMC_GPIO_SetOutputHigh:00000000 XMC_GPIO_SetOutputHigh
+    {standard input}:68     .text.XMC_GPIO_SetOutputLow:00000000 $t
+    {standard input}:72     .text.XMC_GPIO_SetOutputLow:00000000 XMC_GPIO_SetOutputLow
+    {standard input}:115    .text.XMC_GPIO_GetInput:00000000 $t
+    {standard input}:119    .text.XMC_GPIO_GetInput:00000000 XMC_GPIO_GetInput
+    {standard input}:163    .text.DIGITAL_IO_SetOutputHigh:00000000 $t
+    {standard input}:167    .text.DIGITAL_IO_SetOutputHigh:00000000 DIGITAL_IO_SetOutputHigh
+    {standard input}:207    .text.DIGITAL_IO_SetOutputLow:00000000 $t
+    {standard input}:211    .text.DIGITAL_IO_SetOutputLow:00000000 DIGITAL_IO_SetOutputLow
+    {standard input}:250    .text.DIGITAL_IO_GetInput:00000000 $t
+    {standard input}:254    .text.DIGITAL_IO_GetInput:00000000 DIGITAL_IO_GetInput
+    {standard input}:299    .data.top_button_state:00000000 top_button_state
+    {standard input}:296    .data.top_button_state:00000000 $d
+    {standard input}:306    .data.bottom_button_state:00000000 bottom_button_state
+    {standard input}:303    .data.bottom_button_state:00000000 $d
+    {standard input}:313    .data.MOTOR_MODULE_ID:00000000 MOTOR_MODULE_ID
+    {standard input}:310    .data.MOTOR_MODULE_ID:00000000 $d
+    {standard input}:320    .bss.isRegistered:00000000 isRegistered
+    {standard input}:317    .bss.isRegistered:00000000 $d
+    {standard input}:327    .bss.closedToOpenTime:00000000 closedToOpenTime
+    {standard input}:324    .bss.closedToOpenTime:00000000 $d
+    {standard input}:334    .bss.time:00000000 time
+    {standard input}:331    .bss.time:00000000 $d
+                            *COM*:00000004 WindowState
+                            *COM*:0000002c stateTimingVariables
+    {standard input}:339    .text.CAN0_1_IRQHandler:00000000 $t
+    {standard input}:344    .text.CAN0_1_IRQHandler:00000000 CAN0_1_IRQHandler
+    {standard input}:1040   .text.MoveWindow:00000000 MoveWindow
+    {standard input}:561    .text.CAN0_1_IRQHandler:00000148 $d
+    {standard input}:572    .text.CCU41_1_IRQHandler:00000000 $t
+    {standard input}:577    .text.CCU41_1_IRQHandler:00000000 CCU41_1_IRQHandler
+    {standard input}:610    .text.CCU41_1_IRQHandler:00000018 $d
+    {standard input}:615    .text.main:00000000 $t
+    {standard input}:620    .text.main:00000000 main
+    {standard input}:723    .text.HomeWindow:00000000 HomeWindow
+    {standard input}:651    .text.RegisterDevice:00000000 $t
+    {standard input}:656    .text.RegisterDevice:00000000 RegisterDevice
+    {standard input}:709    .text.RegisterDevice:00000038 $d
+    {standard input}:718    .text.HomeWindow:00000000 $t
+    {standard input}:1253   .text.CheckBottomLimitSwitch:00000000 CheckBottomLimitSwitch
+    {standard input}:1190   .text.CheckTopLimitSwitch:00000000 CheckTopLimitSwitch
+    {standard input}:1007   .text.HomeWindow:00000228 $d
+    {standard input}:1035   .text.MoveWindow:00000000 $t
+    {standard input}:1175   .text.MoveWindow:000000b0 $d
+    {standard input}:1185   .text.CheckTopLimitSwitch:00000000 $t
+    {standard input}:1241   .text.CheckTopLimitSwitch:00000030 $d
+    {standard input}:1248   .text.CheckBottomLimitSwitch:00000000 $t
+    {standard input}:1304   .text.CheckBottomLimitSwitch:00000030 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+CAN_NODE_GetStatus
+CAN_NODE_MO_GetStatus
+CAN_NODE_MO_Receive
+XMC_CAN_MO_UpdateData
+CAN_NODE_MO_Transmit
+React_Node
+React_Node_LMO_01_Config
+React_Node_LMO_02_Config
+DAVE_Init
+__aeabi_i2d
+__aeabi_dmul
+__aeabi_d2iz
+TIMER_Start
+PWM_Start
+PWM_Stop
+TIMER_Stop
+TIMER_Motor
+PWM_Motor
+Motor_Direction
+LIMIT_SWITCH_TOP
+LED_Indicator
+LIMIT_SWITCH_BOTTOM

@@ -91,6 +91,46 @@ __WEAK DAVE_STATUS_t DAVE_Init(void)
   {
 	 /**  Initialization of INTERRUPT APP instance Receive_CAN_Handler */
 	 init_status = (DAVE_STATUS_t)INTERRUPT_Init(&Receive_CAN_Handler); 
+   } 
+  if (init_status == DAVE_STATUS_SUCCESS)
+  {
+	 /**  Initialization of PWM APP instance PWM_Motor */
+	 init_status = (DAVE_STATUS_t)PWM_Init(&PWM_Motor); 
+   } 
+  if (init_status == DAVE_STATUS_SUCCESS)
+  {
+	 /**  Initialization of DIGITAL_IO APP instance LIMIT_SWITCH_BOTTOM */
+	 init_status = (DAVE_STATUS_t)DIGITAL_IO_Init(&LIMIT_SWITCH_BOTTOM); 
+   } 
+  if (init_status == DAVE_STATUS_SUCCESS)
+  {
+	 /**  Initialization of DIGITAL_IO APP instance LIMIT_SWITCH_TOP */
+	 init_status = (DAVE_STATUS_t)DIGITAL_IO_Init(&LIMIT_SWITCH_TOP); 
+   } 
+  if (init_status == DAVE_STATUS_SUCCESS)
+  {
+	 /**  Initialization of DIGITAL_IO APP instance MOS_DOWN */
+	 init_status = (DAVE_STATUS_t)DIGITAL_IO_Init(&MOS_DOWN); 
+   } 
+  if (init_status == DAVE_STATUS_SUCCESS)
+  {
+	 /**  Initialization of DIGITAL_IO APP instance MOS_UP */
+	 init_status = (DAVE_STATUS_t)DIGITAL_IO_Init(&MOS_UP); 
+   } 
+  if (init_status == DAVE_STATUS_SUCCESS)
+  {
+	 /**  Initialization of DIGITAL_IO APP instance Motor_Direction */
+	 init_status = (DAVE_STATUS_t)DIGITAL_IO_Init(&Motor_Direction); 
+   } 
+  if (init_status == DAVE_STATUS_SUCCESS)
+  {
+	 /**  Initialization of TIMER APP instance TIMER_Motor */
+	 init_status = (DAVE_STATUS_t)TIMER_Init(&TIMER_Motor); 
+   } 
+  if (init_status == DAVE_STATUS_SUCCESS)
+  {
+	 /**  Initialization of INTERRUPT APP instance Timer_Interrupt */
+	 init_status = (DAVE_STATUS_t)INTERRUPT_Init(&Timer_Interrupt); 
    }  
   return init_status;
 } /**  End of function DAVE_Init */
