@@ -76,7 +76,7 @@
  * @brief The topic that the MQTT client both subscribes and publishes to.
  */
 #define commandTOPIC_NAME		 ( ( const uint8_t * ) "windowCommandTopic" )
-#define status_TOPIC			 ( ( const uint8_t * )  "windowStatusTopic" )
+#define status_TOPIC			 ( ( const uint8_t * )  "windowStatusTopic/" )
 int window_state = 0;
 /**
  * @brief Dimension of the character array buffers used to hold data (strings in
@@ -141,8 +141,8 @@ static uint8_t thing_mac_address[ ( wificonfigMAX_BSSID_LEN * 2 ) + 1 ];
 int CheckWifi( void );
 int connect2AWS( void );
 int prvWifiConnect( void );
-void prvSend2AWS(char cDataBuffer, char * message);
-int prvSendCAN( char message );
+void prvSend2AWS(char cDataBuffer, char * message, char* type);
+int prvSendCAN( char * message);
 
 static BaseType_t prvCreateClientAndConnectToBroker( void )
 {
@@ -209,7 +209,7 @@ static BaseType_t prvCreateClientAndConnectToBroker( void )
 
 static void prvNMCmain()
 {
-
+	// msg from AWS
 	char cDataBuffer[ statusMAX_DATA_LENGTH ];
 	size_t xBytesReceived;
 	int reconnectFlag = 1;
@@ -217,13 +217,16 @@ static void prvNMCmain()
 	/* Message sent to AWS */
 	//char message[16];
 
+	//msg send back from Motor Module
 	int CANmsg[ statusMAX_DATA_LENGTH ];
-	int ResponsefromAWS= 0x03;
+
+	int ResponsefromAWS= 0x02;
+	int AddDevice = 0x05;
+	int StatusUpdate = 0x04;
+
 	reconnectFlag = connect2AWS();
 	int waitforResponseFlag = 0;
 
-	/* Queue Setup */
-	//CANmsgQueue_Init();
 
     for( ; ; )
     {
@@ -249,12 +252,16 @@ static void prvNMCmain()
 					configPRINTF( ( "Message from AWS topic '%s': '%s'\r\n\n",
 									commandTOPIC_NAME, cDataBuffer ) );
 
+
 					waitforResponseFlag = 1;
 					configPRINT(("Sending CAN Message \r\n"));
 					if(prvSendCAN(&cDataBuffer) != CAN_NODE_STATUS_SUCCESS)
 					{
 						configPRINTF((" Error: Sending CAN message failed \r\n "));
 					}
+
+					//prvSend2AWS(cDataBuffer,"","ACK from NMC");
+
 				}
 
 				/* ~Message from CAN~ */
@@ -266,14 +273,27 @@ static void prvNMCmain()
 
 
 					/* ~Response to command from AWS~ */
-					if(CANmsg[0]==ResponsefromAWS)
+					if(CANmsg[1]== AWS_ACK)
 					{
 						configPRINTF((" CAN msg: %d",CANmsg));
 						waitforResponseFlag = 0;
-						//prvSend2AWS(cDataBuffer,CANmsg);
+						prvSend2AWS(cDataBuffer,CANmsg[0],"Response");
 					}
 
-					/* ~Local switch Send a Message~ */
+					/* ~Local Button Operated~ */
+					else if(CANmsg[1]== STATUS_UPDATE)
+					{
+						configPRINTF((" Received Status Update\r\n"));
+						prvSend2AWS(cDataBuffer,CANmsg[1],"Status");
+					}
+
+					/* ~Device need to be added to System~ */
+					else if(CANmsg[1]== ADD_DEVICE)
+					{
+						configPRINTF((" Device: %s added to system\r\n",CANmsg[0]));
+						//update local lookupTable
+						prvSend2AWS(cDataBuffer,CANmsg[0],"Add Device");
+					}
 					else
 					{
 						configPRINTF(("Not a response or an error somewhere\r\n"));
@@ -283,7 +303,9 @@ static void prvNMCmain()
 				}
 
     		}//if(reconnectFlag == 0)
-		}//checkWifi
+
+    	}//checkWifi
+
 
     	else
     		{
@@ -536,17 +558,16 @@ void prvSend2AWS(char cDataBuffer, char * CANmsg){
 	MQTTAgentPublishParams_t xPublishParameters;
 	MQTTAgentReturnCode_t xReturned;
 
-	/* Remove compiler warnings about unused parameters. */
-	//( void ) pvParameters;
+	//snprintf(cDataBuffer,sizeof(&cDataBuffer),
+	//							"{"
+	//							"Window:"
+	//							"}");
 
-	snprintf(cDataBuffer,sizeof(&cDataBuffer),
-								"{"
-								"Window: %s"
-								"}",CANmsg);
-
-	xPublishParameters.pucTopic = status_TOPIC;//  "window/status"
-	xPublishParameters.pvData = &cDataBuffer;
+	xPublishParameters.pucTopic = strcat(status_TOPIC,CANmsg[0]);
+	//xPublishParameters.pvData = cDataBuffer;
+	xPublishParameters.pvData = CANmsg;
 	xPublishParameters.usTopicLength = ( uint16_t ) strlen( ( const char * ) status_TOPIC );
+	//xPublishParameters.ulDataLength = ( uint32_t ) strlen( &CANmsg );
 	xPublishParameters.ulDataLength = ( uint32_t ) strlen( &cDataBuffer );
 	xPublishParameters.xQoS = eMQTTQoS1;
 
@@ -555,7 +576,7 @@ void prvSend2AWS(char cDataBuffer, char * CANmsg){
 
 	if( xReturned == eMQTTAgentSuccess )
 		{
-			configPRINTF( ( "Successfully published '%s' to '%s'\r\n", cDataBuffer, status_TOPIC ) );
+		configPRINTF( ( "Successfully published '%s' to '%s'\r\n", CANmsg, status_TOPIC ) );
 		}
 	else
 		{
@@ -574,22 +595,25 @@ int char2Int(char * data){
 
 }
 
-int prvSendCAN(char command)
+int prvSendCAN(char * command)
 {
 	/*
 	 * Message from AWS will need to follow message format
-	 * - change from char --> simple byte
-	 * - or keep it the same format and pass it through
+	 * - change from char --> simple numerical value
 	 */
-	char msg[2];
+	int ID = strtok(command, ":");
+	char * Function = strtok(NULL, ":");
+	char * Parameter = strtok(NULL,":");
+
 	//msg[0] = char2Int(&command);
 	//msg[1] = char2Int(&command);
-	msg[0] = 0x01;
-	msg[1] = 0x03;
+	//msg[0] = 0x01;
+	//msg[1] = 0x03;
+	//msg[0] =
+	//msg[1] = strtok(NULL,"");
 
-
-	CAN_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = msg[0];
-	CAN_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = msg[1];
+	CAN_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = ID;
+	CAN_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = Function;
 
 	uint32_t status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(CAN_Node_LMO_02_Config.mo_ptr);
 	status = CAN_NODE_MO_Transmit(&CAN_Node_LMO_02_Config);
