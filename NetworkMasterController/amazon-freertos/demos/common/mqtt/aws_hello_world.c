@@ -33,6 +33,7 @@
 /* Standard includes. */
 #include "string.h"
 #include "stdio.h"
+#include "ctype.h"
 
 /* FreeRTOS includes. */
 #include "FreeRTOS.h"
@@ -141,7 +142,7 @@ static uint8_t thing_mac_address[ ( wificonfigMAX_BSSID_LEN * 2 ) + 1 ];
 int CheckWifi( void );
 int connect2AWS( void );
 int prvWifiConnect( void );
-void prvSend2AWS(char cDataBuffer, char * message, char* type);
+void prvSend2AWS(char *cDataBuffer, int * CANmsg);
 int prvSendCAN( char * message);
 
 static BaseType_t prvCreateClientAndConnectToBroker( void )
@@ -220,9 +221,9 @@ static void prvNMCmain()
 	//msg send back from Motor Module
 	int CANmsg[ statusMAX_DATA_LENGTH ];
 
-	int ResponsefromAWS= 0x02;
-	int AddDevice = 0x05;
-	int StatusUpdate = 0x04;
+	//int ResponsefromAWS= 0x02;
+	//int AddDevice = 0x05;
+	//int StatusUpdate = 0x04;
 
 	reconnectFlag = connect2AWS();
 	int waitforResponseFlag = 0;
@@ -255,7 +256,7 @@ static void prvNMCmain()
 
 					waitforResponseFlag = 1;
 					configPRINT(("Sending CAN Message \r\n"));
-					if(prvSendCAN(&cDataBuffer) != CAN_NODE_STATUS_SUCCESS)
+					if(prvSendCAN(cDataBuffer) != CAN_NODE_STATUS_SUCCESS)
 					{
 						configPRINTF((" Error: Sending CAN message failed \r\n "));
 					}
@@ -267,6 +268,7 @@ static void prvNMCmain()
 				/* ~Message from CAN~ */
 				else if(uxQueueMessagesWaiting(xCANqueue))
 				{
+				memset( cDataBuffer, 0x00, sizeof( cDataBuffer ) );
 				configPRINTF(("got message from CAN\r\n"));
 				int delayTime = 0x00;
 				xQueueReceive(xCANqueue,&CANmsg,delayTime);
@@ -277,14 +279,14 @@ static void prvNMCmain()
 					{
 						configPRINTF((" CAN msg: %d",CANmsg));
 						waitforResponseFlag = 0;
-						prvSend2AWS(cDataBuffer,CANmsg[0],"Response");
+						prvSend2AWS(cDataBuffer,CANmsg);
 					}
 
 					/* ~Local Button Operated~ */
 					else if(CANmsg[1]== STATUS_UPDATE)
 					{
 						configPRINTF((" Received Status Update\r\n"));
-						prvSend2AWS(cDataBuffer,CANmsg[1],"Status");
+						prvSend2AWS(cDataBuffer,CANmsg);
 					}
 
 					/* ~Device need to be added to System~ */
@@ -292,7 +294,7 @@ static void prvNMCmain()
 					{
 						configPRINTF((" Device: %s added to system\r\n",CANmsg[0]));
 						//update local lookupTable
-						prvSend2AWS(cDataBuffer,CANmsg[0],"Add Device");
+						prvSend2AWS(cDataBuffer,CANmsg);
 					}
 					else
 					{
@@ -305,7 +307,6 @@ static void prvNMCmain()
     		}//if(reconnectFlag == 0)
 
     	}//checkWifi
-
 
     	else
     		{
@@ -521,7 +522,7 @@ int connect2AWS()
 }
 /*-----------------------------------------------------------*/
 
-int prvDirectConnection()
+void prvDirectConnection()
 {
 //	uint8_t ucTempIp[4] = { 0 };
 //	WIFI_GetIP(ucTempIp);
@@ -546,22 +547,21 @@ int prvDirectConnection()
 }
 /*-----------------------------------------------------------*/
 
-void prvSend2AWS(char cDataBuffer, char * CANmsg){
+void prvSend2AWS(char * cDataBuffer, int * CANmsg){
 
 	MQTTAgentPublishParams_t xPublishParameters;
 	MQTTAgentReturnCode_t xReturned;
 
-	//snprintf(cDataBuffer,sizeof(&cDataBuffer),
-	//							"{"
-	//							"Window:"
-	//							"}");
+	snprintf(cDataBuffer,statusMAX_DATA_LENGTH,
+			    "{\"ID\":\"%d\","
+				"\"Status\":\"%d\""
+				"}",CANmsg[0],CANmsg[2]);
 
 	xPublishParameters.pucTopic = strcat(status_TOPIC,CANmsg[0]);
-	//xPublishParameters.pvData = cDataBuffer;
-	xPublishParameters.pvData = CANmsg;
+	xPublishParameters.pvData = cDataBuffer;
 	xPublishParameters.usTopicLength = ( uint16_t ) strlen( ( const char * ) status_TOPIC );
 	//xPublishParameters.ulDataLength = ( uint32_t ) strlen( &CANmsg );
-	xPublishParameters.ulDataLength = ( uint32_t ) strlen( &cDataBuffer );
+	xPublishParameters.ulDataLength = ( uint32_t ) strlen( cDataBuffer );
 	xPublishParameters.xQoS = eMQTTQoS1;
 
 	/* Publish the message. */
@@ -578,35 +578,25 @@ void prvSend2AWS(char cDataBuffer, char * CANmsg){
 }
 
 
-int char2Int(char * data){
-	//TODO figure out if this is where we split up the function and parameter of the message
-
-	/* change string to int */
-		//char* ptr;
-		//int msg;
-		//msg = strtol(data,&ptr,10);
-
+int char2Int(char * data)
+{
+    unsigned hashval;
+    for (hashval = 0; *data != '\0'; data++)
+      hashval = tolower(*data) + 31 * hashval;
+    return hashval;
 }
 
 int prvSendCAN(char * command)
 {
-	/*
-	 * Message from AWS will need to follow message format
-	 * - change from char --> simple numerical value
-	 */
-	int ID = strtok(command, ":");
-	char * Function = strtok(NULL, ":");
-	char * Parameter = strtok(NULL,":");
+	//Need to figure out where number is converted to string
+	int ID = char2Int( strtok( command, ":" ) );
+	int Function = char2Int( strtok( NULL,":") );
+	int Parameter = char2Int( strtok( NULL,":") );
 
-	//msg[0] = char2Int(&command);
-	//msg[1] = char2Int(&command);
-	//msg[0] = 0x01;
-	//msg[1] = 0x03;
-	//msg[0] =
-	//msg[1] = strtok(NULL,"");
 
 	CAN_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = ID;
 	CAN_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = Function;
+	CAN_Node_LMO_02_Config.mo_ptr->can_data_byte[2] = Parameter;
 
 	uint32_t status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(CAN_Node_LMO_02_Config.mo_ptr);
 	status = CAN_NODE_MO_Transmit(&CAN_Node_LMO_02_Config);

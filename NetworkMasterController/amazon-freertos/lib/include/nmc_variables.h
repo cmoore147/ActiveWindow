@@ -16,6 +16,7 @@ int WINDOW_STATUS;
 
 QueueHandle_t xCANqueue;
 
+//Receiving messages
 typedef enum CAN_MESSAGE_TYPE
 {
   STATUS_UPDATE = 0x04,
