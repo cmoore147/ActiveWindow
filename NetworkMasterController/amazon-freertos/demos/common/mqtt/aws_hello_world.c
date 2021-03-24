@@ -215,19 +215,11 @@ static void prvNMCmain()
 	size_t xBytesReceived;
 	int reconnectFlag = 1;
 
-	/* Message sent to AWS */
-	//char message[16];
-
 	//msg send back from Motor Module
 	int CANmsg[ statusMAX_DATA_LENGTH ];
 
-	//int ResponsefromAWS= 0x02;
-	//int AddDevice = 0x05;
-	//int StatusUpdate = 0x04;
-
 	reconnectFlag = connect2AWS();
 	int waitforResponseFlag = 0;
-
 
     for( ; ; )
     {
@@ -261,7 +253,7 @@ static void prvNMCmain()
 						configPRINTF((" Error: Sending CAN message failed \r\n "));
 					}
 
-					//prvSend2AWS(cDataBuffer,"","ACK from NMC");
+					tempSender("ACK from NMC");
 
 				}
 
@@ -546,6 +538,31 @@ void prvDirectConnection()
 //	}
 }
 /*-----------------------------------------------------------*/
+
+void tempSender(char * msg)
+{
+		MQTTAgentPublishParams_t xPublishParameters;
+		MQTTAgentReturnCode_t xReturned;
+
+		xPublishParameters.pucTopic = status_TOPIC;
+		xPublishParameters.pvData = msg;
+		xPublishParameters.usTopicLength = ( uint16_t ) strlen( ( const char * ) status_TOPIC );
+		//xPublishParameters.ulDataLength = ( uint32_t ) strlen( &CANmsg );
+		xPublishParameters.ulDataLength = ( uint32_t ) strlen( msg );
+		xPublishParameters.xQoS = eMQTTQoS1;
+
+		/* Publish the message. */
+		xReturned = MQTT_AGENT_Publish( xMQTTHandle, &( xPublishParameters ), democonfigMQTT_TIMEOUT );
+
+		if( xReturned == eMQTTAgentSuccess )
+			{
+			configPRINTF( ( "Successfully published '%s' to '%s'\r\n", msg , status_TOPIC ) );
+			}
+		else
+			{
+				configPRINTF( ( "ERROR:  Failed to publish '%s' to '%s'\r\n", msg , status_TOPIC) );
+			}
+	}
 
 void prvSend2AWS(char * cDataBuffer, int * CANmsg){
 
