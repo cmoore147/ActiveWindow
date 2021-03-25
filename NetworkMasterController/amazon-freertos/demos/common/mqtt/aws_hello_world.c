@@ -34,6 +34,7 @@
 #include "string.h"
 #include "stdio.h"
 #include "ctype.h"
+#include "stdlib.h"
 
 /* FreeRTOS includes. */
 #include "FreeRTOS.h"
@@ -77,7 +78,7 @@
  * @brief The topic that the MQTT client both subscribes and publishes to.
  */
 #define commandTOPIC_NAME		 ( ( const uint8_t * ) "windowCommandTopic" )
-#define status_TOPIC			 ( ( const uint8_t * )  "windowStatusTopic/" )
+#define status_TOPIC			 ( ( const uint8_t * )  "windowStatusTopic" )
 int window_state = 0;
 /**
  * @brief Dimension of the character array buffers used to hold data (strings in
@@ -269,7 +270,7 @@ static void prvNMCmain()
 					/* ~Response to command from AWS~ */
 					if(CANmsg[1]== AWS_ACK)
 					{
-						configPRINTF((" CAN msg: %d",CANmsg));
+						configPRINTF((" CAN msg: %d, %d, %d \r\n",CANmsg[0],CANmsg[1],CANmsg[2]));
 						waitforResponseFlag = 0;
 						prvSend2AWS(cDataBuffer,CANmsg);
 					}
@@ -278,6 +279,7 @@ static void prvNMCmain()
 					else if(CANmsg[1]== STATUS_UPDATE)
 					{
 						configPRINTF((" Received Status Update\r\n"));
+						waitforResponseFlag = 0;
 						prvSend2AWS(cDataBuffer,CANmsg);
 					}
 
@@ -286,6 +288,7 @@ static void prvNMCmain()
 					{
 						configPRINTF((" Device: %s added to system\r\n",CANmsg[0]));
 						//update local lookupTable
+						waitforResponseFlag = 0;
 						prvSend2AWS(cDataBuffer,CANmsg);
 					}
 					else
@@ -507,6 +510,7 @@ int connect2AWS()
 		if( xReturned == pdPASS )
 			{
 			configPRINTF(("prvStatus Successfully Subscribed to topic\n"));
+			tempSender("NMC Connected to AWS");
 			return 0;//reconnectFlag
 			}
 		}
@@ -574,7 +578,10 @@ void prvSend2AWS(char * cDataBuffer, int * CANmsg){
 				"\"Status\":\"%d\""
 				"}",CANmsg[0],CANmsg[2]);
 
-	xPublishParameters.pucTopic = strcat(status_TOPIC,CANmsg[0]);
+	char * temp =strcat(status_TOPIC,"/");
+	//temp=strcat(status_TOPIC,CANmsg[0]);
+	xPublishParameters.pucTopic = status_TOPIC;
+	//xPublishParameters.pucTopic = temp;
 	xPublishParameters.pvData = cDataBuffer;
 	xPublishParameters.usTopicLength = ( uint16_t ) strlen( ( const char * ) status_TOPIC );
 	//xPublishParameters.ulDataLength = ( uint32_t ) strlen( &CANmsg );
@@ -597,9 +604,14 @@ void prvSend2AWS(char * cDataBuffer, int * CANmsg){
 
 int char2Int(char * data)
 {
-    unsigned hashval;
-    for (hashval = 0; *data != '\0'; data++)
-      hashval = tolower(*data) + 31 * hashval;
+	//664
+	//752
+	//percent
+    int hashval;
+    //configPRINTF(("%s/n",data));
+    for (hashval = 0; *data != '\0'; data++){
+      hashval = tolower(*data) + 1 * hashval;
+    }
     return hashval;
 }
 
@@ -608,12 +620,13 @@ int prvSendCAN(char * command)
 	//Need to figure out where number is converted to string
 	int ID = char2Int( strtok( command, ":" ) );
 	int Function = char2Int( strtok( NULL,":") );
-	int Parameter = char2Int( strtok( NULL,":") );
+	int Parameter = atoi(strtok( NULL,":"));
 
+	configPRINTF(("%d, %d, %d \r\n",ID,Function,Parameter));
 
-	CAN_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = ID;
-	CAN_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = Function;
-	CAN_Node_LMO_02_Config.mo_ptr->can_data_byte[2] = Parameter;
+	CAN_Node_LMO_02_Config.mo_ptr->can_data_word[0] = ID;
+	CAN_Node_LMO_02_Config.mo_ptr->can_data_word[1] = Function;
+	CAN_Node_LMO_02_Config.mo_ptr->can_data_word[2] = Parameter;
 
 	uint32_t status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(CAN_Node_LMO_02_Config.mo_ptr);
 	status = CAN_NODE_MO_Transmit(&CAN_Node_LMO_02_Config);

@@ -130,8 +130,9 @@ void CAN_Node_Handler( void ) {
 		/* Read the received Message object and stores in Request_Node_LMO_02_Config*/
 		CAN_NODE_MO_Receive(&CAN_Node_LMO_01_Config);
 
-		int msg[2] = {CAN_Node_LMO_01_Config.mo_ptr->can_data_byte[0],
-				CAN_Node_LMO_01_Config.mo_ptr->can_data_byte[1]};
+		int msg[3] = {CAN_Node_LMO_01_Config.mo_ptr->can_data_word[0],
+				CAN_Node_LMO_01_Config.mo_ptr->can_data_word[1],
+				CAN_Node_LMO_01_Config.mo_ptr->can_data_word[2]};
 
 		xQueueSendFromISR(xCANqueue,&msg, &xHigherPriorityTaskWoken );
 
