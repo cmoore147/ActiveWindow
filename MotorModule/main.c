@@ -206,7 +206,7 @@ int closedToOpenTime = 0;	//Initially 0, will be set by homing routine
 int time = 0;
 
 //State Variables
-int WindowState;			//Current state of window (0 = closed, 11 = fully open), TODO : Set in homing routine
+int WindowState;			//Current state of window (0 = closed, 10 = fully open)
 int stateTimingVariables[11];	//Contains variables for time to take to move to certain location
 
 // Function Prototypes
@@ -216,6 +216,7 @@ int HomeWindow();
 int MoveWindow(int percentage);
 int CheckTopLimitSwitch();
 int CheckBottomLimitSwitch();
+void ManualOverrideSwitches();
 
 void React_Node_Handler() {
 	/* Check for Node error */
@@ -237,19 +238,19 @@ void React_Node_Handler() {
 				int requestedPercentage = React_Node_LMO_01_Config.mo_ptr->can_data_byte[2];	//grab 2nd byte
 				requestedPercentage = (requestedPercentage / 10);
 				int windowMovementStatus = MoveWindow(requestedPercentage);
-				if(windowMovementStatus == 0)
+				if(windowMovementStatus == 0)		//Failed Command, either something weird happened or MOS is doing its thing
 				{
 					React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = MOTOR_MODULE_ID;
-					React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x02;	//Successful Command
-					React_Node_LMO_02_Config.mo_ptr->can_data_byte[3] = 1;	//
+					React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x02;
+					React_Node_LMO_02_Config.mo_ptr->can_data_byte[3] = 1;	//Failed Command
 					status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
 					status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
 				}
-				else if(windowMovementStatus == 1)
+				else if(windowMovementStatus == 1)	//Successful Command :)
 				{
 					React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = MOTOR_MODULE_ID;
-					React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x02;	//Successful Command
-					React_Node_LMO_02_Config.mo_ptr->can_data_byte[3] = 0;	//
+					React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x02;
+					React_Node_LMO_02_Config.mo_ptr->can_data_byte[3] = 0;	//Successful Command
 					status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
 					status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
 				}
@@ -283,18 +284,18 @@ int main(void)
   DAVE_Init();		/* Initialization of DAVE APPs  */
 
   // Startup functions
-  //RegisterDevice();
-  HomeWindow();	// TODO : Uncomment when done
+  RegisterDevice();
+  HomeWindow();
 
   // Function to initialize debug printing
   // initialise_monitor_handles();
 
-  MoveWindow(5);	// 50%
-  MoveWindow(0);	//0%
+//  MoveWindow(5);	// 50%
+//  MoveWindow(0);	//0%
 
   while(1U)
   {
-
+	  ManualOverrideSwitches();
   }
   return 0;
 }
@@ -314,12 +315,10 @@ void RegisterDevice()
 //Homes the motor to acquire constants needed for operation. Also for tuning
 int HomeWindow()
 {
-	// TODO : Home window to find constants needed for proper window operation
 	int BottomLimitSwitchState = CheckBottomLimitSwitch();
 
 	if (BottomLimitSwitchState == 1)		// TODO : Change to 0 bc 0 means button pressed
 	{
-		// TODO : verify that starting PWM before direction is ok
 		TIMER_Start(&TIMER_Motor);
 		while(CheckTopLimitSwitch() == 1)	//drive motor until top limit switch is reached
 		{
@@ -357,7 +356,6 @@ int HomeWindow()
 // NOTE: HIGH = DOWM; LOW = UP !!!
 int MoveWindow(int percentage)
 {
-	// TODO : Move motor to requested percentage. return 1 for success, 0 for failure
 	/*
 	 -----Methodology-----
 	 - Key into global time array using requested percentage
@@ -367,20 +365,33 @@ int MoveWindow(int percentage)
 	 - stop timer and update current state variable
 	 - return with success and smile :)
 	*/
+
+	int MOS_UP_State = DIGITAL_IO_GetInput(&MOS_UP);
+	int MOS_DOWN_State = DIGITAL_IO_GetInput(&MOS_DOWN);
+	if ((MOS_UP_State == 0) || (MOS_DOWN_State == 0))
+	{
+		return 0;	//Manual Override switch already being serviced
+	}
+
 	int requestedPercentage = percentage;
+	if ((requestedPercentage < 0) || (requestedPercentage > 10))
+	{
+		return 0;
+	}
+
 	int timeToMove = (stateTimingVariables[requestedPercentage] - stateTimingVariables[WindowState]);		// Subtract current state (time) to requested state.
 																										// Difference will be time needed to drive motor,
 																										// sign will be direction (+ = up, - = down)
-
 	if (timeToMove > 0)			// Positive, so need to drive up
 	{
 		TIMER_Start(&TIMER_Motor);
-		while(time < timeToMove)	//drive motor until time is equal to state
+		while((time < timeToMove) && (CheckTopLimitSwitch() == 1))	//drive motor until time is equal to state
 		{
 			PWM_Start(&PWM_Motor);
 			DIGITAL_IO_SetOutputLow(&Motor_Direction); //Move up
 		}
 		PWM_Stop(&PWM_Motor);
+		TIMER_Stop(&TIMER_Motor);
 		time = 0;
 		WindowState = requestedPercentage;
 	}
@@ -388,12 +399,13 @@ int MoveWindow(int percentage)
 	{
 		timeToMove = abs(timeToMove);
 		TIMER_Start(&TIMER_Motor);
-		while(time < timeToMove)	//drive motor until time is equal to state
+		while((time < timeToMove) && (CheckBottomLimitSwitch() == 1))	//drive motor until time is equal to state
 		{
 			PWM_Start(&PWM_Motor);
 			DIGITAL_IO_SetOutputHigh(&Motor_Direction); //Move down
 		}
 		PWM_Stop(&PWM_Motor);
+		TIMER_Stop(&TIMER_Motor);
 		time = 0;
 		WindowState = requestedPercentage;
 	}
@@ -418,7 +430,6 @@ int CheckTopLimitSwitch()
 	}
 
 	return 1; 	//Base case that neither is pressed
-	// TODO : Make this meaningful
 }
 int CheckBottomLimitSwitch()
 {
@@ -430,12 +441,63 @@ int CheckBottomLimitSwitch()
 	}
 
 	return 1; 	//Base case that neither is pressed
-	// TODO : Make this meaningful
 }
 
 void ManualOverrideSwitches()
 {
-
+	int MOS_UP_State = DIGITAL_IO_GetInput(&MOS_UP);
+	int MOS_DOWN_State = DIGITAL_IO_GetInput(&MOS_DOWN);
+	int nextState;
+	uint32_t status;
+	if (MOS_UP_State == 0)			// Up button is pressed, upward movement requested
+	{
+		while ((MOS_UP_State == 0) && (WindowState != 10))
+		{
+			nextState = (stateTimingVariables[WindowState + 1] - stateTimingVariables[WindowState]);	//calculate next state up
+			TIMER_Start(&TIMER_Motor);
+			while ((time < timeToMove) && (CheckTopLimitSwitch() == 1))		//drive motor up to next state, then check again if button is pressed
+			{
+				PWM_Start(&PWM_Motor);
+				DIGITAL_IO_SetOutputLow(&Motor_Direction); //Move up
+			}
+			PWM_Stop(&PWM_Motor);
+			TIMER_Stop(&TIMER_Motor);
+			WindowState = WindowState + 1;
+			time = 0;
+			MOS_UP_State = DIGITAL_IO_GetInput(&MOS_UP);
+		}
+		int WindowStatePercentage = (WindowState * 10);
+		React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = MOTOR_MODULE_ID;
+		React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x04;	//Status update
+		React_Node_LMO_02_Config.mo_ptr->can_data_byte[2] = WindowStatePercentage;
+		status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
+		status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
+	}
+	else if (MOS_DOWN_State == 0) 	// Down button pressed, downward movement requested
+	{
+		while ((MOS_DOWN_State == 0) && (WindowState != 0))
+		{
+			nextState = (stateTimingVariables[WindowState - 1] - stateTimingVariables[WindowState]);
+			nextState = abs(nextState);
+			TIMER_Start(&TIMER_Motor);
+			while ((time < timeToMove) && (CheckBottomLimitSwitch() == 1))
+			{
+				PWM_Start(&PWM_Motor);
+				DIGITAL_IO_SetOutputHigh(&Motor_Direction); //Move Down
+			}
+			PWM_Stop(&PWM_Motor);
+			TIMER_Stop(&TIMER_Motor);
+			WindowState = WindowState - 1;
+			time = 0;
+			MOS_DOWN_State = DIGITAL_IO_GetInput(&MOS_DOWN);
+		}
+		int WindowStatePercentage = (WindowState * 10);
+		React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = MOTOR_MODULE_ID;
+		React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x04;	//Status update
+		React_Node_LMO_02_Config.mo_ptr->can_data_byte[2] = WindowStatePercentage;
+		status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
+		status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
+	}
 }
 
 //*****************************************************************//

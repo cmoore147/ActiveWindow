@@ -1290,7 +1290,7 @@
  206:../main.c     **** int time = 0;
  207:../main.c     **** 
  208:../main.c     **** //State Variables
- 209:../main.c     **** int WindowState;			//Current state of window (0 = closed, 11 = fully open), TODO : Set in homing ro
+ 209:../main.c     **** int WindowState;			//Current state of window (0 = closed, 10 = fully open)
  210:../main.c     **** int stateTimingVariables[11];	//Contains variables for time to take to move to certain location
  211:../main.c     **** 
  212:../main.c     **** // Function Prototypes
@@ -1300,9 +1300,10 @@
  216:../main.c     **** int MoveWindow(int percentage);
  217:../main.c     **** int CheckTopLimitSwitch();
  218:../main.c     **** int CheckBottomLimitSwitch();
- 219:../main.c     **** 
- 220:../main.c     **** void React_Node_Handler() {
- 347              	 .loc 3 220 0
+ 219:../main.c     **** void ManualOverrideSwitches();
+ 220:../main.c     **** 
+ 221:../main.c     **** void React_Node_Handler() {
+ 347              	 .loc 3 221 0
  348              	 .cfi_startproc
  349              	 
  350              	 
@@ -1317,19 +1318,19 @@
  359 0004 00AF     	 add r7,sp,#0
  360              	.LCFI35:
  361              	 .cfi_def_cfa_register 7
- 221:../main.c     **** 	/* Check for Node error */
- 222:../main.c     **** 	uint32_t status;
- 223:../main.c     **** 	if(CAN_NODE_GetStatus(&React_Node) & XMC_CAN_NODE_STATUS_LAST_ERROR_CODE)
- 362              	 .loc 3 223 0
+ 222:../main.c     **** 	/* Check for Node error */
+ 223:../main.c     **** 	uint32_t status;
+ 224:../main.c     **** 	if(CAN_NODE_GetStatus(&React_Node) & XMC_CAN_NODE_STATUS_LAST_ERROR_CODE)
+ 362              	 .loc 3 224 0
  363 0006 5048     	 ldr r0,.L15
  364 0008 FFF7FEFF 	 bl CAN_NODE_GetStatus
  365 000c 0346     	 mov r3,r0
  366 000e 03F00703 	 and r3,r3,#7
  367 0012 002B     	 cmp r3,#0
  368 0014 40F09580 	 bne .L9
- 224:../main.c     **** 	{}
- 225:../main.c     **** 	else if(CAN_NODE_MO_GetStatus(&React_Node_LMO_01_Config) & XMC_CAN_MO_STATUS_RX_PENDING)
- 369              	 .loc 3 225 0
+ 225:../main.c     **** 	{}
+ 226:../main.c     **** 	else if(CAN_NODE_MO_GetStatus(&React_Node_LMO_01_Config) & XMC_CAN_MO_STATUS_RX_PENDING)
+ 369              	 .loc 3 226 0
  370 0018 4C48     	 ldr r0,.L15+4
  371 001a FFF7FEFF 	 bl CAN_NODE_MO_GetStatus
  372 001e 0346     	 mov r3,r0
@@ -1337,50 +1338,50 @@
  374 0024 002B     	 cmp r3,#0
  375 0026 00F08C80 	 beq .L9
  376              	.LBB2:
- 226:../main.c     **** 	{
- 227:../main.c     **** 		/* Read the received Message object and stores in Request_Node_LMO_02_Config*/
- 228:../main.c     **** 		CAN_NODE_MO_Receive(&React_Node_LMO_01_Config);
- 377              	 .loc 3 228 0
+ 227:../main.c     **** 	{
+ 228:../main.c     **** 		/* Read the received Message object and stores in Request_Node_LMO_02_Config*/
+ 229:../main.c     **** 		CAN_NODE_MO_Receive(&React_Node_LMO_01_Config);
+ 377              	 .loc 3 229 0
  378 002a 4848     	 ldr r0,.L15+4
  379 002c FFF7FEFF 	 bl CAN_NODE_MO_Receive
- 229:../main.c     **** 		int requestedID = React_Node_LMO_01_Config.mo_ptr->can_data_byte[0];	//grab 0th byte
- 380              	 .loc 3 229 0
+ 230:../main.c     **** 		int requestedID = React_Node_LMO_01_Config.mo_ptr->can_data_byte[0];	//grab 0th byte
+ 380              	 .loc 3 230 0
  381 0030 464B     	 ldr r3,.L15+4
  382 0032 1B68     	 ldr r3,[r3]
  383 0034 1B7C     	 ldrb r3,[r3,#16]
  384 0036 7B61     	 str r3,[r7,#20]
- 230:../main.c     **** 
- 231:../main.c     **** 		if(requestedID == MOTOR_MODULE_ID)		//Check if ID requested is equal to this motor module
- 385              	 .loc 3 231 0
+ 231:../main.c     **** 
+ 232:../main.c     **** 		if(requestedID == MOTOR_MODULE_ID)		//Check if ID requested is equal to this motor module
+ 385              	 .loc 3 232 0
  386 0038 454B     	 ldr r3,.L15+8
  387 003a 1B68     	 ldr r3,[r3]
  388 003c 7A69     	 ldr r2,[r7,#20]
  389 003e 9A42     	 cmp r2,r3
  390 0040 7FD1     	 bne .L9
  391              	.LBB3:
- 232:../main.c     **** 		{
- 233:../main.c     **** 			int requestedCommand = React_Node_LMO_01_Config.mo_ptr->can_data_byte[1];	//grab 1st byte
- 392              	 .loc 3 233 0
+ 233:../main.c     **** 		{
+ 234:../main.c     **** 			int requestedCommand = React_Node_LMO_01_Config.mo_ptr->can_data_byte[1];	//grab 1st byte
+ 392              	 .loc 3 234 0
  393 0042 424B     	 ldr r3,.L15+4
  394 0044 1B68     	 ldr r3,[r3]
  395 0046 5B7C     	 ldrb r3,[r3,#17]
  396 0048 3B61     	 str r3,[r7,#16]
- 234:../main.c     **** 
- 235:../main.c     **** 			if(requestedCommand == 0x01)		//operate window
- 397              	 .loc 3 235 0
+ 235:../main.c     **** 
+ 236:../main.c     **** 			if(requestedCommand == 0x01)		//operate window
+ 397              	 .loc 3 236 0
  398 004a 3B69     	 ldr r3,[r7,#16]
  399 004c 012B     	 cmp r3,#1
  400 004e 4CD1     	 bne .L11
  401              	.LBB4:
- 236:../main.c     **** 			{
- 237:../main.c     **** 				int requestedPercentage = React_Node_LMO_01_Config.mo_ptr->can_data_byte[2];	//grab 2nd byte
- 402              	 .loc 3 237 0
+ 237:../main.c     **** 			{
+ 238:../main.c     **** 				int requestedPercentage = React_Node_LMO_01_Config.mo_ptr->can_data_byte[2];	//grab 2nd byte
+ 402              	 .loc 3 238 0
  403 0050 3E4B     	 ldr r3,.L15+4
  404 0052 1B68     	 ldr r3,[r3]
  405 0054 9B7C     	 ldrb r3,[r3,#18]
  406 0056 FB60     	 str r3,[r7,#12]
- 238:../main.c     **** 				requestedPercentage = (requestedPercentage / 10);
- 407              	 .loc 3 238 0
+ 239:../main.c     **** 				requestedPercentage = (requestedPercentage / 10);
+ 407              	 .loc 3 239 0
  408 0058 FB68     	 ldr r3,[r7,#12]
  409 005a 3E4A     	 ldr r2,.L15+12
  410 005c 82FB0312 	 smull r1,r2,r2,r3
@@ -1388,90 +1389,90 @@
  412 0062 DB17     	 asrs r3,r3,#31
  413 0064 D31A     	 subs r3,r2,r3
  414 0066 FB60     	 str r3,[r7,#12]
- 239:../main.c     **** 				int windowMovementStatus = MoveWindow(requestedPercentage);
- 415              	 .loc 3 239 0
+ 240:../main.c     **** 				int windowMovementStatus = MoveWindow(requestedPercentage);
+ 415              	 .loc 3 240 0
  416 0068 F868     	 ldr r0,[r7,#12]
  417 006a FFF7FEFF 	 bl MoveWindow
  418 006e B860     	 str r0,[r7,#8]
- 240:../main.c     **** 				if(windowMovementStatus == 0)
- 419              	 .loc 3 240 0
+ 241:../main.c     **** 				if(windowMovementStatus == 0)		//Failed Command, either something weird happened or MOS is doin
+ 419              	 .loc 3 241 0
  420 0070 BB68     	 ldr r3,[r7,#8]
  421 0072 002B     	 cmp r3,#0
  422 0074 1AD1     	 bne .L12
- 241:../main.c     **** 				{
- 242:../main.c     **** 					React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = MOTOR_MODULE_ID;
- 423              	 .loc 3 242 0
+ 242:../main.c     **** 				{
+ 243:../main.c     **** 					React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = MOTOR_MODULE_ID;
+ 423              	 .loc 3 243 0
  424 0076 384B     	 ldr r3,.L15+16
  425 0078 1B68     	 ldr r3,[r3]
  426 007a 354A     	 ldr r2,.L15+8
  427 007c 1268     	 ldr r2,[r2]
  428 007e D2B2     	 uxtb r2,r2
  429 0080 1A74     	 strb r2,[r3,#16]
- 243:../main.c     **** 					React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x02;	//Successful Command
- 430              	 .loc 3 243 0
+ 244:../main.c     **** 					React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x02;
+ 430              	 .loc 3 244 0
  431 0082 354B     	 ldr r3,.L15+16
  432 0084 1B68     	 ldr r3,[r3]
  433 0086 0222     	 movs r2,#2
  434 0088 5A74     	 strb r2,[r3,#17]
- 244:../main.c     **** 					React_Node_LMO_02_Config.mo_ptr->can_data_byte[3] = 1;	//
- 435              	 .loc 3 244 0
+ 245:../main.c     **** 					React_Node_LMO_02_Config.mo_ptr->can_data_byte[3] = 1;	//Failed Command
+ 435              	 .loc 3 245 0
  436 008a 334B     	 ldr r3,.L15+16
  437 008c 1B68     	 ldr r3,[r3]
  438 008e 0122     	 movs r2,#1
  439 0090 DA74     	 strb r2,[r3,#19]
- 245:../main.c     **** 					status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
- 440              	 .loc 3 245 0
+ 246:../main.c     **** 					status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
+ 440              	 .loc 3 246 0
  441 0092 314B     	 ldr r3,.L15+16
  442 0094 1B68     	 ldr r3,[r3]
  443 0096 1846     	 mov r0,r3
  444 0098 FFF7FEFF 	 bl XMC_CAN_MO_UpdateData
  445 009c 0346     	 mov r3,r0
  446 009e 7B60     	 str r3,[r7,#4]
- 246:../main.c     **** 					status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
- 447              	 .loc 3 246 0
+ 247:../main.c     **** 					status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
+ 447              	 .loc 3 247 0
  448 00a0 2D48     	 ldr r0,.L15+16
  449 00a2 FFF7FEFF 	 bl CAN_NODE_MO_Transmit
  450 00a6 0346     	 mov r3,r0
  451 00a8 7B60     	 str r3,[r7,#4]
  452 00aa 1DE0     	 b .L13
  453              	.L12:
- 247:../main.c     **** 				}
- 248:../main.c     **** 				else if(windowMovementStatus == 1)
- 454              	 .loc 3 248 0
+ 248:../main.c     **** 				}
+ 249:../main.c     **** 				else if(windowMovementStatus == 1)	//Successful Command :)
+ 454              	 .loc 3 249 0
  455 00ac BB68     	 ldr r3,[r7,#8]
  456 00ae 012B     	 cmp r3,#1
  457 00b0 1AD1     	 bne .L13
- 249:../main.c     **** 				{
- 250:../main.c     **** 					React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = MOTOR_MODULE_ID;
- 458              	 .loc 3 250 0
+ 250:../main.c     **** 				{
+ 251:../main.c     **** 					React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = MOTOR_MODULE_ID;
+ 458              	 .loc 3 251 0
  459 00b2 294B     	 ldr r3,.L15+16
  460 00b4 1B68     	 ldr r3,[r3]
  461 00b6 264A     	 ldr r2,.L15+8
  462 00b8 1268     	 ldr r2,[r2]
  463 00ba D2B2     	 uxtb r2,r2
  464 00bc 1A74     	 strb r2,[r3,#16]
- 251:../main.c     **** 					React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x02;	//Successful Command
- 465              	 .loc 3 251 0
+ 252:../main.c     **** 					React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x02;
+ 465              	 .loc 3 252 0
  466 00be 264B     	 ldr r3,.L15+16
  467 00c0 1B68     	 ldr r3,[r3]
  468 00c2 0222     	 movs r2,#2
  469 00c4 5A74     	 strb r2,[r3,#17]
- 252:../main.c     **** 					React_Node_LMO_02_Config.mo_ptr->can_data_byte[3] = 0;	//
- 470              	 .loc 3 252 0
+ 253:../main.c     **** 					React_Node_LMO_02_Config.mo_ptr->can_data_byte[3] = 0;	//Successful Command
+ 470              	 .loc 3 253 0
  471 00c6 244B     	 ldr r3,.L15+16
  472 00c8 1B68     	 ldr r3,[r3]
  473 00ca 0022     	 movs r2,#0
  474 00cc DA74     	 strb r2,[r3,#19]
- 253:../main.c     **** 					status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
- 475              	 .loc 3 253 0
+ 254:../main.c     **** 					status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
+ 475              	 .loc 3 254 0
  476 00ce 224B     	 ldr r3,.L15+16
  477 00d0 1B68     	 ldr r3,[r3]
  478 00d2 1846     	 mov r0,r3
  479 00d4 FFF7FEFF 	 bl XMC_CAN_MO_UpdateData
  480 00d8 0346     	 mov r3,r0
  481 00da 7B60     	 str r3,[r7,#4]
- 254:../main.c     **** 					status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
- 482              	 .loc 3 254 0
+ 255:../main.c     **** 					status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
+ 482              	 .loc 3 255 0
  483 00dc 1E48     	 ldr r0,.L15+16
  484 00de FFF7FEFF 	 bl CAN_NODE_MO_Transmit
  485 00e2 0346     	 mov r3,r0
@@ -1481,31 +1482,31 @@
  489              	.L13:
  490 00e8 2BE0     	 b .L9
  491              	.L11:
- 255:../main.c     **** 				}
- 256:../main.c     **** 			}
- 257:../main.c     **** 			else if(requestedCommand == 0x02)	//acknowledge registration
- 492              	 .loc 3 257 0
+ 256:../main.c     **** 				}
+ 257:../main.c     **** 			}
+ 258:../main.c     **** 			else if(requestedCommand == 0x02)	//Acknowledgment to our registration
+ 492              	 .loc 3 258 0
  493 00ea 3B69     	 ldr r3,[r7,#16]
  494 00ec 022B     	 cmp r3,#2
  495 00ee 03D1     	 bne .L14
- 258:../main.c     **** 			{
- 259:../main.c     **** 				isRegistered = 1;
- 496              	 .loc 3 259 0
+ 259:../main.c     **** 			{
+ 260:../main.c     **** 				isRegistered = 1;
+ 496              	 .loc 3 260 0
  497 00f0 1A4B     	 ldr r3,.L15+20
  498 00f2 0122     	 movs r2,#1
  499 00f4 1A60     	 str r2,[r3]
  500 00f6 24E0     	 b .L9
  501              	.L14:
- 260:../main.c     **** 			}
- 261:../main.c     **** 			else if(requestedCommand == 0x03)	//state request
- 502              	 .loc 3 261 0
+ 261:../main.c     **** 			}
+ 262:../main.c     **** 			else if(requestedCommand == 0x03)	//state request
+ 502              	 .loc 3 262 0
  503 00f8 3B69     	 ldr r3,[r7,#16]
  504 00fa 032B     	 cmp r3,#3
  505 00fc 21D1     	 bne .L9
  506              	.LBB5:
- 262:../main.c     **** 			{
- 263:../main.c     **** 				int WindowStatePercentage = (WindowState * 10);
- 507              	 .loc 3 263 0
+ 263:../main.c     **** 			{
+ 264:../main.c     **** 				int WindowStatePercentage = (WindowState * 10);
+ 507              	 .loc 3 264 0
  508 00fe 184B     	 ldr r3,.L15+24
  509 0100 1A68     	 ldr r2,[r3]
  510 0102 1346     	 mov r3,r2
@@ -1513,38 +1514,38 @@
  512 0106 1344     	 add r3,r3,r2
  513 0108 5B00     	 lsls r3,r3,#1
  514 010a 3B60     	 str r3,[r7]
- 264:../main.c     **** 
- 265:../main.c     **** 				React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = MOTOR_MODULE_ID;
- 515              	 .loc 3 265 0
+ 265:../main.c     **** 
+ 266:../main.c     **** 				React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = MOTOR_MODULE_ID;
+ 515              	 .loc 3 266 0
  516 010c 124B     	 ldr r3,.L15+16
  517 010e 1B68     	 ldr r3,[r3]
  518 0110 0F4A     	 ldr r2,.L15+8
  519 0112 1268     	 ldr r2,[r2]
  520 0114 D2B2     	 uxtb r2,r2
  521 0116 1A74     	 strb r2,[r3,#16]
- 266:../main.c     **** 				React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x04;	//Status update
- 522              	 .loc 3 266 0
+ 267:../main.c     **** 				React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x04;	//Status update
+ 522              	 .loc 3 267 0
  523 0118 0F4B     	 ldr r3,.L15+16
  524 011a 1B68     	 ldr r3,[r3]
  525 011c 0422     	 movs r2,#4
  526 011e 5A74     	 strb r2,[r3,#17]
- 267:../main.c     **** 				React_Node_LMO_02_Config.mo_ptr->can_data_byte[2] = WindowStatePercentage;
- 527              	 .loc 3 267 0
+ 268:../main.c     **** 				React_Node_LMO_02_Config.mo_ptr->can_data_byte[2] = WindowStatePercentage;
+ 527              	 .loc 3 268 0
  528 0120 0D4B     	 ldr r3,.L15+16
  529 0122 1B68     	 ldr r3,[r3]
  530 0124 3A68     	 ldr r2,[r7]
  531 0126 D2B2     	 uxtb r2,r2
  532 0128 9A74     	 strb r2,[r3,#18]
- 268:../main.c     **** 				status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
- 533              	 .loc 3 268 0
+ 269:../main.c     **** 				status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
+ 533              	 .loc 3 269 0
  534 012a 0B4B     	 ldr r3,.L15+16
  535 012c 1B68     	 ldr r3,[r3]
  536 012e 1846     	 mov r0,r3
  537 0130 FFF7FEFF 	 bl XMC_CAN_MO_UpdateData
  538 0134 0346     	 mov r3,r0
  539 0136 7B60     	 str r3,[r7,#4]
- 269:../main.c     **** 				status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
- 540              	 .loc 3 269 0
+ 270:../main.c     **** 				status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
+ 540              	 .loc 3 270 0
  541 0138 0748     	 ldr r0,.L15+16
  542 013a FFF7FEFF 	 bl CAN_NODE_MO_Transmit
  543 013e 0346     	 mov r3,r0
@@ -1553,11 +1554,11 @@
  546              	.LBE5:
  547              	.LBE3:
  548              	.LBE2:
- 270:../main.c     **** 			}
- 271:../main.c     **** 		}
- 272:../main.c     **** 	}
- 273:../main.c     **** }
- 549              	 .loc 3 273 0
+ 271:../main.c     **** 			}
+ 272:../main.c     **** 		}
+ 273:../main.c     **** 	}
+ 274:../main.c     **** }
+ 549              	 .loc 3 274 0
  550 0142 1837     	 adds r7,r7,#24
  551              	.LCFI36:
  552              	 .cfi_def_cfa_offset 8
@@ -1585,10 +1586,10 @@
  575              	 .thumb_func
  577              	CCU41_1_IRQHandler:
  578              	.LFB306:
- 274:../main.c     **** 
- 275:../main.c     **** void TimerHandler()
- 276:../main.c     **** {
- 579              	 .loc 3 276 0
+ 275:../main.c     **** 
+ 276:../main.c     **** void TimerHandler()
+ 277:../main.c     **** {
+ 579              	 .loc 3 277 0
  580              	 .cfi_startproc
  581              	 
  582              	 
@@ -1600,15 +1601,15 @@
  588 0002 00AF     	 add r7,sp,#0
  589              	.LCFI39:
  590              	 .cfi_def_cfa_register 7
- 277:../main.c     **** 	time++;
- 591              	 .loc 3 277 0
+ 278:../main.c     **** 	time++;
+ 591              	 .loc 3 278 0
  592 0004 044B     	 ldr r3,.L18
  593 0006 1B68     	 ldr r3,[r3]
  594 0008 0133     	 adds r3,r3,#1
  595 000a 034A     	 ldr r2,.L18
  596 000c 1360     	 str r3,[r2]
- 278:../main.c     **** }
- 597              	 .loc 3 278 0
+ 279:../main.c     **** }
+ 597              	 .loc 3 279 0
  598 000e BD46     	 mov sp,r7
  599              	.LCFI40:
  600              	 .cfi_def_cfa_register 13
@@ -1631,10 +1632,10 @@
  618              	 .thumb_func
  620              	main:
  621              	.LFB307:
- 279:../main.c     **** 
- 280:../main.c     **** int main(void)
- 281:../main.c     **** {
- 622              	 .loc 3 281 0
+ 280:../main.c     **** 
+ 281:../main.c     **** int main(void)
+ 282:../main.c     **** {
+ 622              	 .loc 3 282 0
  623              	 .cfi_startproc
  624              	 
  625              	 
@@ -1646,850 +1647,1265 @@
  631 0002 00AF     	 add r7,sp,#0
  632              	.LCFI43:
  633              	 .cfi_def_cfa_register 7
- 282:../main.c     **** 
- 283:../main.c     ****   DAVE_Init();		/* Initialization of DAVE APPs  */
- 634              	 .loc 3 283 0
+ 283:../main.c     **** 
+ 284:../main.c     ****   DAVE_Init();		/* Initialization of DAVE APPs  */
+ 634              	 .loc 3 284 0
  635 0004 FFF7FEFF 	 bl DAVE_Init
- 284:../main.c     **** 
- 285:../main.c     ****   // Startup functions
- 286:../main.c     ****   //RegisterDevice();
- 287:../main.c     ****   HomeWindow();	// TODO : Uncomment when done
+ 285:../main.c     **** 
+ 286:../main.c     ****   // Startup functions
+ 287:../main.c     ****   RegisterDevice();
  636              	 .loc 3 287 0
- 637 0008 FFF7FEFF 	 bl HomeWindow
- 288:../main.c     **** 
- 289:../main.c     ****   // Function to initialize debug printing
- 290:../main.c     ****   // initialise_monitor_handles();
- 291:../main.c     **** 
- 292:../main.c     ****   MoveWindow(5);	// 50%
- 638              	 .loc 3 292 0
- 639 000c 0520     	 movs r0,#5
- 640 000e FFF7FEFF 	 bl MoveWindow
- 293:../main.c     ****   MoveWindow(0);	//0%
- 641              	 .loc 3 293 0
- 642 0012 0020     	 movs r0,#0
- 643 0014 FFF7FEFF 	 bl MoveWindow
- 644              	.L21:
- 294:../main.c     **** 
- 295:../main.c     ****   while(1U)
- 296:../main.c     ****   {
- 297:../main.c     **** 
- 298:../main.c     ****   }
- 645              	 .loc 3 298 0 discriminator 1
- 646 0018 FEE7     	 b .L21
- 647              	 .cfi_endproc
- 648              	.LFE307:
- 650 001a 00BF     	 .section .text.RegisterDevice,"ax",%progbits
- 651              	 .align 2
- 652              	 .global RegisterDevice
- 653              	 .thumb
- 654              	 .thumb_func
- 656              	RegisterDevice:
- 657              	.LFB308:
- 299:../main.c     ****   return 0;
- 300:../main.c     **** }
- 301:../main.c     **** 
- 302:../main.c     **** // Sends message to NMC on startup to register device
- 303:../main.c     **** void RegisterDevice()
- 304:../main.c     **** {
- 658              	 .loc 3 304 0
- 659              	 .cfi_startproc
- 660              	 
- 661              	 
- 662 0000 80B5     	 push {r7,lr}
- 663              	.LCFI44:
- 664              	 .cfi_def_cfa_offset 8
- 665              	 .cfi_offset 7,-8
- 666              	 .cfi_offset 14,-4
- 667 0002 82B0     	 sub sp,sp,#8
- 668              	.LCFI45:
- 669              	 .cfi_def_cfa_offset 16
- 670 0004 00AF     	 add r7,sp,#0
- 671              	.LCFI46:
- 672              	 .cfi_def_cfa_register 7
- 305:../main.c     **** 	React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = MOTOR_MODULE_ID;
- 673              	 .loc 3 305 0
- 674 0006 0C4B     	 ldr r3,.L23
- 675 0008 1B68     	 ldr r3,[r3]
- 676 000a 0C4A     	 ldr r2,.L23+4
- 677 000c 1268     	 ldr r2,[r2]
- 678 000e D2B2     	 uxtb r2,r2
- 679 0010 1A74     	 strb r2,[r3,#16]
- 306:../main.c     **** 	React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x05;	//device registration
- 680              	 .loc 3 306 0
- 681 0012 094B     	 ldr r3,.L23
- 682 0014 1B68     	 ldr r3,[r3]
- 683 0016 0522     	 movs r2,#5
- 684 0018 5A74     	 strb r2,[r3,#17]
- 307:../main.c     **** 	uint32_t status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
- 685              	 .loc 3 307 0
- 686 001a 074B     	 ldr r3,.L23
- 687 001c 1B68     	 ldr r3,[r3]
- 688 001e 1846     	 mov r0,r3
- 689 0020 FFF7FEFF 	 bl XMC_CAN_MO_UpdateData
- 690 0024 0346     	 mov r3,r0
- 691 0026 7B60     	 str r3,[r7,#4]
- 308:../main.c     **** 	status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
- 692              	 .loc 3 308 0
- 693 0028 0348     	 ldr r0,.L23
- 694 002a FFF7FEFF 	 bl CAN_NODE_MO_Transmit
- 695 002e 0346     	 mov r3,r0
- 696 0030 7B60     	 str r3,[r7,#4]
- 309:../main.c     **** 
- 310:../main.c     **** 	//TODO : Add delay until registered, retransmit after delay if not
- 311:../main.c     **** 
- 312:../main.c     **** }
- 697              	 .loc 3 312 0
- 698 0032 0837     	 adds r7,r7,#8
- 699              	.LCFI47:
- 700              	 .cfi_def_cfa_offset 8
- 701 0034 BD46     	 mov sp,r7
- 702              	.LCFI48:
- 703              	 .cfi_def_cfa_register 13
- 704              	 
- 705 0036 80BD     	 pop {r7,pc}
- 706              	.L24:
- 707              	 .align 2
- 708              	.L23:
- 709 0038 00000000 	 .word React_Node_LMO_02_Config
- 710 003c 00000000 	 .word MOTOR_MODULE_ID
- 711              	 .cfi_endproc
- 712              	.LFE308:
- 714              	 .global __aeabi_i2d
- 715              	 .global __aeabi_dmul
- 716              	 .global __aeabi_d2iz
- 717              	 .section .text.HomeWindow,"ax",%progbits
- 718              	 .align 2
- 719              	 .global HomeWindow
- 720              	 .thumb
- 721              	 .thumb_func
- 723              	HomeWindow:
- 724              	.LFB309:
- 313:../main.c     **** 
- 314:../main.c     **** //Homes the motor to acquire constants needed for operation. Also for tuning
- 315:../main.c     **** int HomeWindow()
- 316:../main.c     **** {
- 725              	 .loc 3 316 0
- 726              	 .cfi_startproc
- 727              	 
- 728              	 
- 729 0000 80B5     	 push {r7,lr}
- 730              	.LCFI49:
- 731              	 .cfi_def_cfa_offset 8
- 732              	 .cfi_offset 7,-8
- 733              	 .cfi_offset 14,-4
- 734 0002 82B0     	 sub sp,sp,#8
- 735              	.LCFI50:
- 736              	 .cfi_def_cfa_offset 16
- 737 0004 00AF     	 add r7,sp,#0
- 738              	.LCFI51:
- 739              	 .cfi_def_cfa_register 7
- 317:../main.c     **** 	// TODO : Home window to find constants needed for proper window operation
+ 637 0008 FFF7FEFF 	 bl RegisterDevice
+ 288:../main.c     ****   HomeWindow();
+ 638              	 .loc 3 288 0
+ 639 000c FFF7FEFF 	 bl HomeWindow
+ 640              	.L21:
+ 289:../main.c     **** 
+ 290:../main.c     ****   // Function to initialize debug printing
+ 291:../main.c     ****   // initialise_monitor_handles();
+ 292:../main.c     **** 
+ 293:../main.c     **** //  MoveWindow(5);	// 50%
+ 294:../main.c     **** //  MoveWindow(0);	//0%
+ 295:../main.c     **** 
+ 296:../main.c     ****   while(1U)
+ 297:../main.c     ****   {
+ 298:../main.c     **** 	  ManualOverrideSwitches();
+ 641              	 .loc 3 298 0 discriminator 1
+ 642 0010 FFF7FEFF 	 bl ManualOverrideSwitches
+ 299:../main.c     ****   }
+ 643              	 .loc 3 299 0 discriminator 1
+ 644 0014 FCE7     	 b .L21
+ 645              	 .cfi_endproc
+ 646              	.LFE307:
+ 648 0016 00BF     	 .section .text.RegisterDevice,"ax",%progbits
+ 649              	 .align 2
+ 650              	 .global RegisterDevice
+ 651              	 .thumb
+ 652              	 .thumb_func
+ 654              	RegisterDevice:
+ 655              	.LFB308:
+ 300:../main.c     ****   return 0;
+ 301:../main.c     **** }
+ 302:../main.c     **** 
+ 303:../main.c     **** // Sends message to NMC on startup to register device
+ 304:../main.c     **** void RegisterDevice()
+ 305:../main.c     **** {
+ 656              	 .loc 3 305 0
+ 657              	 .cfi_startproc
+ 658              	 
+ 659              	 
+ 660 0000 80B5     	 push {r7,lr}
+ 661              	.LCFI44:
+ 662              	 .cfi_def_cfa_offset 8
+ 663              	 .cfi_offset 7,-8
+ 664              	 .cfi_offset 14,-4
+ 665 0002 82B0     	 sub sp,sp,#8
+ 666              	.LCFI45:
+ 667              	 .cfi_def_cfa_offset 16
+ 668 0004 00AF     	 add r7,sp,#0
+ 669              	.LCFI46:
+ 670              	 .cfi_def_cfa_register 7
+ 306:../main.c     **** 	React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = MOTOR_MODULE_ID;
+ 671              	 .loc 3 306 0
+ 672 0006 0C4B     	 ldr r3,.L23
+ 673 0008 1B68     	 ldr r3,[r3]
+ 674 000a 0C4A     	 ldr r2,.L23+4
+ 675 000c 1268     	 ldr r2,[r2]
+ 676 000e D2B2     	 uxtb r2,r2
+ 677 0010 1A74     	 strb r2,[r3,#16]
+ 307:../main.c     **** 	React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x05;	//device registration
+ 678              	 .loc 3 307 0
+ 679 0012 094B     	 ldr r3,.L23
+ 680 0014 1B68     	 ldr r3,[r3]
+ 681 0016 0522     	 movs r2,#5
+ 682 0018 5A74     	 strb r2,[r3,#17]
+ 308:../main.c     **** 	uint32_t status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
+ 683              	 .loc 3 308 0
+ 684 001a 074B     	 ldr r3,.L23
+ 685 001c 1B68     	 ldr r3,[r3]
+ 686 001e 1846     	 mov r0,r3
+ 687 0020 FFF7FEFF 	 bl XMC_CAN_MO_UpdateData
+ 688 0024 0346     	 mov r3,r0
+ 689 0026 7B60     	 str r3,[r7,#4]
+ 309:../main.c     **** 	status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
+ 690              	 .loc 3 309 0
+ 691 0028 0348     	 ldr r0,.L23
+ 692 002a FFF7FEFF 	 bl CAN_NODE_MO_Transmit
+ 693 002e 0346     	 mov r3,r0
+ 694 0030 7B60     	 str r3,[r7,#4]
+ 310:../main.c     **** 
+ 311:../main.c     **** 	//TODO : Add delay until registered, retransmit after delay if not
+ 312:../main.c     **** 
+ 313:../main.c     **** }
+ 695              	 .loc 3 313 0
+ 696 0032 0837     	 adds r7,r7,#8
+ 697              	.LCFI47:
+ 698              	 .cfi_def_cfa_offset 8
+ 699 0034 BD46     	 mov sp,r7
+ 700              	.LCFI48:
+ 701              	 .cfi_def_cfa_register 13
+ 702              	 
+ 703 0036 80BD     	 pop {r7,pc}
+ 704              	.L24:
+ 705              	 .align 2
+ 706              	.L23:
+ 707 0038 00000000 	 .word React_Node_LMO_02_Config
+ 708 003c 00000000 	 .word MOTOR_MODULE_ID
+ 709              	 .cfi_endproc
+ 710              	.LFE308:
+ 712              	 .global __aeabi_i2d
+ 713              	 .global __aeabi_dmul
+ 714              	 .global __aeabi_d2iz
+ 715              	 .section .text.HomeWindow,"ax",%progbits
+ 716              	 .align 2
+ 717              	 .global HomeWindow
+ 718              	 .thumb
+ 719              	 .thumb_func
+ 721              	HomeWindow:
+ 722              	.LFB309:
+ 314:../main.c     **** 
+ 315:../main.c     **** //Homes the motor to acquire constants needed for operation. Also for tuning
+ 316:../main.c     **** int HomeWindow()
+ 317:../main.c     **** {
+ 723              	 .loc 3 317 0
+ 724              	 .cfi_startproc
+ 725              	 
+ 726              	 
+ 727 0000 80B5     	 push {r7,lr}
+ 728              	.LCFI49:
+ 729              	 .cfi_def_cfa_offset 8
+ 730              	 .cfi_offset 7,-8
+ 731              	 .cfi_offset 14,-4
+ 732 0002 82B0     	 sub sp,sp,#8
+ 733              	.LCFI50:
+ 734              	 .cfi_def_cfa_offset 16
+ 735 0004 00AF     	 add r7,sp,#0
+ 736              	.LCFI51:
+ 737              	 .cfi_def_cfa_register 7
  318:../main.c     **** 	int BottomLimitSwitchState = CheckBottomLimitSwitch();
- 740              	 .loc 3 318 0
- 741 0006 FFF7FEFF 	 bl CheckBottomLimitSwitch
- 742 000a 7860     	 str r0,[r7,#4]
+ 738              	 .loc 3 318 0
+ 739 0006 FFF7FEFF 	 bl CheckBottomLimitSwitch
+ 740 000a 7860     	 str r0,[r7,#4]
  319:../main.c     **** 
  320:../main.c     **** 	if (BottomLimitSwitchState == 1)		// TODO : Change to 0 bc 0 means button pressed
- 743              	 .loc 3 320 0
- 744 000c 7B68     	 ldr r3,[r7,#4]
- 745 000e 012B     	 cmp r3,#1
- 746 0010 27D1     	 bne .L26
+ 741              	 .loc 3 320 0
+ 742 000c 7B68     	 ldr r3,[r7,#4]
+ 743 000e 012B     	 cmp r3,#1
+ 744 0010 27D1     	 bne .L26
  321:../main.c     **** 	{
- 322:../main.c     **** 		// TODO : verify that starting PWM before direction is ok
- 323:../main.c     **** 		TIMER_Start(&TIMER_Motor);
- 747              	 .loc 3 323 0
- 748 0012 9548     	 ldr r0,.L32+64
- 749 0014 FFF7FEFF 	 bl TIMER_Start
- 324:../main.c     **** 		while(CheckTopLimitSwitch() == 1)	//drive motor until top limit switch is reached
- 750              	 .loc 3 324 0
- 751 0018 05E0     	 b .L27
- 752              	.L28:
- 325:../main.c     **** 		{
- 326:../main.c     **** 			PWM_Start(&PWM_Motor);
- 753              	 .loc 3 326 0
- 754 001a 9448     	 ldr r0,.L32+68
- 755 001c FFF7FEFF 	 bl PWM_Start
- 327:../main.c     **** 			DIGITAL_IO_SetOutputLow(&Motor_Direction); //Move up
- 756              	 .loc 3 327 0
- 757 0020 9348     	 ldr r0,.L32+72
- 758 0022 FFF7FEFF 	 bl DIGITAL_IO_SetOutputLow
- 759              	.L27:
- 324:../main.c     **** 		while(CheckTopLimitSwitch() == 1)	//drive motor until top limit switch is reached
- 760              	 .loc 3 324 0
- 761 0026 FFF7FEFF 	 bl CheckTopLimitSwitch
- 762 002a 0346     	 mov r3,r0
- 763 002c 012B     	 cmp r3,#1
- 764 002e F4D0     	 beq .L28
- 328:../main.c     **** 		}
- 329:../main.c     **** 		PWM_Stop(&PWM_Motor);
- 765              	 .loc 3 329 0
- 766 0030 8E48     	 ldr r0,.L32+68
- 767 0032 FFF7FEFF 	 bl PWM_Stop
- 330:../main.c     **** 		TIMER_Stop(&TIMER_Motor);
- 768              	 .loc 3 330 0
- 769 0036 8C48     	 ldr r0,.L32+64
- 770 0038 FFF7FEFF 	 bl TIMER_Stop
- 331:../main.c     **** 		closedToOpenTime = time;
- 771              	 .loc 3 331 0
- 772 003c 8D4B     	 ldr r3,.L32+76
- 773 003e 1B68     	 ldr r3,[r3]
- 774 0040 8D4A     	 ldr r2,.L32+80
- 775 0042 1360     	 str r3,[r2]
- 332:../main.c     **** 		while(CheckBottomLimitSwitch() == 1)
- 776              	 .loc 3 332 0
- 777 0044 05E0     	 b .L29
- 778              	.L30:
- 333:../main.c     **** 		{
- 334:../main.c     **** 			PWM_Start(&PWM_Motor);
- 779              	 .loc 3 334 0
- 780 0046 8948     	 ldr r0,.L32+68
- 781 0048 FFF7FEFF 	 bl PWM_Start
- 335:../main.c     **** 			DIGITAL_IO_SetOutputHigh(&Motor_Direction);
- 782              	 .loc 3 335 0
- 783 004c 8848     	 ldr r0,.L32+72
- 784 004e FFF7FEFF 	 bl DIGITAL_IO_SetOutputHigh
- 785              	.L29:
- 332:../main.c     **** 		while(CheckBottomLimitSwitch() == 1)
- 786              	 .loc 3 332 0
- 787 0052 FFF7FEFF 	 bl CheckBottomLimitSwitch
- 788 0056 0346     	 mov r3,r0
- 789 0058 012B     	 cmp r3,#1
- 790 005a F4D0     	 beq .L30
- 336:../main.c     **** 		}
- 337:../main.c     **** 		PWM_Stop(&PWM_Motor);	//Turn off PWM once bottom reached
- 791              	 .loc 3 337 0
- 792 005c 8348     	 ldr r0,.L32+68
- 793 005e FFF7FEFF 	 bl PWM_Stop
- 794              	.L26:
- 338:../main.c     **** 	}
- 339:../main.c     **** 	WindowState = 0;	// Set initial state to zero
- 795              	 .loc 3 339 0
- 796 0062 864B     	 ldr r3,.L32+84
- 797 0064 0022     	 movs r2,#0
- 798 0066 1A60     	 str r2,[r3]
- 340:../main.c     **** 	time = 0;			// reset global timer variable
- 799              	 .loc 3 340 0
- 800 0068 824B     	 ldr r3,.L32+76
- 801 006a 0022     	 movs r2,#0
- 802 006c 1A60     	 str r2,[r3]
- 341:../main.c     **** 	// Create State table
- 342:../main.c     **** 	stateTimingVariables[0]  = 0;								//0%
- 803              	 .loc 3 342 0
- 804 006e 844B     	 ldr r3,.L32+88
- 805 0070 0022     	 movs r2,#0
- 806 0072 1A60     	 str r2,[r3]
- 343:../main.c     **** 	stateTimingVariables[1]  = (closedToOpenTime * (0.1));		//10%
- 807              	 .loc 3 343 0
- 808 0074 804B     	 ldr r3,.L32+80
- 809 0076 1B68     	 ldr r3,[r3]
- 810 0078 1846     	 mov r0,r3
- 811 007a FFF7FEFF 	 bl __aeabi_i2d
- 812 007e 0246     	 mov r2,r0
- 813 0080 0B46     	 mov r3,r1
- 814 0082 1046     	 mov r0,r2
- 815 0084 1946     	 mov r1,r3
- 816 0086 68A3     	 adr r3,.L32
- 817 0088 D3E90023 	 ldrd r2,[r3]
- 818 008c FFF7FEFF 	 bl __aeabi_dmul
- 819 0090 0246     	 mov r2,r0
- 820 0092 0B46     	 mov r3,r1
- 821 0094 1046     	 mov r0,r2
- 822 0096 1946     	 mov r1,r3
- 823 0098 FFF7FEFF 	 bl __aeabi_d2iz
- 824 009c 0246     	 mov r2,r0
- 825 009e 784B     	 ldr r3,.L32+88
- 826 00a0 5A60     	 str r2,[r3,#4]
- 344:../main.c     **** 	stateTimingVariables[2]  = (closedToOpenTime * (0.2));		//20%
- 827              	 .loc 3 344 0
- 828 00a2 754B     	 ldr r3,.L32+80
- 829 00a4 1B68     	 ldr r3,[r3]
- 830 00a6 1846     	 mov r0,r3
- 831 00a8 FFF7FEFF 	 bl __aeabi_i2d
- 832 00ac 0246     	 mov r2,r0
- 833 00ae 0B46     	 mov r3,r1
- 834 00b0 1046     	 mov r0,r2
- 835 00b2 1946     	 mov r1,r3
- 836 00b4 5EA3     	 adr r3,.L32+8
- 837 00b6 D3E90023 	 ldrd r2,[r3]
- 838 00ba FFF7FEFF 	 bl __aeabi_dmul
- 839 00be 0246     	 mov r2,r0
- 840 00c0 0B46     	 mov r3,r1
- 841 00c2 1046     	 mov r0,r2
- 842 00c4 1946     	 mov r1,r3
- 843 00c6 FFF7FEFF 	 bl __aeabi_d2iz
- 844 00ca 0246     	 mov r2,r0
- 845 00cc 6C4B     	 ldr r3,.L32+88
- 846 00ce 9A60     	 str r2,[r3,#8]
- 345:../main.c     **** 	stateTimingVariables[3]  = (closedToOpenTime * (0.3));		//30%
- 847              	 .loc 3 345 0
- 848 00d0 694B     	 ldr r3,.L32+80
- 849 00d2 1B68     	 ldr r3,[r3]
- 850 00d4 1846     	 mov r0,r3
- 851 00d6 FFF7FEFF 	 bl __aeabi_i2d
- 852 00da 0246     	 mov r2,r0
- 853 00dc 0B46     	 mov r3,r1
- 854 00de 1046     	 mov r0,r2
- 855 00e0 1946     	 mov r1,r3
- 856 00e2 55A3     	 adr r3,.L32+16
- 857 00e4 D3E90023 	 ldrd r2,[r3]
- 858 00e8 FFF7FEFF 	 bl __aeabi_dmul
- 859 00ec 0246     	 mov r2,r0
- 860 00ee 0B46     	 mov r3,r1
- 861 00f0 1046     	 mov r0,r2
- 862 00f2 1946     	 mov r1,r3
- 863 00f4 FFF7FEFF 	 bl __aeabi_d2iz
- 864 00f8 0246     	 mov r2,r0
- 865 00fa 614B     	 ldr r3,.L32+88
- 866 00fc DA60     	 str r2,[r3,#12]
- 346:../main.c     **** 	stateTimingVariables[4]  = (closedToOpenTime * (0.4));		//40%
- 867              	 .loc 3 346 0
- 868 00fe 5E4B     	 ldr r3,.L32+80
- 869 0100 1B68     	 ldr r3,[r3]
- 870 0102 1846     	 mov r0,r3
- 871 0104 FFF7FEFF 	 bl __aeabi_i2d
- 872 0108 0246     	 mov r2,r0
- 873 010a 0B46     	 mov r3,r1
- 874 010c 1046     	 mov r0,r2
- 875 010e 1946     	 mov r1,r3
- 876 0110 4BA3     	 adr r3,.L32+24
- 877 0112 D3E90023 	 ldrd r2,[r3]
- 878 0116 FFF7FEFF 	 bl __aeabi_dmul
- 879 011a 0246     	 mov r2,r0
- 880 011c 0B46     	 mov r3,r1
- 881 011e 1046     	 mov r0,r2
- 882 0120 1946     	 mov r1,r3
- 883 0122 FFF7FEFF 	 bl __aeabi_d2iz
- 884 0126 0246     	 mov r2,r0
- 885 0128 554B     	 ldr r3,.L32+88
- 886 012a 1A61     	 str r2,[r3,#16]
- 347:../main.c     **** 	stateTimingVariables[5]  = (closedToOpenTime * (0.5));		//50%
- 887              	 .loc 3 347 0
- 888 012c 524B     	 ldr r3,.L32+80
- 889 012e 1B68     	 ldr r3,[r3]
- 890 0130 1846     	 mov r0,r3
- 891 0132 FFF7FEFF 	 bl __aeabi_i2d
- 892 0136 0246     	 mov r2,r0
- 893 0138 0B46     	 mov r3,r1
- 894 013a 1046     	 mov r0,r2
- 895 013c 1946     	 mov r1,r3
- 896 013e 4FF00002 	 mov r2,#0
- 897 0142 504B     	 ldr r3,.L32+92
- 898 0144 FFF7FEFF 	 bl __aeabi_dmul
- 899 0148 0246     	 mov r2,r0
- 900 014a 0B46     	 mov r3,r1
- 901 014c 1046     	 mov r0,r2
- 902 014e 1946     	 mov r1,r3
- 903 0150 FFF7FEFF 	 bl __aeabi_d2iz
- 904 0154 0246     	 mov r2,r0
- 905 0156 4A4B     	 ldr r3,.L32+88
- 906 0158 5A61     	 str r2,[r3,#20]
- 348:../main.c     **** 	stateTimingVariables[6]  = (closedToOpenTime * (0.6));		//60%
- 907              	 .loc 3 348 0
- 908 015a 474B     	 ldr r3,.L32+80
- 909 015c 1B68     	 ldr r3,[r3]
- 910 015e 1846     	 mov r0,r3
- 911 0160 FFF7FEFF 	 bl __aeabi_i2d
- 912 0164 0246     	 mov r2,r0
- 913 0166 0B46     	 mov r3,r1
- 914 0168 1046     	 mov r0,r2
- 915 016a 1946     	 mov r1,r3
- 916 016c 36A3     	 adr r3,.L32+32
- 917 016e D3E90023 	 ldrd r2,[r3]
- 918 0172 FFF7FEFF 	 bl __aeabi_dmul
- 919 0176 0246     	 mov r2,r0
- 920 0178 0B46     	 mov r3,r1
- 921 017a 1046     	 mov r0,r2
- 922 017c 1946     	 mov r1,r3
- 923 017e FFF7FEFF 	 bl __aeabi_d2iz
- 924 0182 0246     	 mov r2,r0
- 925 0184 3E4B     	 ldr r3,.L32+88
- 926 0186 9A61     	 str r2,[r3,#24]
- 349:../main.c     **** 	stateTimingVariables[7]  = (closedToOpenTime * (0.7));		//70%
- 927              	 .loc 3 349 0
- 928 0188 3B4B     	 ldr r3,.L32+80
- 929 018a 1B68     	 ldr r3,[r3]
- 930 018c 1846     	 mov r0,r3
- 931 018e FFF7FEFF 	 bl __aeabi_i2d
- 932 0192 0246     	 mov r2,r0
- 933 0194 0B46     	 mov r3,r1
- 934 0196 1046     	 mov r0,r2
- 935 0198 1946     	 mov r1,r3
- 936 019a 2DA3     	 adr r3,.L32+40
- 937 019c D3E90023 	 ldrd r2,[r3]
- 938 01a0 FFF7FEFF 	 bl __aeabi_dmul
- 939 01a4 0246     	 mov r2,r0
- 940 01a6 0B46     	 mov r3,r1
- 941 01a8 1046     	 mov r0,r2
- 942 01aa 1946     	 mov r1,r3
- 943 01ac FFF7FEFF 	 bl __aeabi_d2iz
- 944 01b0 0246     	 mov r2,r0
- 945 01b2 334B     	 ldr r3,.L32+88
- 946 01b4 DA61     	 str r2,[r3,#28]
- 350:../main.c     **** 	stateTimingVariables[8]  = (closedToOpenTime * (0.8));		//80%
- 947              	 .loc 3 350 0
- 948 01b6 304B     	 ldr r3,.L32+80
- 949 01b8 1B68     	 ldr r3,[r3]
- 950 01ba 1846     	 mov r0,r3
- 951 01bc FFF7FEFF 	 bl __aeabi_i2d
- 952 01c0 0246     	 mov r2,r0
- 953 01c2 0B46     	 mov r3,r1
- 954 01c4 1046     	 mov r0,r2
- 955 01c6 1946     	 mov r1,r3
- 956 01c8 23A3     	 adr r3,.L32+48
- 957 01ca D3E90023 	 ldrd r2,[r3]
- 958 01ce FFF7FEFF 	 bl __aeabi_dmul
- 959 01d2 0246     	 mov r2,r0
- 960 01d4 0B46     	 mov r3,r1
- 961 01d6 1046     	 mov r0,r2
- 962 01d8 1946     	 mov r1,r3
- 963 01da FFF7FEFF 	 bl __aeabi_d2iz
- 964 01de 0246     	 mov r2,r0
- 965 01e0 274B     	 ldr r3,.L32+88
- 966 01e2 1A62     	 str r2,[r3,#32]
- 351:../main.c     **** 	stateTimingVariables[9]  = (closedToOpenTime * (0.9));		//90%
- 967              	 .loc 3 351 0
- 968 01e4 244B     	 ldr r3,.L32+80
- 969 01e6 1B68     	 ldr r3,[r3]
- 970 01e8 1846     	 mov r0,r3
- 971 01ea FFF7FEFF 	 bl __aeabi_i2d
- 972 01ee 0246     	 mov r2,r0
- 973 01f0 0B46     	 mov r3,r1
- 974 01f2 1046     	 mov r0,r2
- 975 01f4 1946     	 mov r1,r3
- 976 01f6 1AA3     	 adr r3,.L32+56
- 977 01f8 D3E90023 	 ldrd r2,[r3]
- 978 01fc FFF7FEFF 	 bl __aeabi_dmul
- 979 0200 0246     	 mov r2,r0
- 980 0202 0B46     	 mov r3,r1
- 981 0204 1046     	 mov r0,r2
- 982 0206 1946     	 mov r1,r3
- 983 0208 FFF7FEFF 	 bl __aeabi_d2iz
- 984 020c 0246     	 mov r2,r0
- 985 020e 1C4B     	 ldr r3,.L32+88
- 986 0210 5A62     	 str r2,[r3,#36]
- 352:../main.c     **** 	stateTimingVariables[10] = (closedToOpenTime);		        //100%
- 987              	 .loc 3 352 0
- 988 0212 194B     	 ldr r3,.L32+80
- 989 0214 1B68     	 ldr r3,[r3]
- 990 0216 1A4A     	 ldr r2,.L32+88
- 991 0218 9362     	 str r3,[r2,#40]
- 353:../main.c     **** 	return 1;
+ 322:../main.c     **** 		TIMER_Start(&TIMER_Motor);
+ 745              	 .loc 3 322 0
+ 746 0012 9548     	 ldr r0,.L32+64
+ 747 0014 FFF7FEFF 	 bl TIMER_Start
+ 323:../main.c     **** 		while(CheckTopLimitSwitch() == 1)	//drive motor until top limit switch is reached
+ 748              	 .loc 3 323 0
+ 749 0018 05E0     	 b .L27
+ 750              	.L28:
+ 324:../main.c     **** 		{
+ 325:../main.c     **** 			PWM_Start(&PWM_Motor);
+ 751              	 .loc 3 325 0
+ 752 001a 9448     	 ldr r0,.L32+68
+ 753 001c FFF7FEFF 	 bl PWM_Start
+ 326:../main.c     **** 			DIGITAL_IO_SetOutputLow(&Motor_Direction); //Move up
+ 754              	 .loc 3 326 0
+ 755 0020 9348     	 ldr r0,.L32+72
+ 756 0022 FFF7FEFF 	 bl DIGITAL_IO_SetOutputLow
+ 757              	.L27:
+ 323:../main.c     **** 		while(CheckTopLimitSwitch() == 1)	//drive motor until top limit switch is reached
+ 758              	 .loc 3 323 0
+ 759 0026 FFF7FEFF 	 bl CheckTopLimitSwitch
+ 760 002a 0346     	 mov r3,r0
+ 761 002c 012B     	 cmp r3,#1
+ 762 002e F4D0     	 beq .L28
+ 327:../main.c     **** 		}
+ 328:../main.c     **** 		PWM_Stop(&PWM_Motor);
+ 763              	 .loc 3 328 0
+ 764 0030 8E48     	 ldr r0,.L32+68
+ 765 0032 FFF7FEFF 	 bl PWM_Stop
+ 329:../main.c     **** 		TIMER_Stop(&TIMER_Motor);
+ 766              	 .loc 3 329 0
+ 767 0036 8C48     	 ldr r0,.L32+64
+ 768 0038 FFF7FEFF 	 bl TIMER_Stop
+ 330:../main.c     **** 		closedToOpenTime = time;
+ 769              	 .loc 3 330 0
+ 770 003c 8D4B     	 ldr r3,.L32+76
+ 771 003e 1B68     	 ldr r3,[r3]
+ 772 0040 8D4A     	 ldr r2,.L32+80
+ 773 0042 1360     	 str r3,[r2]
+ 331:../main.c     **** 		while(CheckBottomLimitSwitch() == 1)
+ 774              	 .loc 3 331 0
+ 775 0044 05E0     	 b .L29
+ 776              	.L30:
+ 332:../main.c     **** 		{
+ 333:../main.c     **** 			PWM_Start(&PWM_Motor);
+ 777              	 .loc 3 333 0
+ 778 0046 8948     	 ldr r0,.L32+68
+ 779 0048 FFF7FEFF 	 bl PWM_Start
+ 334:../main.c     **** 			DIGITAL_IO_SetOutputHigh(&Motor_Direction);
+ 780              	 .loc 3 334 0
+ 781 004c 8848     	 ldr r0,.L32+72
+ 782 004e FFF7FEFF 	 bl DIGITAL_IO_SetOutputHigh
+ 783              	.L29:
+ 331:../main.c     **** 		while(CheckBottomLimitSwitch() == 1)
+ 784              	 .loc 3 331 0
+ 785 0052 FFF7FEFF 	 bl CheckBottomLimitSwitch
+ 786 0056 0346     	 mov r3,r0
+ 787 0058 012B     	 cmp r3,#1
+ 788 005a F4D0     	 beq .L30
+ 335:../main.c     **** 		}
+ 336:../main.c     **** 		PWM_Stop(&PWM_Motor);	//Turn off PWM once bottom reached
+ 789              	 .loc 3 336 0
+ 790 005c 8348     	 ldr r0,.L32+68
+ 791 005e FFF7FEFF 	 bl PWM_Stop
+ 792              	.L26:
+ 337:../main.c     **** 	}
+ 338:../main.c     **** 	WindowState = 0;	// Set initial state to zero
+ 793              	 .loc 3 338 0
+ 794 0062 864B     	 ldr r3,.L32+84
+ 795 0064 0022     	 movs r2,#0
+ 796 0066 1A60     	 str r2,[r3]
+ 339:../main.c     **** 	time = 0;			// reset global timer variable
+ 797              	 .loc 3 339 0
+ 798 0068 824B     	 ldr r3,.L32+76
+ 799 006a 0022     	 movs r2,#0
+ 800 006c 1A60     	 str r2,[r3]
+ 340:../main.c     **** 	// Create State table
+ 341:../main.c     **** 	stateTimingVariables[0]  = 0;								//0%
+ 801              	 .loc 3 341 0
+ 802 006e 844B     	 ldr r3,.L32+88
+ 803 0070 0022     	 movs r2,#0
+ 804 0072 1A60     	 str r2,[r3]
+ 342:../main.c     **** 	stateTimingVariables[1]  = (closedToOpenTime * (0.1));		//10%
+ 805              	 .loc 3 342 0
+ 806 0074 804B     	 ldr r3,.L32+80
+ 807 0076 1B68     	 ldr r3,[r3]
+ 808 0078 1846     	 mov r0,r3
+ 809 007a FFF7FEFF 	 bl __aeabi_i2d
+ 810 007e 0246     	 mov r2,r0
+ 811 0080 0B46     	 mov r3,r1
+ 812 0082 1046     	 mov r0,r2
+ 813 0084 1946     	 mov r1,r3
+ 814 0086 68A3     	 adr r3,.L32
+ 815 0088 D3E90023 	 ldrd r2,[r3]
+ 816 008c FFF7FEFF 	 bl __aeabi_dmul
+ 817 0090 0246     	 mov r2,r0
+ 818 0092 0B46     	 mov r3,r1
+ 819 0094 1046     	 mov r0,r2
+ 820 0096 1946     	 mov r1,r3
+ 821 0098 FFF7FEFF 	 bl __aeabi_d2iz
+ 822 009c 0246     	 mov r2,r0
+ 823 009e 784B     	 ldr r3,.L32+88
+ 824 00a0 5A60     	 str r2,[r3,#4]
+ 343:../main.c     **** 	stateTimingVariables[2]  = (closedToOpenTime * (0.2));		//20%
+ 825              	 .loc 3 343 0
+ 826 00a2 754B     	 ldr r3,.L32+80
+ 827 00a4 1B68     	 ldr r3,[r3]
+ 828 00a6 1846     	 mov r0,r3
+ 829 00a8 FFF7FEFF 	 bl __aeabi_i2d
+ 830 00ac 0246     	 mov r2,r0
+ 831 00ae 0B46     	 mov r3,r1
+ 832 00b0 1046     	 mov r0,r2
+ 833 00b2 1946     	 mov r1,r3
+ 834 00b4 5EA3     	 adr r3,.L32+8
+ 835 00b6 D3E90023 	 ldrd r2,[r3]
+ 836 00ba FFF7FEFF 	 bl __aeabi_dmul
+ 837 00be 0246     	 mov r2,r0
+ 838 00c0 0B46     	 mov r3,r1
+ 839 00c2 1046     	 mov r0,r2
+ 840 00c4 1946     	 mov r1,r3
+ 841 00c6 FFF7FEFF 	 bl __aeabi_d2iz
+ 842 00ca 0246     	 mov r2,r0
+ 843 00cc 6C4B     	 ldr r3,.L32+88
+ 844 00ce 9A60     	 str r2,[r3,#8]
+ 344:../main.c     **** 	stateTimingVariables[3]  = (closedToOpenTime * (0.3));		//30%
+ 845              	 .loc 3 344 0
+ 846 00d0 694B     	 ldr r3,.L32+80
+ 847 00d2 1B68     	 ldr r3,[r3]
+ 848 00d4 1846     	 mov r0,r3
+ 849 00d6 FFF7FEFF 	 bl __aeabi_i2d
+ 850 00da 0246     	 mov r2,r0
+ 851 00dc 0B46     	 mov r3,r1
+ 852 00de 1046     	 mov r0,r2
+ 853 00e0 1946     	 mov r1,r3
+ 854 00e2 55A3     	 adr r3,.L32+16
+ 855 00e4 D3E90023 	 ldrd r2,[r3]
+ 856 00e8 FFF7FEFF 	 bl __aeabi_dmul
+ 857 00ec 0246     	 mov r2,r0
+ 858 00ee 0B46     	 mov r3,r1
+ 859 00f0 1046     	 mov r0,r2
+ 860 00f2 1946     	 mov r1,r3
+ 861 00f4 FFF7FEFF 	 bl __aeabi_d2iz
+ 862 00f8 0246     	 mov r2,r0
+ 863 00fa 614B     	 ldr r3,.L32+88
+ 864 00fc DA60     	 str r2,[r3,#12]
+ 345:../main.c     **** 	stateTimingVariables[4]  = (closedToOpenTime * (0.4));		//40%
+ 865              	 .loc 3 345 0
+ 866 00fe 5E4B     	 ldr r3,.L32+80
+ 867 0100 1B68     	 ldr r3,[r3]
+ 868 0102 1846     	 mov r0,r3
+ 869 0104 FFF7FEFF 	 bl __aeabi_i2d
+ 870 0108 0246     	 mov r2,r0
+ 871 010a 0B46     	 mov r3,r1
+ 872 010c 1046     	 mov r0,r2
+ 873 010e 1946     	 mov r1,r3
+ 874 0110 4BA3     	 adr r3,.L32+24
+ 875 0112 D3E90023 	 ldrd r2,[r3]
+ 876 0116 FFF7FEFF 	 bl __aeabi_dmul
+ 877 011a 0246     	 mov r2,r0
+ 878 011c 0B46     	 mov r3,r1
+ 879 011e 1046     	 mov r0,r2
+ 880 0120 1946     	 mov r1,r3
+ 881 0122 FFF7FEFF 	 bl __aeabi_d2iz
+ 882 0126 0246     	 mov r2,r0
+ 883 0128 554B     	 ldr r3,.L32+88
+ 884 012a 1A61     	 str r2,[r3,#16]
+ 346:../main.c     **** 	stateTimingVariables[5]  = (closedToOpenTime * (0.5));		//50%
+ 885              	 .loc 3 346 0
+ 886 012c 524B     	 ldr r3,.L32+80
+ 887 012e 1B68     	 ldr r3,[r3]
+ 888 0130 1846     	 mov r0,r3
+ 889 0132 FFF7FEFF 	 bl __aeabi_i2d
+ 890 0136 0246     	 mov r2,r0
+ 891 0138 0B46     	 mov r3,r1
+ 892 013a 1046     	 mov r0,r2
+ 893 013c 1946     	 mov r1,r3
+ 894 013e 4FF00002 	 mov r2,#0
+ 895 0142 504B     	 ldr r3,.L32+92
+ 896 0144 FFF7FEFF 	 bl __aeabi_dmul
+ 897 0148 0246     	 mov r2,r0
+ 898 014a 0B46     	 mov r3,r1
+ 899 014c 1046     	 mov r0,r2
+ 900 014e 1946     	 mov r1,r3
+ 901 0150 FFF7FEFF 	 bl __aeabi_d2iz
+ 902 0154 0246     	 mov r2,r0
+ 903 0156 4A4B     	 ldr r3,.L32+88
+ 904 0158 5A61     	 str r2,[r3,#20]
+ 347:../main.c     **** 	stateTimingVariables[6]  = (closedToOpenTime * (0.6));		//60%
+ 905              	 .loc 3 347 0
+ 906 015a 474B     	 ldr r3,.L32+80
+ 907 015c 1B68     	 ldr r3,[r3]
+ 908 015e 1846     	 mov r0,r3
+ 909 0160 FFF7FEFF 	 bl __aeabi_i2d
+ 910 0164 0246     	 mov r2,r0
+ 911 0166 0B46     	 mov r3,r1
+ 912 0168 1046     	 mov r0,r2
+ 913 016a 1946     	 mov r1,r3
+ 914 016c 36A3     	 adr r3,.L32+32
+ 915 016e D3E90023 	 ldrd r2,[r3]
+ 916 0172 FFF7FEFF 	 bl __aeabi_dmul
+ 917 0176 0246     	 mov r2,r0
+ 918 0178 0B46     	 mov r3,r1
+ 919 017a 1046     	 mov r0,r2
+ 920 017c 1946     	 mov r1,r3
+ 921 017e FFF7FEFF 	 bl __aeabi_d2iz
+ 922 0182 0246     	 mov r2,r0
+ 923 0184 3E4B     	 ldr r3,.L32+88
+ 924 0186 9A61     	 str r2,[r3,#24]
+ 348:../main.c     **** 	stateTimingVariables[7]  = (closedToOpenTime * (0.7));		//70%
+ 925              	 .loc 3 348 0
+ 926 0188 3B4B     	 ldr r3,.L32+80
+ 927 018a 1B68     	 ldr r3,[r3]
+ 928 018c 1846     	 mov r0,r3
+ 929 018e FFF7FEFF 	 bl __aeabi_i2d
+ 930 0192 0246     	 mov r2,r0
+ 931 0194 0B46     	 mov r3,r1
+ 932 0196 1046     	 mov r0,r2
+ 933 0198 1946     	 mov r1,r3
+ 934 019a 2DA3     	 adr r3,.L32+40
+ 935 019c D3E90023 	 ldrd r2,[r3]
+ 936 01a0 FFF7FEFF 	 bl __aeabi_dmul
+ 937 01a4 0246     	 mov r2,r0
+ 938 01a6 0B46     	 mov r3,r1
+ 939 01a8 1046     	 mov r0,r2
+ 940 01aa 1946     	 mov r1,r3
+ 941 01ac FFF7FEFF 	 bl __aeabi_d2iz
+ 942 01b0 0246     	 mov r2,r0
+ 943 01b2 334B     	 ldr r3,.L32+88
+ 944 01b4 DA61     	 str r2,[r3,#28]
+ 349:../main.c     **** 	stateTimingVariables[8]  = (closedToOpenTime * (0.8));		//80%
+ 945              	 .loc 3 349 0
+ 946 01b6 304B     	 ldr r3,.L32+80
+ 947 01b8 1B68     	 ldr r3,[r3]
+ 948 01ba 1846     	 mov r0,r3
+ 949 01bc FFF7FEFF 	 bl __aeabi_i2d
+ 950 01c0 0246     	 mov r2,r0
+ 951 01c2 0B46     	 mov r3,r1
+ 952 01c4 1046     	 mov r0,r2
+ 953 01c6 1946     	 mov r1,r3
+ 954 01c8 23A3     	 adr r3,.L32+48
+ 955 01ca D3E90023 	 ldrd r2,[r3]
+ 956 01ce FFF7FEFF 	 bl __aeabi_dmul
+ 957 01d2 0246     	 mov r2,r0
+ 958 01d4 0B46     	 mov r3,r1
+ 959 01d6 1046     	 mov r0,r2
+ 960 01d8 1946     	 mov r1,r3
+ 961 01da FFF7FEFF 	 bl __aeabi_d2iz
+ 962 01de 0246     	 mov r2,r0
+ 963 01e0 274B     	 ldr r3,.L32+88
+ 964 01e2 1A62     	 str r2,[r3,#32]
+ 350:../main.c     **** 	stateTimingVariables[9]  = (closedToOpenTime * (0.9));		//90%
+ 965              	 .loc 3 350 0
+ 966 01e4 244B     	 ldr r3,.L32+80
+ 967 01e6 1B68     	 ldr r3,[r3]
+ 968 01e8 1846     	 mov r0,r3
+ 969 01ea FFF7FEFF 	 bl __aeabi_i2d
+ 970 01ee 0246     	 mov r2,r0
+ 971 01f0 0B46     	 mov r3,r1
+ 972 01f2 1046     	 mov r0,r2
+ 973 01f4 1946     	 mov r1,r3
+ 974 01f6 1AA3     	 adr r3,.L32+56
+ 975 01f8 D3E90023 	 ldrd r2,[r3]
+ 976 01fc FFF7FEFF 	 bl __aeabi_dmul
+ 977 0200 0246     	 mov r2,r0
+ 978 0202 0B46     	 mov r3,r1
+ 979 0204 1046     	 mov r0,r2
+ 980 0206 1946     	 mov r1,r3
+ 981 0208 FFF7FEFF 	 bl __aeabi_d2iz
+ 982 020c 0246     	 mov r2,r0
+ 983 020e 1C4B     	 ldr r3,.L32+88
+ 984 0210 5A62     	 str r2,[r3,#36]
+ 351:../main.c     **** 	stateTimingVariables[10] = (closedToOpenTime);		        //100%
+ 985              	 .loc 3 351 0
+ 986 0212 194B     	 ldr r3,.L32+80
+ 987 0214 1B68     	 ldr r3,[r3]
+ 988 0216 1A4A     	 ldr r2,.L32+88
+ 989 0218 9362     	 str r3,[r2,#40]
+ 352:../main.c     **** 	return 1;
+ 990              	 .loc 3 352 0
+ 991 021a 0123     	 movs r3,#1
+ 353:../main.c     **** }
  992              	 .loc 3 353 0
- 993 021a 0123     	 movs r3,#1
- 354:../main.c     **** }
- 994              	 .loc 3 354 0
- 995 021c 1846     	 mov r0,r3
- 996 021e 0837     	 adds r7,r7,#8
- 997              	.LCFI52:
- 998              	 .cfi_def_cfa_offset 8
- 999 0220 BD46     	 mov sp,r7
- 1000              	.LCFI53:
- 1001              	 .cfi_def_cfa_register 13
- 1002              	 
- 1003 0222 80BD     	 pop {r7,pc}
- 1004              	.L33:
- 1005 0224 AFF30080 	 .align 3
- 1006              	.L32:
- 1007 0228 9A999999 	 .word -1717986918
- 1008 022c 9999B93F 	 .word 1069128089
- 1009 0230 9A999999 	 .word -1717986918
- 1010 0234 9999C93F 	 .word 1070176665
- 1011 0238 33333333 	 .word 858993459
- 1012 023c 3333D33F 	 .word 1070805811
- 1013 0240 9A999999 	 .word -1717986918
- 1014 0244 9999D93F 	 .word 1071225241
- 1015 0248 33333333 	 .word 858993459
- 1016 024c 3333E33F 	 .word 1071854387
- 1017 0250 66666666 	 .word 1717986918
- 1018 0254 6666E63F 	 .word 1072064102
- 1019 0258 9A999999 	 .word -1717986918
- 1020 025c 9999E93F 	 .word 1072273817
- 1021 0260 CDCCCCCC 	 .word -858993459
- 1022 0264 CCCCEC3F 	 .word 1072483532
- 1023 0268 00000000 	 .word TIMER_Motor
- 1024 026c 00000000 	 .word PWM_Motor
- 1025 0270 00000000 	 .word Motor_Direction
- 1026 0274 00000000 	 .word time
- 1027 0278 00000000 	 .word closedToOpenTime
- 1028 027c 00000000 	 .word WindowState
- 1029 0280 00000000 	 .word stateTimingVariables
- 1030 0284 0000E03F 	 .word 1071644672
- 1031              	 .cfi_endproc
- 1032              	.LFE309:
- 1034              	 .section .text.MoveWindow,"ax",%progbits
- 1035              	 .align 2
- 1036              	 .global MoveWindow
- 1037              	 .thumb
- 1038              	 .thumb_func
- 1040              	MoveWindow:
- 1041              	.LFB310:
- 355:../main.c     **** 
- 356:../main.c     **** //Function to move window to desired percentage
- 357:../main.c     **** // NOTE: HIGH = DOWM; LOW = UP !!!
- 358:../main.c     **** int MoveWindow(int percentage)
- 359:../main.c     **** {
- 1042              	 .loc 3 359 0
- 1043              	 .cfi_startproc
- 1044              	 
- 1045              	 
- 1046 0000 80B5     	 push {r7,lr}
- 1047              	.LCFI54:
- 1048              	 .cfi_def_cfa_offset 8
- 1049              	 .cfi_offset 7,-8
- 1050              	 .cfi_offset 14,-4
- 1051 0002 84B0     	 sub sp,sp,#16
- 1052              	.LCFI55:
- 1053              	 .cfi_def_cfa_offset 24
- 1054 0004 00AF     	 add r7,sp,#0
- 1055              	.LCFI56:
- 1056              	 .cfi_def_cfa_register 7
- 1057 0006 7860     	 str r0,[r7,#4]
- 360:../main.c     **** 	// TODO : Move motor to requested percentage. return 1 for success, 0 for failure
- 361:../main.c     **** 	/*
- 362:../main.c     **** 	 -----Methodology-----
- 363:../main.c     **** 	 - Key into global time array using requested percentage
- 364:../main.c     **** 	 - Take current state, subtract requested state from it
- 365:../main.c     **** 	 - use + or - value of the number to know which direction to move, and magnitude for how much time
- 366:../main.c     **** 	 - drive motor and update timer variable with timer interrupt until motor has been driven appropri
- 367:../main.c     **** 	 - stop timer and update current state variable
- 368:../main.c     **** 	 - return with success and smile :)
- 369:../main.c     **** 	*/
- 370:../main.c     **** 	int requestedPercentage = percentage;
- 1058              	 .loc 3 370 0
- 1059 0008 7B68     	 ldr r3,[r7,#4]
- 1060 000a FB60     	 str r3,[r7,#12]
- 371:../main.c     **** 	int timeToMove = (stateTimingVariables[requestedPercentage] - stateTimingVariables[WindowState]);	
- 1061              	 .loc 3 371 0
- 1062 000c 284A     	 ldr r2,.L43
- 1063 000e FB68     	 ldr r3,[r7,#12]
- 1064 0010 52F82320 	 ldr r2,[r2,r3,lsl#2]
- 1065 0014 274B     	 ldr r3,.L43+4
- 1066 0016 1B68     	 ldr r3,[r3]
- 1067 0018 2549     	 ldr r1,.L43
- 1068 001a 51F82330 	 ldr r3,[r1,r3,lsl#2]
- 1069 001e D31A     	 subs r3,r2,r3
- 1070 0020 BB60     	 str r3,[r7,#8]
- 372:../main.c     **** 																										// Difference will be time needed to drive motor,
- 373:../main.c     **** 																										// sign will be direction (+ = up, - = down)
- 374:../main.c     **** 
- 375:../main.c     **** 	if (timeToMove > 0)			// Positive, so need to drive up
- 1071              	 .loc 3 375 0
- 1072 0022 BB68     	 ldr r3,[r7,#8]
- 1073 0024 002B     	 cmp r3,#0
- 1074 0026 18DD     	 ble .L35
- 376:../main.c     **** 	{
- 377:../main.c     **** 		TIMER_Start(&TIMER_Motor);
- 1075              	 .loc 3 377 0
- 1076 0028 2348     	 ldr r0,.L43+8
- 1077 002a FFF7FEFF 	 bl TIMER_Start
- 378:../main.c     **** 		while(time < timeToMove)	//drive motor until time is equal to state
- 1078              	 .loc 3 378 0
- 1079 002e 05E0     	 b .L36
- 1080              	.L37:
- 379:../main.c     **** 		{
- 380:../main.c     **** 			PWM_Start(&PWM_Motor);
- 1081              	 .loc 3 380 0
- 1082 0030 2248     	 ldr r0,.L43+12
- 1083 0032 FFF7FEFF 	 bl PWM_Start
- 381:../main.c     **** 			DIGITAL_IO_SetOutputLow(&Motor_Direction); //Move up
- 1084              	 .loc 3 381 0
- 1085 0036 2248     	 ldr r0,.L43+16
- 1086 0038 FFF7FEFF 	 bl DIGITAL_IO_SetOutputLow
- 1087              	.L36:
- 378:../main.c     **** 		while(time < timeToMove)	//drive motor until time is equal to state
- 1088              	 .loc 3 378 0
- 1089 003c 214B     	 ldr r3,.L43+20
- 1090 003e 1A68     	 ldr r2,[r3]
- 1091 0040 BB68     	 ldr r3,[r7,#8]
- 1092 0042 9A42     	 cmp r2,r3
- 1093 0044 F4DB     	 blt .L37
- 382:../main.c     **** 		}
- 383:../main.c     **** 		PWM_Stop(&PWM_Motor);
- 1094              	 .loc 3 383 0
- 1095 0046 1D48     	 ldr r0,.L43+12
- 1096 0048 FFF7FEFF 	 bl PWM_Stop
- 384:../main.c     **** 		time = 0;
- 1097              	 .loc 3 384 0
- 1098 004c 1D4B     	 ldr r3,.L43+20
- 1099 004e 0022     	 movs r2,#0
- 1100 0050 1A60     	 str r2,[r3]
- 385:../main.c     **** 		WindowState = requestedPercentage;
- 1101              	 .loc 3 385 0
- 1102 0052 184A     	 ldr r2,.L43+4
- 1103 0054 FB68     	 ldr r3,[r7,#12]
- 1104 0056 1360     	 str r3,[r2]
- 1105 0058 25E0     	 b .L38
- 1106              	.L35:
- 386:../main.c     **** 	}
- 387:../main.c     **** 	else if (timeToMove < 0)	// Negative, need to drive down
- 1107              	 .loc 3 387 0
- 1108 005a BB68     	 ldr r3,[r7,#8]
- 1109 005c 002B     	 cmp r3,#0
- 1110 005e 1DDA     	 bge .L39
- 1111              	.LBB6:
- 388:../main.c     **** 	{
- 389:../main.c     **** 		timeToMove = abs(timeToMove);
- 1112              	 .loc 3 389 0
- 1113 0060 BB68     	 ldr r3,[r7,#8]
- 1114 0062 002B     	 cmp r3,#0
- 1115 0064 B8BF     	 it lt
- 1116 0066 5B42     	 rsblt r3,r3,#0
- 1117 0068 BB60     	 str r3,[r7,#8]
- 390:../main.c     **** 		TIMER_Start(&TIMER_Motor);
- 1118              	 .loc 3 390 0
- 1119 006a 1348     	 ldr r0,.L43+8
- 1120 006c FFF7FEFF 	 bl TIMER_Start
- 391:../main.c     **** 		while(time < timeToMove)	//drive motor until top limit switch is reached
- 1121              	 .loc 3 391 0
- 1122 0070 05E0     	 b .L40
- 1123              	.L41:
- 392:../main.c     **** 		{
- 393:../main.c     **** 			PWM_Start(&PWM_Motor);
- 1124              	 .loc 3 393 0
- 1125 0072 1248     	 ldr r0,.L43+12
- 1126 0074 FFF7FEFF 	 bl PWM_Start
- 394:../main.c     **** 			DIGITAL_IO_SetOutputHigh(&Motor_Direction); //Move down
- 1127              	 .loc 3 394 0
- 1128 0078 1148     	 ldr r0,.L43+16
- 1129 007a FFF7FEFF 	 bl DIGITAL_IO_SetOutputHigh
- 1130              	.L40:
- 391:../main.c     **** 		while(time < timeToMove)	//drive motor until top limit switch is reached
- 1131              	 .loc 3 391 0
- 1132 007e 114B     	 ldr r3,.L43+20
- 1133 0080 1A68     	 ldr r2,[r3]
- 1134 0082 BB68     	 ldr r3,[r7,#8]
- 1135 0084 9A42     	 cmp r2,r3
- 1136 0086 F4DB     	 blt .L41
- 395:../main.c     **** 		}
- 396:../main.c     **** 		PWM_Stop(&PWM_Motor);
- 1137              	 .loc 3 396 0
- 1138 0088 0C48     	 ldr r0,.L43+12
- 1139 008a FFF7FEFF 	 bl PWM_Stop
- 397:../main.c     **** 		time = 0;
- 1140              	 .loc 3 397 0
- 1141 008e 0D4B     	 ldr r3,.L43+20
- 1142 0090 0022     	 movs r2,#0
- 1143 0092 1A60     	 str r2,[r3]
- 398:../main.c     **** 		WindowState = requestedPercentage;
- 1144              	 .loc 3 398 0
- 1145 0094 074A     	 ldr r2,.L43+4
- 1146 0096 FB68     	 ldr r3,[r7,#12]
- 1147 0098 1360     	 str r3,[r2]
- 1148              	.LBE6:
- 1149 009a 04E0     	 b .L38
- 1150              	.L39:
- 399:../main.c     **** 	}
- 400:../main.c     **** 	else if (timeToMove == 0)
- 1151              	 .loc 3 400 0
- 1152 009c BB68     	 ldr r3,[r7,#8]
- 1153 009e 002B     	 cmp r3,#0
- 1154 00a0 01D0     	 beq .L38
- 401:../main.c     **** 	{
- 402:../main.c     **** 		// Requesting same state, so do nothing
- 403:../main.c     **** 	}
- 404:../main.c     **** 	else
- 405:../main.c     **** 	{
- 406:../main.c     **** 		return 0;
- 1155              	 .loc 3 406 0
- 1156 00a2 0023     	 movs r3,#0
- 1157 00a4 00E0     	 b .L42
- 1158              	.L38:
- 407:../main.c     **** 	}
- 408:../main.c     **** 	return 1;
- 1159              	 .loc 3 408 0
- 1160 00a6 0123     	 movs r3,#1
- 1161              	.L42:
- 409:../main.c     **** }
- 1162              	 .loc 3 409 0
- 1163 00a8 1846     	 mov r0,r3
- 1164 00aa 1037     	 adds r7,r7,#16
- 1165              	.LCFI57:
- 1166              	 .cfi_def_cfa_offset 8
- 1167 00ac BD46     	 mov sp,r7
- 1168              	.LCFI58:
- 1169              	 .cfi_def_cfa_register 13
- 1170              	 
- 1171 00ae 80BD     	 pop {r7,pc}
- 1172              	.L44:
- 1173              	 .align 2
- 1174              	.L43:
- 1175 00b0 00000000 	 .word stateTimingVariables
- 1176 00b4 00000000 	 .word WindowState
- 1177 00b8 00000000 	 .word TIMER_Motor
- 1178 00bc 00000000 	 .word PWM_Motor
- 1179 00c0 00000000 	 .word Motor_Direction
- 1180 00c4 00000000 	 .word time
- 1181              	 .cfi_endproc
- 1182              	.LFE310:
- 1184              	 .section .text.CheckTopLimitSwitch,"ax",%progbits
- 1185              	 .align 2
- 1186              	 .global CheckTopLimitSwitch
- 1187              	 .thumb
- 1188              	 .thumb_func
- 1190              	CheckTopLimitSwitch:
- 1191              	.LFB311:
- 410:../main.c     **** 
- 411:../main.c     **** int CheckTopLimitSwitch()
- 412:../main.c     **** {
- 1192              	 .loc 3 412 0
- 1193              	 .cfi_startproc
- 1194              	 
- 1195              	 
- 1196 0000 80B5     	 push {r7,lr}
- 1197              	.LCFI59:
- 1198              	 .cfi_def_cfa_offset 8
- 1199              	 .cfi_offset 7,-8
- 1200              	 .cfi_offset 14,-4
- 1201 0002 82B0     	 sub sp,sp,#8
- 1202              	.LCFI60:
- 1203              	 .cfi_def_cfa_offset 16
- 1204 0004 00AF     	 add r7,sp,#0
- 1205              	.LCFI61:
- 1206              	 .cfi_def_cfa_register 7
- 413:../main.c     **** 	int TopSwitchState = DIGITAL_IO_GetInput(&LIMIT_SWITCH_TOP);
- 1207              	 .loc 3 413 0
- 1208 0006 0A48     	 ldr r0,.L48
- 1209 0008 FFF7FEFF 	 bl DIGITAL_IO_GetInput
- 1210 000c 0346     	 mov r3,r0
- 1211 000e 7B60     	 str r3,[r7,#4]
- 414:../main.c     **** 	if (TopSwitchState != top_button_state)
- 1212              	 .loc 3 414 0
- 1213 0010 7A68     	 ldr r2,[r7,#4]
- 1214 0012 084B     	 ldr r3,.L48+4
- 1215 0014 1B68     	 ldr r3,[r3]
- 1216 0016 9A42     	 cmp r2,r3
- 1217 0018 04D0     	 beq .L46
- 415:../main.c     **** 	{
- 416:../main.c     **** 		DIGITAL_IO_SetOutputHigh(&LED_Indicator);
- 1218              	 .loc 3 416 0
- 1219 001a 0748     	 ldr r0,.L48+8
- 1220 001c FFF7FEFF 	 bl DIGITAL_IO_SetOutputHigh
- 417:../main.c     **** 		return 0;	//Top switch pressed
- 1221              	 .loc 3 417 0
- 1222 0020 0023     	 movs r3,#0
- 1223 0022 00E0     	 b .L47
- 1224              	.L46:
- 418:../main.c     **** 	}
- 419:../main.c     **** 
- 420:../main.c     **** 	return 1; 	//Base case that neither is pressed
- 1225              	 .loc 3 420 0
- 1226 0024 0123     	 movs r3,#1
- 1227              	.L47:
- 421:../main.c     **** 	// TODO : Make this meaningful
- 422:../main.c     **** }
- 1228              	 .loc 3 422 0
- 1229 0026 1846     	 mov r0,r3
- 1230 0028 0837     	 adds r7,r7,#8
- 1231              	.LCFI62:
- 1232              	 .cfi_def_cfa_offset 8
- 1233 002a BD46     	 mov sp,r7
- 1234              	.LCFI63:
- 1235              	 .cfi_def_cfa_register 13
- 1236              	 
- 1237 002c 80BD     	 pop {r7,pc}
- 1238              	.L49:
- 1239 002e 00BF     	 .align 2
- 1240              	.L48:
- 1241 0030 00000000 	 .word LIMIT_SWITCH_TOP
- 1242 0034 00000000 	 .word top_button_state
- 1243 0038 00000000 	 .word LED_Indicator
- 1244              	 .cfi_endproc
- 1245              	.LFE311:
- 1247              	 .section .text.CheckBottomLimitSwitch,"ax",%progbits
- 1248              	 .align 2
- 1249              	 .global CheckBottomLimitSwitch
- 1250              	 .thumb
- 1251              	 .thumb_func
- 1253              	CheckBottomLimitSwitch:
- 1254              	.LFB312:
- 423:../main.c     **** int CheckBottomLimitSwitch()
+ 993 021c 1846     	 mov r0,r3
+ 994 021e 0837     	 adds r7,r7,#8
+ 995              	.LCFI52:
+ 996              	 .cfi_def_cfa_offset 8
+ 997 0220 BD46     	 mov sp,r7
+ 998              	.LCFI53:
+ 999              	 .cfi_def_cfa_register 13
+ 1000              	 
+ 1001 0222 80BD     	 pop {r7,pc}
+ 1002              	.L33:
+ 1003 0224 AFF30080 	 .align 3
+ 1004              	.L32:
+ 1005 0228 9A999999 	 .word -1717986918
+ 1006 022c 9999B93F 	 .word 1069128089
+ 1007 0230 9A999999 	 .word -1717986918
+ 1008 0234 9999C93F 	 .word 1070176665
+ 1009 0238 33333333 	 .word 858993459
+ 1010 023c 3333D33F 	 .word 1070805811
+ 1011 0240 9A999999 	 .word -1717986918
+ 1012 0244 9999D93F 	 .word 1071225241
+ 1013 0248 33333333 	 .word 858993459
+ 1014 024c 3333E33F 	 .word 1071854387
+ 1015 0250 66666666 	 .word 1717986918
+ 1016 0254 6666E63F 	 .word 1072064102
+ 1017 0258 9A999999 	 .word -1717986918
+ 1018 025c 9999E93F 	 .word 1072273817
+ 1019 0260 CDCCCCCC 	 .word -858993459
+ 1020 0264 CCCCEC3F 	 .word 1072483532
+ 1021 0268 00000000 	 .word TIMER_Motor
+ 1022 026c 00000000 	 .word PWM_Motor
+ 1023 0270 00000000 	 .word Motor_Direction
+ 1024 0274 00000000 	 .word time
+ 1025 0278 00000000 	 .word closedToOpenTime
+ 1026 027c 00000000 	 .word WindowState
+ 1027 0280 00000000 	 .word stateTimingVariables
+ 1028 0284 0000E03F 	 .word 1071644672
+ 1029              	 .cfi_endproc
+ 1030              	.LFE309:
+ 1032              	 .section .text.MoveWindow,"ax",%progbits
+ 1033              	 .align 2
+ 1034              	 .global MoveWindow
+ 1035              	 .thumb
+ 1036              	 .thumb_func
+ 1038              	MoveWindow:
+ 1039              	.LFB310:
+ 354:../main.c     **** 
+ 355:../main.c     **** //Function to move window to desired percentage
+ 356:../main.c     **** // NOTE: HIGH = DOWM; LOW = UP !!!
+ 357:../main.c     **** int MoveWindow(int percentage)
+ 358:../main.c     **** {
+ 1040              	 .loc 3 358 0
+ 1041              	 .cfi_startproc
+ 1042              	 
+ 1043              	 
+ 1044 0000 80B5     	 push {r7,lr}
+ 1045              	.LCFI54:
+ 1046              	 .cfi_def_cfa_offset 8
+ 1047              	 .cfi_offset 7,-8
+ 1048              	 .cfi_offset 14,-4
+ 1049 0002 86B0     	 sub sp,sp,#24
+ 1050              	.LCFI55:
+ 1051              	 .cfi_def_cfa_offset 32
+ 1052 0004 00AF     	 add r7,sp,#0
+ 1053              	.LCFI56:
+ 1054              	 .cfi_def_cfa_register 7
+ 1055 0006 7860     	 str r0,[r7,#4]
+ 359:../main.c     **** 	/*
+ 360:../main.c     **** 	 -----Methodology-----
+ 361:../main.c     **** 	 - Key into global time array using requested percentage
+ 362:../main.c     **** 	 - Take current state, subtract requested state from it
+ 363:../main.c     **** 	 - use + or - value of the number to know which direction to move, and magnitude for how much time
+ 364:../main.c     **** 	 - drive motor and update timer variable with timer interrupt until motor has been driven appropri
+ 365:../main.c     **** 	 - stop timer and update current state variable
+ 366:../main.c     **** 	 - return with success and smile :)
+ 367:../main.c     **** 	*/
+ 368:../main.c     **** 
+ 369:../main.c     **** 	int MOS_UP_State = DIGITAL_IO_GetInput(&MOS_UP);
+ 1056              	 .loc 3 369 0
+ 1057 0008 3E48     	 ldr r0,.L49
+ 1058 000a FFF7FEFF 	 bl DIGITAL_IO_GetInput
+ 1059 000e 0346     	 mov r3,r0
+ 1060 0010 7B61     	 str r3,[r7,#20]
+ 370:../main.c     **** 	int MOS_DOWN_State = DIGITAL_IO_GetInput(&MOS_DOWN);
+ 1061              	 .loc 3 370 0
+ 1062 0012 3D48     	 ldr r0,.L49+4
+ 1063 0014 FFF7FEFF 	 bl DIGITAL_IO_GetInput
+ 1064 0018 0346     	 mov r3,r0
+ 1065 001a 3B61     	 str r3,[r7,#16]
+ 371:../main.c     **** 	if ((MOS_UP_State == 0) || (MOS_DOWN_State == 0))
+ 1066              	 .loc 3 371 0
+ 1067 001c 7B69     	 ldr r3,[r7,#20]
+ 1068 001e 002B     	 cmp r3,#0
+ 1069 0020 02D0     	 beq .L35
+ 1070              	 .loc 3 371 0 is_stmt 0 discriminator 1
+ 1071 0022 3B69     	 ldr r3,[r7,#16]
+ 1072 0024 002B     	 cmp r3,#0
+ 1073 0026 01D1     	 bne .L36
+ 1074              	.L35:
+ 372:../main.c     **** 	{
+ 373:../main.c     **** 		return 0;	//Manual Override switch already being serviced
+ 1075              	 .loc 3 373 0 is_stmt 1
+ 1076 0028 0023     	 movs r3,#0
+ 1077 002a 67E0     	 b .L37
+ 1078              	.L36:
+ 374:../main.c     **** 	}
+ 375:../main.c     **** 
+ 376:../main.c     **** 	int requestedPercentage = percentage;
+ 1079              	 .loc 3 376 0
+ 1080 002c 7B68     	 ldr r3,[r7,#4]
+ 1081 002e FB60     	 str r3,[r7,#12]
+ 377:../main.c     **** 	if ((requestedPercentage < 0) || (requestedPercentage > 10))
+ 1082              	 .loc 3 377 0
+ 1083 0030 FB68     	 ldr r3,[r7,#12]
+ 1084 0032 002B     	 cmp r3,#0
+ 1085 0034 02DB     	 blt .L38
+ 1086              	 .loc 3 377 0 is_stmt 0 discriminator 1
+ 1087 0036 FB68     	 ldr r3,[r7,#12]
+ 1088 0038 0A2B     	 cmp r3,#10
+ 1089 003a 01DD     	 ble .L39
+ 1090              	.L38:
+ 378:../main.c     **** 	{
+ 379:../main.c     **** 		return 0;
+ 1091              	 .loc 3 379 0 is_stmt 1
+ 1092 003c 0023     	 movs r3,#0
+ 1093 003e 5DE0     	 b .L37
+ 1094              	.L39:
+ 380:../main.c     **** 	}
+ 381:../main.c     **** 
+ 382:../main.c     **** 	int timeToMove = (stateTimingVariables[requestedPercentage] - stateTimingVariables[WindowState]);	
+ 1095              	 .loc 3 382 0
+ 1096 0040 324A     	 ldr r2,.L49+8
+ 1097 0042 FB68     	 ldr r3,[r7,#12]
+ 1098 0044 52F82320 	 ldr r2,[r2,r3,lsl#2]
+ 1099 0048 314B     	 ldr r3,.L49+12
+ 1100 004a 1B68     	 ldr r3,[r3]
+ 1101 004c 2F49     	 ldr r1,.L49+8
+ 1102 004e 51F82330 	 ldr r3,[r1,r3,lsl#2]
+ 1103 0052 D31A     	 subs r3,r2,r3
+ 1104 0054 BB60     	 str r3,[r7,#8]
+ 383:../main.c     **** 																										// Difference will be time needed to drive motor,
+ 384:../main.c     **** 																										// sign will be direction (+ = up, - = down)
+ 385:../main.c     **** 	if (timeToMove > 0)			// Positive, so need to drive up
+ 1105              	 .loc 3 385 0
+ 1106 0056 BB68     	 ldr r3,[r7,#8]
+ 1107 0058 002B     	 cmp r3,#0
+ 1108 005a 20DD     	 ble .L40
+ 386:../main.c     **** 	{
+ 387:../main.c     **** 		TIMER_Start(&TIMER_Motor);
+ 1109              	 .loc 3 387 0
+ 1110 005c 2D48     	 ldr r0,.L49+16
+ 1111 005e FFF7FEFF 	 bl TIMER_Start
+ 388:../main.c     **** 		while((time < timeToMove) && (CheckTopLimitSwitch() == 1))	//drive motor until time is equal to s
+ 1112              	 .loc 3 388 0
+ 1113 0062 05E0     	 b .L41
+ 1114              	.L43:
+ 389:../main.c     **** 		{
+ 390:../main.c     **** 			PWM_Start(&PWM_Motor);
+ 1115              	 .loc 3 390 0
+ 1116 0064 2C48     	 ldr r0,.L49+20
+ 1117 0066 FFF7FEFF 	 bl PWM_Start
+ 391:../main.c     **** 			DIGITAL_IO_SetOutputLow(&Motor_Direction); //Move up
+ 1118              	 .loc 3 391 0
+ 1119 006a 2C48     	 ldr r0,.L49+24
+ 1120 006c FFF7FEFF 	 bl DIGITAL_IO_SetOutputLow
+ 1121              	.L41:
+ 388:../main.c     **** 		while((time < timeToMove) && (CheckTopLimitSwitch() == 1))	//drive motor until time is equal to s
+ 1122              	 .loc 3 388 0
+ 1123 0070 2B4B     	 ldr r3,.L49+28
+ 1124 0072 1A68     	 ldr r2,[r3]
+ 1125 0074 BB68     	 ldr r3,[r7,#8]
+ 1126 0076 9A42     	 cmp r2,r3
+ 1127 0078 04DA     	 bge .L42
+ 388:../main.c     **** 		while((time < timeToMove) && (CheckTopLimitSwitch() == 1))	//drive motor until time is equal to s
+ 1128              	 .loc 3 388 0 is_stmt 0 discriminator 1
+ 1129 007a FFF7FEFF 	 bl CheckTopLimitSwitch
+ 1130 007e 0346     	 mov r3,r0
+ 1131 0080 012B     	 cmp r3,#1
+ 1132 0082 EFD0     	 beq .L43
+ 1133              	.L42:
+ 392:../main.c     **** 		}
+ 393:../main.c     **** 		PWM_Stop(&PWM_Motor);
+ 1134              	 .loc 3 393 0 is_stmt 1
+ 1135 0084 2448     	 ldr r0,.L49+20
+ 1136 0086 FFF7FEFF 	 bl PWM_Stop
+ 394:../main.c     **** 		TIMER_Stop(&TIMER_Motor);
+ 1137              	 .loc 3 394 0
+ 1138 008a 2248     	 ldr r0,.L49+16
+ 1139 008c FFF7FEFF 	 bl TIMER_Stop
+ 395:../main.c     **** 		time = 0;
+ 1140              	 .loc 3 395 0
+ 1141 0090 234B     	 ldr r3,.L49+28
+ 1142 0092 0022     	 movs r2,#0
+ 1143 0094 1A60     	 str r2,[r3]
+ 396:../main.c     **** 		WindowState = requestedPercentage;
+ 1144              	 .loc 3 396 0
+ 1145 0096 1E4A     	 ldr r2,.L49+12
+ 1146 0098 FB68     	 ldr r3,[r7,#12]
+ 1147 009a 1360     	 str r3,[r2]
+ 1148 009c 2DE0     	 b .L44
+ 1149              	.L40:
+ 397:../main.c     **** 	}
+ 398:../main.c     **** 	else if (timeToMove < 0)	// Negative, need to drive down
+ 1150              	 .loc 3 398 0
+ 1151 009e BB68     	 ldr r3,[r7,#8]
+ 1152 00a0 002B     	 cmp r3,#0
+ 1153 00a2 25DA     	 bge .L45
+ 1154              	.LBB6:
+ 399:../main.c     **** 	{
+ 400:../main.c     **** 		timeToMove = abs(timeToMove);
+ 1155              	 .loc 3 400 0
+ 1156 00a4 BB68     	 ldr r3,[r7,#8]
+ 1157 00a6 002B     	 cmp r3,#0
+ 1158 00a8 B8BF     	 it lt
+ 1159 00aa 5B42     	 rsblt r3,r3,#0
+ 1160 00ac BB60     	 str r3,[r7,#8]
+ 401:../main.c     **** 		TIMER_Start(&TIMER_Motor);
+ 1161              	 .loc 3 401 0
+ 1162 00ae 1948     	 ldr r0,.L49+16
+ 1163 00b0 FFF7FEFF 	 bl TIMER_Start
+ 402:../main.c     **** 		while((time < timeToMove) && (CheckBottomLimitSwitch() == 1))	//drive motor until time is equal t
+ 1164              	 .loc 3 402 0
+ 1165 00b4 05E0     	 b .L46
+ 1166              	.L48:
+ 403:../main.c     **** 		{
+ 404:../main.c     **** 			PWM_Start(&PWM_Motor);
+ 1167              	 .loc 3 404 0
+ 1168 00b6 1848     	 ldr r0,.L49+20
+ 1169 00b8 FFF7FEFF 	 bl PWM_Start
+ 405:../main.c     **** 			DIGITAL_IO_SetOutputHigh(&Motor_Direction); //Move down
+ 1170              	 .loc 3 405 0
+ 1171 00bc 1748     	 ldr r0,.L49+24
+ 1172 00be FFF7FEFF 	 bl DIGITAL_IO_SetOutputHigh
+ 1173              	.L46:
+ 402:../main.c     **** 		while((time < timeToMove) && (CheckBottomLimitSwitch() == 1))	//drive motor until time is equal t
+ 1174              	 .loc 3 402 0
+ 1175 00c2 174B     	 ldr r3,.L49+28
+ 1176 00c4 1A68     	 ldr r2,[r3]
+ 1177 00c6 BB68     	 ldr r3,[r7,#8]
+ 1178 00c8 9A42     	 cmp r2,r3
+ 1179 00ca 04DA     	 bge .L47
+ 402:../main.c     **** 		while((time < timeToMove) && (CheckBottomLimitSwitch() == 1))	//drive motor until time is equal t
+ 1180              	 .loc 3 402 0 is_stmt 0 discriminator 1
+ 1181 00cc FFF7FEFF 	 bl CheckBottomLimitSwitch
+ 1182 00d0 0346     	 mov r3,r0
+ 1183 00d2 012B     	 cmp r3,#1
+ 1184 00d4 EFD0     	 beq .L48
+ 1185              	.L47:
+ 406:../main.c     **** 		}
+ 407:../main.c     **** 		PWM_Stop(&PWM_Motor);
+ 1186              	 .loc 3 407 0 is_stmt 1
+ 1187 00d6 1048     	 ldr r0,.L49+20
+ 1188 00d8 FFF7FEFF 	 bl PWM_Stop
+ 408:../main.c     **** 		TIMER_Stop(&TIMER_Motor);
+ 1189              	 .loc 3 408 0
+ 1190 00dc 0D48     	 ldr r0,.L49+16
+ 1191 00de FFF7FEFF 	 bl TIMER_Stop
+ 409:../main.c     **** 		time = 0;
+ 1192              	 .loc 3 409 0
+ 1193 00e2 0F4B     	 ldr r3,.L49+28
+ 1194 00e4 0022     	 movs r2,#0
+ 1195 00e6 1A60     	 str r2,[r3]
+ 410:../main.c     **** 		WindowState = requestedPercentage;
+ 1196              	 .loc 3 410 0
+ 1197 00e8 094A     	 ldr r2,.L49+12
+ 1198 00ea FB68     	 ldr r3,[r7,#12]
+ 1199 00ec 1360     	 str r3,[r2]
+ 1200              	.LBE6:
+ 1201 00ee 04E0     	 b .L44
+ 1202              	.L45:
+ 411:../main.c     **** 	}
+ 412:../main.c     **** 	else if (timeToMove == 0)
+ 1203              	 .loc 3 412 0
+ 1204 00f0 BB68     	 ldr r3,[r7,#8]
+ 1205 00f2 002B     	 cmp r3,#0
+ 1206 00f4 01D0     	 beq .L44
+ 413:../main.c     **** 	{
+ 414:../main.c     **** 		// Requesting same state, so do nothing
+ 415:../main.c     **** 	}
+ 416:../main.c     **** 	else
+ 417:../main.c     **** 	{
+ 418:../main.c     **** 		return 0;
+ 1207              	 .loc 3 418 0
+ 1208 00f6 0023     	 movs r3,#0
+ 1209 00f8 00E0     	 b .L37
+ 1210              	.L44:
+ 419:../main.c     **** 	}
+ 420:../main.c     **** 	return 1;
+ 1211              	 .loc 3 420 0
+ 1212 00fa 0123     	 movs r3,#1
+ 1213              	.L37:
+ 421:../main.c     **** }
+ 1214              	 .loc 3 421 0
+ 1215 00fc 1846     	 mov r0,r3
+ 1216 00fe 1837     	 adds r7,r7,#24
+ 1217              	.LCFI57:
+ 1218              	 .cfi_def_cfa_offset 8
+ 1219 0100 BD46     	 mov sp,r7
+ 1220              	.LCFI58:
+ 1221              	 .cfi_def_cfa_register 13
+ 1222              	 
+ 1223 0102 80BD     	 pop {r7,pc}
+ 1224              	.L50:
+ 1225              	 .align 2
+ 1226              	.L49:
+ 1227 0104 00000000 	 .word MOS_UP
+ 1228 0108 00000000 	 .word MOS_DOWN
+ 1229 010c 00000000 	 .word stateTimingVariables
+ 1230 0110 00000000 	 .word WindowState
+ 1231 0114 00000000 	 .word TIMER_Motor
+ 1232 0118 00000000 	 .word PWM_Motor
+ 1233 011c 00000000 	 .word Motor_Direction
+ 1234 0120 00000000 	 .word time
+ 1235              	 .cfi_endproc
+ 1236              	.LFE310:
+ 1238              	 .section .text.CheckTopLimitSwitch,"ax",%progbits
+ 1239              	 .align 2
+ 1240              	 .global CheckTopLimitSwitch
+ 1241              	 .thumb
+ 1242              	 .thumb_func
+ 1244              	CheckTopLimitSwitch:
+ 1245              	.LFB311:
+ 422:../main.c     **** 
+ 423:../main.c     **** int CheckTopLimitSwitch()
  424:../main.c     **** {
- 1255              	 .loc 3 424 0
- 1256              	 .cfi_startproc
- 1257              	 
- 1258              	 
- 1259 0000 80B5     	 push {r7,lr}
- 1260              	.LCFI64:
- 1261              	 .cfi_def_cfa_offset 8
- 1262              	 .cfi_offset 7,-8
- 1263              	 .cfi_offset 14,-4
- 1264 0002 82B0     	 sub sp,sp,#8
- 1265              	.LCFI65:
- 1266              	 .cfi_def_cfa_offset 16
- 1267 0004 00AF     	 add r7,sp,#0
- 1268              	.LCFI66:
- 1269              	 .cfi_def_cfa_register 7
- 425:../main.c     **** 	int BottomSwitchState = DIGITAL_IO_GetInput(&LIMIT_SWITCH_BOTTOM);
- 1270              	 .loc 3 425 0
- 1271 0006 0A48     	 ldr r0,.L53
- 1272 0008 FFF7FEFF 	 bl DIGITAL_IO_GetInput
- 1273 000c 0346     	 mov r3,r0
- 1274 000e 7B60     	 str r3,[r7,#4]
- 426:../main.c     **** 	if (BottomSwitchState != bottom_button_state)
- 1275              	 .loc 3 426 0
- 1276 0010 7A68     	 ldr r2,[r7,#4]
- 1277 0012 084B     	 ldr r3,.L53+4
- 1278 0014 1B68     	 ldr r3,[r3]
- 1279 0016 9A42     	 cmp r2,r3
- 1280 0018 04D0     	 beq .L51
+ 1246              	 .loc 3 424 0
+ 1247              	 .cfi_startproc
+ 1248              	 
+ 1249              	 
+ 1250 0000 80B5     	 push {r7,lr}
+ 1251              	.LCFI59:
+ 1252              	 .cfi_def_cfa_offset 8
+ 1253              	 .cfi_offset 7,-8
+ 1254              	 .cfi_offset 14,-4
+ 1255 0002 82B0     	 sub sp,sp,#8
+ 1256              	.LCFI60:
+ 1257              	 .cfi_def_cfa_offset 16
+ 1258 0004 00AF     	 add r7,sp,#0
+ 1259              	.LCFI61:
+ 1260              	 .cfi_def_cfa_register 7
+ 425:../main.c     **** 	int TopSwitchState = DIGITAL_IO_GetInput(&LIMIT_SWITCH_TOP);
+ 1261              	 .loc 3 425 0
+ 1262 0006 0A48     	 ldr r0,.L54
+ 1263 0008 FFF7FEFF 	 bl DIGITAL_IO_GetInput
+ 1264 000c 0346     	 mov r3,r0
+ 1265 000e 7B60     	 str r3,[r7,#4]
+ 426:../main.c     **** 	if (TopSwitchState != top_button_state)
+ 1266              	 .loc 3 426 0
+ 1267 0010 7A68     	 ldr r2,[r7,#4]
+ 1268 0012 084B     	 ldr r3,.L54+4
+ 1269 0014 1B68     	 ldr r3,[r3]
+ 1270 0016 9A42     	 cmp r2,r3
+ 1271 0018 04D0     	 beq .L52
  427:../main.c     **** 	{
- 428:../main.c     **** 		DIGITAL_IO_SetOutputLow(&LED_Indicator);
- 1281              	 .loc 3 428 0
- 1282 001a 0748     	 ldr r0,.L53+8
- 1283 001c FFF7FEFF 	 bl DIGITAL_IO_SetOutputLow
- 429:../main.c     **** 		return 0; 	//Bottom switch pressed
- 1284              	 .loc 3 429 0
- 1285 0020 0023     	 movs r3,#0
- 1286 0022 00E0     	 b .L52
- 1287              	.L51:
+ 428:../main.c     **** 		DIGITAL_IO_SetOutputHigh(&LED_Indicator);
+ 1272              	 .loc 3 428 0
+ 1273 001a 0748     	 ldr r0,.L54+8
+ 1274 001c FFF7FEFF 	 bl DIGITAL_IO_SetOutputHigh
+ 429:../main.c     **** 		return 0;	//Top switch pressed
+ 1275              	 .loc 3 429 0
+ 1276 0020 0023     	 movs r3,#0
+ 1277 0022 00E0     	 b .L53
+ 1278              	.L52:
  430:../main.c     **** 	}
  431:../main.c     **** 
  432:../main.c     **** 	return 1; 	//Base case that neither is pressed
- 1288              	 .loc 3 432 0
- 1289 0024 0123     	 movs r3,#1
- 1290              	.L52:
- 433:../main.c     **** 	// TODO : Make this meaningful
- 434:../main.c     **** }
- 1291              	 .loc 3 434 0
- 1292 0026 1846     	 mov r0,r3
- 1293 0028 0837     	 adds r7,r7,#8
- 1294              	.LCFI67:
- 1295              	 .cfi_def_cfa_offset 8
- 1296 002a BD46     	 mov sp,r7
- 1297              	.LCFI68:
- 1298              	 .cfi_def_cfa_register 13
- 1299              	 
- 1300 002c 80BD     	 pop {r7,pc}
- 1301              	.L54:
- 1302 002e 00BF     	 .align 2
- 1303              	.L53:
- 1304 0030 00000000 	 .word LIMIT_SWITCH_BOTTOM
- 1305 0034 00000000 	 .word bottom_button_state
- 1306 0038 00000000 	 .word LED_Indicator
- 1307              	 .cfi_endproc
- 1308              	.LFE312:
- 1310              	 .text
- 1311              	.Letext0:
- 1312              	 .file 4 "c:\\users\\frank\\desktop\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
- 1313              	 .file 5 "c:\\users\\frank\\desktop\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 1314              	 .file 6 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Infineon/XMC4200_series/Include/XMC4200.h"
- 1315              	 .file 7 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc/xmc4_gpio.h"
- 1316              	 .file 8 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc/xmc4_scu.h"
- 1317              	 .file 9 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc/xmc_can.h"
- 1318              	 .file 10 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/GLOBAL_CAN/global_can.h"
- 1319              	 .file 11 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/CAN_NODE/can_node.h"
- 1320              	 .file 12 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc/xmc_ccu4.h"
- 1321              	 .file 13 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/GLOBAL_CCU4/global_ccu4.h"
- 1322              	 .file 14 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/PWM/pwm.h"
- 1323              	 .file 15 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/TIMER/timer.h"
- 1324              	 .file 16 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Include/cmsis_gcc.h"
- 1325              	 .file 17 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Include/core_cm4.h"
- 1326              	 .file 18 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Infineon/XMC4200_series/Include/system_XMC4200.h"
- 1327              	 .file 19 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO/digital_io_extern.h"
- 1328              	 .file 20 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/CAN_NODE/can_node_extern.h"
- 1329              	 .file 21 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/PWM/PWM_Extern.h"
- 1330              	 .file 22 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/TIMER/timer_extern.h"
- 1331              	 .file 23 "<built-in>"
+ 1279              	 .loc 3 432 0
+ 1280 0024 0123     	 movs r3,#1
+ 1281              	.L53:
+ 433:../main.c     **** }
+ 1282              	 .loc 3 433 0
+ 1283 0026 1846     	 mov r0,r3
+ 1284 0028 0837     	 adds r7,r7,#8
+ 1285              	.LCFI62:
+ 1286              	 .cfi_def_cfa_offset 8
+ 1287 002a BD46     	 mov sp,r7
+ 1288              	.LCFI63:
+ 1289              	 .cfi_def_cfa_register 13
+ 1290              	 
+ 1291 002c 80BD     	 pop {r7,pc}
+ 1292              	.L55:
+ 1293 002e 00BF     	 .align 2
+ 1294              	.L54:
+ 1295 0030 00000000 	 .word LIMIT_SWITCH_TOP
+ 1296 0034 00000000 	 .word top_button_state
+ 1297 0038 00000000 	 .word LED_Indicator
+ 1298              	 .cfi_endproc
+ 1299              	.LFE311:
+ 1301              	 .section .text.CheckBottomLimitSwitch,"ax",%progbits
+ 1302              	 .align 2
+ 1303              	 .global CheckBottomLimitSwitch
+ 1304              	 .thumb
+ 1305              	 .thumb_func
+ 1307              	CheckBottomLimitSwitch:
+ 1308              	.LFB312:
+ 434:../main.c     **** int CheckBottomLimitSwitch()
+ 435:../main.c     **** {
+ 1309              	 .loc 3 435 0
+ 1310              	 .cfi_startproc
+ 1311              	 
+ 1312              	 
+ 1313 0000 80B5     	 push {r7,lr}
+ 1314              	.LCFI64:
+ 1315              	 .cfi_def_cfa_offset 8
+ 1316              	 .cfi_offset 7,-8
+ 1317              	 .cfi_offset 14,-4
+ 1318 0002 82B0     	 sub sp,sp,#8
+ 1319              	.LCFI65:
+ 1320              	 .cfi_def_cfa_offset 16
+ 1321 0004 00AF     	 add r7,sp,#0
+ 1322              	.LCFI66:
+ 1323              	 .cfi_def_cfa_register 7
+ 436:../main.c     **** 	int BottomSwitchState = DIGITAL_IO_GetInput(&LIMIT_SWITCH_BOTTOM);
+ 1324              	 .loc 3 436 0
+ 1325 0006 0A48     	 ldr r0,.L59
+ 1326 0008 FFF7FEFF 	 bl DIGITAL_IO_GetInput
+ 1327 000c 0346     	 mov r3,r0
+ 1328 000e 7B60     	 str r3,[r7,#4]
+ 437:../main.c     **** 	if (BottomSwitchState != bottom_button_state)
+ 1329              	 .loc 3 437 0
+ 1330 0010 7A68     	 ldr r2,[r7,#4]
+ 1331 0012 084B     	 ldr r3,.L59+4
+ 1332 0014 1B68     	 ldr r3,[r3]
+ 1333 0016 9A42     	 cmp r2,r3
+ 1334 0018 04D0     	 beq .L57
+ 438:../main.c     **** 	{
+ 439:../main.c     **** 		DIGITAL_IO_SetOutputLow(&LED_Indicator);
+ 1335              	 .loc 3 439 0
+ 1336 001a 0748     	 ldr r0,.L59+8
+ 1337 001c FFF7FEFF 	 bl DIGITAL_IO_SetOutputLow
+ 440:../main.c     **** 		return 0; 	//Bottom switch pressed
+ 1338              	 .loc 3 440 0
+ 1339 0020 0023     	 movs r3,#0
+ 1340 0022 00E0     	 b .L58
+ 1341              	.L57:
+ 441:../main.c     **** 	}
+ 442:../main.c     **** 
+ 443:../main.c     **** 	return 1; 	//Base case that neither is pressed
+ 1342              	 .loc 3 443 0
+ 1343 0024 0123     	 movs r3,#1
+ 1344              	.L58:
+ 444:../main.c     **** }
+ 1345              	 .loc 3 444 0
+ 1346 0026 1846     	 mov r0,r3
+ 1347 0028 0837     	 adds r7,r7,#8
+ 1348              	.LCFI67:
+ 1349              	 .cfi_def_cfa_offset 8
+ 1350 002a BD46     	 mov sp,r7
+ 1351              	.LCFI68:
+ 1352              	 .cfi_def_cfa_register 13
+ 1353              	 
+ 1354 002c 80BD     	 pop {r7,pc}
+ 1355              	.L60:
+ 1356 002e 00BF     	 .align 2
+ 1357              	.L59:
+ 1358 0030 00000000 	 .word LIMIT_SWITCH_BOTTOM
+ 1359 0034 00000000 	 .word bottom_button_state
+ 1360 0038 00000000 	 .word LED_Indicator
+ 1361              	 .cfi_endproc
+ 1362              	.LFE312:
+ 1364              	 .section .text.ManualOverrideSwitches,"ax",%progbits
+ 1365              	 .align 2
+ 1366              	 .global ManualOverrideSwitches
+ 1367              	 .thumb
+ 1368              	 .thumb_func
+ 1370              	ManualOverrideSwitches:
+ 1371              	.LFB313:
+ 445:../main.c     **** 
+ 446:../main.c     **** void ManualOverrideSwitches()
+ 447:../main.c     **** {
+ 1372              	 .loc 3 447 0
+ 1373              	 .cfi_startproc
+ 1374              	 
+ 1375              	 
+ 1376 0000 80B5     	 push {r7,lr}
+ 1377              	.LCFI69:
+ 1378              	 .cfi_def_cfa_offset 8
+ 1379              	 .cfi_offset 7,-8
+ 1380              	 .cfi_offset 14,-4
+ 1381 0002 86B0     	 sub sp,sp,#24
+ 1382              	.LCFI70:
+ 1383              	 .cfi_def_cfa_offset 32
+ 1384 0004 00AF     	 add r7,sp,#0
+ 1385              	.LCFI71:
+ 1386              	 .cfi_def_cfa_register 7
+ 448:../main.c     **** 	int MOS_UP_State = DIGITAL_IO_GetInput(&MOS_UP);
+ 1387              	 .loc 3 448 0
+ 1388 0006 6548     	 ldr r0,.L74
+ 1389 0008 FFF7FEFF 	 bl DIGITAL_IO_GetInput
+ 1390 000c 0346     	 mov r3,r0
+ 1391 000e 7B61     	 str r3,[r7,#20]
+ 449:../main.c     **** 	int MOS_DOWN_State = DIGITAL_IO_GetInput(&MOS_DOWN);
+ 1392              	 .loc 3 449 0
+ 1393 0010 6348     	 ldr r0,.L74+4
+ 1394 0012 FFF7FEFF 	 bl DIGITAL_IO_GetInput
+ 1395 0016 0346     	 mov r3,r0
+ 1396 0018 3B61     	 str r3,[r7,#16]
+ 450:../main.c     **** 	int nextState;
+ 451:../main.c     **** 	uint32_t status;
+ 452:../main.c     **** 	if (MOS_UP_State == 0)			// Up button is pressed, upward movement requested
+ 1397              	 .loc 3 452 0
+ 1398 001a 7B69     	 ldr r3,[r7,#20]
+ 1399 001c 002B     	 cmp r3,#0
+ 1400 001e 59D1     	 bne .L62
+ 1401              	.LBB7:
+ 453:../main.c     **** 	{
+ 454:../main.c     **** 		while ((MOS_UP_State == 0) && (WindowState != 10))
+ 1402              	 .loc 3 454 0
+ 1403 0020 2EE0     	 b .L63
+ 1404              	.L67:
+ 455:../main.c     **** 		{
+ 456:../main.c     **** 			nextState = (stateTimingVariables[WindowState + 1] - stateTimingVariables[WindowState]);	//calcu
+ 1405              	 .loc 3 456 0
+ 1406 0022 604B     	 ldr r3,.L74+8
+ 1407 0024 1B68     	 ldr r3,[r3]
+ 1408 0026 0133     	 adds r3,r3,#1
+ 1409 0028 5F4A     	 ldr r2,.L74+12
+ 1410 002a 52F82320 	 ldr r2,[r2,r3,lsl#2]
+ 1411 002e 5D4B     	 ldr r3,.L74+8
+ 1412 0030 1B68     	 ldr r3,[r3]
+ 1413 0032 5D49     	 ldr r1,.L74+12
+ 1414 0034 51F82330 	 ldr r3,[r1,r3,lsl#2]
+ 1415 0038 D31A     	 subs r3,r2,r3
+ 1416 003a FB60     	 str r3,[r7,#12]
+ 457:../main.c     **** 			TIMER_Start(&TIMER_Motor);
+ 1417              	 .loc 3 457 0
+ 1418 003c 5B48     	 ldr r0,.L74+16
+ 1419 003e FFF7FEFF 	 bl TIMER_Start
+ 458:../main.c     **** 			while (time < nextState)		//drive motor up to next state, then check again if button is pressed
+ 1420              	 .loc 3 458 0
+ 1421 0042 05E0     	 b .L64
+ 1422              	.L65:
+ 459:../main.c     **** 			{
+ 460:../main.c     **** 				PWM_Start(&PWM_Motor);
+ 1423              	 .loc 3 460 0
+ 1424 0044 5A48     	 ldr r0,.L74+20
+ 1425 0046 FFF7FEFF 	 bl PWM_Start
+ 461:../main.c     **** 				DIGITAL_IO_SetOutputLow(&Motor_Direction); //Move up
+ 1426              	 .loc 3 461 0
+ 1427 004a 5A48     	 ldr r0,.L74+24
+ 1428 004c FFF7FEFF 	 bl DIGITAL_IO_SetOutputLow
+ 1429              	.L64:
+ 458:../main.c     **** 			while (time < nextState)		//drive motor up to next state, then check again if button is pressed
+ 1430              	 .loc 3 458 0
+ 1431 0050 594B     	 ldr r3,.L74+28
+ 1432 0052 1A68     	 ldr r2,[r3]
+ 1433 0054 FB68     	 ldr r3,[r7,#12]
+ 1434 0056 9A42     	 cmp r2,r3
+ 1435 0058 F4DB     	 blt .L65
+ 462:../main.c     **** 			}
+ 463:../main.c     **** 			PWM_Stop(&PWM_Motor);
+ 1436              	 .loc 3 463 0
+ 1437 005a 5548     	 ldr r0,.L74+20
+ 1438 005c FFF7FEFF 	 bl PWM_Stop
+ 464:../main.c     **** 			TIMER_Stop(&TIMER_Motor);
+ 1439              	 .loc 3 464 0
+ 1440 0060 5248     	 ldr r0,.L74+16
+ 1441 0062 FFF7FEFF 	 bl TIMER_Stop
+ 465:../main.c     **** 			WindowState = WindowState + 1;
+ 1442              	 .loc 3 465 0
+ 1443 0066 4F4B     	 ldr r3,.L74+8
+ 1444 0068 1B68     	 ldr r3,[r3]
+ 1445 006a 0133     	 adds r3,r3,#1
+ 1446 006c 4D4A     	 ldr r2,.L74+8
+ 1447 006e 1360     	 str r3,[r2]
+ 466:../main.c     **** 			time = 0;
+ 1448              	 .loc 3 466 0
+ 1449 0070 514B     	 ldr r3,.L74+28
+ 1450 0072 0022     	 movs r2,#0
+ 1451 0074 1A60     	 str r2,[r3]
+ 467:../main.c     **** 			MOS_UP_State = DIGITAL_IO_GetInput(&MOS_UP);
+ 1452              	 .loc 3 467 0
+ 1453 0076 4948     	 ldr r0,.L74
+ 1454 0078 FFF7FEFF 	 bl DIGITAL_IO_GetInput
+ 1455 007c 0346     	 mov r3,r0
+ 1456 007e 7B61     	 str r3,[r7,#20]
+ 1457              	.L63:
+ 454:../main.c     **** 		{
+ 1458              	 .loc 3 454 0
+ 1459 0080 7B69     	 ldr r3,[r7,#20]
+ 1460 0082 002B     	 cmp r3,#0
+ 1461 0084 03D1     	 bne .L66
+ 454:../main.c     **** 		{
+ 1462              	 .loc 3 454 0 is_stmt 0 discriminator 1
+ 1463 0086 474B     	 ldr r3,.L74+8
+ 1464 0088 1B68     	 ldr r3,[r3]
+ 1465 008a 0A2B     	 cmp r3,#10
+ 1466 008c C9D1     	 bne .L67
+ 1467              	.L66:
+ 468:../main.c     **** 		}
+ 469:../main.c     **** 		int WindowStatePercentage = (WindowState * 10);
+ 1468              	 .loc 3 469 0 is_stmt 1
+ 1469 008e 454B     	 ldr r3,.L74+8
+ 1470 0090 1A68     	 ldr r2,[r3]
+ 1471 0092 1346     	 mov r3,r2
+ 1472 0094 9B00     	 lsls r3,r3,#2
+ 1473 0096 1344     	 add r3,r3,r2
+ 1474 0098 5B00     	 lsls r3,r3,#1
+ 1475 009a BB60     	 str r3,[r7,#8]
+ 470:../main.c     **** 		React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = MOTOR_MODULE_ID;
+ 1476              	 .loc 3 470 0
+ 1477 009c 474B     	 ldr r3,.L74+32
+ 1478 009e 1B68     	 ldr r3,[r3]
+ 1479 00a0 474A     	 ldr r2,.L74+36
+ 1480 00a2 1268     	 ldr r2,[r2]
+ 1481 00a4 D2B2     	 uxtb r2,r2
+ 1482 00a6 1A74     	 strb r2,[r3,#16]
+ 471:../main.c     **** 		React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x04;	//Status update
+ 1483              	 .loc 3 471 0
+ 1484 00a8 444B     	 ldr r3,.L74+32
+ 1485 00aa 1B68     	 ldr r3,[r3]
+ 1486 00ac 0422     	 movs r2,#4
+ 1487 00ae 5A74     	 strb r2,[r3,#17]
+ 472:../main.c     **** 		React_Node_LMO_02_Config.mo_ptr->can_data_byte[2] = WindowStatePercentage;
+ 1488              	 .loc 3 472 0
+ 1489 00b0 424B     	 ldr r3,.L74+32
+ 1490 00b2 1B68     	 ldr r3,[r3]
+ 1491 00b4 BA68     	 ldr r2,[r7,#8]
+ 1492 00b6 D2B2     	 uxtb r2,r2
+ 1493 00b8 9A74     	 strb r2,[r3,#18]
+ 473:../main.c     **** 		status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
+ 1494              	 .loc 3 473 0
+ 1495 00ba 404B     	 ldr r3,.L74+32
+ 1496 00bc 1B68     	 ldr r3,[r3]
+ 1497 00be 1846     	 mov r0,r3
+ 1498 00c0 FFF7FEFF 	 bl XMC_CAN_MO_UpdateData
+ 1499 00c4 0346     	 mov r3,r0
+ 1500 00c6 7B60     	 str r3,[r7,#4]
+ 474:../main.c     **** 		status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
+ 1501              	 .loc 3 474 0
+ 1502 00c8 3C48     	 ldr r0,.L74+32
+ 1503 00ca FFF7FEFF 	 bl CAN_NODE_MO_Transmit
+ 1504 00ce 0346     	 mov r3,r0
+ 1505 00d0 7B60     	 str r3,[r7,#4]
+ 1506              	.LBE7:
+ 1507 00d2 60E0     	 b .L61
+ 1508              	.L62:
+ 475:../main.c     **** 	}
+ 476:../main.c     **** 	else if (MOS_DOWN_State == 0) 	// Down button pressed, downward movement requested
+ 1509              	 .loc 3 476 0
+ 1510 00d4 3B69     	 ldr r3,[r7,#16]
+ 1511 00d6 002B     	 cmp r3,#0
+ 1512 00d8 5DD1     	 bne .L61
+ 1513              	.LBB8:
+ 477:../main.c     **** 	{
+ 478:../main.c     **** 		while ((MOS_DOWN_State == 0) && (WindowState != 0))
+ 1514              	 .loc 3 478 0
+ 1515 00da 33E0     	 b .L69
+ 1516              	.L73:
+ 1517              	.LBB9:
+ 479:../main.c     **** 		{
+ 480:../main.c     **** 			nextState = (stateTimingVariables[WindowState - 1] - stateTimingVariables[WindowState]);
+ 1518              	 .loc 3 480 0
+ 1519 00dc 314B     	 ldr r3,.L74+8
+ 1520 00de 1B68     	 ldr r3,[r3]
+ 1521 00e0 013B     	 subs r3,r3,#1
+ 1522 00e2 314A     	 ldr r2,.L74+12
+ 1523 00e4 52F82320 	 ldr r2,[r2,r3,lsl#2]
+ 1524 00e8 2E4B     	 ldr r3,.L74+8
+ 1525 00ea 1B68     	 ldr r3,[r3]
+ 1526 00ec 2E49     	 ldr r1,.L74+12
+ 1527 00ee 51F82330 	 ldr r3,[r1,r3,lsl#2]
+ 1528 00f2 D31A     	 subs r3,r2,r3
+ 1529 00f4 FB60     	 str r3,[r7,#12]
+ 481:../main.c     **** 			nextState = abs(nextState);
+ 1530              	 .loc 3 481 0
+ 1531 00f6 FB68     	 ldr r3,[r7,#12]
+ 1532 00f8 002B     	 cmp r3,#0
+ 1533 00fa B8BF     	 it lt
+ 1534 00fc 5B42     	 rsblt r3,r3,#0
+ 1535 00fe FB60     	 str r3,[r7,#12]
+ 482:../main.c     **** 			TIMER_Start(&TIMER_Motor);
+ 1536              	 .loc 3 482 0
+ 1537 0100 2A48     	 ldr r0,.L74+16
+ 1538 0102 FFF7FEFF 	 bl TIMER_Start
+ 483:../main.c     **** 			while (time < nextState)
+ 1539              	 .loc 3 483 0
+ 1540 0106 05E0     	 b .L70
+ 1541              	.L71:
+ 484:../main.c     **** 			{
+ 485:../main.c     **** 				PWM_Start(&PWM_Motor);
+ 1542              	 .loc 3 485 0
+ 1543 0108 2948     	 ldr r0,.L74+20
+ 1544 010a FFF7FEFF 	 bl PWM_Start
+ 486:../main.c     **** 				DIGITAL_IO_SetOutputHigh(&Motor_Direction); //Move Down
+ 1545              	 .loc 3 486 0
+ 1546 010e 2948     	 ldr r0,.L74+24
+ 1547 0110 FFF7FEFF 	 bl DIGITAL_IO_SetOutputHigh
+ 1548              	.L70:
+ 483:../main.c     **** 			while (time < nextState)
+ 1549              	 .loc 3 483 0
+ 1550 0114 284B     	 ldr r3,.L74+28
+ 1551 0116 1A68     	 ldr r2,[r3]
+ 1552 0118 FB68     	 ldr r3,[r7,#12]
+ 1553 011a 9A42     	 cmp r2,r3
+ 1554 011c F4DB     	 blt .L71
+ 487:../main.c     **** 			}
+ 488:../main.c     **** 			PWM_Stop(&PWM_Motor);
+ 1555              	 .loc 3 488 0
+ 1556 011e 2448     	 ldr r0,.L74+20
+ 1557 0120 FFF7FEFF 	 bl PWM_Stop
+ 489:../main.c     **** 			TIMER_Stop(&TIMER_Motor);
+ 1558              	 .loc 3 489 0
+ 1559 0124 2148     	 ldr r0,.L74+16
+ 1560 0126 FFF7FEFF 	 bl TIMER_Stop
+ 490:../main.c     **** 			WindowState = WindowState - 1;
+ 1561              	 .loc 3 490 0
+ 1562 012a 1E4B     	 ldr r3,.L74+8
+ 1563 012c 1B68     	 ldr r3,[r3]
+ 1564 012e 013B     	 subs r3,r3,#1
+ 1565 0130 1C4A     	 ldr r2,.L74+8
+ 1566 0132 1360     	 str r3,[r2]
+ 491:../main.c     **** 			time = 0;
+ 1567              	 .loc 3 491 0
+ 1568 0134 204B     	 ldr r3,.L74+28
+ 1569 0136 0022     	 movs r2,#0
+ 1570 0138 1A60     	 str r2,[r3]
+ 492:../main.c     **** 			MOS_DOWN_State = DIGITAL_IO_GetInput(&MOS_DOWN);
+ 1571              	 .loc 3 492 0
+ 1572 013a 1948     	 ldr r0,.L74+4
+ 1573 013c FFF7FEFF 	 bl DIGITAL_IO_GetInput
+ 1574 0140 0346     	 mov r3,r0
+ 1575 0142 3B61     	 str r3,[r7,#16]
+ 1576              	.L69:
+ 1577              	.LBE9:
+ 478:../main.c     **** 		{
+ 1578              	 .loc 3 478 0
+ 1579 0144 3B69     	 ldr r3,[r7,#16]
+ 1580 0146 002B     	 cmp r3,#0
+ 1581 0148 03D1     	 bne .L72
+ 478:../main.c     **** 		{
+ 1582              	 .loc 3 478 0 is_stmt 0 discriminator 1
+ 1583 014a 164B     	 ldr r3,.L74+8
+ 1584 014c 1B68     	 ldr r3,[r3]
+ 1585 014e 002B     	 cmp r3,#0
+ 1586 0150 C4D1     	 bne .L73
+ 1587              	.L72:
+ 493:../main.c     **** 		}
+ 494:../main.c     **** 		int WindowStatePercentage = (WindowState * 10);
+ 1588              	 .loc 3 494 0 is_stmt 1
+ 1589 0152 144B     	 ldr r3,.L74+8
+ 1590 0154 1A68     	 ldr r2,[r3]
+ 1591 0156 1346     	 mov r3,r2
+ 1592 0158 9B00     	 lsls r3,r3,#2
+ 1593 015a 1344     	 add r3,r3,r2
+ 1594 015c 5B00     	 lsls r3,r3,#1
+ 1595 015e 3B60     	 str r3,[r7]
+ 495:../main.c     **** 		React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = MOTOR_MODULE_ID;
+ 1596              	 .loc 3 495 0
+ 1597 0160 164B     	 ldr r3,.L74+32
+ 1598 0162 1B68     	 ldr r3,[r3]
+ 1599 0164 164A     	 ldr r2,.L74+36
+ 1600 0166 1268     	 ldr r2,[r2]
+ 1601 0168 D2B2     	 uxtb r2,r2
+ 1602 016a 1A74     	 strb r2,[r3,#16]
+ 496:../main.c     **** 		React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x04;	//Status update
+ 1603              	 .loc 3 496 0
+ 1604 016c 134B     	 ldr r3,.L74+32
+ 1605 016e 1B68     	 ldr r3,[r3]
+ 1606 0170 0422     	 movs r2,#4
+ 1607 0172 5A74     	 strb r2,[r3,#17]
+ 497:../main.c     **** 		React_Node_LMO_02_Config.mo_ptr->can_data_byte[2] = WindowStatePercentage;
+ 1608              	 .loc 3 497 0
+ 1609 0174 114B     	 ldr r3,.L74+32
+ 1610 0176 1B68     	 ldr r3,[r3]
+ 1611 0178 3A68     	 ldr r2,[r7]
+ 1612 017a D2B2     	 uxtb r2,r2
+ 1613 017c 9A74     	 strb r2,[r3,#18]
+ 498:../main.c     **** 		status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
+ 1614              	 .loc 3 498 0
+ 1615 017e 0F4B     	 ldr r3,.L74+32
+ 1616 0180 1B68     	 ldr r3,[r3]
+ 1617 0182 1846     	 mov r0,r3
+ 1618 0184 FFF7FEFF 	 bl XMC_CAN_MO_UpdateData
+ 1619 0188 0346     	 mov r3,r0
+ 1620 018a 7B60     	 str r3,[r7,#4]
+ 499:../main.c     **** 		status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
+ 1621              	 .loc 3 499 0
+ 1622 018c 0B48     	 ldr r0,.L74+32
+ 1623 018e FFF7FEFF 	 bl CAN_NODE_MO_Transmit
+ 1624 0192 0346     	 mov r3,r0
+ 1625 0194 7B60     	 str r3,[r7,#4]
+ 1626              	.L61:
+ 1627              	.LBE8:
+ 500:../main.c     **** 	}
+ 501:../main.c     **** }
+ 1628              	 .loc 3 501 0
+ 1629 0196 1837     	 adds r7,r7,#24
+ 1630              	.LCFI72:
+ 1631              	 .cfi_def_cfa_offset 8
+ 1632 0198 BD46     	 mov sp,r7
+ 1633              	.LCFI73:
+ 1634              	 .cfi_def_cfa_register 13
+ 1635              	 
+ 1636 019a 80BD     	 pop {r7,pc}
+ 1637              	.L75:
+ 1638              	 .align 2
+ 1639              	.L74:
+ 1640 019c 00000000 	 .word MOS_UP
+ 1641 01a0 00000000 	 .word MOS_DOWN
+ 1642 01a4 00000000 	 .word WindowState
+ 1643 01a8 00000000 	 .word stateTimingVariables
+ 1644 01ac 00000000 	 .word TIMER_Motor
+ 1645 01b0 00000000 	 .word PWM_Motor
+ 1646 01b4 00000000 	 .word Motor_Direction
+ 1647 01b8 00000000 	 .word time
+ 1648 01bc 00000000 	 .word React_Node_LMO_02_Config
+ 1649 01c0 00000000 	 .word MOTOR_MODULE_ID
+ 1650              	 .cfi_endproc
+ 1651              	.LFE313:
+ 1653              	 .text
+ 1654              	.Letext0:
+ 1655              	 .file 4 "c:\\users\\frank\\desktop\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 1656              	 .file 5 "c:\\users\\frank\\desktop\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 1657              	 .file 6 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Infineon/XMC4200_series/Include/XMC4200.h"
+ 1658              	 .file 7 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc/xmc4_gpio.h"
+ 1659              	 .file 8 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc/xmc4_scu.h"
+ 1660              	 .file 9 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc/xmc_can.h"
+ 1661              	 .file 10 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/GLOBAL_CAN/global_can.h"
+ 1662              	 .file 11 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/CAN_NODE/can_node.h"
+ 1663              	 .file 12 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/XMCLib/inc/xmc_ccu4.h"
+ 1664              	 .file 13 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/GLOBAL_CCU4/global_ccu4.h"
+ 1665              	 .file 14 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/PWM/pwm.h"
+ 1666              	 .file 15 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/TIMER/timer.h"
+ 1667              	 .file 16 "<built-in>"
+ 1668              	 .file 17 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Include/cmsis_gcc.h"
+ 1669              	 .file 18 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Include/core_cm4.h"
+ 1670              	 .file 19 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Libraries/CMSIS/Infineon/XMC4200_series/Include/system_XMC4200.h"
+ 1671              	 .file 20 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/DIGITAL_IO/digital_io_extern.h"
+ 1672              	 .file 21 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/CAN_NODE/can_node_extern.h"
+ 1673              	 .file 22 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/PWM/PWM_Extern.h"
+ 1674              	 .file 23 "C:/Users/Frank/Documents/GitHub/ActiveWindow/MotorModule/Dave/Generated/TIMER/timer_extern.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
     {standard input}:20     .text.XMC_GPIO_SetOutputHigh:00000000 $t
@@ -2520,27 +2936,30 @@ DEFINED SYMBOLS
                             *COM*:0000002c stateTimingVariables
     {standard input}:339    .text.CAN0_1_IRQHandler:00000000 $t
     {standard input}:344    .text.CAN0_1_IRQHandler:00000000 CAN0_1_IRQHandler
-    {standard input}:1040   .text.MoveWindow:00000000 MoveWindow
+    {standard input}:1038   .text.MoveWindow:00000000 MoveWindow
     {standard input}:561    .text.CAN0_1_IRQHandler:00000148 $d
     {standard input}:572    .text.CCU41_1_IRQHandler:00000000 $t
     {standard input}:577    .text.CCU41_1_IRQHandler:00000000 CCU41_1_IRQHandler
     {standard input}:610    .text.CCU41_1_IRQHandler:00000018 $d
     {standard input}:615    .text.main:00000000 $t
     {standard input}:620    .text.main:00000000 main
-    {standard input}:723    .text.HomeWindow:00000000 HomeWindow
-    {standard input}:651    .text.RegisterDevice:00000000 $t
-    {standard input}:656    .text.RegisterDevice:00000000 RegisterDevice
-    {standard input}:709    .text.RegisterDevice:00000038 $d
-    {standard input}:718    .text.HomeWindow:00000000 $t
-    {standard input}:1253   .text.CheckBottomLimitSwitch:00000000 CheckBottomLimitSwitch
-    {standard input}:1190   .text.CheckTopLimitSwitch:00000000 CheckTopLimitSwitch
-    {standard input}:1007   .text.HomeWindow:00000228 $d
-    {standard input}:1035   .text.MoveWindow:00000000 $t
-    {standard input}:1175   .text.MoveWindow:000000b0 $d
-    {standard input}:1185   .text.CheckTopLimitSwitch:00000000 $t
-    {standard input}:1241   .text.CheckTopLimitSwitch:00000030 $d
-    {standard input}:1248   .text.CheckBottomLimitSwitch:00000000 $t
-    {standard input}:1304   .text.CheckBottomLimitSwitch:00000030 $d
+    {standard input}:654    .text.RegisterDevice:00000000 RegisterDevice
+    {standard input}:721    .text.HomeWindow:00000000 HomeWindow
+    {standard input}:1370   .text.ManualOverrideSwitches:00000000 ManualOverrideSwitches
+    {standard input}:649    .text.RegisterDevice:00000000 $t
+    {standard input}:707    .text.RegisterDevice:00000038 $d
+    {standard input}:716    .text.HomeWindow:00000000 $t
+    {standard input}:1307   .text.CheckBottomLimitSwitch:00000000 CheckBottomLimitSwitch
+    {standard input}:1244   .text.CheckTopLimitSwitch:00000000 CheckTopLimitSwitch
+    {standard input}:1005   .text.HomeWindow:00000228 $d
+    {standard input}:1033   .text.MoveWindow:00000000 $t
+    {standard input}:1227   .text.MoveWindow:00000104 $d
+    {standard input}:1239   .text.CheckTopLimitSwitch:00000000 $t
+    {standard input}:1295   .text.CheckTopLimitSwitch:00000030 $d
+    {standard input}:1302   .text.CheckBottomLimitSwitch:00000000 $t
+    {standard input}:1358   .text.CheckBottomLimitSwitch:00000030 $d
+    {standard input}:1365   .text.ManualOverrideSwitches:00000000 $t
+    {standard input}:1640   .text.ManualOverrideSwitches:0000019c $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS
@@ -2563,6 +2982,8 @@ TIMER_Stop
 TIMER_Motor
 PWM_Motor
 Motor_Direction
+MOS_UP
+MOS_DOWN
 LIMIT_SWITCH_TOP
 LED_Indicator
 LIMIT_SWITCH_BOTTOM
