@@ -148,7 +148,6 @@
     <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Reserved."/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="P0.8 / #57" URI="http://resources/0.6.1/port/p/0/pad/8">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_5.app#//@hwResources.0"/>
     <resourcesList name="out_p" requiredResourceUri="http://resources/0.6.1/port/p/0/out/p8"/>
     <resourcesList name="omr_ps" requiredResourceUri="http://resources/0.6.1/port/p/0/omr/ps8"/>
     <resourcesList name="omr_pr" requiredResourceUri="http://resources/0.6.1/port/p/0/omr/pr8"/>
@@ -198,7 +197,6 @@
     <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Reserved."/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="P0.6 / #60" URI="http://resources/0.6.1/port/p/0/pad/6">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_4.app#//@hwResources.0"/>
     <resourcesList name="out_p" requiredResourceUri="http://resources/0.6.1/port/p/0/out/p6"/>
     <resourcesList name="omr_ps" requiredResourceUri="http://resources/0.6.1/port/p/0/omr/ps6"/>
     <resourcesList name="omr_pr" requiredResourceUri="http://resources/0.6.1/port/p/0/omr/pr6"/>

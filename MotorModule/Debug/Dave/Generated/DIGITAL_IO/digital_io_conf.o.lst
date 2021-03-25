@@ -68,24 +68,24 @@
   70              	 .section .rodata.MOS_DOWN,"a",%progbits
   71              	 .align 2
   74              	MOS_DOWN:
-  75 0000 00800248 	 .word 1208123392
-  76 0004 00       	 .byte 0
+  75 0000 00810248 	 .word 1208123648
+  76 0004 10       	 .byte 16
   77 0005 00000000 	 .space 11
   77      00000000 
   77      000000
-  78 0010 06       	 .byte 6
+  78 0010 07       	 .byte 7
   79 0011 00       	 .byte 0
   80 0012 0000     	 .space 2
   81              	 .global MOS_UP
   82              	 .section .rodata.MOS_UP,"a",%progbits
   83              	 .align 2
   86              	MOS_UP:
-  87 0000 00800248 	 .word 1208123392
-  88 0004 00       	 .byte 0
+  87 0000 00810248 	 .word 1208123648
+  88 0004 10       	 .byte 16
   89 0005 00000000 	 .space 11
   89      00000000 
   89      000000
-  90 0010 08       	 .byte 8
+  90 0010 09       	 .byte 9
   91 0011 00       	 .byte 0
   92 0012 0000     	 .space 2
   93              	 .global Motor_Direction

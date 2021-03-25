@@ -101,10 +101,10 @@ const DIGITAL_IO_t LIMIT_SWITCH_TOP =
 		
 const DIGITAL_IO_t MOS_DOWN =
 {
-  .gpio_port = XMC_GPIO_PORT0,
-  .gpio_pin = 6U,
+  .gpio_port = XMC_GPIO_PORT1,
+  .gpio_pin = 7U,
   .gpio_config = {
-    .mode = XMC_GPIO_MODE_INPUT_TRISTATE,
+    .mode = XMC_GPIO_MODE_INPUT_PULL_UP,
 
   },
   .hwctrl = XMC_GPIO_HWCTRL_DISABLED
@@ -112,10 +112,10 @@ const DIGITAL_IO_t MOS_DOWN =
 		
 const DIGITAL_IO_t MOS_UP =
 {
-  .gpio_port = XMC_GPIO_PORT0,
-  .gpio_pin = 8U,
+  .gpio_port = XMC_GPIO_PORT1,
+  .gpio_pin = 9U,
   .gpio_config = {
-    .mode = XMC_GPIO_MODE_INPUT_TRISTATE,
+    .mode = XMC_GPIO_MODE_INPUT_PULL_UP,
 
   },
   .hwctrl = XMC_GPIO_HWCTRL_DISABLED
