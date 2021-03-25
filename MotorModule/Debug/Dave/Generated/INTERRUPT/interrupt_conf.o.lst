@@ -29,7 +29,7 @@
   31              	 .align 2
   34              	Timer_Interrupt:
   35 0000 31       	 .byte 49
-  36 0001 3F       	 .byte 63
+  36 0001 01       	 .byte 1
   37 0002 00       	 .byte 0
   38 0003 01       	 .byte 1
   39              	 .text

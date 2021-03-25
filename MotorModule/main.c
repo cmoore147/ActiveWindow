@@ -198,7 +198,7 @@
 // Globals
 uint32_t top_button_state = 1;
 uint32_t bottom_button_state = 1;
-int MOTOR_MODULE_ID = 0x01;	//ID of this motor module device
+int MOTOR_MODULE_ID = 664;	//ID of this motor module device
 int isRegistered = 0;		//Initially 0, will be 1 once registered with NMC
 int closedToOpenTime = 0;	//Initially 0, will be set by homing routine
 
@@ -227,30 +227,30 @@ void React_Node_Handler() {
 	{
 		/* Read the received Message object and stores in Request_Node_LMO_02_Config*/
 		CAN_NODE_MO_Receive(&React_Node_LMO_01_Config);
-		int requestedID = React_Node_LMO_01_Config.mo_ptr->can_data_byte[0];	//grab 0th byte
+		int requestedID = React_Node_LMO_01_Config.mo_ptr->can_data_word[0];	//grab 0th byte
 
 		if(requestedID == MOTOR_MODULE_ID)		//Check if ID requested is equal to this motor module
 		{
-			int requestedCommand = React_Node_LMO_01_Config.mo_ptr->can_data_byte[1];	//grab 1st byte
-
-			if(requestedCommand == 0x01)		//operate window
+			int requestedCommand = React_Node_LMO_01_Config.mo_ptr->can_data_word[1];	//grab 1st byte
+			DIGITAL_IO_ToggleOutput(&LED_Indicator);
+			if(requestedCommand == 752)		//operate window
 			{
-				int requestedPercentage = React_Node_LMO_01_Config.mo_ptr->can_data_byte[2];	//grab 2nd byte
+				int requestedPercentage = React_Node_LMO_01_Config.mo_ptr->can_data_word[2];	//grab 2nd byte
 				requestedPercentage = (requestedPercentage / 10);
 				int windowMovementStatus = MoveWindow(requestedPercentage);
 				if(windowMovementStatus == 0)		//Failed Command, either something weird happened or MOS is doing its thing
 				{
-					React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = MOTOR_MODULE_ID;
-					React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x02;
-					React_Node_LMO_02_Config.mo_ptr->can_data_byte[3] = 1;	//Failed Command
+					React_Node_LMO_02_Config.mo_ptr->can_data_word[0] = MOTOR_MODULE_ID;
+					React_Node_LMO_02_Config.mo_ptr->can_data_word[1] = 0x02;
+					React_Node_LMO_02_Config.mo_ptr->can_data_word[2] = 1;	//Failed Command
 					status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
 					status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
 				}
 				else if(windowMovementStatus == 1)	//Successful Command :)
 				{
-					React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = MOTOR_MODULE_ID;
-					React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x02;
-					React_Node_LMO_02_Config.mo_ptr->can_data_byte[3] = 0;	//Successful Command
+					React_Node_LMO_02_Config.mo_ptr->can_data_word[0] = MOTOR_MODULE_ID;
+					React_Node_LMO_02_Config.mo_ptr->can_data_word[1] = 0x04;
+					React_Node_LMO_02_Config.mo_ptr->can_data_word[2] = WindowState;	//Successful Command
 					status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
 					status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
 				}
@@ -259,13 +259,13 @@ void React_Node_Handler() {
 			{
 				isRegistered = 1;
 			}
-			else if(requestedCommand == 0x03)	//state request
+			else if(requestedCommand == 996)	//state request
 			{
 				int WindowStatePercentage = (WindowState * 10);
 
-				React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = MOTOR_MODULE_ID;
-				React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x04;	//Status update
-				React_Node_LMO_02_Config.mo_ptr->can_data_byte[2] = WindowStatePercentage;
+				React_Node_LMO_02_Config.mo_ptr->can_data_word[0] = MOTOR_MODULE_ID;
+				React_Node_LMO_02_Config.mo_ptr->can_data_word[1] = 0x04;	//Status update
+				React_Node_LMO_02_Config.mo_ptr->can_data_word[2] = WindowStatePercentage;
 				status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
 				status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
 			}
@@ -303,8 +303,8 @@ int main(void)
 // Sends message to NMC on startup to register device
 void RegisterDevice()
 {
-	React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = MOTOR_MODULE_ID;
-	React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x05;	//device registration
+	React_Node_LMO_02_Config.mo_ptr->can_data_word[0] = MOTOR_MODULE_ID;
+	React_Node_LMO_02_Config.mo_ptr->can_data_word[1] = 0x05;	//device registration
 	uint32_t status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
 	status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
 
@@ -455,7 +455,7 @@ void ManualOverrideSwitches()
 		{
 			nextState = (stateTimingVariables[WindowState + 1] - stateTimingVariables[WindowState]);	//calculate next state up
 			TIMER_Start(&TIMER_Motor);
-			while ((time < timeToMove) && (CheckTopLimitSwitch() == 1))		//drive motor up to next state, then check again if button is pressed
+			while ((time < nextState) && (CheckTopLimitSwitch() == 1))		//drive motor up to next state, then check again if button is pressed
 			{
 				PWM_Start(&PWM_Motor);
 				DIGITAL_IO_SetOutputLow(&Motor_Direction); //Move up
@@ -467,9 +467,9 @@ void ManualOverrideSwitches()
 			MOS_UP_State = DIGITAL_IO_GetInput(&MOS_UP);
 		}
 		int WindowStatePercentage = (WindowState * 10);
-		React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = MOTOR_MODULE_ID;
-		React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x04;	//Status update
-		React_Node_LMO_02_Config.mo_ptr->can_data_byte[2] = WindowStatePercentage;
+		React_Node_LMO_02_Config.mo_ptr->can_data_word[0] = MOTOR_MODULE_ID;
+		React_Node_LMO_02_Config.mo_ptr->can_data_word[1] = 0x04;	//Status update
+		React_Node_LMO_02_Config.mo_ptr->can_data_word[2] = WindowStatePercentage;
 		status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
 		status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
 	}
@@ -480,7 +480,7 @@ void ManualOverrideSwitches()
 			nextState = (stateTimingVariables[WindowState - 1] - stateTimingVariables[WindowState]);
 			nextState = abs(nextState);
 			TIMER_Start(&TIMER_Motor);
-			while ((time < timeToMove) && (CheckBottomLimitSwitch() == 1))
+			while ((time < nextState) && (CheckBottomLimitSwitch() == 1))
 			{
 				PWM_Start(&PWM_Motor);
 				DIGITAL_IO_SetOutputHigh(&Motor_Direction); //Move Down
@@ -492,9 +492,9 @@ void ManualOverrideSwitches()
 			MOS_DOWN_State = DIGITAL_IO_GetInput(&MOS_DOWN);
 		}
 		int WindowStatePercentage = (WindowState * 10);
-		React_Node_LMO_02_Config.mo_ptr->can_data_byte[0] = MOTOR_MODULE_ID;
-		React_Node_LMO_02_Config.mo_ptr->can_data_byte[1] = 0x04;	//Status update
-		React_Node_LMO_02_Config.mo_ptr->can_data_byte[2] = WindowStatePercentage;
+		React_Node_LMO_02_Config.mo_ptr->can_data_word[0] = MOTOR_MODULE_ID;
+		React_Node_LMO_02_Config.mo_ptr->can_data_word[1] = 0x04;	//Status update
+		React_Node_LMO_02_Config.mo_ptr->can_data_word[2] = WindowStatePercentage;
 		status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
 		status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
 	}
