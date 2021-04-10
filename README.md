@@ -1,4 +1,4 @@
-# ActiveWindow
+# ActiveWindows
 This is the combined repository of Team 6's Senior Design Project for Active Windows. There are three distinct subsystems:
 
 1) Android Application - The repository here is blank, and instead redirects you to the app's own repository due to it's size (https://github.com/JonathanClifford/SDP2021_Team6_AndroidApplication)
