@@ -248,9 +248,10 @@ void React_Node_Handler() {
 				}
 				else if(windowMovementStatus == 1)	//Successful Command :)
 				{
+					int WindowStatePercentage = (WindowState * 10);
 					React_Node_LMO_02_Config.mo_ptr->can_data_word[0] = MOTOR_MODULE_ID;
 					React_Node_LMO_02_Config.mo_ptr->can_data_word[1] = 0x04;
-					React_Node_LMO_02_Config.mo_ptr->can_data_word[2] = WindowState;	//Successful Command
+					React_Node_LMO_02_Config.mo_ptr->can_data_word[2] = WindowStatePercentage;	//Successful Command
 					status = (CAN_NODE_STATUS_t)XMC_CAN_MO_UpdateData(React_Node_LMO_02_Config.mo_ptr);
 					status = CAN_NODE_MO_Transmit(&React_Node_LMO_02_Config);
 				}
@@ -317,7 +318,7 @@ int HomeWindow()
 {
 	int BottomLimitSwitchState = CheckBottomLimitSwitch();
 
-	if (BottomLimitSwitchState == 1)		// TODO : Change to 0 bc 0 means button pressed
+	if (BottomLimitSwitchState == 0)		// TODO : Change to 0 bc 0 means button pressed
 	{
 		TIMER_Start(&TIMER_Motor);
 		while(CheckTopLimitSwitch() == 1)	//drive motor until top limit switch is reached
