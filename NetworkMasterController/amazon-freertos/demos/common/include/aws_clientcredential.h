@@ -55,14 +55,14 @@ static const char clientcredentialMQTT_BROKER_ENDPOINT[] = "aga9o21zvh26x-ats.io
 /*
  * Wi-Fi network to join.
  */
-#define clientcredentialWIFI_SSID       "MSI_3129"
-//#define clientcredentialWIFI_SSID       "GL-MT300N-V2-445"
+//#define clientcredentialWIFI_SSID       "MSI_3129"
+#define clientcredentialWIFI_SSID       "GL-MT300N-V2-445"
 
 /*
  * Password needed to join Wi-Fi network.
  */
-#define clientcredentialWIFI_PASSWORD   "pass1234"
-//#define clientcredentialWIFI_PASSWORD   "goodlife"
+//#define clientcredentialWIFI_PASSWORD   "pass1234"
+#define clientcredentialWIFI_PASSWORD   "goodlife"
 
 /**
  * @brief Security type
