@@ -93,7 +93,10 @@
 								<option id="com.ifx.xmc4000.appLinker.option.misc.mfloat.404924723" name="Floating point" superClass="com.ifx.xmc4000.appLinker.option.misc.mfloat" useByScannerDiscovery="false" value="org.eclipse.cdt.cross.arm.gnu.base.option.other.mfloat.softfp" valueType="enumerated"/>
 								<option id="com.ifx.xmc4000.appLinker.option.nosys.specs.1292356966" name="Provide default newlib system calls (-specs=nosys.specs)" superClass="com.ifx.xmc4000.appLinker.option.nosys.specs" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 								<option id="com.ifx.xmc4000.appLinker.option.scriptfile.2019570872" name="Script file (-T)" superClass="com.ifx.xmc4000.appLinker.option.scriptfile" useByScannerDiscovery="false" value="../XMC4800x2048.ld" valueType="string"/>
-								<option id="com.ifx.xmc4000.appLinker.option.otherflags.1610131739" superClass="com.ifx.xmc4000.appLinker.option.otherflags" useByScannerDiscovery="false" value="-specs=rdimon.specs" valueType="string"/>
+								<option id="com.ifx.xmc4000.appLinker.option.otherflags.1610131739" name="Other flags" superClass="com.ifx.xmc4000.appLinker.option.otherflags" useByScannerDiscovery="false" value="-specs=rdimon.specs" valueType="string"/>
+								<option id="com.ifx.xmc4000.appLinker.option.libs.1167255605" name="Libraries (-l)" superClass="com.ifx.xmc4000.appLinker.option.libs" useByScannerDiscovery="false" valueType="libs">
+									<listOptionValue builtIn="false" value="m"/>
+								</option>
 								<inputType id="com.ifx.xmc4000.appLinker.inputType.889950663" name="ARM-GCC for XMC Linker Input Type" superClass="com.ifx.xmc4000.appLinker.inputType">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -204,4 +207,5 @@
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_CS_GCCWinManagedMakePerProjectProfileC"/>
 		</scannerConfigBuildInfo>
 	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cproject>

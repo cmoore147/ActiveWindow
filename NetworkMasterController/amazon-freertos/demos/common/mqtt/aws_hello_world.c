@@ -41,10 +41,8 @@
 #include "task.h"
 #include "message_buffer.h"
 #include "queue.h"
+#include "timers.h"
 
-/* FreeRTOS+TCP includes. */
-//#include "FreeRTOS_IP.h"
-#include "C:/Users/moore/Documents/ConnorHW/Spring 2021/ActiveWindow/NetworkMasterController/amazon-freertos/lib/FreeRTOS-Plus-TCP/include/FreeRTOS_Sockets.h"
 
 /* MQTT includes. */
 #include "aws_mqtt_agent.h"
@@ -57,9 +55,6 @@
 /* Demo includes. */
 #include "aws_demo_config.h"
 #include "aws_hello_world.h"
-
-//#include "aws_simple_tcp_echo_server.h"
-//#include "aws_demo_config.h"
 
 /* peripheral includes */
 #include "Board_LED.h"
@@ -88,12 +83,31 @@
 #define command_TOPIC		 	 ( ( const uint8_t * ) "windowCommandTopic" )
 #define status_TOPIC			 ( ( const uint8_t * )  "windowStatusTopic" )
 #define connection_TOPIC		 ( ( const uint8_t * ) "AWSconnectionTopic" )
-int NMC_PORT = 1000;
+
+
+/*
+ * Sock Variables
+*/
+int socketStatus = 1;
+Socket_t xLocalSocket;
+SocketsSockaddr_t xRemoteAddress;
+char * MsgParse[4];
+uint8_t phoneIP[5] = { 192, 168, 8, 224 };
+int phonePort = 9002;
+
+/*
+ * Connection Checking variables
+ */
+uint8_t UmassIP[5] = {128,119,245,12};
+int TCP_HeartBeat = 10;
+int InterNetPing = 2;
+
+
 /**
  * @brief Dimension of the character array buffers used to hold data (strings in
  * this case) that is published to and received from the MQTT broker (in the cloud).
  */
-#define statusMAX_DATA_LENGTH      25
+#define statusMAX_DATA_LENGTH      28
 #define commandMAX_DATA_LENGTH     25
 
 /**
@@ -110,7 +124,7 @@ int NMC_PORT = 1000;
  *
  * @return pdPASS if everything is successful, pdFAIL otherwise.
  */
-static BaseType_t prvCreateClientAndConnectToBroker( void );
+static BaseType_t prvCreateClientAndConnectToBroker( int delOldHand );
 
 /**
  * @brief The callback registered with the MQTT client to get notified when
@@ -125,15 +139,15 @@ static BaseType_t prvCreateClientAndConnectToBroker( void );
 static MQTTBool_t prvMQTTCallback( void * pvUserData,
                                    const MQTTPublishData_t * const pxCallbackParams );
 
-static MQTTBool_t prvConnectionCallback( void * pvUserData,
-                                   const MQTTPublishData_t * const pxCallbackParams );
 
 /**
- * @brief Subscribes to the echoTOPIC_NAME topic.
+ * @brief Subscribes to the windowCommandTOPIC .
  *
  * @return pdPASS if subscribe operation is successful, pdFALSE otherwise.
  */
-static BaseType_t prvSubscribe( const uint8_t * Topic, int mode );
+
+static BaseType_t prvSubscribe( const uint8_t * Topic);
+
 /*-----------------------------------------------------------*/
 /**
  * @brief The FreeRTOS message buffer that is used to send data from the callback
@@ -151,43 +165,112 @@ static MessageBufferHandle_t xConnectionBuffer = NULL;
 static MQTTAgentHandle_t xMQTTHandle = NULL;
 
 /*-----------------------------------------------------------*/
-
-
 static void prvMacForHumans(uint8_t * humanAddress);
 static uint8_t thing_mac_address[ ( wificonfigMAX_BSSID_LEN * 2 ) + 1 ];
-int CheckWifi( int count );
-int connect2AWS( void );
-int prvWifiConnect( void );
-MQTTAgentReturnCode_t prvSend2AWS(char *cDataBuffer, const uint8_t * CANmsg);
-int prvSendCAN( char * message);
 
-static BaseType_t prvCreateClientAndConnectToBroker( void )
+
+/*
+ * Determines current communication channel available
+ * Connects and re-establishes AWS connection
+ */
+void CheckOrChangeConnection( int count);
+void connect2AWS( int delOldHand );
+
+/*
+ * Sends MQTT messages to AWS
+ */
+MQTTAgentReturnCode_t prvSend2AWS(char *cDataBuffer, const uint8_t * CANmsg);
+
+/*
+ * Message handler for CAN communication
+ * AWS or TCP_IP string --> CAN msg format
+ */
+
+int prvSendCAN( char * message);
+int char2Int(char * data);
+
+/* *
+ * Socket Functions
+ * */
+void sendSocket(char * cDataBuffer, const size_t xTotalLengthToSend);
+void listenSocket(int blocking,int count);
+void setupSocket();
+int closeSocket();
+
+
+/*-----------------------------------------------------------*/
+/*
+ * Used to connect NMC to AWS IOT core
+ */
+static BaseType_t prvCreateClientAndConnectToBroker( int delOldHand )
 {
-	if(xMQTTHandle != NULL)
-	{
-		configPRINTF(("oldMQTT Handler still there\r\n"));
+	MQTTAgentReturnCode_t xReturned;
+	BaseType_t xReturn = pdFAIL;
+	//configPRINTF( ( "My Client ID is [%s]\r\n", thing_mac_address) );
+	MQTTAgentConnectParams_t xConnectParameters =
+	    {
+	        clientcredentialMQTT_BROKER_ENDPOINT, /* The URL of the MQTT broker to connect to. */
+	        democonfigMQTT_AGENT_CONNECT_FLAGS,   /* Connection flags. */
+	        pdFALSE,                              /* Deprecated. */
+	        clientcredentialMQTT_BROKER_PORT,     /* Port number on which the MQTT broker is listening. Can be overridden by ALPN connection flag. */
+	        thing_mac_address,                        /* Client Identifier of the MQTT client. It should be unique per broker. */
+	        0,                                    /* The length of the client Id, filled in later as not const. */
+	        pdFALSE,                              /* Deprecated. */
+	        NULL,                                 /* User data supplied to the callback. Can be NULL. */
+	        NULL,                                 /* Callback used to report various events. Can be NULL. */
+	        NULL,                                 /* Certificate used for secure connection. Can be NULL. */
+	        0                                     /* Size of certificate used for secure connection. */
+	    };
+	if(delOldHand){
+		xReturned = MQTT_AGENT_Disconnect(xMQTTHandle,1000);
+		if(xReturned == eMQTTAgentSuccess){
+
+			if(MQTT_AGENT_Delete( xMQTTHandle ) == eMQTTAgentSuccess){
+				configPRINTF( ( "Deleted old MQTT handler %d.\r\n", xReturned ) );
+				xReturn = pdPASS;
+			}
+
+		}else{
+			configPRINTF(("ERROR: could not Delete %x",xReturned));
+		}
+		return xReturn;
 	}
 
-    MQTTAgentReturnCode_t xReturned;
-    BaseType_t xReturn = pdFAIL;
-    configPRINTF( ( "My Client ID is [%s]\r\n", thing_mac_address) );
-    MQTTAgentConnectParams_t xConnectParameters =
-    {
-        clientcredentialMQTT_BROKER_ENDPOINT, /* The URL of the MQTT broker to connect to. */
-        democonfigMQTT_AGENT_CONNECT_FLAGS,   /* Connection flags. */
-        pdFALSE,                              /* Deprecated. */
-        clientcredentialMQTT_BROKER_PORT,     /* Port number on which the MQTT broker is listening. Can be overridden by ALPN connection flag. */
-        thing_mac_address,                        /* Client Identifier of the MQTT client. It should be unique per broker. */
-        0,                                    /* The length of the client Id, filled in later as not const. */
-        pdFALSE,                              /* Deprecated. */
-        NULL,                                 /* User data supplied to the callback. Can be NULL. */
-        NULL,                                 /* Callback used to report various events. Can be NULL. */
-        NULL,                                 /* Certificate used for secure connection. Can be NULL. */
-        0                                     /* Size of certificate used for secure connection. */
-    };
+	else if(xMQTTHandle != NULL)
+	{
+		configPRINTF(("oldMQTT Handler still there\r\n"));
+		xConnectParameters.usClientIdLength = ( uint16_t ) strlen( ( const char * ) echoCLIENT_ID );
+
+		        /* Connect to the broker. */
+		        configPRINTF( ( "attempting to connect to %s.\r\n", clientcredentialMQTT_BROKER_ENDPOINT ) );
+		        xReturned = MQTT_AGENT_Connect( xMQTTHandle,
+		                                        &xConnectParameters,
+		                                        democonfigMQTT_ECHO_TLS_NEGOTIATION_TIMEOUT );
+
+		        if( xReturned != eMQTTAgentSuccess )
+		        {
+		            /* Could not connect, so delete the MQTT client. */
+		        	xReturned = MQTT_AGENT_Disconnect(xMQTTHandle,1000);
+		        	if(xReturned == eMQTTAgentSuccess){
+
+		        		( void ) MQTT_AGENT_Delete( xMQTTHandle );
+		        		configPRINTF( ( "ERROR:  failed to connect with error %d.\r\n", xReturned ) );
+
+		        	}else{
+		        		configPRINTF(("ERROR: could not Reconnect %x",xReturned));
+		        	}
+		        }
+		        else
+		        {
+		            configPRINTF( ( "connected.\r\n" ) );
+		            xReturn = pdPASS;
+		        }
+		return xReturn;
+	}
+
 
     /* Check this function has not already been executed. */
-    configASSERT( xMQTTHandle == NULL );
+    //configASSERT( xMQTTHandle == NULL );
 
     /* The MQTT client object must be created before it can be used.  The
      * maximum number of MQTT client objects that can exist simultaneously
@@ -223,62 +306,237 @@ static BaseType_t prvCreateClientAndConnectToBroker( void )
     return xReturn;
 }
 /*-----------------------------------------------------------*/
+/*
+ * Function listens on socket for incoming commands and returns immediately if there is no message
+ */
+void listenSocket(int blocking,int count)
+{
+		if(blocking){
+			//char * block = "ACK:Message:Dropped\r\n";
+			//sendSocket(block,sizeof(block));
+			return;
+			}
 
+		size_t xbytes;
+		char cBuffer[commandMAX_DATA_LENGTH -1];
+		uint32_t uBytesToCopy = ( commandMAX_DATA_LENGTH - 1 );
+		socketStatus = ENABLED;
+
+
+		xbytes = SOCKETS_Recv(xLocalSocket,cBuffer,sizeof(cBuffer),0);
+
+		/*============Checks Connection========*/
+		if(count%TCP_HeartBeat == 0 ){
+			if(cBuffer[0] == '$'){
+			configPRINTF(("TCP_IP: Connected\r\n"));
+			return;
+			}
+			else{
+				configPRINTF(("TCP_IP: Disconnected\r\n"));
+				closeSocket();
+				NMC_mode = DISCONNECTED;
+				return;
+			}
+		}
+		if(cBuffer[0] == '#'){
+			configPRINTF(("TCP_IP: Phone Disconnected\r\n"));
+			if(closeSocket() == 0){
+				NMC_mode = DISCONNECTED;
+			}
+
+			return;
+		}/*====================================*/
+
+		else if(xbytes > sizeof(cBuffer)-sizeof(cBuffer) &&  xbytes<= uBytesToCopy)
+				{
+
+					( void ) xMessageBufferSend( xCommandMsgBuffer, cBuffer,
+										uBytesToCopy + ( size_t ) 1,
+										echoDONT_BLOCK );
+
+					memset(cBuffer,0x00, sizeof(cBuffer));
+				}
+}
+/*-----------------------------------------------------------*/
+/*
+ * Closes socket for TCP/IP connection
+ */
+int closeSocket(){
+	int xReturn = -1;
+
+	xReturn = SOCKETS_Shutdown( xLocalSocket, SOCKETS_SHUT_RD );
+	vTaskDelay(500);
+
+			if(xReturn == 0 )
+				{
+				xReturn = SOCKETS_Close(xLocalSocket);
+				if( xReturn == 0){
+					//vTaskDelay(1000);
+					configPRINTF((" Closing Socket \r\n"));
+					socketStatus=DISABLED;
+					return xReturn;
+				}
+				else{configPRINTF((" ERROR: Closing socket failed %d\r\n",xReturn));}
+			}
+			else
+				{
+				configPRINTF(("ERROR: Socket failed to shutdown with error %d\r\n",xReturn));
+				return xReturn;
+				}
+
+}
+/*-----------------------------------------------------------*/
+/*
+ * Sets up connection with phone in TCP/IP mode
+ */
+int setUpSocket()
+{
+	int xReturn = 0;
+		static const TickType_t xTimeOut = pdMS_TO_TICKS( 2000 );
+
+		if(socketStatus == DISABLED)
+		{
+				xRemoteAddress.ucSocketDomain = SOCKETS_AF_INET;
+				xRemoteAddress.usPort = SOCKETS_htons( phonePort );
+				xRemoteAddress.ulAddress = SOCKETS_inet_addr_quick(phoneIP[0],phoneIP[1],
+																	phoneIP[2],phoneIP[3]);
+				xRemoteAddress.ucLength = sizeof(xRemoteAddress);
+
+				/* Attempt to open the socket. */
+				xLocalSocket = SOCKETS_Socket( SOCKETS_AF_INET,
+													SOCKETS_SOCK_STREAM,  /* SOCK_STREAM for TCP. */
+													SOCKETS_IPPROTO_TCP );
+
+				/* Check the socket was created. */
+				configASSERT( xLocalSocket != SOCKETS_INVALID_SOCKET );
+				SOCKETS_SetSockOpt(xLocalSocket,0,SOCKETS_SO_RCVTIMEO,&xTimeOut,xTimeOut);
+
+				socketStatus = ENABLED_NOTCONN;
+		}
+		if (socketStatus == ENABLED_NOTCONN){
+
+			xReturn = SOCKETS_Connect(xLocalSocket,&xRemoteAddress, xRemoteAddress.ucLength );
+
+			if(xReturn != 0){
+				configPRINTF((" ERROR: Socket Connection failed with error %d\r\n", xReturn));
+				return -1;
+
+			}else{
+				configPRINTF(("Socket Connected...\r\n"));
+				socketStatus = ENABLED;
+				NMC_mode = TCP_IP;
+				configPRINTF(("Socket Listening...\r\n"));
+				//SOCKETS_SetSockOpt(xLocalSocket,0,SOCKETS_SO_NONBLOCK,NULL,NULL);
+				return 0;
+
+			}
+		}
+}
+/*-----------------------------------------------------------*/
+/*
+ * Socket sending function for TCP/IP connection
+ */
+void sendSocket(char * cDataBuffer, const size_t xTotalLengthToSend){
+
+	size_t xLenToSend;
+
+	BaseType_t xAlreadyTransmitted = 0, xBytesSend = 0;
+	configPRINTF(("Socket Sending: %s\n",cDataBuffer));
+
+	while( xAlreadyTransmitted < xTotalLengthToSend)
+	{
+
+		xLenToSend = xTotalLengthToSend - xAlreadyTransmitted;
+		xBytesSend = SOCKETS_Send(xLocalSocket,
+								&cDataBuffer[xAlreadyTransmitted],
+								xLenToSend,
+								0);
+		if( xBytesSend >= 0)
+		{
+			xAlreadyTransmitted += xBytesSend;
+		}
+		else
+		{
+			break;
+		}
+
+	}
+}
+/*-----------------------------------------------------------*/
+/*
+ * Brain of the NMC functionality, indefinitely loops through this function
+ */
 static void prvNMCmain()
 {
-	// msg from AWS
-	char cDataBuffer[ statusMAX_DATA_LENGTH ];
+	int count = 0;
 	size_t xBytesReceived;
-	int reconnectFlag = 1;
+	int waitforResponseFlag = 0;
+	char ack [statusMAX_DATA_LENGTH];
 
-	//msg send back from Motor Module
+	char cDataBuffer[ statusMAX_DATA_LENGTH ];
 	int CANmsg[ statusMAX_DATA_LENGTH ];
 
-	reconnectFlag = connect2AWS();
-	int waitforResponseFlag = 0;
-	int count = 1;
 
-	//Socket_t xListeningSocket
-	//xListeningSocket = FreeRTOS_socket( FREERTOS_AF_INET,
-	//	                                        FREERTOS_SOCK_STREAM,  /* SOCK_STREAM for TCP. */
-	//	                                        FREERTOS_IPPROTO_TCP );
+	/* Priority Connection is AWS */
+	connect2AWS(0);
 
     for( ; ; )
     {
-    	if(CheckWifi(count) == 1){
-    		if(reconnectFlag == 1){//initially ==1 and will after checkWiFi fails
-    			//reconnectFlag = connect2AWS();
-    			//vTaskDelay(3*1000);
-    		}
-    		else
+    	memset( cDataBuffer, 0x00, sizeof( cDataBuffer ) );
+    	configPRINTF(("%d\r\n",count));
+
+
+    	//vTaskDelay(1000);
+    	count+=1;
+    	CheckOrChangeConnection(count);
+    	vTaskDelay(500);
+
+    	if(NMC_mode == DISCONNECTED){count = 0;}
+
+    	if(NMC_mode == TCP_IP)
     		{
-    			configPRINTF(("%d\r\n",count));
-    			count++;
-				memset( cDataBuffer, 0x00, sizeof( cDataBuffer ) );
-				//buffer that receives msg from AWS
+    	  	listenSocket(waitforResponseFlag,count);
+    		}
 
-				xBytesReceived = xMessageBufferReceive( xCommandMsgBuffer,
-														cDataBuffer,
-														sizeof( cDataBuffer ),
-														0x01000);// time to wait until returning
-														//portMAX_DELAY );
 
-				/* ~Message from AWS~ */
+    	xBytesReceived = xMessageBufferReceive( xCommandMsgBuffer,cDataBuffer,
+    	    	  								sizeof( cDataBuffer ),0x0500);
+
+				/* ~Message from AWS or TCP/IP~ */
 				if(waitforResponseFlag == 0 && xBytesReceived > ( sizeof(cDataBuffer)-sizeof(cDataBuffer) ) )
 				{
-					configPRINTF( ( "Message from AWS topic '%s': '%s'\r\n\n",
-									command_TOPIC, cDataBuffer ) );
+
+					count = 0;
+					configPRINTF( ( "Message from APP %s\r\n", cDataBuffer ) );
 
 
-					waitforResponseFlag = 0;
-					configPRINT(("Sending CAN Message \r\n"));
 
-						if(prvSendCAN(cDataBuffer) != CAN_NODE_STATUS_SUCCESS)
-							{
-							configPRINTF((" Error: Sending CAN message failed \r\n "));
-							}
+					configPRINTF(("Sending CAN Message \r\n"));
 
-					prvSend2AWS("ACK from NMC",status_TOPIC);
+
+					if(prvSendCAN(cDataBuffer) != CAN_NODE_STATUS_SUCCESS)
+						{
+						configPRINTF((" Error: Sending CAN message failed \r\n "));
+						}
+
+					//vTaskDelay(1*1000);
+
+					/* Send ACK to APP */
+					char* ackmsg = "ACK";
+
+					if(NMC_mode == TCP_IP){
+						snprintf(ack,statusMAX_DATA_LENGTH,"NMC:0:%s:0\r\n",ackmsg);
+
+						configPRINTF(("%s",ack));
+
+						sendSocket(ack,statusMAX_DATA_LENGTH);
+					}
+
+					else{prvSend2AWS(ackmsg,status_TOPIC);}
+
+					/* Block any more Commands until MM Response */
+					waitforResponseFlag = 0;//TODO Change to 1 after debugging
+
 
 				}
 
@@ -291,17 +549,12 @@ static void prvNMCmain()
 				xQueueReceive(xCANqueue,&CANmsg,delayTime);
 
 
-					/* ~Response to command from AWS~ */
-					if(CANmsg[1]== AWS_ACK)
-					{
-						configPRINTF((" CAN msg: %d, %d, %d \r\n",CANmsg[0],CANmsg[1],CANmsg[2]));
-						waitforResponseFlag = 0;
-					}
+
 
 					/* ~Local Button Operated~ */
-					else if(CANmsg[1]== STATUS_UPDATE)
+					if(CANmsg[1]== STATUS_UPDATE)
 					{
-						configPRINTF((" Received Status Update\r\n"));
+						configPRINTF((" Status Update: %d, %d, %d \r\n",CANmsg[0],CANmsg[1],CANmsg[2]));
 						waitforResponseFlag = 0;
 					}
 
@@ -309,54 +562,41 @@ static void prvNMCmain()
 					else if(CANmsg[1]== ADD_DEVICE)
 					{
 						configPRINTF((" Device: %d added to system: Status: %d \r\n",CANmsg[0], CANmsg[1]));
-						//update local lookupTable
-						waitforResponseFlag = 0;
+
 					}
 					else
 					{
-						configPRINTF(("Not a response or an error somewhere\r\n"));
+						configPRINTF(("Invalid msg\r\n"));
+						continue;
+
 					}
 
-				/* ~ Send to AWS in JSON format ~ */
-				snprintf(cDataBuffer,statusMAX_DATA_LENGTH,
-									 "{\"ID\":\"%d\","
-									 "\"Status\":\"%u\""
-									 "}",CANmsg[0],CANmsg[2]);
+				/* ~ Send to APP as STRING ~ */
+				if(NMC_mode == TCP_IP){
+					snprintf(cDataBuffer,statusMAX_DATA_LENGTH,"ID:%d:Status:%u\n\r",CANmsg[0],CANmsg[2]);
 
-				if(prvSend2AWS(cDataBuffer,status_TOPIC) != eMQTTAgentSuccess){
-					// encompasses both timeout case and failure case
-					//disconnect = 1;
-					configPRINTF(("failed\r\n"));
-					}
-
+					sendSocket(cDataBuffer,statusMAX_DATA_LENGTH);
+				}
+				/* ~ Send to APP in JSON format ~ */
+				else{
+					snprintf(cDataBuffer,statusMAX_DATA_LENGTH,
+														 "{\"ID\":\"%d\","
+														 "\"Status\":\"%d\""
+														 "}",CANmsg[0],CANmsg[2]);
+					prvSend2AWS(cDataBuffer,status_TOPIC);
 				}
 
-    		}//if(reconnectFlag == 0)
 
-    	}//checkWifi
+			}
+    	}
 
-    	else
-    		{
-    		//IotMqtt_Disconnect(); <----2/15 this is where I was last google how to handle MQTT reconnection
-    		//if(MQTT_AGENT_Disconnect(xMQTTHandle,5*1000) == eMQTTAgentSuccess){
-    		//	( void ) MQTT_AGENT_Delete( xMQTTHandle );
-    		//	vTaskDelay(3*1000);
-    		//	reconnectFlag = prvWifiConnect();
-
-    		//inital Socket setup
-    		//prvDirectConnection(NMC_PORT);
-
-    		}
-
-    		vTaskDelay(3*1000);
-
-    		//reconnectFlag = 0;
-    		//}
-    }//forloop
 }
 /*-----------------------------------------------------------*/
+/*
+ * Subscribe the NMC to AWS message stream
+ */
+static BaseType_t prvSubscribe( const uint8_t * Topic)
 
-static BaseType_t prvSubscribe( const uint8_t * Topic, int mode )
 {
 	MQTTAgentReturnCode_t xReturned;
     BaseType_t xReturn;
@@ -365,11 +605,10 @@ static BaseType_t prvSubscribe( const uint8_t * Topic, int mode )
     /* Setup subscribe parameters to subscribe to commandTOPIC_NAME topic. */
     xSubscribeParams.pucTopic = Topic;
     xSubscribeParams.pvPublishCallbackContext = NULL;
-    if(mode ==1){xSubscribeParams.pxPublishCallback = prvMQTTCallback;}
-    else{xSubscribeParams.pxPublishCallback = prvConnectionCallback;}
-    xSubscribeParams.usTopicLength = ( uint16_t ) strlen( ( const char * ) Topic);
-    //xSubscribeParams.usTopicLength = ( uint16_t ) strlen( ( const char * ) echoTOPIC_NAME );
-    xSubscribeParams.xQoS = eMQTTQoS1;
+    xSubscribeParams.pxPublishCallback = prvMQTTCallback;
+   xSubscribeParams.usTopicLength = ( uint16_t ) strlen( ( const char * ) Topic);
+   xSubscribeParams.xQoS = eMQTTQoS1;
+
 
     /* Subscribe to the topic. */
     xReturned = MQTT_AGENT_Subscribe( xMQTTHandle,
@@ -390,40 +629,10 @@ static BaseType_t prvSubscribe( const uint8_t * Topic, int mode )
     return xReturn;
 }
 /*-----------------------------------------------------------*/
-static MQTTBool_t prvConnectionCallback( void * pvUserData,
-                                   const MQTTPublishData_t * const pxPublishParameters)
-{
-	char cBuffer[ 2 ];
-	    uint32_t ulBytesToCopy = ( 1 );
-	    /* Remove warnings about the unused parameters. */
-	    ( void ) pvUserData;
 
-	    /* Don't expect the callback to be invoked for any other topics. */
-	    //configASSERT( ( size_t ) ( pxPublishParameters->usTopicLength ) == strlen( ( const char * ) connection_TOPIC ) );
-	    //configASSERT( memcmp( pxPublishParameters->pucTopic, connection_TOPIC, ( size_t ) ( pxPublishParameters->usTopicLength ) ) == 0 );
-
-
-	    if( pxPublishParameters->ulDataLength <= ulBytesToCopy )
-	    {
-	        ulBytesToCopy = pxPublishParameters->ulDataLength;
-
-	        memset( cBuffer, 0x00, sizeof( cBuffer ) );
-	        memcpy( cBuffer, pxPublishParameters->pvData, ( size_t ) ulBytesToCopy );
-
-	        ( void ) xMessageBufferSend( xConnectionBuffer,
-	        		cBuffer,
-					( size_t ) ulBytesToCopy + ( size_t ) 1, echoDONT_BLOCK );
-	    }
-	    else
-	    {
-	        configPRINTF( ( "[WARN]: Dropping received message as it does not fit in the buffer.\r\n" ) );
-	    }
-
-	    return eMQTTFalse;
-}
-
-
-//reads form msg buffer for the command
+/*
+ * Used for incoming AWS messages
+ */
 static MQTTBool_t prvMQTTCallback( void * pvUserData,
                                    const MQTTPublishData_t * const pxPublishParameters)
 {
@@ -469,94 +678,12 @@ static MQTTBool_t prvMQTTCallback( void * pvUserData,
 }
 /*-----------------------------------------------------------*/
 
-static void prvDirectConnection()
-{
-	struct freertos_sockaddr xClient, xBindAddress;
-	Socket_t xListeningSocket, xConnectedSocket;
-	//socklen_t xSize = sizeof( xClient );
-	//static const TickType_t xReceiveTimeOut = portMAX_DELAY;
-	const BaseType_t xBacklog = 20;
-	int BUFFER_SIZE = 10;
-	BaseType_t lBytesReceived;
-	char cRxedData[ BUFFER_SIZE ];
-
-	    /* Attempt to open the socket. */
-	    xListeningSocket = FreeRTOS_socket( FREERTOS_AF_INET,
-	                                        FREERTOS_SOCK_STREAM,  /* SOCK_STREAM for TCP. */
-	                                        FREERTOS_IPPROTO_TCP );
-
-	    /* Check the socket was created. */
-	    configASSERT( xListeningSocket != FREERTOS_INVALID_SOCKET );
-
-	    /* If FREERTOS_SO_RCVBUF or FREERTOS_SO_SNDBUF are to be used with
-	    FreeRTOS_setsockopt() to change the buffer sizes from their default then do
-	    it here!.  (see the FreeRTOS_setsockopt() documentation. */
-
-	    /* If ipconfigUSE_TCP_WIN is set to 1 and FREERTOS_SO_WIN_PROPERTIES is to
-	    be used with FreeRTOS_setsockopt() to change the sliding window size from
-	    its default then do it here! (see the FreeRTOS_setsockopt()
-	    documentation. */
-
-	    /* Set a time out so accept() will just wait for a connection. */
-	    //FreeRTOS_setsockopt( xListeningSocket,
-	    //                     0,
-	    //                     FREERTOS_SO_RCVTIMEO,
-	    //                     &xReceiveTimeOut,
-	    //                     sizeof( xReceiveTimeOut ) );
-
-	    /* Set the listening port to 10000. */
-	    xBindAddress.sin_port = ( uint16_t ) NMC_PORT;
-	    //xBindAddress.sin_port = FreeRTOS_htons( xBindAddress.sin_port );
-
-	    /* Bind the socket to the port that the client RTOS task will send to. */
-	    FreeRTOS_bind( xListeningSocket, &xBindAddress, sizeof( xBindAddress ) );
-
-	    /* Set the socket into a listening state so it can accept connections.
-	    The maximum number of simultaneous connections is limited to 20. */
-	    FreeRTOS_listen( xListeningSocket, xBacklog );
-
-	    for( ;; )
-	    {
-	    	lBytesReceived = FreeRTOS_recv( xListeningSocket, &cRxedData, BUFFER_SIZE, 0 );
-
-	    	        if( lBytesReceived > 0 )
-	    	        {
-	    	            /* Data was received, process it here. */
-
-	    	        }
-	    	        else if( lBytesReceived == 0 )
-	    	        {
-	    	            /* No data was received, but FreeRTOS_recv() did not return an error.
-	    	            Timeout? */
-	    	        }
-	    	        else
-	    	        {
-	    	            /* Error (maybe the connected socket already shut down the socket?).
-	    	            Attempt graceful shutdown. */
-	    	            FreeRTOS_shutdown( xListeningSocket, FREERTOS_SHUT_RDWR );
-	    	            break;
-	    	        }
-	    }
-	}
 
 void vStartMQTTEchoDemo()
 {
     configPRINTF( ( "Starting NMC...\r\n" ) );
-    //BaseType_t xReturned;
 
-    //prvMacForHumans(thing_mac_address);// used to identify the identity of thing connecting to AWS
     LED_Initialize();
-
-    //-----------------------------------------------------------
-    //xReturned = prvCreateClientAndConnectToBroker();
-
-    /* Create the message buffer used to pass strings from the MQTT callback
-         * function to the task that echoes the strings back to the broker.  The
-         * message buffer will only ever have to hold one message as messages are only
-         * published every 5 seconds.  The message buffer requires that there is space
-         * for the message length, which is held in a size_t variable. */
-    //xCommandMsgBuffer = xMessageBufferCreate( ( size_t ) commandMAX_DATA_LENGTH + sizeof( size_t ) );
-    //configASSERT( xCommandMsgBuffer );
 
 
 
@@ -564,118 +691,161 @@ void vStartMQTTEchoDemo()
     	             "AWS",
     	             democonfigMQTT_ECHO_TASK_STACK_SIZE, /* Size of the stack to allocate for the task, in words not bytes! */
     	             NULL,                                /* The task parameter is not used. */
-    	             tskIDLE_PRIORITY,                    /* Runs at the lowest priority. */
+    	             tskIDLE_PRIORITY+1,                    /* Runs at the lowest priority. */
     	             NULL);                 /* The handle is stored so the created task can be deleted again at the end of the demo. */
 
-    xTaskCreate( prvDirectConnection,
-                     "TCP/IP",
-					 democonfigMQTT_ECHO_TASK_STACK_SIZE,
-                     NULL,
-					 tskIDLE_PRIORITY,
-                     NULL );
-    //}
-    //---------------------------------------------------------------
+
 
 }
 /*-----------------------------------------------------------*/
-
-int CheckWifi(int count)
+/*
+ * Function that is called in every iteration of the main loop to testing connection
+ */
+void CheckOrChangeConnection(int count)
 {
-	int check =0;
-	//configPRINTF(("Checking----\r\n"));
-	check = WIFI_IsConnected();
-	if( check == 0 ){
-		configPRINTF(("Disconnected: %d\r\n", check));
-		//WIFI_Disconnect();
-		return check;
-	}
-	else{
-		configPRINTF((" Connected: %d\r\n",check));
-		if(count % 10 == 0)
-		{
-			prvSend2AWS("1",connection_TOPIC);
+	/*
+	 * LED 1 = TCP_IP
+	 * LED 0 = AWS
+	 */
+
+	if(NMC_mode == AWS){
+		LED_On(0);
+		LED_Off(1);
+
+		if(count%InterNetPing == 0){
+
+			if(WIFI_Ping(UmassIP,1,200 /*wait .5 sec for response*/ )==eWiFiSuccess){
+				NMC_mode = AWS;
+
+			}else{
+				/*Calling connect2AWS will delete the task for old aws connection*/
+				configPRINTF((" AWS: Disconnected \r\n"));
+				LED_Off(0);
+				connect2AWS(1);
+				NMC_mode = DISCONNECTED;
+			}
 		}
-		return check;
-
-
-		//char cAWSconnection[4];
-		//size_t xBytesReceived;
-
-		//xBytesReceived = xMessageBufferReceive( xConnectionBuffer,
-		//										cAWSconnection,
-		//										sizeof( cAWSconnection ),
-		//										0x01000);// time to wait until returning
-												//portMAX_DELAY );
-
-		//if(xBytesReceived > sizeof(cAWSconnection)-sizeof(cAWSconnection)){
-		//	configPRINTF((" Connected\r\n"));
-		//	memset(cAWSconnection,0x00, sizeof(cAWSconnection));
-		//	return 1;
-		//}
-		//else{
-		//	configPRINTF((" Disconnected to AWS\r\n"));
-		//	memset(cAWSconnection,0x00, sizeof(cAWSconnection));
-		//	return 0;
-		//}
-
 	}
-	return 1;
+
+	else if(NMC_mode == DISCONNECTED){
+		LED_Off(1);
+		LED_On(0);
+
+		if(socketStatus == DISABLED)
+			{
+				setUpSocket();
+				LED_On(1);
+			}
+		else if(socketStatus == ENABLED_NOTCONN)
+			{
+				if(WIFI_Ping(UmassIP,1,500)==eWiFiSuccess){
+					if(closeSocket()==0){
+						connect2AWS(0);
+						}
+				}
+				else{
+					LED_Off(0);/*AWS still trying to connect after failure*/
+					configPRINTF(("ERROR: Couldn't Reach AWS \r\n"));
+					/*tries to connect again*/
+					setUpSocket();
+					count = 0;
+					LED_On(1);// will blink until gets a connection
+					}
+			}
+	}
+	else if(NMC_mode == TCP_IP){
+
+		LED_On(1); /*TCP_IP LED stays on*/
+		LED_Off(0);
+
+		if(count%TCP_HeartBeat == 0){
+			char * temp = "$\r\n";
+			sendSocket(temp,sizeof(temp));
+
+		}
+		/* Checks AWS connection every other multiple of 5 */
+		else if(count%InterNetPing == 0){
+			if(WIFI_Ping(UmassIP,2,200)==eWiFiSuccess){
+				configPRINTF(("Connecting to AWS\r\n"));
+				LED_Off(1);//LED for TCP_IP mode
+
+				char * temp = "#\r\n";//TODO change msg?
+				sendSocket(temp,sizeof(temp));
+
+				vTaskDelay(1000);
+				if(closeSocket() == 0){
+					connect2AWS(1);
+					NMC_mode = DISCONNECTED;
+				}
+			}
+		}
+	}
+	return;
 }
 
 /*-----------------------------------------------------------*/
-
-int connect2AWS()
+/*
+ * Function used to either establish initial AWS connection or delete old connection
+ */
+void connect2AWS( int delOldHand )
 {
 	BaseType_t xReturned1;
 	MQTTAgentReturnCode_t xReturned;
 
 	prvMacForHumans(thing_mac_address);// used to identify the identity of thing connecting to AWS
+	//( void ) MQTT_AGENT_Delete( xMQTTHandle );
+	//xMQTTHandle = NULL;
 
-	xReturned1 = prvCreateClientAndConnectToBroker();
+	xReturned1 = prvCreateClientAndConnectToBroker(delOldHand);
 
-	xCommandMsgBuffer = xMessageBufferCreate( ( size_t ) commandMAX_DATA_LENGTH + sizeof( size_t ) );
-	configASSERT( xCommandMsgBuffer );
+
+	if(delOldHand){return;}
+
+	if(xCommandMsgBuffer == NULL){
+		xCommandMsgBuffer = xMessageBufferCreate( ( size_t ) commandMAX_DATA_LENGTH + sizeof( size_t ) );
+		configASSERT( xCommandMsgBuffer );
+//
+//		xConnectionBuffer = xMessageBufferCreate( ( size_t ) 3 + sizeof( size_t ) );
+//		configASSERT( xConnectionBuffer );
+	}
+
 
 	xConnectionBuffer = xMessageBufferCreate( ( size_t ) 3 + sizeof( size_t ) );
 	configASSERT( xConnectionBuffer );
 
 	/* Check this task has not already been created. */
-	configASSERT( xMQTTHandle != NULL );
+	//configASSERT( xMQTTHandle != NULL );
 	//configASSERT( xCommandMsgBuffer != NULL );
 
 	if( xReturned1 == pdPASS )
 		{
-		xReturned = prvSubscribe(command_TOPIC,1);
+
+		xReturned = prvSubscribe(command_TOPIC);
 
 		if( xReturned == pdPASS )
 			{
+			NMC_mode = AWS;
+			//configPRINTF(("NMCmode = AWS %d \r\n",NMC_mode));
 			prvSend2AWS("NMC Connected to AWS",status_TOPIC);
-			return 0;
-			//xReturned = prvSubscribe(connection_TOPIC,0);
-			//configPRINTF(("prvStatus Successfully Subscribed to topic\n"));
-
-			if( xReturned == pdPASS )
-				{
-				return 0;//reconnectFlag
-				}
+			return;
 			}
 		}
-	return 1;//reconnectFlag
+	else{
+		//vTaskDelay(2*1000);
+		NMC_mode = DISCONNECTED;
+		return;
+	}
 }
 /*-----------------------------------------------------------*/
-
-/*-----------------------------------------------------------*/
-
+/*
+ * Function that sends messages to AWS
+ */
 MQTTAgentReturnCode_t prvSend2AWS(char * cDataBuffer, const uint8_t *Topic){
 
 	MQTTAgentPublishParams_t xPublishParameters;
 	MQTTAgentReturnCode_t xReturned;
 
-
-	//char * temp =strcat(Topic,"/");
-	//temp=strcat(status_TOPIC,CANmsg[0]);
 	xPublishParameters.pucTopic = Topic;
-	//xPublishParameters.pucTopic = temp;
 	xPublishParameters.pvData = cDataBuffer;
 	xPublishParameters.usTopicLength = ( uint16_t ) strlen( ( const char * ) Topic );
 	//xPublishParameters.ulDataLength = ( uint32_t ) strlen( &CANmsg );
@@ -687,16 +857,22 @@ MQTTAgentReturnCode_t prvSend2AWS(char * cDataBuffer, const uint8_t *Topic){
 
 	if( xReturned == eMQTTAgentSuccess )
 		{
-		configPRINTF( ( "Successfully published '%s' to '%s'\r\n", cDataBuffer, Topic ) );
+
+		configPRINTF( ( "Successfully published to '%s': '%s'\r\n", Topic,cDataBuffer ) );
+
 		return xReturned;
 		}
 	else
 		{
-			configPRINTF( ( "ERROR:  Failed to publish '%s' to '%s'\r\n", cDataBuffer, Topic ) );
+
+			configPRINTF( ( "ERROR:  Failed to publish to '%s': '%s'\r\n", Topic, cDataBuffer  ) );
 			return xReturned;
 		}
 }
-
+/*-----------------------------------------------------------*/
+/*
+ * Converts Command string into a single integer value for CAN
+ */
 int char2Int(char * data)
 {
 	//664
@@ -710,16 +886,27 @@ int char2Int(char * data)
     }
     return hashval;
 }
-
+/*-----------------------------------------------------------*/
+/*
+ * Function handling transmission of CAN message to Motor Module
+ */
 int prvSendCAN(char * command)
 {
-	//Need to figure out where number is converted to string
-	int ID = char2Int( strtok( command, ":" ) );
-	int Function = char2Int( strtok( NULL,":") );
+
+	/* Chars from Command */
+	char * id = strtok( command, ":" ) ;
+	char * function = strtok( NULL,":");
 	char * temp1= strtok( NULL,":");
 	strncpy(temp1,temp1,(strlen(temp1)-1));
+	//parameter = temp1;
+	/*--------------------*/
 
+	/* Convert for CAN */
+	int ID = char2Int( id );
+	int Function = char2Int( function );
 	int Parameter = atoi(temp1);
+	/*-----------------*/
+//
 
 	configPRINTF(("%d, %d, %d \r\n",ID,Function,Parameter));
 
@@ -733,7 +920,6 @@ int prvSendCAN(char * command)
 	return status;
 }
 /*-----------------------------------------------------------*/
-
 static void prvMacForHumans(uint8_t * humanAddress)
  {
      uint8_t buf[ wificonfigMAX_BSSID_LEN ];

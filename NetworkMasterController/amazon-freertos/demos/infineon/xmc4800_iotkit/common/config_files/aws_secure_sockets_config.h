@@ -46,6 +46,6 @@
 /**
  * @brief Default socket receive timeout.
  */
-#define socketsconfigDEFAULT_RECV_TIMEOUT    ( 10000 )
+#define socketsconfigDEFAULT_RECV_TIMEOUT    ( 2*10000 )
 
 #endif /* _AWS_SECURE_SOCKETS_CONFIG_H_ */
