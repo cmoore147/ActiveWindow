@@ -2012,7 +2012,7 @@ END GROUP
                 0x00000800                stack_size = DEFINED (stack_size)?stack_size:0x800
                 0x00000040                no_init_size = 0x40
 
-.text           0x08000000     0x394c load address 0x0c000000
+.text           0x08000000     0x395c load address 0x0c000000
                 0x08000000                sText = .
  *(.reset)
  .reset         0x08000000      0x294 ./Startup/startup_XMC4200.o
@@ -2447,58 +2447,59 @@ END GROUP
  .text.DIGITAL_IO_GetInput
                 0x08002768       0x24 ./main.o
  .text.CAN0_1_IRQHandler
-                0x0800278c      0x178 ./main.o
+                0x0800278c      0x184 ./main.o
                 0x0800278c                CAN0_1_IRQHandler
  .text.CCU41_1_IRQHandler
-                0x08002904       0x1c ./main.o
-                0x08002904                CCU41_1_IRQHandler
- .text.main     0x08002920       0x18 ./main.o
-                0x08002920                main
+                0x08002910       0x1c ./main.o
+                0x08002910                CCU41_1_IRQHandler
+ .text.main     0x0800292c       0x18 ./main.o
+                0x0800292c                main
  .text.RegisterDevice
-                0x08002938       0x40 ./main.o
-                0x08002938                RegisterDevice
+                0x08002944       0x40 ./main.o
+                0x08002944                RegisterDevice
+ *fill*         0x08002984        0x4 
  .text.HomeWindow
-                0x08002978      0x288 ./main.o
-                0x08002978                HomeWindow
+                0x08002988      0x288 ./main.o
+                0x08002988                HomeWindow
  .text.MoveWindow
-                0x08002c00      0x124 ./main.o
-                0x08002c00                MoveWindow
+                0x08002c10      0x124 ./main.o
+                0x08002c10                MoveWindow
  .text.CheckTopLimitSwitch
-                0x08002d24       0x3c ./main.o
-                0x08002d24                CheckTopLimitSwitch
+                0x08002d34       0x3c ./main.o
+                0x08002d34                CheckTopLimitSwitch
  .text.CheckBottomLimitSwitch
-                0x08002d60       0x3c ./main.o
-                0x08002d60                CheckBottomLimitSwitch
+                0x08002d70       0x3c ./main.o
+                0x08002d70                CheckBottomLimitSwitch
  .text.ManualOverrideSwitches
-                0x08002d9c      0x1d8 ./main.o
-                0x08002d9c                ManualOverrideSwitches
- .text          0x08002f74      0x370 c:/users/frank/desktop/dave-ide-4.4.2-64bit/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/softfp\libgcc.a(_arm_addsubdf3.o)
-                0x08002f74                __aeabi_drsub
-                0x08002f7c                __aeabi_dsub
-                0x08002f7c                __subdf3
-                0x08002f80                __aeabi_dadd
-                0x08002f80                __adddf3
-                0x080031f8                __floatunsidf
-                0x080031f8                __aeabi_ui2d
-                0x08003218                __floatsidf
-                0x08003218                __aeabi_i2d
-                0x0800323c                __aeabi_f2d
-                0x0800323c                __extendsfdf2
-                0x08003278                __floatundidf
-                0x08003278                __aeabi_ul2d
-                0x08003288                __floatdidf
-                0x08003288                __aeabi_l2d
- .text          0x080032e4      0x424 c:/users/frank/desktop/dave-ide-4.4.2-64bit/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/softfp\libgcc.a(_arm_muldivdf3.o)
-                0x080032e4                __aeabi_dmul
-                0x080032e4                __muldf3
-                0x08003538                __divdf3
-                0x08003538                __aeabi_ddiv
- .text          0x08003708       0x50 c:/users/frank/desktop/dave-ide-4.4.2-64bit/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/softfp\libgcc.a(_arm_fixdfsi.o)
-                0x08003708                __aeabi_d2iz
-                0x08003708                __fixdfsi
+                0x08002dac      0x1d8 ./main.o
+                0x08002dac                ManualOverrideSwitches
+ .text          0x08002f84      0x370 c:/users/frank/desktop/dave-ide-4.4.2-64bit/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/softfp\libgcc.a(_arm_addsubdf3.o)
+                0x08002f84                __aeabi_drsub
+                0x08002f8c                __aeabi_dsub
+                0x08002f8c                __subdf3
+                0x08002f90                __aeabi_dadd
+                0x08002f90                __adddf3
+                0x08003208                __floatunsidf
+                0x08003208                __aeabi_ui2d
+                0x08003228                __floatsidf
+                0x08003228                __aeabi_i2d
+                0x0800324c                __aeabi_f2d
+                0x0800324c                __extendsfdf2
+                0x08003288                __floatundidf
+                0x08003288                __aeabi_ul2d
+                0x08003298                __floatdidf
+                0x08003298                __aeabi_l2d
+ .text          0x080032f4      0x424 c:/users/frank/desktop/dave-ide-4.4.2-64bit/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/softfp\libgcc.a(_arm_muldivdf3.o)
+                0x080032f4                __aeabi_dmul
+                0x080032f4                __muldf3
+                0x08003548                __divdf3
+                0x08003548                __aeabi_ddiv
+ .text          0x08003718       0x50 c:/users/frank/desktop/dave-ide-4.4.2-64bit/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/softfp\libgcc.a(_arm_fixdfsi.o)
+                0x08003718                __aeabi_d2iz
+                0x08003718                __fixdfsi
  .text.__libc_init_array
-                0x08003758       0x4c c:/users/frank/desktop/dave-ide-4.4.2-64bit/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-init.o)
-                0x08003758                __libc_init_array
+                0x08003768       0x4c c:/users/frank/desktop/dave-ide-4.4.2-64bit/dave-ide-4.4.2-64bit/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-init.o)
+                0x08003768                __libc_init_array
  *(.init)
  *(.fini)
  *crtbegin.o(.ctors)
@@ -2513,83 +2514,83 @@ END GROUP
  *(.dtors)
  *(.rodata .rodata.*)
  .rodata.PWM_Motor_compare_config
-                0x080037a4        0x8 ./Dave/Generated/PWM/pwm_conf.o
-                0x080037a4                PWM_Motor_compare_config
+                0x080037b4        0x8 ./Dave/Generated/PWM/pwm_conf.o
+                0x080037b4                PWM_Motor_compare_config
  .rodata.PWM_Motor_gpio_out_config
-                0x080037ac        0xc ./Dave/Generated/PWM/pwm_conf.o
-                0x080037ac                PWM_Motor_gpio_out_config
+                0x080037bc        0xc ./Dave/Generated/PWM/pwm_conf.o
+                0x080037bc                PWM_Motor_gpio_out_config
  .rodata.Receive_CAN_Handler
-                0x080037b8        0x4 ./Dave/Generated/INTERRUPT/interrupt_conf.o
-                0x080037b8                Receive_CAN_Handler
+                0x080037c8        0x4 ./Dave/Generated/INTERRUPT/interrupt_conf.o
+                0x080037c8                Receive_CAN_Handler
  .rodata.Timer_Interrupt
-                0x080037bc        0x4 ./Dave/Generated/INTERRUPT/interrupt_conf.o
-                0x080037bc                Timer_Interrupt
+                0x080037cc        0x4 ./Dave/Generated/INTERRUPT/interrupt_conf.o
+                0x080037cc                Timer_Interrupt
  .rodata.LED_Indicator
-                0x080037c0       0x14 ./Dave/Generated/DIGITAL_IO/digital_io_conf.o
-                0x080037c0                LED_Indicator
+                0x080037d0       0x14 ./Dave/Generated/DIGITAL_IO/digital_io_conf.o
+                0x080037d0                LED_Indicator
  .rodata.BoardButton
-                0x080037d4       0x14 ./Dave/Generated/DIGITAL_IO/digital_io_conf.o
-                0x080037d4                BoardButton
+                0x080037e4       0x14 ./Dave/Generated/DIGITAL_IO/digital_io_conf.o
+                0x080037e4                BoardButton
  .rodata.LIMIT_SWITCH_BOTTOM
-                0x080037e8       0x14 ./Dave/Generated/DIGITAL_IO/digital_io_conf.o
-                0x080037e8                LIMIT_SWITCH_BOTTOM
+                0x080037f8       0x14 ./Dave/Generated/DIGITAL_IO/digital_io_conf.o
+                0x080037f8                LIMIT_SWITCH_BOTTOM
  .rodata.LIMIT_SWITCH_TOP
-                0x080037fc       0x14 ./Dave/Generated/DIGITAL_IO/digital_io_conf.o
-                0x080037fc                LIMIT_SWITCH_TOP
+                0x0800380c       0x14 ./Dave/Generated/DIGITAL_IO/digital_io_conf.o
+                0x0800380c                LIMIT_SWITCH_TOP
  .rodata.MOS_DOWN
-                0x08003810       0x14 ./Dave/Generated/DIGITAL_IO/digital_io_conf.o
-                0x08003810                MOS_DOWN
+                0x08003820       0x14 ./Dave/Generated/DIGITAL_IO/digital_io_conf.o
+                0x08003820                MOS_DOWN
  .rodata.MOS_UP
-                0x08003824       0x14 ./Dave/Generated/DIGITAL_IO/digital_io_conf.o
-                0x08003824                MOS_UP
+                0x08003834       0x14 ./Dave/Generated/DIGITAL_IO/digital_io_conf.o
+                0x08003834                MOS_UP
  .rodata.Motor_Direction
-                0x08003838       0x14 ./Dave/Generated/DIGITAL_IO/digital_io_conf.o
-                0x08003838                Motor_Direction
- .rodata        0x0800384c       0x14 ./Dave/Generated/CLOCK_XMC4/clock_xmc4_conf.o
+                0x08003848       0x14 ./Dave/Generated/DIGITAL_IO/digital_io_conf.o
+                0x08003848                Motor_Direction
+ .rodata        0x0800385c       0x14 ./Dave/Generated/CLOCK_XMC4/clock_xmc4_conf.o
  .rodata.React_Node_gpio_out
-                0x08003860        0x8 ./Dave/Generated/CAN_NODE/can_node_conf.o
-                0x08003860                React_Node_gpio_out
+                0x08003870        0x8 ./Dave/Generated/CAN_NODE/can_node_conf.o
+                0x08003870                React_Node_gpio_out
  .rodata.React_Node_gpio_out_config
-                0x08003868        0xc ./Dave/Generated/CAN_NODE/can_node_conf.o
-                0x08003868                React_Node_gpio_out_config
+                0x08003878        0xc ./Dave/Generated/CAN_NODE/can_node_conf.o
+                0x08003878                React_Node_gpio_out_config
  .rodata.React_Node_gpio_in
-                0x08003874        0x8 ./Dave/Generated/CAN_NODE/can_node_conf.o
-                0x08003874                React_Node_gpio_in
+                0x08003884        0x8 ./Dave/Generated/CAN_NODE/can_node_conf.o
+                0x08003884                React_Node_gpio_in
  .rodata.React_Node_gpio_in_config
-                0x0800387c        0xc ./Dave/Generated/CAN_NODE/can_node_conf.o
-                0x0800387c                React_Node_gpio_in_config
- .rodata.React_Node_sr
-                0x08003888        0x4 ./Dave/Generated/CAN_NODE/can_node_conf.o
-                0x08003888                React_Node_sr
- .rodata.React_Node_LMO_01_Config
                 0x0800388c        0xc ./Dave/Generated/CAN_NODE/can_node_conf.o
-                0x0800388c                React_Node_LMO_01_Config
+                0x0800388c                React_Node_gpio_in_config
+ .rodata.React_Node_sr
+                0x08003898        0x4 ./Dave/Generated/CAN_NODE/can_node_conf.o
+                0x08003898                React_Node_sr
+ .rodata.React_Node_LMO_01_Config
+                0x0800389c        0xc ./Dave/Generated/CAN_NODE/can_node_conf.o
+                0x0800389c                React_Node_LMO_01_Config
  .rodata.React_Node_LMO_02_Config
-                0x08003898        0xc ./Dave/Generated/CAN_NODE/can_node_conf.o
-                0x08003898                React_Node_LMO_02_Config
+                0x080038a8        0xc ./Dave/Generated/CAN_NODE/can_node_conf.o
+                0x080038a8                React_Node_LMO_02_Config
  .rodata.React_Node
-                0x080038a4       0xa8 ./Dave/Generated/CAN_NODE/can_node_conf.o
-                0x080038a4                React_Node
+                0x080038b4       0xa8 ./Dave/Generated/CAN_NODE/can_node_conf.o
+                0x080038b4                React_Node
  *(.gnu.linkonce.r*)
  *(vtable)
-                0x0800394c                . = ALIGN (0x4)
+                0x0800395c                . = ALIGN (0x4)
 
-.glue_7         0x0800394c        0x0 load address 0x0c00394c
+.glue_7         0x0800395c        0x0 load address 0x0c00395c
  .glue_7        0x00000000        0x0 linker stubs
 
-.glue_7t        0x0800394c        0x0 load address 0x0c00394c
+.glue_7t        0x0800395c        0x0 load address 0x0c00395c
  .glue_7t       0x00000000        0x0 linker stubs
 
-.vfp11_veneer   0x0800394c        0x0 load address 0x0c00394c
+.vfp11_veneer   0x0800395c        0x0 load address 0x0c00395c
  .vfp11_veneer  0x00000000        0x0 linker stubs
 
-.v4_bx          0x0800394c        0x0 load address 0x0c00394c
+.v4_bx          0x0800395c        0x0 load address 0x0c00395c
  .v4_bx         0x00000000        0x0 linker stubs
 
-.iplt           0x0800394c        0x0 load address 0x0c00394c
+.iplt           0x0800395c        0x0 load address 0x0c00395c
  .iplt          0x00000000        0x0 ./Startup/startup_XMC4200.o
 
-.rel.dyn        0x0800394c        0x0 load address 0x0c00394c
+.rel.dyn        0x0800395c        0x0 load address 0x0c00395c
  .rel.iplt      0x00000000        0x0 ./Startup/startup_XMC4200.o
 
 .eh_frame_hdr
@@ -2600,13 +2601,13 @@ END GROUP
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x0800394c                . = ALIGN (0x4)
-                0x0800394c                __exidx_start = .
+                0x0800395c                . = ALIGN (0x4)
+                0x0800395c                __exidx_start = .
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x0800394c                __exidx_end = .
-                0x0800394c                . = ALIGN (0x4)
+                0x0800395c                __exidx_end = .
+                0x0800395c                . = ALIGN (0x4)
 
 Stack           0x1fffc000      0x800
                 0x1fffc000                __stack_start = .
@@ -2615,16 +2616,16 @@ Stack           0x1fffc000      0x800
                 0x1fffc800                __stack_end = .
                 0x1fffc800                __initial_sp = .
 
-.ram_code       0x1fffc800        0x0 load address 0x0c00394c
+.ram_code       0x1fffc800        0x0 load address 0x0c00395c
                 0x1fffc800                . = ALIGN (0x4)
                 0x1fffc800                __ram_code_start = .
  *(.ram_code)
                 0x1fffc800                . = ALIGN (0x4)
                 0x1fffc800                __ram_code_end = .
-                0x0c00394c                __ram_code_load = LOADADDR (.ram_code)
+                0x0c00395c                __ram_code_load = LOADADDR (.ram_code)
                 0x00000000                __ram_code_size = (__ram_code_end - __ram_code_start)
 
-.data           0x1fffc800       0xdc load address 0x0c00394c
+.data           0x1fffc800       0xdc load address 0x0c00395c
                 0x1fffc800                . = ALIGN (0x4)
                 0x1fffc800                __data_start = .
  *(.data)
@@ -2681,15 +2682,15 @@ Stack           0x1fffc000      0x800
                 0x1fffc8dc                PROVIDE (__fini_array_end, .)
                 0x1fffc8dc                . = ALIGN (0x4)
                 0x1fffc8dc                __data_end = .
-                0x0c00394c                __data_load = LOADADDR (.data)
+                0x0c00395c                __data_load = LOADADDR (.data)
                 0x000000dc                __data_size = (__data_end - __data_start)
-                0x00003a28                __text_size = (((__exidx_end - sText) + __data_size) + __ram_code_size)
-                0x08003a28                eText = (sText + __text_size)
+                0x00003a38                __text_size = (((__exidx_end - sText) + __data_size) + __ram_code_size)
+                0x08003a38                eText = (sText + __text_size)
 
-.igot.plt       0x1fffc8dc        0x0 load address 0x0c003a28
+.igot.plt       0x1fffc8dc        0x0 load address 0x0c003a38
  .igot.plt      0x00000000        0x0 ./Startup/startup_XMC4200.o
 
-.bss            0x1fffc8dc       0x40 load address 0x0c003a28
+.bss            0x1fffc8dc       0x40 load address 0x0c003a38
                 0x1fffc8dc                . = ALIGN (0x4)
                 0x1fffc8dc                __bss_start = .
  *(.bss)
@@ -2819,7 +2820,7 @@ USB_RAM         0x20000000        0x0
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_info     0x00000000    0x127d4
+.debug_info     0x00000000    0x127ec
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000       0x84 ./Startup/startup_XMC4200.o
  .debug_info    0x00000084      0xa06 ./Startup/system_XMC4200.o
@@ -2847,7 +2848,7 @@ USB_RAM         0x20000000        0x0
  .debug_info    0x0000d235     0x154d ./Dave/Generated/CAN_NODE/can_node.o
  .debug_info    0x0000e782      0xd16 ./Dave/Generated/CAN_NODE/can_node_conf.o
  .debug_info    0x0000f498     0x181f ./Dave/Generated/DAVE.o
- .debug_info    0x00010cb7     0x1b1d ./main.o
+ .debug_info    0x00010cb7     0x1b35 ./main.o
 
 .debug_abbrev   0x00000000     0x2d6a
  *(.debug_abbrev)
@@ -2879,7 +2880,7 @@ USB_RAM         0x20000000        0x0
  .debug_abbrev  0x0000286d      0x1e2 ./Dave/Generated/DAVE.o
  .debug_abbrev  0x00002a4f      0x31b ./main.o
 
-.debug_line     0x00000000     0x6c74
+.debug_line     0x00000000     0x6c75
  *(.debug_line)
  .debug_line    0x00000000       0x87 ./Startup/startup_XMC4200.o
  .debug_line    0x00000087      0x325 ./Startup/system_XMC4200.o
@@ -2907,7 +2908,7 @@ USB_RAM         0x20000000        0x0
  .debug_line    0x00005708      0x620 ./Dave/Generated/CAN_NODE/can_node.o
  .debug_line    0x00005d28      0x315 ./Dave/Generated/CAN_NODE/can_node_conf.o
  .debug_line    0x0000603d      0x4be ./Dave/Generated/DAVE.o
- .debug_line    0x000064fb      0x779 ./main.o
+ .debug_line    0x000064fb      0x77a ./main.o
 
 .debug_frame    0x00000000     0x3530
  *(.debug_frame)
